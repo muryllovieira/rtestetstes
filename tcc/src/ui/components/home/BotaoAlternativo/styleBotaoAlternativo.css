@@ -1,0 +1,23 @@
+.botaoAlternativo__default {
+    text-align: center;
+    height: 26px;
+    width: 135px;
+    cursor: pointer;
+    color: var(--secundary-color);
+    border: 1px solid var(--secundary-color);
+    border-radius: 20px;
+}
+
+.botaoAlternativo__primary {
+    text-align: center;
+    height: 35px;
+    width: 135px;
+    cursor: pointer;
+    border-radius: 25px;
+    color: var(--default-color);
+    background: linear-gradient(90deg, var(--primary-color), var(--secundary-color));
+}
+
+.botaoAlternativo__default:hover {
+
+}

@@ -3,7 +3,7 @@
  * Data Inicio: 04-09-2023
  * Data Fim: X
  * 
- * Commits: Rotas Definidas v0.1
+ * Commits: Rotas Definidas v0.1, Estruturação de Diretórios Concluída, Componentes Iniciados v0.1
  * Tela Home Costuriê
 *****************/
 
@@ -12,14 +12,14 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import {createBrowserRouter, RouterProvider, Route} from 'react-router-dom'
 
-//Importe de Página
-import Home from './Home.jsx'
+//Importe de Página - Inicial
+import Home from './src/pages/home/Home.jsx'
 
-//Importe de Estilo
-import './css/index.css'
+//páginas - rotas
+import Login from "./src/pages/login/Login.jsx"
 
-//páginas
-import Login from "./routes/Login"
+//Importe Estilo Global
+import './src/ui/styles/global.css'
 
 //Rotas
 const router = createBrowserRouter([
@@ -30,7 +30,11 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <Login />
-  }
+  },
+  // {
+  //   path: "/registrar",
+  //   element: <Registrar />
+  // }
 ])
 
 ReactDOM.createRoot(document.getElementById('root')).render(

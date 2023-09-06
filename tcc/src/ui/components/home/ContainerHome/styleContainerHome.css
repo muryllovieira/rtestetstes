@@ -1,0 +1,45 @@
+font {
+    color: var(--secundary-color);
+}
+
+.containerHome {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-around;
+    height: 100%;
+    width: 100%;
+    padding: 32px;
+}
+
+.containerHome__apresentacao {
+    gap: 16px;
+    width: 35%;
+    color: var(--contrast-color);
+}
+
+.containerHome__titulo {
+    width: 440px;
+    font-size: 3rem;
+    font-weight: 600;
+    letter-spacing: 1.6px;
+    line-height: normal;
+}
+
+.containerHome__paragrafo {
+    font-size: 1.2rem;
+}
+
+.containerHome__containerBotoes {
+    display: flex;
+    width: 30%;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.containerHome__imagemCostureira {
+    position: absolute;
+    width: 45%;
+    top: 30vh;
+    left: 55vw;
+}

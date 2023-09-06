@@ -1,4 +1,6 @@
 .botaoAlternativo__default {
+    display: grid;
+    align-content: center;
     text-align: center;
     height: 26px;
     width: 135px;
@@ -6,9 +8,12 @@
     color: var(--secundary-color);
     border: 1px solid var(--secundary-color);
     border-radius: 20px;
+    line-height: normal;
 }
 
 .botaoAlternativo__primary {
+    display: grid;
+    align-content: center;
     text-align: center;
     height: 35px;
     width: 135px;
@@ -16,8 +21,9 @@
     border-radius: 25px;
     color: var(--default-color);
     background: linear-gradient(90deg, var(--primary-color), var(--secundary-color));
+    line-height: normal;
 }
 
 .botaoAlternativo__default:hover {
-
+    
 }

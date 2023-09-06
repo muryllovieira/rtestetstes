@@ -16,4 +16,4 @@ const BotaoAlternativo = ({titulo, url, alternado}) => {
 
 }
 
-export default BotaoAlternativo
+export default BotaoAlternativo 

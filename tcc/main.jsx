@@ -12,11 +12,13 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import {createBrowserRouter, RouterProvider, Route} from 'react-router-dom'
 
+
 //Importe de Página - Inicial
 import Home from './src/pages/home/Home.jsx'
 
 //páginas - rotas
 import Login from "./src/pages/login/Login.jsx"
+import Registrar from './src/pages/registrar/Registrar.jsx'
 
 //Importe Estilo Global
 import './src/ui/styles/global.css'
@@ -31,10 +33,10 @@ const router = createBrowserRouter([
     path: "/login",
     element: <Login />
   },
-  // {
-  //   path: "/registrar",
-  //   element: <Registrar />
-  // }
+  {
+    path: "/registrar",
+    element: <Registrar />
+  }
 ])
 
 ReactDOM.createRoot(document.getElementById('root')).render(

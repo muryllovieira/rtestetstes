@@ -9,6 +9,8 @@
     border: 1px solid var(--secundary-color);
     border-radius: 20px;
     line-height: normal;
+    font-size: 0.75rem;
+    letter-spacing: 0.6px;
 }
 
 .botaoAlternativo__primary {
@@ -22,6 +24,8 @@
     color: var(--default-color);
     background: linear-gradient(90deg, var(--primary-color), var(--secundary-color));
     line-height: normal;
+    font-size: 1rem;
+    letter-spacing: 0.8px;
 }
 
 .botaoAlternativo__default:hover {

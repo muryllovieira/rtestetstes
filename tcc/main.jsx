@@ -3,7 +3,7 @@
  * Data Inicio: 04-09-2023
  * Data Fim: X
  * 
- * Commits: Rotas Definidas v0.1, Estruturação de Diretórios Concluída, Componentes Iniciados v0.1
+ * Commits: Rotas Definidas v0.1, Estruturação de Diretórios Concluída, Componentes Iniciados v0.4
  * Tela Home Costuriê
 *****************/
 
@@ -18,10 +18,14 @@ import Home from './src/pages/home/Home.jsx'
 
 //páginas - rotas
 import Login from "./src/pages/login/Login.jsx"
+import RecuperarSenha from './src/pages/recuperarSenha/RecuperarSenha.jsx'
 import Registrar from './src/pages/registrar/Registrar.jsx'
+import ValidarCodigo from './src/pages/validarCodigo/ValidarCodigo.jsx'
+
 
 //Importe Estilo Global
 import './src/ui/styles/global.css'
+
 
 //Rotas
 const router = createBrowserRouter([
@@ -36,6 +40,14 @@ const router = createBrowserRouter([
   {
     path: "/registrar",
     element: <Registrar />
+  },
+  {
+    path: "/recuperar-senha",
+    element: <RecuperarSenha/>
+  },
+  {
+    path: "/validar-codigo",
+    element: <ValidarCodigo/>
   }
 ])
 

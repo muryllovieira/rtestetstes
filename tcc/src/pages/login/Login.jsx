@@ -1,6 +1,6 @@
 import './styleLogin.css'
 import costureiraLoginImagem from './images/costureiraLogin.svg'
-import FormularioGlobal from '../../ui/components/global/FormularioGlobal/FormularioGlobal'
+import FormularioGlobal from '../../ui/components/login/FormularioLogin/FormularioLogin'
 
 function Login() {
   return (

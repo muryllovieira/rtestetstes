@@ -21,6 +21,7 @@ import Login from "./src/pages/login/Login.jsx"
 import RecuperarSenha from './src/pages/recuperarSenha/RecuperarSenha.jsx'
 import Registrar from './src/pages/registrar/Registrar.jsx'
 import ValidarCodigo from './src/pages/validarCodigo/ValidarCodigo.jsx'
+import TrocaDeSenha from './src/pages/trocaDeSenha/TrocaDeSenha.jsx'
 
 
 //Importe Estilo Global
@@ -48,6 +49,10 @@ const router = createBrowserRouter([
   {
     path: "/validar-codigo",
     element: <ValidarCodigo/>
+  },
+  {
+    path: "/troca-de-senha",
+    element: <TrocaDeSenha/>
   }
 ])
 

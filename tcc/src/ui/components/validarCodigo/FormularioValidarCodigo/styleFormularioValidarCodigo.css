@@ -1,8 +1,22 @@
-.formularioRecuperarSenha {
+.formularioValidarCodigo {
     height: 100%;
     width: 300px;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
+}
+
+.formularioValidarCodigo__containerInputCodigo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.formularioValidarCodigo__texto {
+    color: var(--contrast-color);
+    font-size: 0.75rem;
+    font-style: normal;
+    font-weight: 400;
 }

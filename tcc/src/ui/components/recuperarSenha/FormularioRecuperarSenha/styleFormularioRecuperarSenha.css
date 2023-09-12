@@ -1,0 +1,8 @@
+.formularioRecuperarSenha {
+    height: 100%;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}

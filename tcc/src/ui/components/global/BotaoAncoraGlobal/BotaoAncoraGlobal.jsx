@@ -1,9 +1,8 @@
 import { Link } from "react-router-dom"
 
-import "./styleBotaoAlternativo.css"
+import "./styleBotaoAncoraGlobal.css"
  
-const BotaoAlternativo = ({titulo, url, alternado}) => {
-
+const BotaoAncoraGlobal = ({titulo, url, alternado}) => {
   if (alternado) {
     return <div className="botaoAlternativo__primary">
             <Link to={url}> {titulo} </Link>
@@ -16,4 +15,5 @@ const BotaoAlternativo = ({titulo, url, alternado}) => {
 
 }
 
-export default BotaoAlternativo 
+
+export default BotaoAncoraGlobal

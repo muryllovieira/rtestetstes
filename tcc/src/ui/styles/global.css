@@ -14,9 +14,20 @@ a {
     box-sizing: border-box;
 }
 
+h1 {
+    font-size: 1rem;
+    color: var(--contrast-color);
+    letter-spacing: 1.6px;
+    font-weight: 600;
+    font-style: normal;
+}
+
 :root {
     --default-color: #FFFFFF;
     --primary-color: #C98FEC;
     --secundary-color: #A89BFF;
     --contrast-color: #413946;
+
+    --input-color: #FCF6FF;
+    --textInput-color: #655F69;
 }

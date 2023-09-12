@@ -1,7 +1,7 @@
 // rfce
 import React from 'react'
 import './styleContainerHome.css'
-import BotaoAlternativo from '../BotaoAlternativo/BotaoAlternativo'
+import BotaoAncoraGlobal from '../../global/BotaoAncoraGlobal/BotaoAncoraGlobal'
 import costureiraInicio from '../../../../pages/home/images/costureiraInicio.svg'
 
 function ContainerHome() {
@@ -15,17 +15,19 @@ function ContainerHome() {
       </div>
       <div className='containerHome__containerBotoes'>
 
-        <BotaoAlternativo
+        <BotaoAncoraGlobal
+          link={true}
           titulo={'LOGIN'}
           url={'/login'}
           alternado={false}
-        ></BotaoAlternativo>
+        ></BotaoAncoraGlobal>
 
-        <BotaoAlternativo
+        <BotaoAncoraGlobal
+          link={true}
           titulo={'REGISTRAR'}
           url={'/registrar'}
           alternado={true}
-        ></BotaoAlternativo>
+        ></BotaoAncoraGlobal>
 
       </div>
 

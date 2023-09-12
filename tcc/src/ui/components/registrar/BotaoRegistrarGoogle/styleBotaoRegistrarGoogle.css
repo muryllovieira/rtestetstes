@@ -1,0 +1,12 @@
+.botaoRegistrarGoogle {
+    height: 30px;
+    width: 222px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    border-radius: 20px;
+    border: 1px solid var(--primary-color);
+    color: var(--primary-color);
+    font-size: 0.75rem;
+}

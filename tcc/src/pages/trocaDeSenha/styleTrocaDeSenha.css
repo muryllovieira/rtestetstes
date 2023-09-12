@@ -35,3 +35,19 @@
     font-style: normal;
     font-weight: 600;
 }
+
+@media (max-width: 600px) {
+    .containerTrocaDeSenha {
+        padding: 0;
+    }
+    .containerTrocaDeSenha__containerFormulario {
+        border-radius: 0;
+    }
+    .containerFormulario__headerFormulario {
+        width: 100%;
+        justify-content: space-around;
+    }
+    .headerFormulario__tituloFormulario {
+        padding-right: 20%;
+    }
+}

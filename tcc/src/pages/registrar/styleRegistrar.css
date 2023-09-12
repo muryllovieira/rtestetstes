@@ -48,3 +48,21 @@
     border-bottom-left-radius: 20px;
     border-top-left-radius: 20px;
 }
+
+@media (max-width: 600px) {
+    .marcaRegistrar, .marcaRegistrarTransparente {
+        display: none;
+    }
+    .containerRegistrar__formRegistrar  {
+        height: 100%;
+        width: 100%;
+        border-bottom-right-radius: 0;
+        border-top-right-radius: 0;
+    }
+    .containerRegistrar__imageRegistrar {
+        display: none;
+    }
+    #costureiraRegistrarImagem {
+        display: none;
+    }
+}

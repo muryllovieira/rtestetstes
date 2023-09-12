@@ -27,7 +27,7 @@ font {
 }
 
 .containerHome__paragrafo {
-    font-size: 1.2rem;
+    font-size: 1.25rem;
 }
 
 .containerHome__containerBotoes {
@@ -42,4 +42,41 @@ font {
     width: 45%;
     top: 30vh;
     left: 55vw;
+}
+
+@media (max-width: 600px) {
+
+    .containerHome {
+        width: 100vw;
+        height: 100vh;
+        align-items: center;
+    }
+
+    .containerHome__apresentacao {
+        width: 100%;
+    }
+
+    .containerHome__titulo {
+        width: 100%;
+        font-size: 2rem;
+        text-align: center;
+    }
+
+    .containerHome__paragrafo {
+        font-size: 1.5rem;
+        text-align: center;
+    }
+
+    .containerHome__imagemCostureira {
+        z-index: -1;
+        position: fixed;
+        width: 80%;
+        left: 55%;
+        top: 60%;
+        filter: opacity(60%);
+    }
+
+    .containerHome__containerBotoes {
+        width: 100%;
+    }
 }

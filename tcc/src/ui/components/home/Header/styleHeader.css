@@ -17,3 +17,13 @@ header {
     color: var(--default-color);
     font-weight: normal;
 }
+
+@media (max-width:600px) {
+    header {
+        padding: 0;
+    }
+
+    .linkHome__logoHome {
+        padding: 8px;
+    }
+}

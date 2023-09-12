@@ -40,11 +40,28 @@
     border-top-right-radius: 20px;
 }
 
-.containerValidarCodigo__imageValidarCodigo {
+.containerValidarCodigo__imagemValidarCodigo {
     width: 491px;
     height: 506px;
     background: linear-gradient(180deg, var(--secundary-color) 0%, var(--primary-color) 100%);
     filter: drop-shadow(0px 4px 20px rgba(65, 57, 70, 0.25));
     border-bottom-left-radius: 20px;
     border-top-left-radius: 20px;
+}
+
+@media (max-width: 600px) {
+
+    .marcaValidarCodigo, .marcaValidarCodigoTransparente, .containerValidarCodigo__imagemValidarCodigo {
+        display: none;
+    }
+
+    .containerValidarCodigo__formValidarCodigo {
+        height: 100%;
+        width: 100%;
+        border-bottom-right-radius: 0px;
+        border-top-right-radius: 0px;
+    }
+
+    
+
 }

@@ -48,3 +48,21 @@
     border-bottom-left-radius: 20px;
     border-top-left-radius: 20px;
 }
+
+@media (max-width: 600px) {
+    .marcaRecuperarSenha, .marcaRecuperarSenhaTransparente {
+        display: none;
+    }
+    .containerRecuperarSenha__formRecuperarSenha  {
+        height: 100%;
+        width: 100%;
+        border-bottom-right-radius: 0;
+        border-top-right-radius: 0;
+    }
+    .containerRecuperarSenha__imageRecuperarSenha {
+        display: none;
+    }
+    #costureiraRecuperarSenhaImagem {
+        display: none;
+    }
+}

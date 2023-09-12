@@ -34,7 +34,7 @@ function Login() {
         </div>
 
         <div className='containerLogin__imageLogin containerLogin-displayFlex'>
-          <img src={costureiraLoginImagem} alt="Imagem de uma costureira fazendo login num app" />
+          <img id="costureiraLoginImagem" src={costureiraLoginImagem} alt="Imagem de uma costureira fazendo login num app" />
         </div>
 
       </div>

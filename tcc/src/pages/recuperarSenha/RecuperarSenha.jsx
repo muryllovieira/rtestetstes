@@ -33,7 +33,7 @@ function RecuperarSenha() {
       <div className="containerRecuperarSenha">
 
       <div className='containerRecuperarSenha__imageRecuperarSenha containerRecuperarSenha-displayFlex'>
-          <img src={CostureiraRecuperarSenhaImagem} alt="Imagem de uma costureira costurando" />
+          <img id="costureiraRecuperarSenhaImagem" src={CostureiraRecuperarSenhaImagem} alt="Imagem de uma costureira costurando" />
         </div>
 
         <div className='containerRecuperarSenha__formRecuperarSenha containerRecuperarSenha-displayFlex'>

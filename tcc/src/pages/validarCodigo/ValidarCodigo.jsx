@@ -33,7 +33,7 @@ function ValidarCodigo() {
 
       <div className="containerValidarCodigo">
 
-      <div className='containerValidarCodigo__imageValidarCodigo containerValidarCodigo-displayFlex'>
+      <div className='containerValidarCodigo__imagemValidarCodigo containerValidarCodigo-displayFlex'>
           <img src={CostureiraValidarCodigoImagem} alt="Imagem de uma costureira costurando" />
         </div>
 

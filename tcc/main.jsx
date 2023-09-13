@@ -3,7 +3,7 @@
  * Data Inicio: 04-09-2023
  * Data Fim: X
  * 
- * Commits: Rotas Definidas v0.1, Estruturação de Diretórios Concluída, Componentes Iniciados v0.4, Responsividade v0.6
+ * Commits: Rotas Definidas v0.2, Estruturação de Diretórios Concluída, Componentes Iniciados v0.5, Responsividade v0.6
  * Tela Home Costuriê
 *****************/
 
@@ -11,7 +11,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import {createBrowserRouter, RouterProvider, Route} from 'react-router-dom'
-
 
 //Importe de Página - Inicial
 import Home from './src/pages/home/Home.jsx'
@@ -22,10 +21,20 @@ import RecuperarSenha from './src/pages/recuperarSenha/RecuperarSenha.jsx'
 import Registrar from './src/pages/registrar/Registrar.jsx'
 import ValidarCodigo from './src/pages/validarCodigo/ValidarCodigo.jsx'
 import TrocaDeSenha from './src/pages/trocaDeSenha/TrocaDeSenha.jsx'
+import Explorar from './src/pages/menu/menu/explorar/Explorar.jsx'
+import Menu from './src/pages/menu/Menu.jsx'
+import NaoEncontrado from './src/pages/naoEncontrado/naoEncontrado.jsx'
+
+//páginas - rotas do Menu
+import Servicos from './src/pages/menu/menu/servicos/Servicos.jsx'
+import Publicar from './src/pages/menu/menu/publicar/Publicar.jsx'
+import Conversas from './src/pages/menu/menu/conversas/Conversas.jsx'
+import Configuracoes from './src/pages/menu/menu/configuracoes/Configuracoes.jsx'
 
 
 //Importe Estilo Global
 import './src/ui/styles/global.css'
+
 
 
 //Rotas
@@ -44,15 +53,44 @@ const router = createBrowserRouter([
   },
   {
     path: "/recuperar-senha",
-    element: <RecuperarSenha/>
+    element: <RecuperarSenha />
   },
   {
     path: "/validar-codigo",
-    element: <ValidarCodigo/>
+    element: <ValidarCodigo />
   },
   {
     path: "/troca-de-senha",
-    element: <TrocaDeSenha/>
+    element: <TrocaDeSenha />
+  },
+  {
+    path: "/menu",
+    element: <NaoEncontrado />
+  },
+  {
+    element: <Menu />,
+    children: [
+      {
+        path: "/menu/explorar",
+        element: <Explorar />
+      },
+      {
+        path: "/menu/servicos",
+        element: <Servicos />
+      },
+      {
+        path: "/menu/publicar",
+        element: <Publicar />
+      },
+      {
+        path: "/menu/conversas",
+        element: <Conversas />
+      },
+      {
+        path: "/menu/configuracoes",
+        element: <Configuracoes />
+      }
+    ]
   }
 ])
 

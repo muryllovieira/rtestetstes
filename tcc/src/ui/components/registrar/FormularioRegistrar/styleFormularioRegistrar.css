@@ -39,31 +39,3 @@
     background-color: var(--contrast-color);
 }
 
-.test {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    padding: 16px;
-    width: 300px;
-    background-color: var(--default-color);
-    position: absolute;
-    z-index: 1000;
-    top: 200px;
-    left: 100px;
-}
-
-.preto {
-    color: black;
-    font-size: 0.75rem;
-}
-
-.verde {
-    color: green;
-    font-size: 0.75rem;
-}
-
-.vermelho {
-    color: red;
-    font-size: 0.75rem;
-}

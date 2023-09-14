@@ -4,35 +4,12 @@ import InputGlobal from '../../global/InputGlobal/InputGlobal'
 import BotaoFormularioGlobal from '../../global/BotaoFormularioGlobal/BotaoFormularioGlobal'
 import BotaoAncoraGlobal from '../../global/BotaoAncoraGlobal/BotaoAncoraGlobal'
 import BotaoRegistrarGoogle from '../BotaoRegistrarGoogle/BotaoRegistrarGoogle'
-import ModalSenhaGlobal from '../../global/ModalSenhaGlobal/ModalSenhaGlobal'
-import { useState } from 'react'
-import { useRef } from 'react'
+
 
 
 function FormularioRegistrar() {
 
-  const [password, setPassword] = useState('');
-  const [errors, setErrors] = useState({
-    minValueValidation: false,
-    numberValidation: false,
-    capitalLetterValidation: false,
-    specialCharacterValidation: false,
-  });
-
-  const handlePasswordChange = (event) => {
-    const newPassword = event.target.value;
-    setPassword(newPassword);
-    validatePassword(newPassword);
-  };
-
-  const validatePassword = (password) => {
-    setErrors({
-      minValueValidation: password.length >= 8,
-      numberValidation: /\d/.test(password),
-      capitalLetterValidation: /[A-Z]/.test(password),
-      specialCharacterValidation: /[^A-Za-z0-9]/.test(password),
-    });
-  };
+  
   
 
   return (
@@ -46,33 +23,11 @@ function FormularioRegistrar() {
          placeholder={'Email'}
         ></InputGlobal>
 
-      
         <InputGlobal
-          func={handlePasswordChange}
           id={'inputRegistrarSenha'}
           type={'password'}
           placeholder={'Senha'}
         ></InputGlobal>
-
-        <div className="test">
-          {Object.entries(errors).map(([key, value]) => (
-            <div key={key} >
-              {value ? (
-                <p className='verde' />
-              ) : (
-                <p className='vermelho' />
-              )}
-              <p className={`preto ${value ? 'verde' : 'vermelho'}`}>
-                {key === 'minValueValidation' && 'Password must be at least 8 Characters'}
-                {key === 'numberValidation' && 'Password must have at least one Number'}
-                {key === 'capitalLetterValidation' && 'Password must have at least one Capital Letter'}
-                {key === 'specialCharacterValidation' && 'Password must have at least one Special Character'}
-              </p>
-            </div>
-          ))}
-        </div>
-        
-       
 
         <InputGlobal
           id={'inputRegistrarSenhaDois'}
@@ -84,6 +39,8 @@ function FormularioRegistrar() {
           type={'text'}
           placeholder={'Digite um nome de usuário'}
         ></InputGlobal>
+
+       
 
       </div>
 
@@ -105,7 +62,7 @@ function FormularioRegistrar() {
         alternado={false}
       ></BotaoAncoraGlobal>
       
-      <ModalSenhaGlobal isOpen = {open}></ModalSenhaGlobal>
+     
 
       <div>
 

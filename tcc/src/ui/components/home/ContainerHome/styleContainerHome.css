@@ -38,7 +38,7 @@ font {
 }
 
 .containerHome__imagemCostureira {
-    position: absolute;
+    position: fixed;
     width: 45%;
     top: 30vh;
     left: 55vw;

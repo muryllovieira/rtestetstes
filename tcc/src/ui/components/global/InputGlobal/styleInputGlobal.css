@@ -8,3 +8,17 @@
     box-shadow: 0px 4px 20px 0px rgba(65, 57, 70, 0.15);
     padding-left: 10px;
 }
+
+.inputSenhaGlobal {
+    position: relative;
+    left: 10px;
+    width: 250px;
+    height: 40px;
+    background-color: var(--input-color);
+    color: var(--textInput-color);
+    border-radius: 15px;
+    border: inherit;
+    box-shadow: 0px 4px 20px 0px rgba(65, 57, 70, 0.15);
+    padding-left: 10px;
+}
+

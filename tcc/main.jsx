@@ -3,7 +3,7 @@
  * Data Inicio: 04-09-2023
  * Data Fim: X
  * 
- * Commits: Rotas Definidas v0.2, Estruturação de Diretórios Concluída, Componentes Iniciados v0.6, Responsividade v0.6
+ * Commits: Rotas Definidas v0.2, Estruturação de Diretórios Concluída, Componentes Iniciados v2.1, Responsividade v0.6
  * Tela Home Costuriê
 *****************/
 

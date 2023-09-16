@@ -24,12 +24,14 @@ function FormularioRegistrar() {
         ></InputGlobal>
 
         <InputGlobal
+          register={true}
           id={'inputRegistrarSenha'}
           type={'password'}
           placeholder={'Senha'}
         ></InputGlobal>
 
         <InputGlobal
+          register={true}
           id={'inputRegistrarSenhaDois'}
           type={'password'}
           placeholder={'Repita a senha'}

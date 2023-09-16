@@ -5,8 +5,24 @@ import InputGlobal from '../../global/InputGlobal/InputGlobal'
 import BotaoFormularioGlobal from '../../global/BotaoFormularioGlobal/BotaoFormularioGlobal'
 import BotaoAncoraGlobal from '../../global/BotaoAncoraGlobal/BotaoAncoraGlobal'
 import BotaoLoginGoogle from '../BotaoLoginGoogle/BotaoLoginGoogle'
+import axios from 'axios'
 
 function FormularioLogin() {
+
+  const getUsuario = async () => {
+    // try {
+    //   const response = await axios.get(
+    //     "https://super-hare-shoulder-pads.cyclic.cloud/usuario/login"
+    //   )
+
+    //   const data = response.data
+    //   console.log(data)
+
+    // } catch (error) {
+    //   console.log(error)
+    // }
+  }
+
   return (
     <div className='formularioLogin'>
       <h1>LOGIN</h1>
@@ -28,6 +44,7 @@ function FormularioLogin() {
       </div>
 
       <BotaoFormularioGlobal
+        fun={getUsuario}
         value={'LOGIN'}
       ></BotaoFormularioGlobal>
 

@@ -4,7 +4,7 @@ import IconeOlhoGlobal from '../IconeOlhoGlobal/IconeOlhoGlobal'
 import ModalSenhaGlobal from '../ModalSenhaGlobal/ModalSenhaGlobal'
 import { useState } from 'react'
 
-function InputGlobal({type, placeholder, id}) {
+function InputGlobal({type, placeholder, id, register}) {
 
   const [password, setPassword] = useState('');
 
@@ -38,15 +38,20 @@ function InputGlobal({type, placeholder, id}) {
     setOpen(!open === open)
   }
 
-  if (type == 'password'){
+  if (type == 'password', register){
     return <>
       <div>
         <input onBlur={handleBlur} onChange={handlePasswordChange} id={id} className='inputSenhaGlobal' type={type} placeholder={placeholder}/> 
           <i> <IconeOlhoGlobal></IconeOlhoGlobal> </i>
-          <ModalSenhaGlobal
-            isOpen={open}
-            errors={errors}
-          ></ModalSenhaGlobal>
+          {register && (
+            
+            <ModalSenhaGlobal
+              isOpen={open}
+              errors={errors}
+              ></ModalSenhaGlobal>
+              
+            )
+          }
       </div>
 
      

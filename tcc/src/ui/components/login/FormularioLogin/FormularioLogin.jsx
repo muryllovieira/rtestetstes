@@ -5,26 +5,43 @@ import InputGlobal from '../../global/InputGlobal/InputGlobal'
 import BotaoFormularioGlobal from '../../global/BotaoFormularioGlobal/BotaoFormularioGlobal'
 import BotaoAncoraGlobal from '../../global/BotaoAncoraGlobal/BotaoAncoraGlobal'
 import BotaoLoginGoogle from '../BotaoLoginGoogle/BotaoLoginGoogle'
+// import blogFetch from '../../../../data/services/api/ApiService'
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
-function FormularioLogin() {
 
-  const getUsuario = async () => {
-    // try {
-    //   const response = await axios.get(
-    //     "https://super-hare-shoulder-pads.cyclic.cloud/usuario/login"
-    //   )
+function FormularioLogin () {
 
-    //   const data = response.data
-    //   console.log(data)
+  const navigate = useNavigate()
 
-    // } catch (error) {
-    //   console.log(error)
-    // }
+  const [email, setEmail] = useState()
+
+  const [senha, setSenha] = useState()
+
+  const getUsuario = async (e) => {
+
+    const post = { email, senha}
+    e.preventDefault()
+
+    try {
+      const response = await axios.patch({
+        baseURL: 'https://super-hare-shoulder-pads.cyclic.cloud/usuario/login',
+        headers: {'Content-Type': 'application/json'},
+        data: post
+      })
+      const data = response
+      console.log(data)
+    } catch (error) {
+      console.log(error)
+    }
+    
+   
+
   }
 
   return (
-    <div className='formularioLogin'>
+    <form className='formularioLogin' onSubmit={(e) => getUsuario(e)}>
       <h1>LOGIN</h1>
 
       <div className='formularioLogin__containerInputs'>
@@ -32,11 +49,13 @@ function FormularioLogin() {
         <InputGlobal
          type={'text'}
          placeholder={'Email'}
+         onChange={setEmail}
         ></InputGlobal>
 
         <InputGlobal
           type={'password'}
           placeholder={'Senha'}
+          onChange={setSenha}
         ></InputGlobal>
 
         <Link to="/recuperar-senha" className='containerInputs__textoDestacado'>Esqueceu a senha?</Link>
@@ -44,7 +63,7 @@ function FormularioLogin() {
       </div>
 
       <BotaoFormularioGlobal
-        fun={getUsuario}
+      
         value={'LOGIN'}
       ></BotaoFormularioGlobal>
 
@@ -62,7 +81,7 @@ function FormularioLogin() {
         alternado={false}
       ></BotaoAncoraGlobal>
       
-    </div>
+    </form>
   )
 }
 

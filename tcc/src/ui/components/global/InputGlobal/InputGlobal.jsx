@@ -4,7 +4,7 @@ import IconeOlhoGlobal from '../IconeOlhoGlobal/IconeOlhoGlobal'
 import ModalSenhaGlobal from '../ModalSenhaGlobal/ModalSenhaGlobal'
 import { useState } from 'react'
 
-function InputGlobal({type, placeholder, id, register}) {
+function InputGlobal({type, placeholder, id, register, onChange}) {
 
   const [password, setPassword] = useState('');
 
@@ -58,7 +58,7 @@ function InputGlobal({type, placeholder, id, register}) {
     </>
   } else {
     return <>
-      <input className='inputGlobal' type={type} placeholder={placeholder}/> 
+      <input className='inputGlobal' type={type} placeholder={placeholder} onChange={(e) => onChange(e.target.value)}/> 
     </>
   }
 }

@@ -1,42 +1,94 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import './styleFormularioLogin.css'
 import InputGlobal from '../../global/InputGlobal/InputGlobal'
 import BotaoFormularioGlobal from '../../global/BotaoFormularioGlobal/BotaoFormularioGlobal'
 import BotaoAncoraGlobal from '../../global/BotaoAncoraGlobal/BotaoAncoraGlobal'
 import BotaoLoginGoogle from '../BotaoLoginGoogle/BotaoLoginGoogle'
-import axios from 'axios'
+import blogFetch from '../../../../data/services/api/ApiService'
+import { useState, useContext } from 'react'
+import { useNavigate } from 'react-router-dom'
 
-function FormularioLogin() {
+import UserContext, { UserProvider } from '../../../../data/hooks/context/userContext'
 
-  const getUsuario = async () => {
-    // try {
-    //   const response = await axios.get(
-    //     "https://super-hare-shoulder-pads.cyclic.cloud/usuario/login"
-    //   )
 
-    //   const data = response.data
-    //   console.log(data)
+function FormularioLogin () {
 
-    // } catch (error) {
-    //   console.log(error)
-    // }
+  const { setAccessToken } = useContext(UserContext)
+
+  const navigate = useNavigate()
+
+  const [email, setEmail] = useState()
+
+  const [senha, setSenha] = useState()
+
+  const [errMsg, setErrMsg] = useState()
+  
+  const errRef = useRef()
+
+
+  useEffect(() => {
+    setErrMsg('')
+  }, [email, senha])
+
+
+  const getUsuario = async (e) => {
+
+    e.preventDefault()
+
+    try {
+      const response = await blogFetch.post("/usuario/login", {
+        email: email,
+        senha: senha
+       })
+   
+      
+      const accessToken = response.data.token
+
+      setAccessToken({ email, senha, accessToken})
+
+      navigate("/menu/explorar")
+      
+    } catch (error) {
+
+      if(!error.response) {
+        setErrMsg('Sem Resposta Do Servidor')
+
+      } else if (error.response.status === 404) {
+        setErrMsg('Senha ou Email Incorreto')
+
+      } else if (error.response.status === 401) {
+        setErrMsg('Não Autorizado')
+
+      } else {
+        setErrMsg('O Login Falhou. Entre em contato com nosso suporte')
+      }
+
+      errRef.current.focus()
+
+    }
+
   }
 
   return (
-    <div className='formularioLogin'>
+    <form className='formularioLogin' onSubmit={(e) => getUsuario(e)}>
       <h1>LOGIN</h1>
+
+      <p ref={errRef} className={errMsg ? "mensagemErro" : 
+      "mensagemDesligada"} aria-live='assertive'>{errMsg}</p>
 
       <div className='formularioLogin__containerInputs'>
 
         <InputGlobal
-         type={'text'}
+         type={'email'}
          placeholder={'Email'}
+         onChange={setEmail}
         ></InputGlobal>
 
         <InputGlobal
           type={'password'}
           placeholder={'Senha'}
+          onChange={setSenha}
         ></InputGlobal>
 
         <Link to="/recuperar-senha" className='containerInputs__textoDestacado'>Esqueceu a senha?</Link>
@@ -44,7 +96,6 @@ function FormularioLogin() {
       </div>
 
       <BotaoFormularioGlobal
-        fun={getUsuario}
         value={'LOGIN'}
       ></BotaoFormularioGlobal>
 
@@ -62,7 +113,7 @@ function FormularioLogin() {
         alternado={false}
       ></BotaoAncoraGlobal>
       
-    </div>
+    </form>
   )
 }
 

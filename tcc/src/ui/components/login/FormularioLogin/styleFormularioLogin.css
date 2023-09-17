@@ -37,3 +37,23 @@
     width: 146px;
     background-color: var(--contrast-color);
 }
+
+.mensagemErro {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 4px;
+    width: 200px;
+    height: 40px;
+    background-color: var(--default-color);
+    border-radius: 5px;
+    border: 2px solid var(--secundary-color);
+    color: var(--secundary-color);
+    font-size: 0.75rem;
+    text-align: center;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.mensagemDesligada{
+   display: none;
+}

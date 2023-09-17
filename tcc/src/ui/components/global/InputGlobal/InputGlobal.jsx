@@ -4,7 +4,7 @@ import IconeOlhoGlobal from '../IconeOlhoGlobal/IconeOlhoGlobal'
 import ModalSenhaGlobal from '../ModalSenhaGlobal/ModalSenhaGlobal'
 import { useState } from 'react'
 
-function InputGlobal({type, placeholder, id, register}) {
+function InputGlobal({type, placeholder, id, register, onChange, onFocus, onBlur, refe, pwd}) {
 
   const [password, setPassword] = useState('');
 
@@ -25,7 +25,7 @@ function InputGlobal({type, placeholder, id, register}) {
   };
 
   const validatePassword = (password) => {
-    
+
     setErrors({
       minValueValidation: password.length >= 8,
       numberValidation: /\d/.test(password),
@@ -40,27 +40,37 @@ function InputGlobal({type, placeholder, id, register}) {
 
   if (type == 'password', register){
     return <>
+
       <div>
-        <input onBlur={handleBlur} onChange={handlePasswordChange} id={id} className='inputSenhaGlobal' type={type} placeholder={placeholder}/> 
-          <i> <IconeOlhoGlobal></IconeOlhoGlobal> </i>
-          {register && (
+
+        <input aria-describedby='pwdnote' aria-invalid={pwd} onBlur={handleBlur} onChange={handlePasswordChange} id={id} className='inputSenhaGlobal' type={type} placeholder={placeholder} required/> 
+
+        <i> <IconeOlhoGlobal></IconeOlhoGlobal> </i>
+
+        {register && (
+          
+          <ModalSenhaGlobal
+            isOpen={open}
+            errors={errors}
+          ></ModalSenhaGlobal>
             
-            <ModalSenhaGlobal
-              isOpen={open}
-              errors={errors}
-              ></ModalSenhaGlobal>
-              
-            )
-          }
+          )
+        }
+
       </div>
 
-     
+    </>
+  } if (type == 'email') {
+    return <>
+      <input className='inputEmailGlobal' type={type} placeholder={placeholder} onChange={(e) => onChange(e.target.value)} onFocus={onFocus} onBlur={onBlur} required /> 
     </>
   } else {
     return <>
-      <input className='inputGlobal' type={type} placeholder={placeholder}/> 
+      <input className='inputGlobal' ref={refe} type={type} placeholder={placeholder} onChange={(e) => onChange(e.target.value)} onFocus={onFocus} onBlur={onBlur} required/> 
     </>
   }
+    
 }
+
 
 export default InputGlobal

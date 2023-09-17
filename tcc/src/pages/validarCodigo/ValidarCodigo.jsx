@@ -2,14 +2,23 @@ import React from 'react'
 import CostureiraValidarCodigoImagem from '../../pages/validarCodigo/images/costureiraValidarCodigo.svg'
 import './styleValidarCodigo.css'
 import FormularioValidarCodigo from '../../ui/components/validarCodigo/FormularioValidarCodigo/FormularioValidarCodigo'
-
+import { useLocation } from 'react-router-dom'
 
 function ValidarCodigo() {
+
+  const location = useLocation()
+
+  const email = location.state.email
+
+  const id = location.state.id
+
+  
+
   return (
     <>
-     {/* SVG Absolute */}
+      {/* SVG Absolute */}
        
-     <svg className='marcaValidarCodigoTransparente' xmlns="http://www.w3.org/2000/svg" width="657" height="689" viewBox="0 0 657 689" fill="none">
+        <svg className='marcaValidarCodigoTransparente' xmlns="http://www.w3.org/2000/svg" width="657" height="689" viewBox="0 0 657 689" fill="none">
           <path d="M0 0H636.042C653.595 0 662.634 20.9959 650.57 33.7459L322 381L34.4705 682.37C22.0137 695.427 0 686.61 0 668.564V0Z" fill="url(#paint0_linear_339_21309)" fillOpacity="0.4"/>
           <defs>
             <linearGradient id="paint0_linear_339_21309" x1="320" y1="0" x2="320" y2="720" gradientUnits="userSpaceOnUse">
@@ -38,7 +47,10 @@ function ValidarCodigo() {
         </div>
 
         <div className='containerValidarCodigo__formValidarCodigo containerValidarCodigo-displayFlex'>
-           <FormularioValidarCodigo></FormularioValidarCodigo>
+          <FormularioValidarCodigo
+            id={id}
+            email={email}
+          ></FormularioValidarCodigo>
         </div>
 
         
@@ -48,5 +60,7 @@ function ValidarCodigo() {
     </>
   )
 }
+
+
 
 export default ValidarCodigo

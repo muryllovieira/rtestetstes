@@ -60,6 +60,10 @@ function FormularioLogin () {
         
         setErrMsg('Muitas Requisições. Aguarde e tente novamente.')
 
+      } else if (error.response.status === 404) {
+        
+        setErrMsg('Email ou Senha Incorretos ou o usuário não possui cadastro.')
+
       } else if (error.response.status === 503) {
 
         setErrMsg('Servidor Fora de Ar.')

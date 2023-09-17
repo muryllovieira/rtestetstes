@@ -5,7 +5,7 @@ import BotaoFormularioGlobal from '../../global/BotaoFormularioGlobal/BotaoFormu
 import BotaoAncoraGlobal from '../../global/BotaoAncoraGlobal/BotaoAncoraGlobal'
 import BotaoRegistrarGoogle from '../BotaoRegistrarGoogle/BotaoRegistrarGoogle'
 import { useState, useEffect } from 'react'
-import { Navigate, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import blogFetch from '../../../../data/services/api/ApiService'
 
 const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{3,23}$/
@@ -34,7 +34,6 @@ function FormularioRegistrar() {
   const [matchFocus, setMatchFocus] = useState(false)
 
   const [errMsg, setErrMsg] = useState()
-  const [success, setSuccess] = useState(false)
 
 
  
@@ -148,6 +147,10 @@ function FormularioRegistrar() {
         if (!erro.response) {
           setErrMsg('Sem Resposta Do Servidor')
 
+        } else if (erro.response.status === 400) {
+
+          setErrMsg('Usuario já cadastrado')
+  
         } else if (erro.response.status === 404) {
 
           setErrMsg('Senha ou Email Incorreto')

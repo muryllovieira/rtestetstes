@@ -2,8 +2,15 @@ import React from 'react'
 import './styleTrocaDeSenha.css'
 import FormularioTrocaDeSenha from '../../ui/components/trocaDeSenha/FormularioTrocaDeSenha'
 import BotaoFormularioGlobal from '../../ui/components/global/BotaoFormularioGlobal/BotaoFormularioGlobal'
+import { useLocation } from 'react-router-dom'
 
 function TrocaDeSenha() {
+
+  const location = useLocation()
+
+  const id = location.state.id
+
+
   return (
     <>
 
@@ -18,11 +25,10 @@ function TrocaDeSenha() {
 
           </div>
 
-          <FormularioTrocaDeSenha></FormularioTrocaDeSenha>
+          <FormularioTrocaDeSenha
+            id={id}
+          ></FormularioTrocaDeSenha>
 
-          <BotaoFormularioGlobal
-            value={'ENVIAR'}
-          ></BotaoFormularioGlobal>
 
         </div>
 

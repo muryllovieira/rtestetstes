@@ -1,10 +1,11 @@
 import React from 'react'
 import './styleInputCodigo.css'
 
-function InputCodigo() {
+function InputCodigo({onChange}) {
+  
   return (
     <>
-        <input className='inputCodigo' type="number" />
+        <input className='inputCodigo' onChange={(e) => onChange(e.target.value)} type="number" min={0} max={9} required  />
     </>
   )
 }

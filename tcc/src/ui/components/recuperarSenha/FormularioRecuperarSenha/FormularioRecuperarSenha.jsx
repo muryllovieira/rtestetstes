@@ -30,11 +30,21 @@ function FormularioRecuperarSenha() {
 
     try {
 
-      const response = await blogFetch.post("/usuario/esqueci_a_senha", {
+      const response = await blogFetch.post("/usuario/esqueceu_a_senha", {
         email: email
       })
 
-      navigate("/validar-codigo")
+    
+
+      const userId = response.data.id
+
+      console.log(response.data)
+      console.log(userId)
+
+      navigate("/validar-codigo", {state: {
+        email: email,
+        id: userId
+      }})
 
     } catch (error) {
 

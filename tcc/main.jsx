@@ -4,7 +4,8 @@
  * Data Fim: X
  * 
  * Commits: Rotas Definidas v0.2, Estruturação de Diretórios Concluída, 
- * Componentes Iniciados v2.3, Responsividade v0.6, Funcionalidades v0.1, Integração Iniciada v0.1
+ * Componentes Iniciados v2.3, Responsividade v0.6, Funcionalidades v0.1,
+ * Integração Iniciada v0.2, Contexto Aplicado
  * 
 *****************/
 
@@ -32,6 +33,7 @@ import Publicar from './src/pages/menu/menu/publicar/Publicar.jsx'
 import Conversas from './src/pages/menu/menu/conversas/Conversas.jsx'
 import Configuracoes from './src/pages/menu/menu/configuracoes/Configuracoes.jsx'
 
+import { UserProvider } from './src/data/hooks/context/userContext.jsx'
 
 //Importe Estilo Global
 import './src/ui/styles/global.css'
@@ -97,6 +99,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <RouterProvider router = {router} />
+    <UserProvider>
+     <RouterProvider router = {router} />
+    </UserProvider>
   </React.StrictMode>,
 )

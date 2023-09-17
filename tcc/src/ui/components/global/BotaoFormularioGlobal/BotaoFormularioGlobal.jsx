@@ -2,11 +2,11 @@ import React from 'react'
 import './styleBotaoFormularioGlobal.css'
 
 
-function BotaoFormularioGlobal({value, fun}) {
-
+function BotaoFormularioGlobal({value, fun, disabled}) {
+  
   return (
     <>
-        <input className='botaoFormularioGlobal' type="submit" value={value}/>
+        <input disabled={disabled} className='botaoFormularioGlobal' type="submit" value={value} onChange={(e) => fun(e)}/>
     </>
   )
 }

@@ -2,24 +2,88 @@ import React from 'react'
 import InputGlobal from '../../global/InputGlobal/InputGlobal'
 import BotaoFormularioGlobal from '../../global/BotaoFormularioGlobal/BotaoFormularioGlobal'
 import './styleFormularioRecuperarSenha.css'
+import { useState, useEffect, useRef } from 'react'
+import { useNavigate } from 'react-router-dom'
+import blogFetch from '../../../../data/services/api/ApiService'
 
 function FormularioRecuperarSenha() {
+
+  const navigate = useNavigate()
+
+  const [ email, setEmail ] = useState()
+
+  const [errMsg, setErrMsg] = useState()
+
+  const errRef = useRef()
+
+  {/*Validação pelo Console*/
+
+    // useEffect(() => {
+    //   console.log(email)
+    // },[email])
+
+  }/*Validação pelo Console*/
+  
+
+  const sendEmail = async (event) => {
+    event.preventDefault()
+
+    try {
+
+      const response = await blogFetch.post("/usuario/esqueci_a_senha", {
+        email: email
+      })
+
+      navigate("/validar-codigo")
+
+    } catch (error) {
+
+      if(!error.response) {
+
+        setErrMsg('Sem Resposta Do Servidor')
+
+      } else if (error.response.status === 404) {
+
+        setErrMsg('E-Mail não encontrado no nosso sistema.')
+
+      } else if (error.response.status === 429) {
+        
+        setErrMsg('Muitas Requisições. Aguarde e tente novamente.')
+
+      } else {
+
+        setErrMsg('O Envio Falhou. Entre em contato com nosso suporte')
+
+      }
+
+      errRef.current.focus()
+
+    }
+
+  
+  }
+
+
   return (
-    <div className='formularioRecuperarSenha'>
+    <form onSubmit={(e) => sendEmail(e)} className='formularioRecuperarSenha'>
         <h1>RECUPERAR SENHA</h1>
+
+        <p ref={errRef} className={errMsg ? "mensagemErro" : 
+        "mensagemDesligada"} aria-live='assertive'>{errMsg}</p>
 
         <p>Insira seu e-mail para o processo de verificação, vamos mandar um código para o seu e-mail.</p>
 
         <InputGlobal
-            type={'text'}
-            placeholder={'Email'}
+          onChange={setEmail}
+          type={'email'}
+          placeholder={'Email'}
         ></InputGlobal>
 
         <BotaoFormularioGlobal
-        value={'ENVIAR'}
+          value={'ENVIAR'}
         ></BotaoFormularioGlobal>
 
-    </div>
+    </form>
   )
 }
 

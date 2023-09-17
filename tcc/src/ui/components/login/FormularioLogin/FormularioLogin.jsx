@@ -35,6 +35,7 @@ function FormularioLogin () {
   const getUsuario = async (e) => {
 
     e.preventDefault()
+   
 
     try {
       const response = await blogFetch.post("/usuario/login", {
@@ -52,16 +53,23 @@ function FormularioLogin () {
     } catch (error) {
 
       if(!error.response) {
+        
         setErrMsg('Sem Resposta Do Servidor')
 
-      } else if (error.response.status === 404) {
-        setErrMsg('Senha ou Email Incorreto')
+      } else if (error.response.status === 429) {
+        
+        setErrMsg('Muitas Requisições. Aguarde e tente novamente.')
 
-      } else if (error.response.status === 401) {
-        setErrMsg('Não Autorizado')
+      } else if (error.response.status === 503) {
+
+        setErrMsg('Servidor Fora de Ar.')
+
+      } else if (error.response.status === 409) {
+
+        setErrMsg('Usuário Já Existente.')
 
       } else {
-        setErrMsg('O Login Falhou. Entre em contato com nosso suporte')
+        setErrMsg('O Registro Falhou. Entre em contato com nosso suporte')
       }
 
       errRef.current.focus()

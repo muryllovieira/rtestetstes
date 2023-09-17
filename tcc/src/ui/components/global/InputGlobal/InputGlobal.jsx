@@ -18,6 +18,7 @@ function InputGlobal({type, placeholder, id, register, onChange, onFocus, onBlur
   });
 
   const handlePasswordChange = (event) => {
+    pwd
     setOpen(!open !== open)
     const newPassword = event.target.value;
     setPassword(newPassword);
@@ -38,12 +39,12 @@ function InputGlobal({type, placeholder, id, register, onChange, onFocus, onBlur
     setOpen(!open === open)
   }
 
-  if (type == 'password', register){
+  if (type == 'password' && register){
     return <>
 
       <div>
 
-        <input aria-describedby='pwdnote' aria-invalid={pwd} onBlur={handleBlur} onChange={handlePasswordChange} id={id} className='inputSenhaGlobal' type={type} placeholder={placeholder} required/> 
+        <input onBlur={handleBlur} onChange={(e) => {handlePasswordChange(e), pwd(e.target.value)}} id={id} className='inputSenhaGlobal' type={type} placeholder={placeholder} required/> 
 
         <i> <IconeOlhoGlobal></IconeOlhoGlobal> </i>
 

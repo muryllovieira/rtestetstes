@@ -3,9 +3,9 @@
  * Data Inicio: 04-09-2023
  * Data Fim: X
  * 
- * Commits: Rotas Definidas v0.2, Estruturação de Diretórios Concluída, 
- * Componentes Iniciados v2.4, Responsividade v0.6, Funcionalidades v0.4,
- * Integração Iniciada v0.5, Contexto Aplicado
+ * Commits: Rotas Definidas v0.3, Estruturação de Diretórios Concluída, 
+ * Componentes Iniciados v2.5, Responsividade v0.6, Funcionalidades v0.4,
+ * Integração Iniciada v0.5, Contexto Aplicado, Lista Icones v0.1
  * 
 *****************/
 
@@ -26,6 +26,7 @@ import TrocaDeSenha from './src/pages/trocaDeSenha/TrocaDeSenha.jsx'
 import Explorar from './src/pages/menu/menu/explorar/Explorar.jsx'
 import Menu from './src/pages/menu/Menu.jsx'
 import NaoEncontrado from './src/pages/naoEncontrado/naoEncontrado.jsx'
+import MeuPerfil from './src/pages/menu/menu/perfil/MeuPerfil.jsx'
 
 //páginas - rotas do Menu
 import Servicos from './src/pages/menu/menu/servicos/Servicos.jsx'
@@ -92,6 +93,10 @@ const router = createBrowserRouter([
       {
         path: "/menu/configuracoes",
         element: <Configuracoes />
+      },
+      {
+        path: "/menu/meu-perfil",
+        element: <MeuPerfil />
       }
     ]
   }

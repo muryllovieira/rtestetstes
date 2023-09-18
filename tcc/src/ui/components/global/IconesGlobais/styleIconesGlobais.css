@@ -1,0 +1,13 @@
+.icone {
+    height: 24px;
+    width: 24px;
+    color: var(--secundary-color);
+}
+
+.iconePublicarGlobal {
+    height: 24px;
+    width: 24px;
+    color: var(--default-color);
+    background: linear-gradient(90deg, var(--primary-color) 0%, var(--secundary-color) 100%);
+    border-radius: 5px;
+}

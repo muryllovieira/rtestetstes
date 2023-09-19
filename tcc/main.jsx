@@ -4,7 +4,7 @@
  * Data Fim: X
  * 
  * Commits: Rotas Definidas v0.4, Estruturação de Diretórios Concluída, 
- * Componentes Iniciados v2.6, Responsividade v0.6, Funcionalidades v0.4,
+ * Componentes Iniciados v2.7, Responsividade v0.6, Funcionalidades v0.4,
  * Integração Iniciada v0.5, Contexto Aplicado, Lista Icones v0.1
  * 
 *****************/

@@ -4,7 +4,7 @@ import IconeOlhoGlobal from '../IconeOlhoGlobal/IconeOlhoGlobal'
 import ModalSenhaGlobal from '../ModalSenhaGlobal/ModalSenhaGlobal'
 import { useState } from 'react'
 
-function InputGlobal({type, placeholder, id, register, onChange, onFocus, onBlur, refe, pwd}) {
+function InputGlobal({type, placeholder, id, register, onChange, onFocus, onBlur, refe, pwd, emailWeb}) {
 
   const [password, setPassword] = useState('');
 
@@ -61,13 +61,18 @@ function InputGlobal({type, placeholder, id, register, onChange, onFocus, onBlur
       </div>
 
     </>
-  } if (type == 'email') {
+  } if (type == 'email' && emailWeb) {
     return <>
-      <input className='inputEmailGlobal' type={type} placeholder={placeholder} onChange={(e) => onChange(e.target.value)} onFocus={onFocus} onBlur={onBlur} required /> 
+      <input className='inputEmailGlobalWeb' type={type} placeholder={placeholder} onChange={(e) => onChange(e.target.value)} onFocus={onFocus} onBlur={onBlur} required /> 
+    </>
+  } 
+  if (type == 'email') {
+    return <>
+      <input className='inputEmailGlobal' ref={refe} type={type} placeholder={placeholder} onChange={(e) => onChange(e.target.value)} onFocus={onFocus} onBlur={onBlur} required/> 
     </>
   } else {
     return <>
-      <input className='inputGlobal' ref={refe} type={type} placeholder={placeholder} onChange={(e) => onChange(e.target.value)} onFocus={onFocus} onBlur={onBlur} required/> 
+      <input className='inputGlobal' type={type} placeholder={placeholder} onChange={(e) => onChange(e.target.value)} onFocus={onFocus} onBlur={onBlur} required /> 
     </>
   }
     

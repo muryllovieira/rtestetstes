@@ -42,7 +42,7 @@
 }
 
 .default {
-
+    display: inherit;
 }
 
 .publicarIcone {

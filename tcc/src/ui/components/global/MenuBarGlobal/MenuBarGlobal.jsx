@@ -8,7 +8,7 @@ import { useState } from 'react'
 
 function MenuBarGlobal() {
 
-  const [ menu, setMenu] = useState(true)
+  const [ menu, setMenu] = useState(false)
 
   const handleOpenMenu = () => {
     setMenu(!menu)
@@ -18,7 +18,7 @@ function MenuBarGlobal() {
     return (
       <div className='menuBarGlobal'>
           <div onClick={handleOpenMenu} className='botaoExpandirComprimirAberto'>
-              <IconeMenuBar ></IconeMenuBar>
+              <IconeMenuBar func={handleOpenMenu} aberto={menu} ></IconeMenuBar>
           </div>
   
           <div className='menuBarGlobal__ancorasMenu'>
@@ -68,7 +68,7 @@ function MenuBarGlobal() {
     return (
       <div onClick={handleOpenMenu} className='menuBarGlobalFechado'>
           <div onClick={handleOpenMenu} className='botaoExpandirComprimirFechado'>
-              <IconeMenuBar></IconeMenuBar>
+              <IconeMenuBar  func={handleOpenMenu} aberto={menu} ></IconeMenuBar>
           </div>
   
           <div className='menuBarGlobal__ancorasMenuFechado'>
@@ -104,7 +104,7 @@ function MenuBarGlobal() {
             
           </div>
           
-          <div className='botaoConfiguracoes'>
+          <div className='botaoConfiguracoesFechado'>
               <AncoraMenu
                 troca={true}
                 icon={IconObject.configuracoes}

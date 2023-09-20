@@ -1,26 +1,21 @@
 import React from 'react'
-import { useState } from 'react'
 import IconObject from '../../global/IconesGlobais/iconesGlobais'
 
 
-function IconeMenuBar() {
+function IconeMenuBar({aberto, func}) {
 
-    const [aberto, setAberto] = useState(true)
+  
 
-    const handleIconChange = () => {
-        setAberto(!aberto)
-    }
-
-  if(aberto) {
+  if(!aberto) {
     return (
         <>
-            <i onClick={handleIconChange}>{IconObject.fecharMenu}</i>
+            <i onClick={func}>{IconObject.fecharMenu}</i>
         </>
       )
   } else {
     return (
         <>
-            <i onClick={handleIconChange}>{IconObject.abrirMenu}</i>
+            <i onClick={func}>{IconObject.abrirMenu}</i>
         </>
     )
   }

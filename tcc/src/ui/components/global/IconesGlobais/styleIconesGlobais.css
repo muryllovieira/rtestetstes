@@ -11,3 +11,27 @@
     background: linear-gradient(90deg, var(--primary-color) 0%, var(--secundary-color) 100%);
     border-radius: 5px;
 }
+
+.iconeMenu {
+    cursor: pointer;
+    width: 24px;
+    height: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.iconeConfiguracoesGlobal {
+    color: var(--default-color);
+}
+
+.iconeEditarMeuPerfil {
+    height: 25px;
+    width: 25px;
+}
+
+.iconeLocalizacao {
+    width: 15px;
+    height: 17px;
+}

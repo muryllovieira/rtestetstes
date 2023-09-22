@@ -1,6 +1,6 @@
 import React from 'react'
 import './styleFormularioPersonalizarNome.css'
-import setaDireita from "../../../../pages/registrar/personalizarPerfil/personalizarNome/img/setaDireita.svg"
+import setaDireita from "../../../../pages/registrar/personalizarPerfil/personalizarNome/images/setaDireita.svg"
 import {Link} from "react-router-dom"
 import InputGlobal from '../../global/InputGlobal/InputGlobal'
 

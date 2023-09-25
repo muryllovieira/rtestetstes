@@ -36,3 +36,19 @@
     width: 15px;
     height: 17px;
 }
+
+.iconeSalvarPerfil {
+    cursor: pointer;
+}
+
+.iconeVoltarOuCancelar {
+    cursor: pointer;
+}
+
+.iconeAvancar {
+    cursor: pointer;
+}
+
+.iconeVoltarColorido {
+    cursor: pointer;
+}

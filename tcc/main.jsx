@@ -1,5 +1,5 @@
 /* ***********
- * Autor: Marcelo G
+ * Autor: Marcelo G, Alexssandro S, Mateus A
  * Data Inicio: 04-09-2023
  * Data Fim: X
  * 
@@ -38,7 +38,7 @@ import Configuracoes from './src/pages/menu/menu/configuracoes/Configuracoes.jsx
 import PersonalizarNome from './src/pages/registrar/personalizarPerfil/personalizarNome/PersonalizarNome.jsx'
 import PersonalizarFoto from './src/pages/registrar/personalizarPerfil/personalizarFoto/PersonalizarFoto.jsx'
 import PersonalizarLocalizacao from './src/pages/registrar/personalizarPerfil/personalizarLocalizacao/PersonalizarLocalizacao.jsx'
-
+import PersonalizarTipo from './src/pages/registrar/personalizarPerfil/personalizarTipo/PersonalizarTipo.jsx'
 
 
 import { UserProvider } from './src/data/hooks/context/userContext.jsx'
@@ -73,6 +73,10 @@ const router = createBrowserRouter([
   {
     path: "/personalizar-perfil/personalizar-localizacao",
     element: <PersonalizarLocalizacao />
+  },
+  {
+    path: "/personalizar-perfil/personalizar-tipo",
+    element: <PersonalizarTipo />
   },
   {
     path: "/recuperar-senha",

@@ -5,14 +5,15 @@ import CardUsuarioMeuPerfil from '../../../../ui/components/menu/meuPerfil/CardU
 import BotaoRecomendacao from '../../../../ui/components/menu/meuPerfil/BotaoRecomendacao/BotaoRecomendacao'
 import TagGlobal from '../../../../ui/components/global/TagGlobal/TagGlobal'
 import CardPublicacaoMeuPerfil from '../../../../ui/components/menu/meuPerfil/CardPublicacaoMeuPerfil/CardPublicacaoMeuPerfil'
+import { useState } from 'react'
+import FormularioEditarMeuPerfil from '../../../../ui/components/menu/meuPerfil/FormularioEditarMeuPerfil/FormularioEditarMeuPerfil'
 
 function MeuPerfil() {
+
+  const [ open, setOpen ] = useState(false)
+
   return (
     <>
-     
-
-       
-
         <div className="containerPerfil">
 
           <div className="containerPerfil__containerCardPerfil">
@@ -40,44 +41,56 @@ function MeuPerfil() {
             {/* SVG Absolute */}
 
               <section className='containerCardPerfil__secaoMeuPerfil'>
-                <div className='secaoMeuPerfil__apresentacaoPerfil'>
-                  <h1 className='apresentacaoMeuPerfil__tituloPerfil'>MEU PERFIL</h1>
-                  <i>{IconObject.editarMeuPerfil}</i>
-                </div>
+                {!open ? (
+                    <div>
+                      <div className='secaoMeuPerfil__apresentacaoPerfil'>
+                        <h1 className='apresentacaoMeuPerfil__tituloPerfil'>MEU PERFIL</h1>
+                        <i onClick={() => {
+                          setOpen(!open)
+                    
+                        }} >{IconObject.editarMeuPerfil}</i>
+                      </div>
 
-                <CardUsuarioMeuPerfil></CardUsuarioMeuPerfil>
-              
-                <div className='secaoMeuPerfil__botoesRecomendacao'>
-                  <BotaoRecomendacao
-                    url={'/'}
-                    value={'RECOMENDAÇÕES'}
-                  ></BotaoRecomendacao>
-                  <BotaoRecomendacao
-                    url={'/'}
-                    value={'RECOMENDADOS'}
-                  ></BotaoRecomendacao>
-                </div>
-                
+                      <CardUsuarioMeuPerfil></CardUsuarioMeuPerfil>
+                  
+                      <div className='secaoMeuPerfil__botoesRecomendacao'>
+                        <BotaoRecomendacao
+                          url={'/'}
+                          value={'RECOMENDAÇÕES'}
+                        ></BotaoRecomendacao>
+                        <BotaoRecomendacao
+                          url={'/'}
+                          value={'RECOMENDADOS'}
+                        ></BotaoRecomendacao>
+                      </div>
+                      
 
-                <p className='secaoMeuPerfil__descricaoPerfil'>
-                Lorem Ipsun Lorem Ipsun Lorem Ipsun Lorem Ipsun Lorem Ipsun Lorem Ipsun Lorem Ipsun Lorem Ipsun Lorem Ipsun Lorem Ipsun Lorem Ipsun Lorem Ipsun Lorem Ipsun Lorem Ipsun more...
-                </p>
+                      <p className='secaoMeuPerfil__descricaoPerfil'>
+                       Lorem Ipsun Lorem Ipsun Lorem Ipsun Lorem Ipsun Lorem Ipsun Lorem Ipsun Lorem Ipsun Lorem Ipsun Lorem Ipsun Lorem Ipsun Lorem Ipsun Lorem Ipsun Lorem Ipsun Lorem Ipsun more...
+                      </p>
 
-                <div className="containerPerfil__containerTags">
-                  <TagGlobal
-                    value={'CROCHÊ'}
-                    numero={'100'}
-                  ></TagGlobal>
-                  <TagGlobal
-                    value={'CROCHÊ'}
-                    numero={'100'}
-                  ></TagGlobal>
-                  <TagGlobal
-                    value={'CROCHÊ'}
-                    numero={'100'}
-                  ></TagGlobal>
+                      <div className="containerPerfil__containerTags">
+                        
+                        <TagGlobal
+                          value={'CROCHÊ'}
+                          numero={'100'}
+                        ></TagGlobal>
+                        <TagGlobal
+                          value={'CROCHÊ'}
+                          numero={'100'}
+                        ></TagGlobal>
+                        <TagGlobal
+                          value={'CROCHÊ'}
+                          numero={'100'}
+                        ></TagGlobal>
 
-                </div>
+                      </div>
+                  </div>
+                ) : (
+                  <FormularioEditarMeuPerfil open={() => {
+                    setOpen(!open)
+                  }}></FormularioEditarMeuPerfil>
+                )}
 
               </section>
 
@@ -87,6 +100,11 @@ function MeuPerfil() {
             <CardPublicacaoMeuPerfil></CardPublicacaoMeuPerfil>
             <CardPublicacaoMeuPerfil></CardPublicacaoMeuPerfil>
             <CardPublicacaoMeuPerfil></CardPublicacaoMeuPerfil>
+            <CardPublicacaoMeuPerfil></CardPublicacaoMeuPerfil>
+            <CardPublicacaoMeuPerfil></CardPublicacaoMeuPerfil>
+            <CardPublicacaoMeuPerfil></CardPublicacaoMeuPerfil>
+          
+         
           </div>
 
         </div>

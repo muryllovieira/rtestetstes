@@ -1,0 +1,77 @@
+.containerConversas {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 90vw;
+    height: 90vh;
+    background-color: var(--default-color);
+    box-shadow: var(--default-shadow);
+    position: relative;
+    left: 30px;
+    border-radius: 20px;
+}
+
+.containerConversas__apresentacaoConversas {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: fit-content;
+    padding: 16px;
+    align-content: center;
+}
+
+.containerConversas__apresentacaoConversas p {
+    font-size: 1.5rem;
+    color: var(--contrast-color);
+    font-weight: 600;
+    font-style: normal;
+    text-align: center;
+    height: fit-content;
+}
+
+.apresentacaoConversas__inputPesquisar  {
+    display: flex;
+    height: 50px;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    gap: 16px;
+}
+
+.containerConversas__cardFoto {
+    height: 88px;
+    width: 86px;
+    background-color: var(--secundary-color);
+}
+
+.containerConversas__secaoDeConversas {
+    width: 100%;
+    max-height: 70%;
+    display: flex;
+    padding: 16px;
+    overflow-y: auto;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.secaoConversas__listaConversas {
+    width: 90%;
+    height: fit-content;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 24px 32px;
+    overflow-y: auto;
+    flex-wrap: wrap;
+    padding: 16px;
+}
+
+.tagTeste {
+    width: 300px;
+    height: 59px;
+    border-radius: 10px;
+    background-color: var(--default-color);
+    box-shadow: var(--default-shadow);
+    cursor: pointer;
+}

@@ -3,8 +3,8 @@
  * Data Inicio: 04-09-2023
  * Data Fim: X
  * 
- * Commits: Rotas Definidas v0.4, Estruturação de Diretórios Concluída, 
- * Componentes Iniciados v2.9, Responsividade v0.6, Funcionalidades v0.6,
+ * Commits: Rotas Definidas v0.5, Estruturação de Diretórios Concluída, 
+ * Componentes Iniciados v2.10, Responsividade v0.6, Funcionalidades v0.6,
  * Integração Iniciada v0.5, Contexto Aplicado, Lista Icones v0.3, Conflito v0.2
  * 
 *****************/
@@ -39,6 +39,7 @@ import PersonalizarNome from './src/pages/registrar/personalizarPerfil/personali
 import PersonalizarFoto from './src/pages/registrar/personalizarPerfil/personalizarFoto/PersonalizarFoto.jsx'
 import PersonalizarLocalizacao from './src/pages/registrar/personalizarPerfil/personalizarLocalizacao/PersonalizarLocalizacao.jsx'
 import PersonalizarTipo from './src/pages/registrar/personalizarPerfil/personalizarTipo/PersonalizarTipo.jsx'
+import PersonalizarTags from './src/pages/registrar/personalizarPerfil/personalizarTags/PersonalizarTags.jsx'
 
 
 import { UserProvider } from './src/data/hooks/context/userContext.jsx'
@@ -77,6 +78,10 @@ const router = createBrowserRouter([
   {
     path: "/personalizar-perfil/personalizar-tipo",
     element: <PersonalizarTipo />
+  },
+  {
+    path: "/personalizar-perfil/personalizar-tags",
+    element: <PersonalizarTags />
   },
   {
     path: "/recuperar-senha",

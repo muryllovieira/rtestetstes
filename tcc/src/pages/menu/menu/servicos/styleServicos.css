@@ -78,6 +78,7 @@
     overflow-y: auto;
     align-items: flex-start;
     justify-content: center;
+
 }
 
 .secaoTags__listaTags {
@@ -88,6 +89,7 @@
     gap: 24px 32px;
     overflow-y: auto;
     flex-wrap: wrap;
+    padding: 16px;
 }
 
 .tagTeste {

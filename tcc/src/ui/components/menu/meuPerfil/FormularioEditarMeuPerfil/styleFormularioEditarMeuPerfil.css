@@ -5,6 +5,7 @@
     height: 100%;
     width: 100%;
     z-index: 1000;
+    gap: 8px;
     align-items: center;
     padding: 16px;
     color: var(--contrast-color);
@@ -22,7 +23,11 @@
 
 .containerInputs {
     display: flex;
+    width: 90%;
+    align-items: center;
+    justify-content: center;
     gap: 16px;
+    flex-wrap: wrap;
 }
 
 .containerInputs__inputListaCidades {
@@ -70,4 +75,20 @@
 .formularioAtualizarPerfil__atualizarDescricao {
     display: flex;
     flex-direction: column;
+}
+
+.containerInputs__labelBairroInput {
+    display: flex;
+    flex-direction: column;
+}
+
+.containerInputs__inputListaBairros {
+    width: 118px;
+    height: 40px;
+    border-radius: 10px;
+    background-color: var(--input-color);
+    box-shadow: 0px 4px 20px 0px rgba(65, 57, 70, 0.10);
+    border: inherit;
+    text-align: center;
+    padding: 2px;
 }

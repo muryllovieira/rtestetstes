@@ -75,6 +75,20 @@ function FormularioEditarMeuPerfil({open}) {
                     </datalist>
                 </div>
 
+                <div  className='containerInputs__labelBairroInput'>
+                    <label>
+                        Bairro
+                    </label>
+                    <input className='containerInputs__inputListaBairros' list='district' placeholder='Selecione...'/>
+                    <datalist id='district'>
+                        <option value="Santa Catarina"></option>
+                        <option value="São Paulo"></option>
+                        <option value="Rio De Janeiro"></option>
+                        <option value="Rio Grande Do Sul"></option>
+                        <option value="Rio Grande Do SulAAAAAAAAA"></option>
+                    </datalist>
+                </div>
+
            </div>
 
            <div className='formularioAtualizarPerfil__atualizarDescricao'>

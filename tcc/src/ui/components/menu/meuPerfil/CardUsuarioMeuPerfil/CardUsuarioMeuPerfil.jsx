@@ -4,7 +4,7 @@ import IconObject from '../../../global/IconesGlobais/iconesGlobais'
 import FundoImagemPerfil from '../../../../../pages/menu/menu/perfil/images/fundoImagemPerfil.svg'
 import UsuarioImagemPerfil from '../../../../../pages/menu/menu/perfil/images/usuarioImagemPerfil.svg'
 
-function CardUsuarioMeuPerfil() {
+function CardUsuarioMeuPerfil({img, nomePerfil, tagPerfil, localicaoPerfil}) {
   return (
     <>
     
@@ -17,13 +17,13 @@ function CardUsuarioMeuPerfil() {
 
           <div className='cardUsuarioMeuPerfil__informacoesMeuPerfil'>
 
-            <h2 className='informacoesMeuPerfil__nomePerfil'>Beltrano dos Santos Silva</h2>
+            <h2 className='informacoesMeuPerfil__nomePerfil'>{nomePerfil}</h2>
 
-            <span className='informacoesMeuPerfil__tagPerfil'>@BELTRANO_GOD</span>
+            <span className='informacoesMeuPerfil__tagPerfil'>@{tagPerfil}</span>
 
             <span className='informacoesMeuPerfil__localizacaoPerfil'>
               <i>{IconObject.localizacaoMeuPerfil}</i>
-              Jandira,SP
+              {localicaoPerfil}
             </span>
             
           </div>

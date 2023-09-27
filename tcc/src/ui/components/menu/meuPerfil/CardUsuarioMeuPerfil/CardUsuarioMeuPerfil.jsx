@@ -12,7 +12,7 @@ function CardUsuarioMeuPerfil({img, nomePerfil, tagPerfil, localicaoPerfil}) {
 
           <div className='cardUsuarioMeuPerfil__imagensPerfil'>
               <img className='imagensPerfil__fotoFundo' src={FundoImagemPerfil} alt="" />
-              <img className='imagensPerfil__fotoUsuario' src={UsuarioImagemPerfil} alt="" />
+              <img className='imagensPerfil__fotoUsuario' src={img} alt="" />
           </div>
 
           <div className='cardUsuarioMeuPerfil__informacoesMeuPerfil'>
@@ -32,6 +32,13 @@ function CardUsuarioMeuPerfil({img, nomePerfil, tagPerfil, localicaoPerfil}) {
 
     </>
   )
+}
+
+CardUsuarioMeuPerfil.defaultProps = {
+  img: null,
+  nomePerfil: 'No Content',
+  tagPerfil: 'No Content',
+  localicaoPerfil: 'No Content'
 }
 
 export default CardUsuarioMeuPerfil

@@ -1,7 +1,7 @@
 import React from 'react'
 import './styleTagGlobal.css'
 
-function TagGlobal({value,numero}) {
+function TagGlobal({id, value,numero}) {
   return (
     <> 
 

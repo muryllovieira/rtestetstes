@@ -2,13 +2,13 @@ import React from 'react'
 import './styleInputGlobal.css'
 import IconeOlhoGlobal from '../IconeOlhoGlobal/IconeOlhoGlobal'
 import ModalSenhaGlobal from '../ModalSenhaGlobal/ModalSenhaGlobal'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
-function InputGlobal({type, placeholder, id, register, onChange, onFocus, onBlur, refe, pwd, emailWeb, descriptionWeb}) {
+function InputGlobal({type, placeholder, id, register, onChange, onFocus, onBlur, refe, pwd, emailWeb, descriptionWeb, valueperfil}) {
 
   const [password, setPassword] = useState('');
 
-  const [open, setOpen] = useState()
+  const [open, setOpen] = useState()  
 
   const [errors, setErrors] = useState({
     minValueValidation: false,
@@ -61,6 +61,12 @@ function InputGlobal({type, placeholder, id, register, onChange, onFocus, onBlur
       </div>
 
     </>
+  } if (type == 'text' && valueperfil) {
+
+    return <>
+      <input className='inputGlobal' ref={refe} type={type} placeholder={placeholder} onChange={(e) => onChange(e.target.value)} onFocus={onFocus} onBlur={onBlur} value={valueperfil} required/> 
+    </>
+  
   } if (type == 'email' && descriptionWeb) {
     return <>
       <input className='inputDescriptionGlobalWeb' type={type} placeholder={placeholder} onChange={(e) => onChange(e.target.value)} onFocus={onFocus} onBlur={onBlur} required /> 
@@ -69,15 +75,18 @@ function InputGlobal({type, placeholder, id, register, onChange, onFocus, onBlur
     return <>
       <input className='inputEmailGlobalWeb' type={type} placeholder={placeholder} onChange={(e) => onChange(e.target.value)} onFocus={onFocus} onBlur={onBlur} required /> 
     </>
-  } 
-  if (type == 'email') {
+  } if (type == 'email') {
+
     return <>
-      <input className='inputEmailGlobal' ref={refe} type={type} placeholder={placeholder} onChange={(e) => onChange(e.target.value)} onFocus={onFocus} onBlur={onBlur} required/> 
+    <input className='inputEmailGlobal' ref={refe} type={type} placeholder={placeholder} onChange={(e) => onChange(e.target.value)} onFocus={onFocus} onBlur={onBlur} required/> 
     </>
+
   } else {
+
     return <>
       <input className='inputGlobal' type={type} placeholder={placeholder} onChange={(e) => onChange(e.target.value)} onFocus={onFocus} onBlur={onBlur} required /> 
     </>
+
   }
     
 }

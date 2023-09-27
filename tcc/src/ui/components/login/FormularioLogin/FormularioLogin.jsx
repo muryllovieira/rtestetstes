@@ -14,7 +14,7 @@ import UserContext, { UserProvider } from '../../../../data/hooks/context/userCo
 
 function FormularioLogin () {
 
-  const { setAccessToken } = useContext(UserContext)
+  const { setAccessToken, setId } = useContext(UserContext)
 
   const navigate = useNavigate()
 
@@ -45,8 +45,10 @@ function FormularioLogin () {
    
       
       const accessToken = response.data.token
+      const idToken = response.data.login.id
 
       setAccessToken({ email, senha, accessToken})
+      setId({idToken})
 
       navigate("/menu/explorar")
       

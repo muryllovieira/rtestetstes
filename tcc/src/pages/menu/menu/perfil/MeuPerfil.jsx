@@ -5,12 +5,54 @@ import CardUsuarioMeuPerfil from '../../../../ui/components/menu/meuPerfil/CardU
 import BotaoRecomendacao from '../../../../ui/components/menu/meuPerfil/BotaoRecomendacao/BotaoRecomendacao'
 import TagGlobal from '../../../../ui/components/global/TagGlobal/TagGlobal'
 import CardPublicacaoMeuPerfil from '../../../../ui/components/menu/meuPerfil/CardPublicacaoMeuPerfil/CardPublicacaoMeuPerfil'
-import { useState } from 'react'
+import { useState, useContext, useEffect } from 'react'
 import FormularioEditarMeuPerfil from '../../../../ui/components/menu/meuPerfil/FormularioEditarMeuPerfil/FormularioEditarMeuPerfil'
+import blogFetch from '../../../../data/services/api/ApiService'
+import UserContext from '../../../../data/hooks/context/userContext'
 
 function MeuPerfil() {
 
+
+
   const [ open, setOpen ] = useState(false)
+
+  const { accessToken } = useContext(UserContext)
+  const { id } = useContext(UserContext)
+
+  const [ user, setUser ] = useState(null)
+
+  useEffect(()  => {
+    async function pegarUsuario() {
+      if (accessToken != null && id != null) {
+
+        try {
+          const response = await blogFetch.get(`/usuario/meu_perfil/${id.idToken}`, {
+            headers: {
+              'x-access-token' : accessToken.accessToken
+            }
+          })
+    
+          setUser(response.data)
+          console.log(response.data)
+    
+        } catch (error) {
+          console.log('erro')
+        }
+    
+    }}
+
+    pegarUsuario()
+  }, [])
+ 
+  console.log(user)
+  console.log(id)
+  console.log(accessToken)
+
+
+  
+
+  
+
 
   return (
     <>
@@ -51,7 +93,11 @@ function MeuPerfil() {
                             }} >{IconObject.editarMeuPerfil}</i>
                           </div>
 
-                          <CardUsuarioMeuPerfil></CardUsuarioMeuPerfil>
+                          <CardUsuarioMeuPerfil
+                            nomePerfil={user.usuario.nome}
+                            tagPerfil={user.usuario.nome_de_usuario}
+                            localicaoPerfil={`${user.usuario.cidade},${user.usuario.estado}`}
+                          ></CardUsuarioMeuPerfil>
                     
                           <div className='secaoMeuPerfil__botoesRecomendacao'>
                             <BotaoRecomendacao
@@ -66,23 +112,38 @@ function MeuPerfil() {
                         
 
                           <p className='secaoMeuPerfil__descricaoPerfil'>
-                          Lorem Ipsun Lorem Ipsun Lorem Ipsun Lorem Ipsun Lorem Ipsun Lorem Ipsun Lorem Ipsun Lorem Ipsun Lorem Ipsun Lorem Ipsun Lorem Ipsun Lorem Ipsun Lorem Ipsun Lorem Ipsun more...
+                            {user.usuario.descricao}
                           </p>
 
                           <div className="containerPerfil__containerTags">
                             
                             <TagGlobal
-                              value={'CROCHÊ'}
-                              numero={'100'}
+                              key={user.usuario.tags[0].id_tag}
+                              id={user.usuario.tags[0].id_tag}
+                              value={user.usuario.tags[0].nome_tag}
                             ></TagGlobal>
                             <TagGlobal
-                              value={'CROCHÊ'}
-                              numero={'100'}
+                              key={user.usuario.tags[1].id_tag}
+                              id={user.usuario.tags[1].id_tag}
+                              value={user.usuario.tags[1].nome_tag}
                             ></TagGlobal>
                             <TagGlobal
-                              value={'CROCHÊ'}
-                              numero={'100'}
+                              key={user.usuario.tags[8].id_tag}
+                              id={user.usuario.tags[8].id_tag}
+                              value={user.usuario.tags[8].nome_tag}
                             ></TagGlobal>
+
+                             {/* {
+                              user.usuario.tags.map((tag, index) => 
+                                 {if (index < 3) {
+                                    <TagGlobal
+                                    id={tag.id_tag}
+                                    value={tag.nome_tag}
+                                    numero={'100'}
+                                  ></TagGlobal>
+                                 }}
+                              )
+                            }  */}
 
                           </div>
                      

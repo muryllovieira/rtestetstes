@@ -1,0 +1,29 @@
+header {
+    padding: 16px;
+}
+
+.linkHome__logoHome {
+    display: flex;
+    align-items: center;
+    padding: 16px;
+}
+
+.logoHome {
+    height: 100px;
+    width: 100px;
+}
+
+.tituloHome {
+    color: var(--default-color);
+    font-weight: normal;
+}
+
+@media (max-width:600px) {
+    header {
+        padding: 0;
+    }
+
+    .linkHome__logoHome {
+        padding: 8px;
+    }
+}

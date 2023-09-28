@@ -1,0 +1,35 @@
+.formularioPersonalizarFoto{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 992px;
+    height: 570px;
+}
+
+.formularioPersonalizarFoto__header{
+    width: 95%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 1.5vh;
+}
+
+.formularioPersonalizarFoto__main{
+    display: flex;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.formularioPersonalizarFoto__footer{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: end;
+    width: 85%;
+    padding-bottom: 35px;
+}
+

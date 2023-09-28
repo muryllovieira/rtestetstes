@@ -1,0 +1,10 @@
+.formularioTrocaDeSenha {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+}
+
+.formularioTrocaDeSenha__labelFormulario {
+    width: 80%;
+}

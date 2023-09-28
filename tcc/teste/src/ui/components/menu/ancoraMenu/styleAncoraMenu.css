@@ -1,0 +1,70 @@
+.link {
+    font-weight: 700;
+    font-family: 'Kufam';
+    font-size: 1rem;
+    background: linear-gradient(90deg, var(--primary-color) 0%, var(--secundary-color) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: flex;
+    position: relative;
+    overflow: hidden;
+    text-decoration: none;
+    letter-spacing: 0.8px;
+    border-radius: 8px;
+    gap: 16px;
+    align-items: center;
+    height: 35px;
+}
+
+.link::after {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    right: 0px;
+    width: 0;
+    bottom: -6px;
+    background: linear-gradient(90deg, var(--primary-color) 0%, var(--secundary-color) 100%);
+    height: 8px;
+    transition-property: width;
+    transition-duration: 0.3s;
+    transition-timing-function: ease-out;
+}
+
+.link:hover::after,
+.link:active::after, 
+.link:focus::after {
+    left: 0;
+    right: auto;
+    width: 100%;
+
+}
+
+.ancoraMenu {
+    display: flex;
+    gap: 16px;
+    cursor: pointer;
+}
+
+.default {
+    display: inherit;
+}
+
+.publicarIcone {
+    display: grid;
+    align-content: center;
+    justify-content: center;
+    border-radius: 5px;
+    background: linear-gradient(90deg, var(--primary-color) 0%, var(--secundary-color) 100%);
+    height: 28px;
+    width: 28px;
+}
+
+.linkConfig {
+    display: flex;
+    width: 180px;
+    height: 40px;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    flex-direction: row-reverse;
+}

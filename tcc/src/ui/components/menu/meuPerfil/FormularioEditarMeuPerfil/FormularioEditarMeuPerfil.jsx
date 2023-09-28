@@ -6,8 +6,11 @@ import UsuarioFotoEditar from '../../../../../pages/menu/menu/perfil/images/usua
 import { useState, useContext, useEffect } from 'react'
 import blogFetch from '../../../../../data/services/api/ApiService'
 import UserContext from '../../../../../data/hooks/context/userContext'
+import { useNavigate } from 'react-router-dom'
 
-function FormularioEditarMeuPerfil({open, nomePerfil, tagPerfil, cidadePerfil, estadoPerfil, bairroPerfil, descricaoPerfil}) {
+function FormularioEditarMeuPerfil({open, nomePerfil, tagPerfil, cidadePerfil, estadoPerfil, bairroPerfil, descricaoPerfil, tagsPerfil, idLocalizacao, reloadUser}) {
+
+    const navigate = useNavigate()
 
     const { accessToken } = useContext(UserContext)
     const { id } = useContext(UserContext)
@@ -18,26 +21,57 @@ function FormularioEditarMeuPerfil({open, nomePerfil, tagPerfil, cidadePerfil, e
     const [descricao, setDescricao] = useState(descricaoPerfil)
     const [nome, setNome] = useState(nomePerfil)
     const [tagPerfilEditado, setTagPerfil] = useState(tagPerfil)
+    const [tags, setTagsPerfil] = useState(tagsPerfil)
+    const [localizacao, setLocalizacao] = useState(idLocalizacao)
+
+    const formatarTags = () => {
+
+        const tagEditada = []
+
+        tags.map((tag) => {
+            const dadosTag = {
+                id_tag: tag.id_tag,
+                nome: tag.nome_tag
+            }
+
+            tagEditada.push(dadosTag)
+        })
+
+        return tagEditada
+    
+    }
 
     const salvarNovosDadosPerfil = async () => {
+
+        const tag = formatarTags()
+
         try {
-            const response = await blogFetch.put('/usuario/editar_perfil', {
-                headers: {
-                    'x-access-token' : accessToken.accessToken
-                },
-                id_usuario: id,
-                id_localizacao: 0,
+            const response = await blogFetch.put('/usuario/editar_perfil',{
+                id_usuario: id.idToken,
+                id_localizacao: localizacao,
                 bairro: bairro,
                 cidade: cidade,
                 estado: estado,
                 nome: nome,
                 descricao: descricao,
-                foto: null,
+                foto: 'ataa.png',
                 nome_de_usuario: tagPerfilEditado,
-                tags: null
-            })
+                tags: tag
+            },{
+                headers: {
+                    'x-access-token' : accessToken.accessToken
+                }
+            } )
+
+            console.log(response)
+            reloadUser()
+            navigate('/menu/explorar')
+
         } catch (error) {
-            
+            console.log(error)
+          console.log(error.config.data)
+
+            console.log('erro')
         }
     }
 
@@ -68,7 +102,7 @@ function FormularioEditarMeuPerfil({open, nomePerfil, tagPerfil, cidadePerfil, e
                     placeholder={'Atualize seu nome'}
                     type={'text'}
                     onChange={setNome}
-                    valueperfil={nomePerfil}
+                    valueperfil={nome}
                 ></InputGlobal>
             </div>
 
@@ -80,7 +114,7 @@ function FormularioEditarMeuPerfil({open, nomePerfil, tagPerfil, cidadePerfil, e
                     placeholder={'Atualize sua tag de usuário'}
                     type={'text'}
                     onChange={setTagPerfil}
-                    valueperfil={tagPerfil}
+                    valueperfil={tagPerfilEditado}
                 ></InputGlobal>
            </div>
 

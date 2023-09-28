@@ -135,11 +135,17 @@ function MeuPerfil() {
                                     id={user.usuario.tags[1].id_tag}
                                     value={user.usuario.tags[1].nome_tag}
                                   ></TagGlobal>
-                                  <TagGlobal
-                                    key={user.usuario.tags[8].id_tag}
-                                    id={user.usuario.tags[8].id_tag}
-                                    value={user.usuario.tags[8].nome_tag}
-                                  ></TagGlobal>
+                                  {
+                                   user.usuario.tags[2] === undefined ? (
+                                    <></>
+                                  ) : (
+                                    <TagGlobal
+                                      key={user.usuario.tags[2].id_tag}
+                                      id={user.usuario.tags[2].id_tag}
+                                      value={user.usuario.tags[2].nome_tag}
+                                    ></TagGlobal>
+                                  ) 
+                                  }
                                 </div>
                               )
                             }
@@ -195,13 +201,15 @@ function MeuPerfil() {
                           <FormularioEditarMeuPerfil open={() => {
                             setOpen(!open)
                           }}
-                            
+                            reloadUser={pegarUsuario}
                             nomePerfil={user.usuario.nome}
                             tagPerfil={user.usuario.nome_de_usuario}
                             cidadePerfil={user.usuario.cidade}
                             bairroPerfil={user.usuario.bairro}
                             estadoPerfil={user.usuario.estado}
                             descricaoPerfil={user.usuario.descricao}
+                            tagsPerfil={user.usuario.tags}
+                            idLocalizacao={user.usuario.id_localizacao}
                           ></FormularioEditarMeuPerfil>
 
                         )

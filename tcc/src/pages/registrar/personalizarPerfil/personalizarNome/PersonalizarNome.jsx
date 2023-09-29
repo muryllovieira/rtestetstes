@@ -1,8 +1,18 @@
 import React from 'react'
 import './stylePersonalizarNome.css'
 import FormularioPersonalizarNome from '../../../../ui/components/personalizarPerfil/FormularioPersonalizarNome/FormularioPersonalizarNome'
+import { useState } from 'react'
 
-function PersonalizarNome() {
+function PersonalizarNome({idUser}) {
+
+
+  const userData = {
+    id: idUser,
+    nome: '',
+    foto: '',
+    descricao: ''
+  }
+
   return (
     <>
         {/* SVG Absolute */}
@@ -12,7 +22,9 @@ function PersonalizarNome() {
         <div className="containerPersonalizarNome">
 
             <div className="containerPersonalizarNome__formularioPersonalizarNome">
-                <FormularioPersonalizarNome></FormularioPersonalizarNome>
+                <FormularioPersonalizarNome
+                  userData={userData}
+                ></FormularioPersonalizarNome>
             </div>
 
         </div>

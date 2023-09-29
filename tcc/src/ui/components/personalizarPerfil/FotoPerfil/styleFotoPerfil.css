@@ -1,19 +1,23 @@
-.picture__input{
+#picture__input{
     display: none;
 }
 
 .picture{
-    width: 140px;
-    height: 140px;
-    background: #ccc;
+    width: 150px;
+    height: 150px;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    border: 2px dashed #aaa;
     cursor: pointer;
     border-radius: 50%;
+    background-image: url("../../../../pages/registrar/personalizarPerfil/personalizarFoto/images/fotoDePerfil.svg");
 }
 
 .picture__img{
-    max-width: 100%;
+    width: 148px;
+    height: 148px;
+    cursor: pointer;
+    border: 3px solid var(--secundary-color);
+    border-radius: 50%;
 }

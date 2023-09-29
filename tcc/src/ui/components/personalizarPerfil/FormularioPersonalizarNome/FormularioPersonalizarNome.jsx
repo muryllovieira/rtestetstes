@@ -1,21 +1,13 @@
-import React, { useRef, useEffect } from 'react'
+import React, { useContext } from 'react'
 import './styleFormularioPersonalizarNome.css'
 import setaDireita from "../../../../pages/registrar/personalizarPerfil/personalizarNome/images/setaDireita.svg"
 import {Link} from "react-router-dom"
 import InputGlobal from '../../global/InputGlobal/InputGlobal'
-import blogFetch from '../../../../data/services/api/ApiService'
-import { useState} from 'react'
-import { useNavigate } from 'react-router-dom'
+import UserContext from '../../../../data/hooks/context/UserContext'
 
-function FormularioPersonalizarNome({userData}) {
+function FormularioPersonalizarNome({}) {
 
-  const [nomeUser, setNomeUser] = useState(userData.nome)
-
-  useEffect(() => {
-      userData.nome = nomeUser
-  }, [nomeUser])
-
-  
+  const { nome ,setNome } = useContext(UserContext)
 
   return (
 
@@ -39,7 +31,7 @@ function FormularioPersonalizarNome({userData}) {
           type = {'email'}
           emailWeb = {true}
           placeholder = {'Digite seu nome'}
-          onChange={setNomeUser}
+           onChange={setNome}
         ></InputGlobal>
         </div>
       </div>

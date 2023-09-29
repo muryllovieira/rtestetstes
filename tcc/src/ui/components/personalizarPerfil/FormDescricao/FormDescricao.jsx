@@ -1,18 +1,18 @@
 import React, { useState } from 'react'
 import './styleFormDescricao.css'
 
-const formDescricao = () => {
+const formDescricao = ({onChange}) => {
 
 const [textarea, setTextArea] = useState()
 
 const handleChange = (e) => {
-    setTextArea(e.target.value)
+  
 }
 
   return (
     <>
         <form>
-            <textarea className='formulario' value={textarea} onChange={handleChange}></textarea>
+            <textarea className='formulario' value={textarea} onChange={(e) => onChange(e.target.value)}></textarea>
         </form>
     </>
   )

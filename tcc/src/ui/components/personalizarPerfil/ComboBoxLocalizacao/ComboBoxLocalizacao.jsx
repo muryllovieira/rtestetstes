@@ -1,13 +1,17 @@
-import React, { useState } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import "./styleComboBoxLocalizacao.css"
+import UserContext from '../../../../data/hooks/context/UserContext'
 
-const ComboBoxLocalizacao = () => {
+const ComboBoxLocalizacao = ({onChange}) => {
 
+  const { estado, setEstado } = useState(UserContext)
+  const { cidade, setCidade } = useState(UserContext)
+  const { bairro, setBairro } = useContext(UserContext)
 
   return (
-    <div className='comboBoxContainer'>
+    <div className='comboBoxContainer' >
 
-        <div className='comboBox'>
+        <div className='comboBox' onChange={setEstado}>
             <p className='text'>Estados:</p>
             <input className='inputList' list='states' placeholder='Selecione um Estado'/>
             <datalist id='states'>
@@ -18,7 +22,7 @@ const ComboBoxLocalizacao = () => {
         </div>
         
 
-        <div className='comboBox'>
+        <div className='comboBox' onChange={setCidade}>
             <p className='text'>Cidades:</p>
             <input className='inputList' list='cities' placeholder='Selecione uma Cidade'/>
             <datalist id='cities'>
@@ -29,7 +33,7 @@ const ComboBoxLocalizacao = () => {
         </div>
         
 
-        <div className='comboBox'>
+        <div className='comboBox' onChange={setBairro}>
             <p className='text'>Bairros:</p>
             <input className='inputList' list='bairros' placeholder='Selecione um Bairro'/>
             <datalist id='bairros'>

@@ -1,18 +1,21 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import './styleCardUsuarioMeuPerfil.css'
 import IconObject from '../../../global/IconesGlobais/iconesGlobais'
 import FundoImagemPerfil from '../../../../../pages/menu/menu/perfil/images/fundoImagemPerfil.svg'
-import UsuarioImagemPerfil from '../../../../../pages/menu/menu/perfil/images/usuarioImagemPerfil.svg'
 
-function CardUsuarioMeuPerfil({img, nomePerfil, tagPerfil, localicaoPerfil}) {
+function CardUsuarioMeuPerfil({ nomePerfil, tagPerfil, localicaoPerfil, fotoPerfil}) {
+
+  const [image, setImage] = useState('https://worldapheresis.org/wp-content/uploads/2022/04/360_F_339459697_XAFacNQmwnvJRqe1Fe9VOptPWMUxlZP8.jpeg')
+  
+
   return (
     <>
     
       <div className='cardUsuarioMeuPerfil'>
 
           <div className='cardUsuarioMeuPerfil__imagensPerfil'>
-              <img className='imagensPerfil__fotoFundo' src={FundoImagemPerfil} alt="" />
-              <img className='imagensPerfil__fotoUsuario' src={img} alt="" />
+            <img src={FundoImagemPerfil} className='imagensPerfil__fotoFundo' />
+              <img className='imagensPerfil__fotoUsuario' src={image ? fotoPerfil : image} alt="" />
           </div>
 
           <div className='cardUsuarioMeuPerfil__informacoesMeuPerfil'>
@@ -35,7 +38,7 @@ function CardUsuarioMeuPerfil({img, nomePerfil, tagPerfil, localicaoPerfil}) {
 }
 
 CardUsuarioMeuPerfil.defaultProps = {
-  img: null,
+  fotoPerfil: null,
   nomePerfil: 'No Content',
   tagPerfil: 'No Content',
   localicaoPerfil: 'No Content'

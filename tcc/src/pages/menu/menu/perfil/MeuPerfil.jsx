@@ -44,6 +44,22 @@ function MeuPerfil() {
   useEffect(()  => {
     pegarUsuario()
   }, [])
+  
+  const [images, setImage] = useState([])
+  const [imageURL, setImageURL] = useState([])
+
+  useEffect(() => {
+    if (images.length < 1) return
+
+    const newImageUrl = []
+    images.forEach(image => newImageUrl.push(URL.createObjectURL(image)))
+    setImageURL(newImageUrl)
+
+  }, [images])
+
+  function onImageChange(e) {
+    setImage([...e.target.files])
+  }
  
   return (
     <>
@@ -92,6 +108,7 @@ function MeuPerfil() {
                                 nomePerfil={user.usuario.nome}
                                 tagPerfil={user.usuario.nome_de_usuario}
                                 localicaoPerfil={`${user.usuario.cidade},${user.usuario.estado}`}
+                                fotoPerfil={user.usuario.foto}
                               ></CardUsuarioMeuPerfil>
                             )
                           }
@@ -222,11 +239,7 @@ function MeuPerfil() {
 
           <div className="containerPerfil__containerPublicacoes">
               <CardPublicacaoMeuPerfil></CardPublicacaoMeuPerfil>
-              <CardPublicacaoMeuPerfil></CardPublicacaoMeuPerfil>
-              <CardPublicacaoMeuPerfil></CardPublicacaoMeuPerfil>
-              <CardPublicacaoMeuPerfil></CardPublicacaoMeuPerfil>
-              <CardPublicacaoMeuPerfil></CardPublicacaoMeuPerfil>
-              <CardPublicacaoMeuPerfil></CardPublicacaoMeuPerfil>
+          
           </div>
 
         </div>

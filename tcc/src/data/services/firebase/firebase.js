@@ -1,18 +1,21 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.13.0/firebase-app.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
+import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-analytics.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBN6kBf-_y_Zy4fzG_f7_BbDQ5BPeoehKg",
-  authDomain: "teste-imagens-67c78.firebaseapp.com",
-  projectId: "teste-imagens-67c78",
-  storageBucket: "teste-imagens-67c78.appspot.com",
-  messagingSenderId: "206172228910",
-  appId: "1:206172228910:web:bc7275ba67d56728f93ebf"
+  apiKey: "AIzaSyBaIcWfJhSYAl712qphCxgHHq5k7WzixdU",
+  authDomain: "costurie-images.firebaseapp.com",
+  projectId: "costurie-images",
+  storageBucket: "costurie-images.appspot.com",
+  messagingSenderId: "457549159938",
+  appId: "1:457549159938:web:8d5f5d9c56c4fbe96bd11b",
+  measurementId: "G-P8X0BNN994"
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
 
-import { getStorage, ref, uploadBytes, getDownloadURL  } from "https://www.gstatic.com/firebasejs/9.13.0/firebase-storage.js"
+import { getStorage, ref, uploadBytes, getDownloadURL  } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-storage.js"
 
 const uploadImage =  async (image, name) => {
     const storage = getStorage(app);

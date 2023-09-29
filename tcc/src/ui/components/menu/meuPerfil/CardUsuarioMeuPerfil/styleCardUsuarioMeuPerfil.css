@@ -42,6 +42,7 @@
     width: 86px;
     height: 88px;
     position: absolute;
+    border-radius: 10px;
 }
 
 .informacoesMeuPerfil__tagPerfil {

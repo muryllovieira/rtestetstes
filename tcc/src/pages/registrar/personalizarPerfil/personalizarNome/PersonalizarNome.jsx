@@ -1,17 +1,13 @@
 import React from 'react'
 import './stylePersonalizarNome.css'
 import FormularioPersonalizarNome from '../../../../ui/components/personalizarPerfil/FormularioPersonalizarNome/FormularioPersonalizarNome'
-import { useState } from 'react'
+import { useState, useContext } from 'react'
+import UserContext from '../../../../data/hooks/context/UserContext'
 
-function PersonalizarNome({idUser}) {
+
+function PersonalizarNome() {
 
 
-  const userData = {
-    id: idUser,
-    nome: '',
-    foto: '',
-    descricao: ''
-  }
 
   return (
     <>
@@ -23,7 +19,7 @@ function PersonalizarNome({idUser}) {
 
             <div className="containerPersonalizarNome__formularioPersonalizarNome">
                 <FormularioPersonalizarNome
-                  userData={userData}
+                 
                 ></FormularioPersonalizarNome>
             </div>
 

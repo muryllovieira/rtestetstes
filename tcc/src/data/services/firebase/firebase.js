@@ -20,7 +20,7 @@ import { getStorage, ref, uploadBytes, getDownloadURL  } from "https://www.gstat
 const uploadImage =  async (image, name) => {
     const storage = getStorage(app);
     // const storageRef = ref(storage);
-    const mountainsRef = ref(storage, `img/${name}.jpg`);
+    const mountainsRef = ref(storage, `img/${name}`);
     
     // uploadBytes(mountainsRef, image).then( (snapshot) => {
     //     getDownloadURL(mountainsRef).then ( (url) => url)

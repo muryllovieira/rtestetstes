@@ -45,21 +45,7 @@ function MeuPerfil() {
     pegarUsuario()
   }, [])
   
-  const [images, setImage] = useState([])
-  const [imageURL, setImageURL] = useState([])
 
-  useEffect(() => {
-    if (images.length < 1) return
-
-    const newImageUrl = []
-    images.forEach(image => newImageUrl.push(URL.createObjectURL(image)))
-    setImageURL(newImageUrl)
-
-  }, [images])
-
-  function onImageChange(e) {
-    setImage([...e.target.files])
-  }
  
   return (
     <>
@@ -227,6 +213,7 @@ function MeuPerfil() {
                             descricaoPerfil={user.usuario.descricao}
                             tagsPerfil={user.usuario.tags}
                             idLocalizacao={user.usuario.id_localizacao}
+                            imgPerfil={user.usuario.foto}
                           ></FormularioEditarMeuPerfil>
 
                         )

@@ -27,7 +27,7 @@
     position: relative;
     width: 124px;
     height: 100px;
-
+    
 }
 
 .imagensPerfil__fotoFundo {
@@ -43,6 +43,7 @@
     height: 88px;
     position: absolute;
     border-radius: 10px;
+    object-fit: cover;
 }
 
 .informacoesMeuPerfil__tagPerfil {

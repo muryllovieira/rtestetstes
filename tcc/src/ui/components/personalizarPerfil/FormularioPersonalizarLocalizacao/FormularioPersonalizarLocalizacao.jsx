@@ -6,31 +6,69 @@ import {Link} from "react-router-dom"
 import ComboBoxLocalizacao from '../ComboBoxLocalizacao/ComboBoxLocalizacao'
 import BotaoAncora from '../../global/BotaoAncoraGlobal/BotaoAncoraGlobal'
 import UserContext from '../../../../data/hooks/context/UserContext'
+import blogFetch from '../../../../data/services/api/ApiService'
 
 const FormularioPersonalizarLocalizacao = ({}) => {
+
+  const { userLocation } = useContext(UserContext)
+  const { accessToken } = useContext(UserContext)
+
+  const enviarLocalizacao = async () => {
+
+    try {
+
+      const response = await blogFetch.post('/usuario/inserir_localizacao',{
+        id_usuario: userLocation.id_usuario,
+        estado: userLocation.estado,
+        cidade: userLocation.cidade,
+        bairro: userLocation.bairro
+        
+      },{
+          headers: {
+              'x-access-token' : accessToken.accessToken
+          }
+      })
+
+      console.log(response)
+
+    } catch (error) {
+      console.log(error)
+    }
+
+  }
 
   return (
     <form className='formularioPersonalizarLocalizacao' action="">
 
       <div className='formularioPersonalizarLocalizacao__header'>
-          <Link>
+
+          <Link to={"/personalizar-perfil/personalizar-foto"}>
               <img src={setaEsquerda} alt="/personalizar-perfil/personalizar-nome" />
           </Link>
-          <Link>
-            <img src={setaDireita} alt="/personalizar-perfil/personalizar-localizacao" />
-          </Link>
+
+          <i onClick={enviarLocalizacao}>
+           <img src={setaDireita} alt="/personalizar-perfil/personalizar-localizacao" />
+          </i>
+            
       </div>
 
       <div className='formularioPersonalizarLocalizacao__main'>
+
           <h1>LOCALIZAÇÃO</h1>
+
           <p className='subtitulo'>Selecione seu estado, sua cidade e seu bairro para uma melhor experiência</p>
+          
           <ComboBoxLocalizacao></ComboBoxLocalizacao>
+      
       </div>
 
       <div className='formularioPersonalizarFoto__footer'>
+
        <BotaoAncora
+        url={'/personalizar-perfil/personalizar-tipo'}
         titulo={"Pular"}
        ></BotaoAncora>
+
       </div>
 
     </form>

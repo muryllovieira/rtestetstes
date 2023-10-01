@@ -4,9 +4,10 @@ import InputGlobal from '../../global/InputGlobal/InputGlobal'
 import BotaoFormularioGlobal from '../../global/BotaoFormularioGlobal/BotaoFormularioGlobal'
 import BotaoAncoraGlobal from '../../global/BotaoAncoraGlobal/BotaoAncoraGlobal'
 import BotaoRegistrarGoogle from '../BotaoRegistrarGoogle/BotaoRegistrarGoogle'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import blogFetch from '../../../../data/services/api/ApiService'
+import UserContext from '../../../../data/hooks/context/UserContext'
 
 const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{3,23}$/
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/
@@ -34,6 +35,10 @@ function FormularioRegistrar() {
   const [matchFocus, setMatchFocus] = useState(false)
 
   const [errMsg, setErrMsg] = useState()
+
+  const { accessToken, setAccessToken } = useContext(UserContext)
+
+  const { id, setId } = useContext(UserContext)
 
 
  
@@ -133,15 +138,19 @@ function FormularioRegistrar() {
           }
         )
 
+        
+        const idUsuario = response.data.aluno.id_usuario
+        console.log(idUsuario)
+
+        setAccessToken(response.data.token)
+        setId(idUsuario)
+
         setEmail('')
         setPwd('')
         setUser('')
         setMatchPwd('')
 
-        console.log(response.data)
-        console.log(response.status)
-
-        navigate("/menu/explorar")
+        navigate("/personalizar-perfil/personalizar-nome")
       } catch (erro) {
 
         if (!erro.response) {

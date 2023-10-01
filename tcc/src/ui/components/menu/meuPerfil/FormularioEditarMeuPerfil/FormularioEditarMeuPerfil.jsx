@@ -2,13 +2,17 @@ import React from 'react'
 import './styleFormularioEditarMeuPerfil.css'
 import IconObject from '../../../global/IconesGlobais/iconesGlobais'
 import InputGlobal from '../../../global/InputGlobal/InputGlobal'
-import UsuarioFotoEditar from '../../../../../pages/menu/menu/perfil/images/usuarioFotoEditar.svg'
+import TelaCinza from '../../../../../pages/menu/menu/perfil/images/telaCinza.svg'
+import TelaRoxa from '../../../../../pages/menu/menu/perfil/images/telaRoxa.svg'
+import IconeEditar from '../../../../../pages/menu/menu/perfil/images/iconeEditarFoto.svg'
+import TelaTransparente from '../../../../../pages/menu/menu/perfil/images/telaTransparente.svg'
 import { useState, useContext, useEffect } from 'react'
 import blogFetch from '../../../../../data/services/api/ApiService'
 import UserContext from '../../../../../data/hooks/context/userContext'
 import { useNavigate } from 'react-router-dom'
+import { uploadImage } from '../../../../../data/services/firebase/firebase'
 
-function FormularioEditarMeuPerfil({open, nomePerfil, tagPerfil, cidadePerfil, estadoPerfil, bairroPerfil, descricaoPerfil, tagsPerfil, idLocalizacao, reloadUser}) {
+function FormularioEditarMeuPerfil({open, nomePerfil, tagPerfil, cidadePerfil, estadoPerfil, bairroPerfil, descricaoPerfil, tagsPerfil, idLocalizacao, reloadUser, imgPerfil}) {
 
     const navigate = useNavigate()
 
@@ -23,6 +27,23 @@ function FormularioEditarMeuPerfil({open, nomePerfil, tagPerfil, cidadePerfil, e
     const [tagPerfilEditado, setTagPerfil] = useState(tagPerfil)
     const [tags, setTagsPerfil] = useState(tagsPerfil)
     const [localizacao, setLocalizacao] = useState(idLocalizacao)
+    const [fotoPerfil, setFotoPerfil] = useState(imgPerfil)
+
+    const [images, setImage] = useState([])
+    const [imageURL, setImageURL] = useState([])
+  
+    useEffect(() => {
+      if (images.length < 1) return
+  
+      const newImageUrl = []
+      images.forEach(image => newImageUrl.push(URL.createObjectURL(image)))
+      setImageURL(newImageUrl)
+      
+    }, [images])
+  
+    function onImageChange(e) {
+      setImage([...e.target.files])
+    }
 
     const formatarTags = () => {
 
@@ -41,38 +62,101 @@ function FormularioEditarMeuPerfil({open, nomePerfil, tagPerfil, cidadePerfil, e
     
     }
 
+    const salvarFoto = async () => {
+
+        if(images !== undefined && images !== null && images[0] !== undefined && images[0] !== null ) {
+            try {
+
+                const responseImg = await uploadImage(images[0], images[0].name)
+
+                return await responseImg
+
+            } catch (error) {
+                console.log(error)
+            }
+
+            return await responseImg
+        } else {
+            return false
+        }
+
+        
+    }
+
     const salvarNovosDadosPerfil = async () => {
 
         const tag = formatarTags()
 
-        try {
-            const response = await blogFetch.put('/usuario/editar_perfil',{
-                id_usuario: id.idToken,
-                id_localizacao: localizacao,
-                bairro: bairro,
-                cidade: cidade,
-                estado: estado,
-                nome: nome,
-                descricao: descricao,
-                foto: 'ataa.png',
-                nome_de_usuario: tagPerfilEditado,
-                tags: tag
-            },{
-                headers: {
-                    'x-access-token' : accessToken.accessToken
-                }
-            } )
+        const foto = await salvarFoto()
 
-            console.log(response)
-            reloadUser()
-            navigate('/menu/explorar')
+        if(foto == false) {
 
-        } catch (error) {
-            console.log(error)
-          console.log(error.config.data)
+            try {
+                const response = await blogFetch.put('/usuario/editar_perfil',{
+                    id_usuario: id.idToken,
+                    id_localizacao: localizacao,
+                    bairro: bairro,
+                    cidade: cidade,
+                    estado: estado,
+                    nome: nome,
+                    descricao: descricao,
+                    foto: fotoPerfil,
+                    nome_de_usuario: tagPerfilEditado,
+                    tags: tag
+                },{
+                    headers: {
+                        'x-access-token' : accessToken.accessToken
+                    }
+                } )
+    
 
-            console.log('erro')
+            
+            } catch (error) {
+                console.log(error)
+              console.log(error.config.data)
+    
+                console.log('erro')
+            }
+
+            console.log('sem foto')
+
+        } else {
+            setFotoPerfil(foto)
+
+            try {
+                const response = await blogFetch.put('/usuario/editar_perfil',{
+                    id_usuario: id.idToken,
+                    id_localizacao: localizacao,
+                    bairro: bairro,
+                    cidade: cidade,
+                    estado: estado,
+                    nome: nome,
+                    descricao: descricao,
+                    foto: foto,
+                    nome_de_usuario: tagPerfilEditado,
+                    tags: tag
+                },{
+                    headers: {
+                        'x-access-token' : accessToken.accessToken
+                    }
+                } )
+    
+           
+            
+            } catch (error) {
+                console.log(error)
+              console.log(error.config.data)
+    
+                console.log('erro')
+            }
+
+            console.log('com foto')
+
         }
+
+        reloadUser()
+
+        
     }
 
 
@@ -91,7 +175,23 @@ function FormularioEditarMeuPerfil({open, nomePerfil, tagPerfil, cidadePerfil, e
             </div>
 
             <div>
-                <img src={UsuarioFotoEditar} alt="" />
+                <label className='formularioAtualizarPerfil__atualizarFoto' itemID='picture__input' tabIndex="0" onChange={(e) => onChange(e.target.value)}>
+                    
+                    <img src={IconeEditar} className='iconeEditarPerfil' alt="" />
+                    <img src={TelaTransparente} className='telaTransparente' alt="" />
+                  
+                        
+                    <input type="file" multiple accept='image/*' id='picture__input' onChange={onImageChange}/>
+                    {imageURL.map(imageSrc => <img src={imageSrc} className='atualizarFoto__fotoEscolhida' />)}
+                         
+                    <img src={fotoPerfil} className='atualizarFoto__fotoAntiga' alt="" />
+                    <img src={TelaCinza} className='telaCinza'  alt="" />
+                    <img src={TelaRoxa} className='telaRoxa'  alt="" />
+                    
+                </label>
+
+               
+              
             </div>
 
             <div className='formularioAtualizarPerfil__atualizarNome'>

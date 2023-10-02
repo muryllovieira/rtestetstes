@@ -34,7 +34,7 @@ function PersonalizarTipo() {
         const paginaCostureira = costureiraAtivoFunc()
 
         if(paginaCostureira == true && paginaConsumidor == false) {
-            navigate("/")
+            navigate("/personalizar-perfil/personalizar-tags")
         } else if (paginaCostureira == false && paginaConsumidor == true) {
             navigate("/menu/explorar")
         }

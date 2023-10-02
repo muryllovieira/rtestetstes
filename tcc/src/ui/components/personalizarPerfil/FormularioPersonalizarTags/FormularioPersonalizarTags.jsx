@@ -10,11 +10,11 @@ const FormularioPersonalizarTags = () => {
   return (
     <form className='formularioPersonalizarTags' action=''>
         <div className='formularioPersonalizarTags__header'>
-          <Link>
-            <img src={setaEsquerda} alt="/personalizar-perfil/personalizar-nome" />
+          <Link to={'/personalizar-perfil/personalizar-tipo'}>
+            <img src={setaEsquerda} alt="/personalizar-perfil/personalizar-tipo" />
           </Link>
-          <Link>
-            <img src={setaDireita} alt="/personalizar-perfil/personalizar-localizacao" />
+          <Link to={'/menu/explorar'}>
+            <img src={setaDireita} alt="/menu/explorar" />
           </Link>
         </div>
 

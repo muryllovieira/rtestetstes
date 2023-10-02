@@ -5,7 +5,7 @@
  * 
  * Commits: Rotas Definidas v0.5, Estruturação de Diretórios Concluída, 
  * Componentes Iniciados v2.17, Responsividade v0.6, Funcionalidades v0.9,
- * Integração Iniciada v0.9, Contexto Aplicado, Lista Icones v0.3, Conflito v0.4
+ * Integração Iniciada v0.10, Contexto Aplicado, Lista Icones v0.3, Conflito v0.4
  * 
 *****************/
 

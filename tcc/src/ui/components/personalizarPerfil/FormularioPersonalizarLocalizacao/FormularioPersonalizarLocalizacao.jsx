@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react'
 import "./styleFormularioPersonalizarLocalizacao.css"
 import setaDireita from "../../../../pages/registrar/personalizarPerfil/personalizarLocalizacao/images/setaDireita.svg"
 import setaEsquerda from "../../../../pages/registrar/personalizarPerfil/personalizarLocalizacao/images/setaEsquerda.svg"
-import {Link} from "react-router-dom"
+import {Link, useNavigate} from "react-router-dom"
 import ComboBoxLocalizacao from '../ComboBoxLocalizacao/ComboBoxLocalizacao'
 import BotaoAncora from '../../global/BotaoAncoraGlobal/BotaoAncoraGlobal'
 import UserContext from '../../../../data/hooks/context/UserContext'
@@ -10,10 +10,15 @@ import blogFetch from '../../../../data/services/api/ApiService'
 
 const FormularioPersonalizarLocalizacao = ({}) => {
 
+  const navigate = useNavigate()
+
   const { userLocation } = useContext(UserContext)
   const { accessToken } = useContext(UserContext)
 
   const enviarLocalizacao = async () => {
+
+    console.log(accessToken)
+    console.log(userLocation)
 
     try {
 
@@ -25,11 +30,11 @@ const FormularioPersonalizarLocalizacao = ({}) => {
         
       },{
           headers: {
-              'x-access-token' : accessToken.accessToken
+              'x-access-token' : accessToken
           }
       })
 
-      console.log(response)
+      navigate('/personalizar-perfil/personalizar-tipo')
 
     } catch (error) {
       console.log(error)

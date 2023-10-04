@@ -43,6 +43,7 @@
     height: 88px;
     width: 86px;
     background-color: var(--secundary-color);
+    border-radius: 20px;
 }
 
 .containerServicos__tituloFiltros {
@@ -68,6 +69,7 @@
     font-style: normal;
     font-weight: 600;
     letter-spacing: 0.8px;
+    cursor: pointer;
 }
 
 .containerServicos__secaoDeTags {
@@ -78,7 +80,6 @@
     overflow-y: auto;
     align-items: flex-start;
     justify-content: center;
-
 }
 
 .secaoTags__listaTags {

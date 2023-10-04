@@ -1,6 +1,7 @@
 import React from 'react'
 import './styleServicos.css'
 import InputGlobal from '../../../../ui/components/global/InputGlobal/InputGlobal'
+import { Link } from 'react-router-dom'
 import IconObject from '../../../../ui/components/global/IconesGlobais/iconesGlobais'
 
 function Servicos() {
@@ -19,7 +20,6 @@ function Servicos() {
               type={'search'}
               placeholder={'Procurar um serviço'}
             ></InputGlobal>
-            <i>{IconObject.home}</i>
           </div>
 
           <div className='containerServicos__cardFoto'></div>
@@ -59,41 +59,10 @@ function Servicos() {
         <section className='containerServicos__secaoDeTags'>
           <div className='secaoTags__listaTags'>
 
+            <Link to={"/menu/servicos/perfil"}>
             <div className="tagTeste"></div>
-            <div className="tagTeste"></div>
-            <div className="tagTeste"></div>
-            <div className="tagTeste"></div>
-            <div className="tagTeste"></div>
-            <div className="tagTeste"></div>
-            <div className="tagTeste"></div>
-            <div className="tagTeste"></div>
-            <div className="tagTeste"></div>
-            <div className="tagTeste"></div>
-            <div className="tagTeste"></div>
-            <div className="tagTeste"></div>
-            <div className="tagTeste"></div>
-            <div className="tagTeste"></div>
-            <div className="tagTeste"></div>
-            <div className="tagTeste"></div>
-            <div className="tagTeste"></div>
-            <div className="tagTeste"></div>
-            <div className="tagTeste"></div>
-            <div className="tagTeste"></div>
-            <div className="tagTeste"></div>
-            <div className="tagTeste"></div>
-            <div className="tagTeste"></div>
-            <div className="tagTeste"></div>
-            <div className="tagTeste"></div>
-            <div className="tagTeste"></div>
-            <div className="tagTeste"></div>
-            <div className="tagTeste"></div>
-            <div className="tagTeste"></div>
-            <div className="tagTeste"></div>
-            <div className="tagTeste"></div>
-            <div className="tagTeste"></div>
-            <div className="tagTeste"></div>
-            <div className="tagTeste"></div>
-
+            </Link>
+            
           </div>
         </section>
 

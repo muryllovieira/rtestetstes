@@ -3,8 +3,8 @@
  * Data Inicio: 04-09-2023
  * Data Fim: X
  * 
- * Commits: Rotas Definidas v0.5, Estruturação de Diretórios Concluída, 
- * Componentes Iniciados v2.17, Responsividade v0.6, Funcionalidades v0.9,
+ * Commits: Rotas Definidas v0.6, Estruturação de Diretórios Concluída, 
+ * Componentes Iniciados v2.18, Responsividade v0.6, Funcionalidades v0.9,
  * Integração Iniciada v0.10, Contexto Aplicado, Lista Icones v0.3, Conflito v0.4
  * 
 *****************/
@@ -33,6 +33,7 @@ import Servicos from './src/pages/menu/menu/servicos/Servicos.jsx'
 import Publicar from './src/pages/menu/menu/publicar/Publicar.jsx'
 import Conversas from './src/pages/menu/menu/conversas/Conversas.jsx'
 import Configuracoes from './src/pages/menu/menu/configuracoes/Configuracoes.jsx'
+import ServicosPerfil from './src/pages/menu/menu/servicosPerfil/servicosPerfil.jsx'
 
 //páginas - rotas de Personalização
 import PersonalizarNome from './src/pages/registrar/personalizarPerfil/personalizarNome/PersonalizarNome.jsx'
@@ -109,6 +110,10 @@ const router = createBrowserRouter([
       {
         path: "/menu/servicos",
         element: <Servicos />
+      },
+      {
+        path: "/menu/servicos/perfil",
+        element: <ServicosPerfil />
       },
       {
         path: "/menu/publicar",

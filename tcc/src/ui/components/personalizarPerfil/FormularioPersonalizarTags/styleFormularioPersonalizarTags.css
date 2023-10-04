@@ -20,6 +20,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
 }
 
 .subtitle{
@@ -30,12 +31,41 @@
 }
 
 .tagsList{
-    height: 15vh;
-    width: 60vh;
+    height: 100%;
+    width: 100%;
     display: flex;
     flex-direction: row;
     align-items: flex-start;
-    gap: 10px;
-    padding: 10px;
+    gap: 16px;
+    padding: 16px;
     flex-wrap: wrap;
+    justify-content: center;
+}
+
+.main__tituloFiltros {
+    color: var(--contrast-color);
+    font-size: 1rem;
+    font-weight: 400;
+    letter-spacing: 1px;
+}
+
+.main__listaFiltros {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    font-size: 0.75rem;
+    padding-right: 40px;
+}
+
+.tagsGeral {
+    cursor: pointer;
+    position: relative;
+    transition: cubic-bezier(0.075, 0.82, 0.165, 1) 300ms all;
+}
+
+.tagsGeral:hover {
+    background-color: #666369;
+    text-align: center;
+    width: 110px;
 }

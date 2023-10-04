@@ -22,6 +22,10 @@ h1 {
     font-style: normal;
 }
 
+ul, li {
+    list-style: none;
+}
+
 :root {
     --default-color: #FFFFFF;
     --primary-color: #C98FEC;

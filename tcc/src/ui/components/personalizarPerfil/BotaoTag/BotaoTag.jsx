@@ -2,14 +2,28 @@ import React from 'react'
 import "./styleBotaoTag.css"
 import { useState} from 'react'
 
-function BotaoTag({text, option, setValue}) {
+function BotaoTag({text, option, setValue, array}) {
 
-  const [tagAtiva, setTagAtiva] = useState(false)
+
+    const [tagAtiva, setTagAtiva] = useState(false)
+
+    const valueTag = () => {
+        if(tagAtiva == true) {
+            return true
+        } else {
+            return false
+        }
+    }
+
+    const setTag = () => {
+        setTagAtiva(!tagAtiva)
+        option(tagAtiva)
+    }
 
   return(
       <>
           <div onClick={() => {
-              setTagAtiva(!tagAtiva)
+              setTag()
           }} className={`botaoTag ${tagAtiva ? "botaoTagAtivo" : ""}`}>
               <p>{text}</p>
           </div>

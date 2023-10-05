@@ -7,6 +7,8 @@ import {Link} from 'react-router-dom'
 import ModalLocalizacao from '../../../../ui/components/global/Modal/Modal'
 import ComboBoxLocalizacao from '../../../../ui/components/personalizarPerfil/ComboBoxLocalizacao/ComboBoxLocalizacao'
 
+import imagemPerfil from "./images/imagemPerfil.png"
+
 const servicosPerfil = () => {
 
   const [openModal, setOpenModal] = useState(false)
@@ -21,6 +23,7 @@ const servicosPerfil = () => {
               <img src={setaEsquerda} className="botaoVoltar" />
            </Link>
            
+           <div className='pesquisaPerfil'>
            <div className="header__inputPesquisar">
            <InputGlobal
               type={'search'}
@@ -28,13 +31,14 @@ const servicosPerfil = () => {
             ></InputGlobal>
              <img src={iconFiltro} className='iconeFiltro' onClick={() => setOpenModal(true)}/>
            </div>
-          
 
            <div>
              <ModalLocalizacao isOpen={openModal} setModalOpen={() => setOpenModal(!openModal)}>
                 <ComboBoxLocalizacao></ComboBoxLocalizacao>
              </ModalLocalizacao>
            </div>
+           </div>
+           
 
           <Link to={"/menu/meu-perfil"}>
               <div className="cardFoto"></div>
@@ -42,21 +46,55 @@ const servicosPerfil = () => {
            
          </div>
 
-         <section className='containerServicos__secaoDeTags'>
+        <section className='containerServicos__secaoDeTags'>
           <div className='listaPerfis'>
-            <div className="tagPerfil"></div>
-            <div className="tagPerfil"></div>
-            <div className="tagPerfil"></div>
-            <div className="tagPerfil"></div>
-            <div className="tagPerfil"></div>
-            <div className="tagPerfil"></div>
-            <div className="tagPerfil"></div>
-            <div className="tagPerfil"></div>
-            <div className="tagPerfil"></div>
-            <div className="tagPerfil"></div>
-            <div className="tagPerfil"></div>
-            <div className="tagPerfil"></div>
-            <div className="tagPerfil"></div>
+
+            <div className="tagPerfil">
+              <img src={imagemPerfil} className="imagemPerfil" />
+              <p className='nomePerfil'>Beltrana dos Santos</p>
+            </div>
+
+            <div className="tagPerfil">
+              <img src={imagemPerfil} className="imagemPerfil" />
+              <p className='nomePerfil'>Beltrana dos Santos</p>
+            </div>
+            <div className="tagPerfil">
+              <img src={imagemPerfil} className="imagemPerfil" />
+              <p className='nomePerfil'>Beltrana dos Santos</p>
+            </div>
+            <div className="tagPerfil">
+              <img src={imagemPerfil} className="imagemPerfil" />
+              <p className='nomePerfil'>Beltrana dos Santos</p>
+            </div>
+            <div className="tagPerfil">
+              <img src={imagemPerfil} className="imagemPerfil" />
+              <p className='nomePerfil'>Beltrana dos Santos</p>
+            </div>
+            <div className="tagPerfil">
+              <img src={imagemPerfil} className="imagemPerfil" />
+              <p className='nomePerfil'>Beltrana dos Santos</p>
+            </div>
+            <div className="tagPerfil">
+              <img src={imagemPerfil} className="imagemPerfil" />
+              <p className='nomePerfil'>Beltrana dos Santos</p>
+            </div>
+            <div className="tagPerfil">
+              <img src={imagemPerfil} className="imagemPerfil" />
+              <p className='nomePerfil'>Beltrana dos Santos</p>
+            </div>
+            <div className="tagPerfil">
+              <img src={imagemPerfil} className="imagemPerfil" />
+              <p className='nomePerfil'>Beltrana dos Santos</p>
+            </div>
+            <div className="tagPerfil">
+              <img src={imagemPerfil} className="imagemPerfil" />
+              <p className='nomePerfil'>Beltrana dos Santos</p>
+            </div>
+            <div className="tagPerfil">
+              <img src={imagemPerfil} className="imagemPerfil" />
+              <p className='nomePerfil'>Beltrana dos Santos</p>
+            </div>
+
           </div>
         </section>
 

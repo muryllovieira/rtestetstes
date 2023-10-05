@@ -22,6 +22,11 @@
     align-items: center;
 }
 
+.pesquisaPerfil{
+    display: flex;
+    flex-direction: row;
+}
+
 .cardFoto{
     height: 88px;
     width: 86px;
@@ -51,12 +56,22 @@
 }
 
 .tagPerfil{
-    width: 300px;
-    height: 59px;
+    width: 360px;
+    height: 79px;
     border-radius: 10px;
     background-color: var(--default-color);
     box-shadow: var(--default-shadow);
     cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-left: 16px;
+    gap: 20px;
+}
+
+.tagPerfil:hover{
+    width: 370px;
+    height: 89px;
 }
 
 .iconeFiltro{
@@ -66,4 +81,16 @@
 .botaoVoltar{
     height: 100%;
     width: 70px;
+}
+
+.imagemPerfil{
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+    border: 2px solid var(--secundary-color);
+}
+
+.nomePerfil{
+    font-size: 1.2rem;
+
 }

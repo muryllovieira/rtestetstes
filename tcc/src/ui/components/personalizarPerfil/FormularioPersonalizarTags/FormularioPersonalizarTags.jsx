@@ -10,26 +10,112 @@ import UserContext from '../../../../data/hooks/context/UserContext'
 const FormularioPersonalizarTags = () => {
 
   const {acessToken} = useContext(UserContext)
+ 
 
-  const [value, setValue] = useState('')
+  const [value, setValue] = useState(0)
   const [todasTags, setTodasTags] = useState(false)
+  const [tagsSelecionadas, setTagsSelecionadas] = useState([])
 
   const [listaCategorias, setListaCategorias] = useState()
   const [listaTags, setListaTags] = useState()
 
   useEffect(() => {
     console.log(value)
-    pegarTags()
   }, [value])
 
   useEffect(() => {
-    pegarTagsGeral()
-  },[todasTags])
+    pegarCategorias()
+  }, [])
 
   useEffect(() => {
-   pegarCategorias()
-  })
+    pegarTagsGeral()
+  }, [])
 
+  const AtualizarListaTags = () => {
+
+    return (
+     <>
+     
+        {
+          listaTags === undefined ? (
+            <p>Carregando</p>
+          ) : (
+            listaTags.categorias_e_tags.map((lista) => (
+             lista.map((item) => (
+
+              item.id_categoria == value ? (
+
+                <BotaoTag option={(e) => {
+                  const tagSel = handleCallBack(e)
+
+                  if(!tagSel == true) {
+                    tagsSelecionadas.push(item)
+                  } 
+
+                  if(!tagSel == false) {
+                    tagsSelecionadas.map((tag, indice ) => {
+                      if (tag.id == item.id) {
+                        
+                        console.log(item.id)
+                        console.log(tag.id)
+                        console.log(indice)
+                        tagsSelecionadas.splice(indice, 1)
+                     
+                        
+                        
+                      }
+                    })
+                  }
+
+                }} key={item.id_tag} text={item.nome}></BotaoTag>
+
+              ) : (
+                
+                <BotaoTag option={(e) => {
+                  const tagSel = handleCallBack(e)
+
+                  if(!tagSel == true) {
+                    tagsSelecionadas.push(item)
+                  } 
+
+                  if(!tagSel == false) {
+                    tagsSelecionadas.map((tag, indice ) => {
+                      if (tag.id == item.id) {
+                        
+                        console.log(item.id)
+                        console.log(tag.id)
+                        console.log(indice)
+                        tagsSelecionadas.splice(indice, 1)
+                     
+                        
+                        
+                      }
+                    })
+                  }
+
+                }} key={item.id_tag} text={item.nome}></BotaoTag>
+              )
+
+             ))
+             
+            ))
+          )
+        }
+
+     </>
+    )
+  }
+
+  const enviarTags = () => {
+    console.log('oI')
+  }
+
+  const handleCallBack = (dados) => {
+    const value = dados
+    console.log(value)
+    console.log(tagsSelecionadas)
+    return value
+  }
 
   const pegarCategorias = async () => {
     try {
@@ -40,7 +126,7 @@ const FormularioPersonalizarTags = () => {
       })
 
       setListaCategorias(response.data)
-
+      console.log(response.data)
     } catch (error) {
       console.log(error)
     }
@@ -49,9 +135,7 @@ const FormularioPersonalizarTags = () => {
 
   const pegarTagsGeral = async () => {
     try {
-      const response = await blogFetch.post('/tag/tag_by_categoria', {
-        categoria: 'geral'
-      }, {
+      const response = await blogFetch.get('/tag', {
 
         headers: {
           'x-access-token' : 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOjcyLCJpYXQiOjE2OTY0NDQzMDUsImV4cCI6MTcyNjQ0NDMwNX0.pfoTKnxsk657GBajP5280y-TVifVlRBcdV8ClTtJick'
@@ -66,24 +150,7 @@ const FormularioPersonalizarTags = () => {
     }
   }
 
-  const pegarTags = async () => {
-    try {
-      const response = await blogFetch.post('/tag/tag_by_categoria', {
-        categoria: value
-      }, {
-
-        headers: {
-          'x-access-token' : 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOjcyLCJpYXQiOjE2OTY0NDQzMDUsImV4cCI6MTcyNjQ0NDMwNX0.pfoTKnxsk657GBajP5280y-TVifVlRBcdV8ClTtJick'
-        }
-         
-      })
-
-      console.log(response)
-      setListaTags(response.data)
-    } catch (error) {
-      console.log(error)
-    }
-  }
+  
 
 
   return (
@@ -92,27 +159,28 @@ const FormularioPersonalizarTags = () => {
           <Link to={'/personalizar-perfil/personalizar-tipo'}>
             <img src={setaEsquerda} alt="/personalizar-perfil/personalizar-tipo" />
           </Link>
-          <Link to={'/menu/explorar'}>
+          <i onClick={enviarTags}>
             <img src={setaDireita} alt="/menu/explorar" />
-          </Link>
+          </i>
         </div>
 
         <div className='formularioPersonalizarTags__main'>
             <h1>TAGS DE SERVIÇO</h1>
+            {/* <AtualizarListaTags /> */}
             <p className='subtitle'>*As tags de serviço são utilizadas pelas costureiras para identificar que tipo de serviço elas prestam.</p>
 
             <h2 className='main__tituloFiltros'>FILTROS</h2>
 
             <ul className='main__listaFiltros'>
 
-              <li onClick={(e) => setTodasTags(!todasTags)} className='tagsGeral'>Geral</li>
+              <li onClick={(e) => setValue(0)} className='tagsGeral'>Geral</li>
 
               {
                  listaCategorias === undefined ? (
                   <p>Carregando</p>
                  ) : (
                   listaCategorias.cateorias.map((item) => (
-                    <li onClick={(e) => setValue(item.nome)} key={item.id} className='tagsGeral'>
+                    <li onClick={(e) => setValue(item.id)} key={item.id} className='tagsGeral'>
                       {item.nome}
                     </li>
                   ))
@@ -128,8 +196,76 @@ const FormularioPersonalizarTags = () => {
                   listaTags === undefined ? (
                     <p>Carregando</p>
                   ) : (
-                    listaTags.tags.map((item) => (
-                      <BotaoTag key={item.id_tag} text={item.nome}></BotaoTag>
+                    listaTags.categorias_e_tags.map((lista) => (
+                     lista.map((item, index) => {
+
+                      if(item.id_categoria == value) {
+                        return (
+                          
+                            <BotaoTag option={(e) => {
+                              const tagSel = handleCallBack(e)
+            
+                              if(!tagSel == true) {
+                                tagsSelecionadas.push(item)
+                              } 
+            
+                              if(!tagSel == false) {
+                                tagsSelecionadas.map((tag, indice ) => {
+                                  if (tag.id == item.id) {
+                                    
+                                    console.log(item.id)
+                                    console.log(tag.id)
+                                    console.log(indice)
+                                    tagsSelecionadas.splice(indice, 1)
+                                
+                                    
+                                    
+                                  }
+                                })
+                              }
+            
+                            }} key={item.id_tag} text={item.nome}></BotaoTag>
+                          
+                        )
+                       } if(value == 0) {
+                        return (
+                          
+                            <BotaoTag array={tagsSelecionadas} option={(e) => {
+                              
+
+                              const tagSel = handleCallBack(e)
+            
+                              if(!tagSel == true) {
+                                tagsSelecionadas.push(item)
+                              } 
+            
+                              if(!tagSel == false) {
+                                tagsSelecionadas.map((tag, indice ) => {
+                                  if (tag.id == item.id) {
+                                    
+                                    console.log(item.id)
+                                    console.log(tag.id)
+                                    console.log(indice)
+                                    tagsSelecionadas.splice(indice, 1)
+                                
+                                    
+                                    
+                                  }
+                                })
+                              }
+            
+                            }} setValue={item.id_tag} key={item.id_tag} text={item.nome}></BotaoTag>
+                          
+                        )
+                       } else {
+                        return (
+                          <>
+                            <p></p>
+                          </>
+                        )
+                       }
+                     })
+                     
                     ))
                   )
                 }

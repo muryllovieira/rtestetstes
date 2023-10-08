@@ -6,6 +6,7 @@ import {Link} from "react-router-dom"
 import BotaoTag from '../BotaoTag/BotaoTag'
 import blogFetch from '../../../../data/services/api/ApiService'
 import UserContext from '../../../../data/hooks/context/UserContext'
+import InputGlobal from '../../global/InputGlobal/InputGlobal'
 
 const FormularioPersonalizarTags = () => {
 
@@ -15,13 +16,19 @@ const FormularioPersonalizarTags = () => {
   const [value, setValue] = useState(0)
   const [todasTags, setTodasTags] = useState(false)
   const [tagsSelecionadas, setTagsSelecionadas] = useState([])
+  const [listaFechada, setListaFechada] = useState(true)
 
   const [listaCategorias, setListaCategorias] = useState()
   const [listaTags, setListaTags] = useState()
+  const [busca, setBusca] = useState('')
 
   useEffect(() => {
     console.log(value)
   }, [value])
+
+  useEffect(() => {
+    console.log(tagsSelecionadas)
+  }, [tagsSelecionadas])
 
   useEffect(() => {
     pegarCategorias()
@@ -41,7 +48,9 @@ const FormularioPersonalizarTags = () => {
             <p>Carregando</p>
           ) : (
             listaTags.categorias_e_tags.map((lista) => (
-             lista.map((item) => (
+             lista.filter((item) => {
+              return busca.toLowerCase() === '' ? item : item.nome.toLowerCase().includes(busca )
+             }).map((item) => (
 
               item.id_categoria == value ? (
 
@@ -150,7 +159,9 @@ const FormularioPersonalizarTags = () => {
     }
   }
 
-  
+  const abrirPainelTags = (e) => {
+    setListaFechada(false)
+  }
 
 
   return (
@@ -165,56 +176,142 @@ const FormularioPersonalizarTags = () => {
         </div>
 
         <div className='formularioPersonalizarTags__main'>
-            <h1>TAGS DE SERVIÇO</h1>
+              <h1>TAGS DE SERVIÇO</h1>
             {/* <AtualizarListaTags /> */}
-            <p className='subtitle'>*As tags de serviço são utilizadas pelas costureiras para identificar que tipo de serviço elas prestam.</p>
+              <p className='subtitle'>*As tags de serviço são utilizadas pelas costureiras para identificar que tipo de serviço elas prestam.</p>
 
-            <div className='tagsList'>
-                {/* <BotaoTag text={'Costura'}></BotaoTag> */}
+              <InputGlobal
+                onChange={setBusca}
+                value={busca}
+                placeholder={'Pesquise uma tag...'}
+              ></InputGlobal>
 
-                {
-                  listaTags === undefined ? (
-                    <p>Carregando</p>
-                  ) : (
-                    listaTags.categorias_e_tags.map((lista) => (
-                     lista.map((item) => {
+              <i className='teste' onClick={(e) => {
+                setListaFechada(!listaFechada)
+              }}>Clique aqui</i>
 
-                      return (
+              <div className='listasTags'>
+                <div className='tagsList'>
+                    {/* <BotaoTag text={'Costura'}></BotaoTag> */}
 
-                        <BotaoTag option={(e) => {
-                          const tagSel = handleCallBack(e)
-        
-                          if(!tagSel == true) {
-                            tagsSelecionadas.push(item)
-                          } 
-        
-                          if(!tagSel == false) {
-                            tagsSelecionadas.map((tag, indice ) => {
-                              if (tag.id_tag == item.id_tag) {
-                                
-                                console.log(item.id_tag)
-                                console.log(tag.id_tag)
-                                console.log(indice)
-                                tagsSelecionadas.splice(indice, 1)
-                            
-                                
+                    {
+                      listaTags === undefined ? (
+                        <p>Carregando</p>
+                      ) : (
+                        listaTags.categorias_e_tags.map((lista) => (
+                        lista.filter((item) => {
+                          return busca.toLowerCase() === '' 
+                          ? item 
+                          : item.nome.toLowerCase().includes(busca)
+
+                        }).map((item) => {
+                    
+                          return (
+
+                            <BotaoTag option={(e) => {
+                              const tagSel = handleCallBack(e)
+
+            
+                              if(!tagSel == true) {
+                                let tes = [...tagsSelecionadas]
+                                tes.push(item) 
+                                setTagsSelecionadas(tes)
                                 
                               }
-                            })
-                          }
-        
-                        }} key={item.id_tag} text={item.nome}></BotaoTag>
 
-                      )
+                              if(!tagSel == true) {
+                                console.log(lista)
+                                lista.map((tag, indice ) => {
+                                  if (tag.id_tag == item.id_tag) {
+                                    
+                                    console.log(item.id_tag)
+                                    console.log(tag.id_tag)
+                                    console.log(indice)
+                                    lista.splice(indice, 1)
+                                    console.log(lista)
+                                  }
+                                })
+                              }
+            
+                              if(!tagSel == false) {
+                                tagsSelecionadas.map((tag, indice ) => {
+                                  if (tag.id_tag == item.id_tag) {
+                                    
+                                    console.log(item.id_tag)
+                                    console.log(tag.id_tag)
+                                    console.log(indice)
+                                    tagsSelecionadas.splice(indice, 1)
                             
-                          
-                    })
-                     
-                    ))
-                  )
-                }
+                                  }
+                                })
+                              }
+            
+                            }} key={item.id_tag} text={item.nome}></BotaoTag>
 
-            </div>
+                          )
+                                
+                              
+                        })
+                        
+                        ))
+                      )
+                    }
+
+                </div>
+              </div>
+
+              <div className={`tagsListaFechada ${listaFechada ? "tagsListaFechada" : "tagsListaAberta"}`}>
+                <div className='containerTagsLista'>
+                  {
+                    tagsSelecionadas === undefined ||  tagsSelecionadas.length == 0 ? (
+                      <p>Carregando</p>
+                    ) : (
+                      tagsSelecionadas.map((item) => {
+
+                        return (
+
+                          <BotaoTag option={(e) => {
+                            // const tagSel = handleCallBack(e)
+          
+                            // if(!tagSel == false) {
+                            //   tagsSelecionadas.push(item)
+                            // }
+
+                            // if(!tagSel == true) {
+                            //   console.log(lista)
+                            //   lista.map((tag, indice ) => {
+                            //     if (tag.id_tag == item.id_tag) {
+                                  
+                            //       console.log(item.id_tag)
+                            //       console.log(tag.id_tag)
+                            //       console.log(indice)
+                            //       lista.splice(indice, 1)
+                            //       console.log(lista)
+                            //     }
+                            //   })
+                            // }
+          
+                            // if(!tagSel == false) {
+                            //   tagsSelecionadas.map((tag, indice ) => {
+                            //     if (tag.id_tag == item.id_tag) {
+                                  
+                            //       console.log(item.id_tag)
+                            //       console.log(tag.id_tag)
+                            //       console.log(indice)
+                            //       tagsSelecionadas.splice(indice, 1)
+                          
+                            //     }
+                            //   })
+                            // }
+          
+                          }} key={item.id_tag} text={item.nome}></BotaoTag>
+                        )
+                      })
+                    )
+                  }
+                </div>
+              </div>
+
         </div>
     </form>
   )

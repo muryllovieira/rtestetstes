@@ -2,7 +2,7 @@ import React from 'react'
 import "./styleBotaoTag.css"
 import { useState} from 'react'
 
-function BotaoTag({text, option, setValue, array}) {
+function BotaoTag({onClick, text, option, setValue, array}) {
 
 
     const [tagAtiva, setTagAtiva] = useState(false)
@@ -16,20 +16,34 @@ function BotaoTag({text, option, setValue, array}) {
     }
 
     const setTag = () => {
-        setTagAtiva(!tagAtiva)
         option(tagAtiva)
         valueTag()
+        setTagAtiva(!tagAtiva)
     }
 
-  return(
-      <>
-          <div onClick={() => {
-              setTag()
-          }} className={`botaoTag ${tagAtiva ? "botaoTagAtivo" : ""}`}>
-              <p>{text}</p>
-          </div>
-      </>
-  )
+    if (tagAtiva == false) {
+        return(
+            <>
+                  <div onClick={() => {
+                    setTag()
+                }} className={"botaoTag"}>
+                    <p>{text}</p>
+                </div>
+
+                
+            </>
+        )
+    } else {
+        return(
+            <>
+              {/* <div onClick={() => {
+                    setTag()
+                }} className={"botaoTagAtivo"}>
+                    <p>{text}</p>
+                </div> */}
+            </>
+        )
+    }
 }
 
 export default BotaoTag

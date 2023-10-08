@@ -40,6 +40,40 @@
     padding: 16px;
     flex-wrap: wrap;
     justify-content: center;
+    flex-wrap: wrap;
+    overflow-y: scroll;
+    max-height: 40vh;
+}
+
+.tagsListaFechada {
+    display: none;
+}
+
+.tagsListaAberta {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 16px;
+ 
+    left: 0;
+    top: 0;
+    width: 1000px;
+    height: 100px;
+    background-color: aqua;
+    border-radius: 20px;
+}
+
+.containerTagsLista {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.listasTags {
+    display: flex;
+
 }
 
 .main__tituloFiltros {
@@ -71,5 +105,5 @@
 }
 
 .teste {
-    display: none;
+    cursor: pointer;
 }

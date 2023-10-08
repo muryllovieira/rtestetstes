@@ -4,7 +4,7 @@ import IconeOlhoGlobal from '../IconeOlhoGlobal/IconeOlhoGlobal'
 import ModalSenhaGlobal from '../ModalSenhaGlobal/ModalSenhaGlobal'
 import { useState, useEffect } from 'react'
 
-function InputGlobal({type, placeholder, id, register, onChange, onFocus, onBlur, refe, pwd, emailWeb, descriptionWeb, valueperfil}) {
+function InputGlobal({type, placeholder, id, register, onChange, onFocus, onBlur, refe, pwd, emailWeb, descriptionWeb, valueperfil, value}) {
 
   const [password, setPassword] = useState('');
 
@@ -78,13 +78,13 @@ function InputGlobal({type, placeholder, id, register, onChange, onFocus, onBlur
   } if (type == 'email') {
 
     return <>
-    <input className='inputEmailGlobal' ref={refe} type={type} placeholder={placeholder} onChange={(e) => onChange(e.target.value)} onFocus={onFocus} onBlur={onBlur} required/> 
+      <input className='inputEmailGlobal' ref={refe} type={type} placeholder={placeholder} onChange={(e) => onChange(e.target.value)} onFocus={onFocus} onBlur={onBlur} required/> 
     </>
 
   } else {
 
     return <>
-      <input className='inputGlobal' type={type} placeholder={placeholder} onChange={(e) => onChange(e.target.value)} onFocus={onFocus} onBlur={onBlur} required /> 
+      <input value={value} className='inputGlobal' type={type} placeholder={placeholder} onChange={(e) => onChange(e.target.value)} onFocus={onFocus} onBlur={onBlur} required /> 
     </>
 
   }

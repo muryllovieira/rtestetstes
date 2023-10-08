@@ -169,26 +169,6 @@ const FormularioPersonalizarTags = () => {
             {/* <AtualizarListaTags /> */}
             <p className='subtitle'>*As tags de serviço são utilizadas pelas costureiras para identificar que tipo de serviço elas prestam.</p>
 
-            <h2 className='main__tituloFiltros'>FILTROS</h2>
-
-            <ul className='main__listaFiltros'>
-
-              <li onClick={(e) => setValue(0)} className='tagsGeral'>Geral</li>
-
-              {
-                 listaCategorias === undefined ? (
-                  <p>Carregando</p>
-                 ) : (
-                  listaCategorias.cateorias.map((item) => (
-                    <li onClick={(e) => setValue(item.id)} key={item.id} className='tagsGeral'>
-                      {item.nome}
-                    </li>
-                  ))
-                  
-                 )
-              }
-            </ul>
-
             <div className='tagsList'>
                 {/* <BotaoTag text={'Costura'}></BotaoTag> */}
 
@@ -197,74 +177,38 @@ const FormularioPersonalizarTags = () => {
                     <p>Carregando</p>
                   ) : (
                     listaTags.categorias_e_tags.map((lista) => (
-                     lista.map((item, index) => {
+                     lista.map((item) => {
 
-                      if(item.id_categoria == value) {
-                        return (
-                          
-                            <BotaoTag option={(e) => {
-                              const tagSel = handleCallBack(e)
-            
-                              if(!tagSel == true) {
-                                tagsSelecionadas.push(item)
-                              } 
-            
-                              if(!tagSel == false) {
-                                tagsSelecionadas.map((tag, indice ) => {
-                                  if (tag.id == item.id) {
-                                    
-                                    console.log(item.id)
-                                    console.log(tag.id)
-                                    console.log(indice)
-                                    tagsSelecionadas.splice(indice, 1)
-                                
-                                    
-                                    
-                                  }
-                                })
-                              }
-            
-                            }} key={item.id_tag} text={item.nome}></BotaoTag>
-                          
-                        )
-                       } if(value == 0) {
-                        return (
-                          
-                            <BotaoTag array={tagsSelecionadas} option={(e) => {
-                              
+                      return (
 
-                              const tagSel = handleCallBack(e)
-            
-                              if(!tagSel == true) {
-                                tagsSelecionadas.push(item)
-                              } 
-            
-                              if(!tagSel == false) {
-                                tagsSelecionadas.map((tag, indice ) => {
-                                  if (tag.id == item.id) {
-                                    
-                                    console.log(item.id)
-                                    console.log(tag.id)
-                                    console.log(indice)
-                                    tagsSelecionadas.splice(indice, 1)
+                        <BotaoTag option={(e) => {
+                          const tagSel = handleCallBack(e)
+        
+                          if(!tagSel == true) {
+                            tagsSelecionadas.push(item)
+                          } 
+        
+                          if(!tagSel == false) {
+                            tagsSelecionadas.map((tag, indice ) => {
+                              if (tag.id_tag == item.id_tag) {
                                 
-                                    
-                                    
-                                  }
-                                })
+                                console.log(item.id_tag)
+                                console.log(tag.id_tag)
+                                console.log(indice)
+                                tagsSelecionadas.splice(indice, 1)
+                            
+                                
+                                
                               }
-            
-                            }} setValue={item.id_tag} key={item.id_tag} text={item.nome}></BotaoTag>
+                            })
+                          }
+        
+                        }} key={item.id_tag} text={item.nome}></BotaoTag>
+
+                      )
+                            
                           
-                        )
-                       } else {
-                        return (
-                          <>
-                            <p></p>
-                          </>
-                        )
-                       }
-                     })
+                    })
                      
                     ))
                   )

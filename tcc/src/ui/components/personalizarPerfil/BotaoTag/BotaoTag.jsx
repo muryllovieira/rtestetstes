@@ -18,6 +18,7 @@ function BotaoTag({text, option, setValue, array}) {
     const setTag = () => {
         setTagAtiva(!tagAtiva)
         option(tagAtiva)
+        valueTag()
     }
 
   return(

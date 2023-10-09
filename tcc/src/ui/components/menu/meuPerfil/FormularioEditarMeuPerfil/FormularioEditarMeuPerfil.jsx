@@ -91,9 +91,11 @@ function FormularioEditarMeuPerfil({open, nomePerfil, tagPerfil, cidadePerfil, e
 
         if(foto == false) {
 
+            console.log(localizacao)
+
             try {
                 const response = await blogFetch.put('/usuario/editar_perfil',{
-                    id_usuario: id.idToken,
+                    id_usuario: id,
                     id_localizacao: localizacao,
                     bairro: bairro,
                     cidade: cidade,
@@ -105,11 +107,11 @@ function FormularioEditarMeuPerfil({open, nomePerfil, tagPerfil, cidadePerfil, e
                     tags: tag
                 },{
                     headers: {
-                        'x-access-token' : accessToken.accessToken
+                        'x-access-token' : accessToken
                     }
                 } )
     
-
+                console.log(response)
             
             } catch (error) {
                 console.log(error)
@@ -119,13 +121,16 @@ function FormularioEditarMeuPerfil({open, nomePerfil, tagPerfil, cidadePerfil, e
             }
 
             console.log('sem foto')
+            // reloadUser()
 
         } else {
-            setFotoPerfil(foto)
+            // setFotoPerfil(foto)
+
+            console.log(localizacao)
 
             try {
                 const response = await blogFetch.put('/usuario/editar_perfil',{
-                    id_usuario: id.idToken,
+                    id_usuario: id,
                     id_localizacao: localizacao,
                     bairro: bairro,
                     cidade: cidade,
@@ -137,11 +142,11 @@ function FormularioEditarMeuPerfil({open, nomePerfil, tagPerfil, cidadePerfil, e
                     tags: tag
                 },{
                     headers: {
-                        'x-access-token' : accessToken.accessToken
+                        'x-access-token' : accessToken
                     }
                 } )
     
-           
+                console.log(response)
             
             } catch (error) {
                 console.log(error)
@@ -151,10 +156,11 @@ function FormularioEditarMeuPerfil({open, nomePerfil, tagPerfil, cidadePerfil, e
             }
 
             console.log('com foto')
+            // reloadUser()
 
         }
 
-        reloadUser()
+      
 
         
     }

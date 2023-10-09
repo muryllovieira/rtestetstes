@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react'
 import "./styleFormularioPersonalizarTags.css"
 import setaEsquerda from "../../../../pages/registrar/personalizarPerfil/personalizarTags/images/setaEsquerda.svg"
 import setaDireita from "../../../../pages/registrar/personalizarPerfil/personalizarTags/images/setaDireita.svg"
-import {Link} from "react-router-dom"
+import {Link, useNavigate} from "react-router-dom"
 import BotaoTag from '../BotaoTag/BotaoTag'
 import blogFetch from '../../../../data/services/api/ApiService'
 import UserContext from '../../../../data/hooks/context/UserContext'
@@ -10,16 +10,28 @@ import InputGlobal from '../../global/InputGlobal/InputGlobal'
 
 const FormularioPersonalizarTags = () => {
 
-  const {acessToken} = useContext(UserContext)
+  const navigator = useNavigate()
+
+  const {accessToken} = useContext(UserContext)
  
+  const {id} = useContext(UserContext)
+
+  console.log(accessToken, id)
 
   const [value, setValue] = useState(0)
+
   const [todasTags, setTodasTags] = useState(false)
+
   const [tagsSelecionadas, setTagsSelecionadas] = useState([])
+  
+  const [idTagsSelecionadas, setIdTagsSelecionadas] = useState([])
+
   const [listaFechada, setListaFechada] = useState(true)
 
   const [listaCategorias, setListaCategorias] = useState()
+
   const [listaTags, setListaTags] = useState()
+
   const [busca, setBusca] = useState('')
 
   useEffect(() => {
@@ -38,85 +50,123 @@ const FormularioPersonalizarTags = () => {
     pegarTagsGeral()
   }, [])
 
-  const AtualizarListaTags = () => {
 
-    return (
-     <>
+  // const AtualizarListaTags = () => {
+
+  //   return (
+  //    <>
      
-        {
-          listaTags === undefined ? (
-            <p>Carregando</p>
-          ) : (
-            listaTags.categorias_e_tags.map((lista) => (
-             lista.filter((item) => {
-              return busca.toLowerCase() === '' ? item : item.nome.toLowerCase().includes(busca )
-             }).map((item) => (
+  //       {
+  //         listaTags === undefined ? (
+  //           <p>Carregando</p>
+  //         ) : (
+  //           listaTags.categorias_e_tags.map((lista) => (
+  //            lista.filter((item) => {
+  //             return busca.toLowerCase() === '' ? item : item.nome.toLowerCase().includes(busca )
+  //            }).map((item) => (
 
-              item.id_categoria == value ? (
+  //             item.id_categoria == value ? (
 
-                <BotaoTag option={(e) => {
-                  const tagSel = handleCallBack(e)
+  //               <BotaoTag option={(e) => {
+  //                 const tagSel = handleCallBack(e)
 
-                  if(!tagSel == true) {
-                    tagsSelecionadas.push(item)
-                  } 
+  //                 if(!tagSel == true) {
+  //                   tagsSelecionadas.push(item)
+  //                 } 
 
-                  if(!tagSel == false) {
-                    tagsSelecionadas.map((tag, indice ) => {
-                      if (tag.id == item.id) {
+  //                 if(!tagSel == false) {
+  //                   tagsSelecionadas.map((tag, indice ) => {
+  //                     if (tag.id == item.id) {
                         
-                        console.log(item.id)
-                        console.log(tag.id)
-                        console.log(indice)
-                        tagsSelecionadas.splice(indice, 1)
+  //                       console.log(item.id)
+  //                       console.log(tag.id)
+  //                       console.log(indice)
+  //                       tagsSelecionadas.splice(indice, 1)
                      
                         
                         
-                      }
-                    })
-                  }
+  //                     }
+  //                   })
+  //                 }
 
-                }} key={item.id_tag} text={item.nome}></BotaoTag>
+  //               }} key={item.id_tag} text={item.nome}></BotaoTag>
 
-              ) : (
+  //             ) : (
                 
-                <BotaoTag option={(e) => {
-                  const tagSel = handleCallBack(e)
+  //               <BotaoTag option={(e) => {
+  //                 const tagSel = handleCallBack(e)
 
-                  if(!tagSel == true) {
-                    tagsSelecionadas.push(item)
-                  } 
+  //                 if(!tagSel == true) {
+  //                   tagsSelecionadas.push(item)
+  //                 } 
 
-                  if(!tagSel == false) {
-                    tagsSelecionadas.map((tag, indice ) => {
-                      if (tag.id == item.id) {
+  //                 if(!tagSel == false) {
+  //                   tagsSelecionadas.map((tag, indice ) => {
+  //                     if (tag.id == item.id) {
                         
-                        console.log(item.id)
-                        console.log(tag.id)
-                        console.log(indice)
-                        tagsSelecionadas.splice(indice, 1)
+  //                       console.log(item.id)
+  //                       console.log(tag.id)
+  //                       console.log(indice)
+  //                       tagsSelecionadas.splice(indice, 1)
                      
                         
                         
-                      }
-                    })
-                  }
+  //                     }
+  //                   })
+  //                 }
 
-                }} key={item.id_tag} text={item.nome}></BotaoTag>
-              )
+  //               }} key={item.id_tag} text={item.nome}></BotaoTag>
+  //             )
 
-             ))
+  //            ))
              
-            ))
-          )
-        }
+  //           ))
+  //         )
+  //       }
 
-     </>
-    )
+  //    </>
+  //   )
+  // }
+
+  const percorrerListaTagsSelecionadas = () => {
+
+    tagsSelecionadas.map((id) => {
+      idTagsSelecionadas.push({id:id.id_tag})
+
+    })
+
   }
 
-  const enviarTags = () => {
-    console.log('oI')
+  const enviarTags = async () => {
+
+    percorrerListaTagsSelecionadas()
+
+    // console.log(idTagsSelecionadas)
+
+    // const test = {
+    //   tags: idTagsSelecionadas
+    // }
+
+    // console.log(test)
+
+    try {
+      const response = await blogFetch.post("/tag/inserir_tags", {
+        id_usuario: id,
+        tags: idTagsSelecionadas
+      }, {
+        headers: {
+          'x-access-token' : accessToken
+        }
+      })
+
+      console.log(response)
+      console.log(response.data)
+      
+      navigator('/menu/explorar')
+
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   const handleCallBack = (dados) => {
@@ -130,7 +180,7 @@ const FormularioPersonalizarTags = () => {
     try {
       const response = await blogFetch.get('/categoria/select_all', {
         headers: {
-          'x-access-token' : 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOjcyLCJpYXQiOjE2OTY0NDQzMDUsImV4cCI6MTcyNjQ0NDMwNX0.pfoTKnxsk657GBajP5280y-TVifVlRBcdV8ClTtJick'
+          'x-access-token' : accessToken
         }
       })
 
@@ -147,7 +197,7 @@ const FormularioPersonalizarTags = () => {
       const response = await blogFetch.get('/tag', {
 
         headers: {
-          'x-access-token' : 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOjcyLCJpYXQiOjE2OTY0NDQzMDUsImV4cCI6MTcyNjQ0NDMwNX0.pfoTKnxsk657GBajP5280y-TVifVlRBcdV8ClTtJick'
+          'x-access-token' : accessToken
         }
          
       })
@@ -165,14 +215,17 @@ const FormularioPersonalizarTags = () => {
 
 
   return (
-    <form className='formularioPersonalizarTags' action=''>
+    <form className='formularioPersonalizarTags'>
+
         <div className='formularioPersonalizarTags__header'>
+
           <Link to={'/personalizar-perfil/personalizar-tipo'}>
             <img src={setaEsquerda} alt="/personalizar-perfil/personalizar-tipo" />
           </Link>
-          <i onClick={enviarTags}>
+          <i className='setaEnviarTags' onClick={enviarTags}>
             <img src={setaDireita} alt="/menu/explorar" />
           </i>
+
         </div>
 
         <div className='formularioPersonalizarTags__main'>
@@ -213,22 +266,23 @@ const FormularioPersonalizarTags = () => {
 
             
                               if(!tagSel == true) {
-                                let tes = [...tagsSelecionadas]
-                                tes.push(item) 
-                                setTagsSelecionadas(tes)
+                             
+                                let itemTag = [...tagsSelecionadas]
+                                itemTag.push(item) 
+                                setTagsSelecionadas(itemTag)
                                 
                               }
 
                               if(!tagSel == true) {
-                                console.log(lista)
+                                // console.log(lista)
                                 lista.map((tag, indice ) => {
                                   if (tag.id_tag == item.id_tag) {
                                     
-                                    console.log(item.id_tag)
-                                    console.log(tag.id_tag)
-                                    console.log(indice)
+                                    // console.log(item.id_tag)
+                                    // console.log(tag.id_tag)
+                                    // console.log(indice)
                                     lista.splice(indice, 1)
-                                    console.log(lista)
+                                    // console.log(lista)
                                   }
                                 })
                               }
@@ -237,9 +291,9 @@ const FormularioPersonalizarTags = () => {
                                 tagsSelecionadas.map((tag, indice ) => {
                                   if (tag.id_tag == item.id_tag) {
                                     
-                                    console.log(item.id_tag)
-                                    console.log(tag.id_tag)
-                                    console.log(indice)
+                                    // console.log(item.id_tag)
+                                    // console.log(tag.id_tag)
+                                    // console.log(indice)
                                     tagsSelecionadas.splice(indice, 1)
                             
                                   }
@@ -264,7 +318,7 @@ const FormularioPersonalizarTags = () => {
                 <div className='containerTagsLista'>
                   {
                     tagsSelecionadas === undefined ||  tagsSelecionadas.length == 0 ? (
-                      <p>Carregando</p>
+                      <p>Sem tags selecionadas...</p>
                     ) : (
                       tagsSelecionadas.map((item) => {
 

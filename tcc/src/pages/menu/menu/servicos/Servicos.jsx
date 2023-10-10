@@ -3,15 +3,21 @@ import './styleServicos.css'
 import InputGlobal from '../../../../ui/components/global/InputGlobal/InputGlobal'
 import UserContext from '../../../../data/hooks/context/UserContext'
 import blogFetch from '../../../../data/services/api/ApiService'
+import { useNavigate } from 'react-router-dom'
 
 function Servicos() {
 
+  const navigator = useNavigate()
+
   const {acessToken} = useContext(UserContext)
+
+  const {idServico, setIdServico} = useContext(UserContext)
   
   const [value, setValue] = useState(0)
 
   const [listaCategorias, setListaCategorias] = useState()
   const [listaTags, setListaTags] = useState()
+  const [busca, setBusca] = useState('')
 
   useEffect(() => {
     getTagsGeral()
@@ -21,6 +27,12 @@ function Servicos() {
     getCategorias()
   }, [])
 
+  const setServico = (e) => {
+      setIdServico(e)
+      navigator('/menu/servicos/perfil')
+  }
+
+
   const getCategorias = async () => {
     try {
       const response = await blogFetch.get('/categoria/select_all', {
@@ -29,7 +41,7 @@ function Servicos() {
         }
       })
 
-      console.log(response)
+      
       setListaCategorias(response.data)
 
     } catch (error) {
@@ -46,14 +58,11 @@ function Servicos() {
       })
 
       setListaTags(response.data)
-      console.log(response)
 
     } catch (error) {
       console.log(error)
     }
   }
-
-
 
   return (
     <>
@@ -67,6 +76,7 @@ function Servicos() {
 
           <div className='apresentacaoServicos__inputPesquisar'>
             <InputGlobal
+              onChange={setBusca}
               type={'search'}
               placeholder={'Procurar um serviço'}
             ></InputGlobal>
@@ -84,7 +94,7 @@ function Servicos() {
 
           <ul className='secaoDeFiltros__listaDeFiltros'>
 
-            <li onClick={(e) => setValue(0)} className='listaDeFiltros__filtro'>GERAL</li>
+            <li onClick={(e) => setValue(0)} className='listaDeFiltros__filtro'>Geral</li>
 
             {
               listaCategorias === undefined ? (
@@ -104,41 +114,49 @@ function Servicos() {
 
         <section className='containerServicos__secaoDeTags'>
           <div className='secaoTags__listaTags'>
-
+            
             {
               listaTags === undefined ? (
                 <p></p>
               ) : (
-                listaTags.categorias_e_tags.map((item) => (
+                listaTags.tags.filter((item) => {
+                  return busca.toLowerCase == '' ? item : item.nome.toLowerCase().includes(busca)
+                }).map((tag) => {
 
-                item.map((tag) => {
                   if (tag.id_categoria == value) {
 
                     return (
-                      <div className='tag'>
+
+                      <div className='tag' onClick={() => setServico(tag.id_tag)}>
                           <img src={tag.imagem} className="imagem_Tag" />
                           <p className='textoTag' key={tag.id_tag}>{tag.nome}</p>
-                      </div>
+                        </div>
                       
                     )
 
                   } else if (value == 0) {
+
                     return (
-                      <div className='tag'>
+
+                      <div className='tag' onClick={() => setServico(tag.id_tag)}>
                           <img src={tag.imagem} className="imagem_Tag" />
                           <p className='textoTag' key={tag.id_tag}>{tag.nome}</p>
-                          </div>
+                        </div>
+                      
                     )
+
                   } else {
+
                     return (
                       <></>
                     )
+
                   }
+                
                 })
-                ))
               )
             }
-            
+
           </div>
         </section>
       </div>

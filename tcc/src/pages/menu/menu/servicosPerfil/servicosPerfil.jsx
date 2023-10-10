@@ -6,10 +6,16 @@ import iconFiltro from './images/filtro.svg'
 import {Link} from 'react-router-dom'
 import ModalLocalizacao from '../../../../ui/components/global/Modal/Modal'
 import ComboBoxLocalizacao from '../../../../ui/components/personalizarPerfil/ComboBoxLocalizacao/ComboBoxLocalizacao'
+import UserContext from '../../../../data/hooks/context/UserContext'
+import { useContext } from 'react'
 
 import imagemPerfil from "./images/imagemPerfil.png"
 
 const servicosPerfil = () => {
+
+  const {idServico} = useContext(UserContext)
+
+  console.log(idServico)
 
   const [openModal, setOpenModal] = useState(false)
 

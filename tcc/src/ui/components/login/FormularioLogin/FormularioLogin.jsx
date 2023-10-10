@@ -43,12 +43,9 @@ function FormularioLogin () {
         senha: senha
        })
    
-      
-      const accessToken = response.data.token
-      const idToken = response.data.login.id
 
-      setAccessToken({ email, senha, accessToken})
-      setId({idToken})
+      setAccessToken(response.data.token)
+      setId(response.data.login.id)
 
       navigate("/menu/explorar")
       

@@ -18,27 +18,27 @@ function MeuPerfil() {
 
   const { accessToken } = useContext(UserContext)
   const { id } = useContext(UserContext)
+  console.log(id, accessToken)
 
   const [ user, setUser ] = useState(null)
 
-  async function pegarUsuario() {
-    if (accessToken != null && id != null && id != undefined && isNaN(id)) {
-
+  const pegarUsuario = async () => {
+    
       try {
-        const response = await blogFetch.get(`/usuario/meu_perfil/${id.idToken}`, {
+        const response = await blogFetch.get(`/usuario/meu_perfil/${id}`, {
           headers: {
-            'x-access-token' : accessToken.accessToken
+            'x-access-token' : accessToken
           }
         })
   
         setUser(response.data)
+        console.log(response.data)
   
       } catch (error) {
         console.log(error)
       }
-    } else {
-      console.log('id ou chave nulo')
-  }}
+  
+  }
 
 
   useEffect(()  => {

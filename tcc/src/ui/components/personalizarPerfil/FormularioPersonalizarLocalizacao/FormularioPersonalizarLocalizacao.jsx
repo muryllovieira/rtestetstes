@@ -15,6 +15,8 @@ const FormularioPersonalizarLocalizacao = ({}) => {
   const { userLocation } = useContext(UserContext)
   const { accessToken } = useContext(UserContext)
 
+  console.log(userLocation)
+
   const enviarLocalizacao = async () => {
 
     console.log(accessToken)

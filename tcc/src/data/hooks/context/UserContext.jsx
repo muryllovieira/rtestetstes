@@ -15,6 +15,8 @@ export const UserProvider = ({children}) => {
     const [ cidade, setCidade ] = useState("")
     const [ bairro, setBairro ] = useState("")
 
+    const [idServico, setIdServico] = useState(0)
+
     const userData = {
         id: id,
         nome: nome,
@@ -29,12 +31,13 @@ export const UserProvider = ({children}) => {
         bairro: bairro
     }
 
+
     // useEffect(() => {
     //     console.log(userLocation)
     //   }, [estado, cidade, bairro])
 
     return <UserContext.Provider value={
-        {userData, userLocation, accessToken, setAccessToken, id, setId, nome, setNome, foto, setFoto, descricao, setDescricao, estado, setEstado, cidade, setCidade, bairro, setBairro}
+        {userData, userLocation, accessToken, setAccessToken, id, setId, nome, setNome, foto, setFoto, descricao, setDescricao, estado, setEstado, cidade, setCidade, bairro, setBairro, idServico, setIdServico}
         }>
         {children}
     </UserContext.Provider>

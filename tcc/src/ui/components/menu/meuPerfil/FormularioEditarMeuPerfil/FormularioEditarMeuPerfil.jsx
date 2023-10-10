@@ -40,6 +40,20 @@ function FormularioEditarMeuPerfil({open, nomePerfil, tagPerfil, cidadePerfil, e
       setImageURL(newImageUrl)
       
     }, [images])
+
+    console.log({
+        accessToken: accessToken,
+        id: id,
+        estado: estado,
+        cidade: cidade,
+        bairro: bairro,
+        descricao: descricao,
+        nome: nome,
+        tagPerfilEditado: tagPerfilEditado,
+        tags: [tags],
+        localizacao: localizacao,
+        fotoPerfil: fotoPerfil
+    })
   
     function onImageChange(e) {
       setImage([...e.target.files])
@@ -121,10 +135,10 @@ function FormularioEditarMeuPerfil({open, nomePerfil, tagPerfil, cidadePerfil, e
             }
 
             console.log('sem foto')
-            // reloadUser()
+            reloadUser()
 
         } else {
-            // setFotoPerfil(foto)
+            setFotoPerfil(foto)
 
             console.log(localizacao)
 
@@ -156,7 +170,7 @@ function FormularioEditarMeuPerfil({open, nomePerfil, tagPerfil, cidadePerfil, e
             }
 
             console.log('com foto')
-            // reloadUser()
+            reloadUser()
 
         }
 

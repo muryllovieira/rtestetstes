@@ -251,13 +251,14 @@ const FormularioPersonalizarTags = () => {
                       listaTags === undefined ? (
                         <p>Carregando</p>
                       ) : (
-                        listaTags.categorias_e_tags.map((lista) => (
-                        lista.filter((item) => {
+                        listaTags.tags.filter((item) => {
+                          
                           return busca.toLowerCase() === '' 
                           ? item 
                           : item.nome.toLowerCase().includes(busca)
 
                         }).map((item) => {
+                        
                     
                           return (
 
@@ -275,13 +276,13 @@ const FormularioPersonalizarTags = () => {
 
                               if(!tagSel == true) {
                                 // console.log(lista)
-                                lista.map((tag, indice ) => {
+                                listaTags.tags.map((tag, indice ) => {
                                   if (tag.id_tag == item.id_tag) {
                                     
                                     // console.log(item.id_tag)
                                     // console.log(tag.id_tag)
                                     // console.log(indice)
-                                    lista.splice(indice, 1)
+                                    listaTags.tags.splice(indice, 1)
                                     // console.log(lista)
                                   }
                                 })
@@ -305,9 +306,9 @@ const FormularioPersonalizarTags = () => {
                           )
                                 
                               
-                        })
                         
-                        ))
+                        
+                        })
                       )
                     }
 

@@ -21,6 +21,9 @@ function MeuPerfil() {
   console.log(id, accessToken)
 
   const [ user, setUser ] = useState(null)
+  const [tags, setTags] = useState([])
+
+  console.log(user)
 
   const pegarUsuario = async () => {
     
@@ -33,10 +36,18 @@ function MeuPerfil() {
   
         setUser(response.data)
         console.log(response.data)
+
+        if (response.data.usuario.tags === undefined) {
+          console.log('a')
+        } else {
+          setTags(response.data.usuario.tags)
+        }
   
       } catch (error) {
         console.log(error)
       }
+
+      
   
   }
 
@@ -127,27 +138,38 @@ function MeuPerfil() {
                               user === null ? (
                                 <p className='carregandoPerfil'>Usuário Não Encontrado</p>
                               ) : (
+                                
                                 <div className="containerPerfil__containerTags">
-                                  <TagGlobal
-                                    key={user.usuario.tags[0].id_tag}
-                                    id={user.usuario.tags[0].id_tag}
-                                    value={user.usuario.tags[0].nome_tag}
-                                  ></TagGlobal>
-                                  <TagGlobal
-                                    key={user.usuario.tags[1].id_tag}
-                                    id={user.usuario.tags[1].id_tag}
-                                    value={user.usuario.tags[1].nome_tag}
-                                  ></TagGlobal>
                                   {
-                                   user.usuario.tags[2] === undefined ? (
-                                    <></>
-                                  ) : (
-                                    <TagGlobal
-                                      key={user.usuario.tags[2].id_tag}
-                                      id={user.usuario.tags[2].id_tag}
-                                      value={user.usuario.tags[2].nome_tag}
-                                    ></TagGlobal>
-                                  ) 
+                                    tags.length == 0 ? (
+                                      <>Sem Tags</>
+                                    ) : (
+                                      <>
+                                      
+                                            <TagGlobal
+                                          key={user.usuario.tags[0].id_tag}
+                                          id={user.usuario.tags[0].id_tag}
+                                          value={user.usuario.tags[0].nome_tag}
+                                        ></TagGlobal>
+                                        <TagGlobal
+                                          key={user.usuario.tags[1].id_tag}
+                                          id={user.usuario.tags[1].id_tag}
+                                          value={user.usuario.tags[1].nome_tag}
+                                        ></TagGlobal>
+                                        {
+                                        user.usuario.tags[2] === undefined ? (
+                                          <></>
+                                        ) : (
+                                          <TagGlobal
+                                            key={user.usuario.tags[2].id_tag}
+                                            id={user.usuario.tags[2].id_tag}
+                                            value={user.usuario.tags[2].nome_tag}
+                                          ></TagGlobal>
+                                        ) 
+                                        }
+
+                                      </>
+                                    )
                                   }
                                 </div>
                               )

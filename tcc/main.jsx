@@ -4,8 +4,8 @@
  * Data Fim: X
  * 
  * Commits: Rotas Definidas v0.6, Estruturação de Diretórios Concluída, 
- * Componentes Iniciados v2.22, Responsividade v0.6, Funcionalidades v0.11,
- * Integração Iniciada v0.16, Contexto Aplicado, Lista Icones v0.3, Conflito v0.4
+ * Componentes Iniciados v2.23, Responsividade v0.6, Funcionalidades v0.12,
+ * Integração Iniciada v0.17, Contexto Aplicado, Lista Icones v0.3, Conflito v0.4
  * 
 *****************/
 
@@ -33,7 +33,7 @@ import Servicos from './src/pages/menu/menu/servicos/Servicos.jsx'
 import Publicar from './src/pages/menu/menu/publicar/Publicar.jsx'
 import Conversas from './src/pages/menu/menu/conversas/Conversas.jsx'
 import Configuracoes from './src/pages/menu/menu/configuracoes/Configuracoes.jsx'
-import ServicosPerfil from './src/pages/menu/menu/servicosPerfil/servicosPerfil.jsx'
+import ServicosPerfil from './src/pages/menu/menu/servicosPerfil/ServicosPerfil.jsx'
 
 //páginas - rotas de Personalização
 import PersonalizarNome from './src/pages/registrar/personalizarPerfil/personalizarNome/PersonalizarNome.jsx'

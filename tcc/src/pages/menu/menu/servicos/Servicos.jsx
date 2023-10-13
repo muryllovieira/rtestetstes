@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react'
 import './styleServicos.css'
 import InputGlobal from '../../../../ui/components/global/InputGlobal/InputGlobal'
-import UserContext from '../../../../data/hooks/context/UserContext'
+import UserContext from '../../../../data/hooks/context/userContext'
 import blogFetch from '../../../../data/services/api/ApiService'
 import { useNavigate } from 'react-router-dom'
 
@@ -9,9 +9,10 @@ function Servicos() {
 
   const navigator = useNavigate()
 
-  const {acessToken} = useContext(UserContext)
+  const {accessToken} = useContext(UserContext)
 
   const {idServico, setIdServico} = useContext(UserContext)
+  const {nomeTagServico, setNomeTagServico} = useContext(UserContext)
   
   const [value, setValue] = useState(0)
 
@@ -27,8 +28,9 @@ function Servicos() {
     getCategorias()
   }, [])
 
-  const setServico = (e) => {
-      setIdServico(e)
+  const setServico = (id, nome) => {
+      setIdServico(id)
+      setNomeTagServico(nome)
       navigator('/menu/servicos/perfil')
   }
 
@@ -37,7 +39,7 @@ function Servicos() {
     try {
       const response = await blogFetch.get('/categoria/select_all', {
         headers: {
-          'x-access-token' : 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOjcyLCJpYXQiOjE2OTY0NDQzMDUsImV4cCI6MTcyNjQ0NDMwNX0.pfoTKnxsk657GBajP5280y-TVifVlRBcdV8ClTtJick'
+          'x-access-token' : accessToken
         }
       })
 
@@ -53,7 +55,7 @@ function Servicos() {
     try {
       const response = await blogFetch.get('/tag',  {
         headers: {
-          'x-access-token' : 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOjcyLCJpYXQiOjE2OTY0NDQzMDUsImV4cCI6MTcyNjQ0NDMwNX0.pfoTKnxsk657GBajP5280y-TVifVlRBcdV8ClTtJick'
+          'x-access-token' : accessToken
         }
       })
 
@@ -127,7 +129,7 @@ function Servicos() {
 
                     return (
 
-                      <div className='tag' onClick={() => setServico(tag.id_tag)}>
+                      <div className='tag' onClick={() => setServico(tag.id_tag, tag.nome)}>
                           <img src={tag.imagem} className="imagem_Tag" />
                           <p className='textoTag' key={tag.id_tag}>{tag.nome}</p>
                         </div>
@@ -138,7 +140,7 @@ function Servicos() {
 
                     return (
 
-                      <div className='tag' onClick={() => setServico(tag.id_tag)}>
+                      <div className='tag' onClick={() => setServico(tag.id_tag, tag.nome)}>
                           <img src={tag.imagem} className="imagem_Tag" />
                           <p className='textoTag' key={tag.id_tag}>{tag.nome}</p>
                         </div>

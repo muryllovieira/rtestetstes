@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './styleServicosPerfil.css'
 import InputGlobal from '../../../../ui/components/global/InputGlobal/InputGlobal'
 import setaEsquerda from './images/setaEsquerda.svg'
@@ -6,18 +6,51 @@ import iconFiltro from './images/filtro.svg'
 import {Link} from 'react-router-dom'
 import ModalLocalizacao from '../../../../ui/components/global/Modal/Modal'
 import ComboBoxLocalizacao from '../../../../ui/components/personalizarPerfil/ComboBoxLocalizacao/ComboBoxLocalizacao'
-import UserContext from '../../../../data/hooks/context/UserContext'
+import UserContext from '../../../../data/hooks/context/userContext'
 import { useContext } from 'react'
+import CardPerfil from '../../../../ui/components/menu/servicosPerfil/CardPerfil/CardPerfil'
+import blogFetch from '../../../../data/services/api/ApiService'
 
 import imagemPerfil from "./images/imagemPerfil.png"
 
 const servicosPerfil = () => {
 
   const {idServico} = useContext(UserContext)
+  const {nomeTagServico} = useContext(UserContext)
+
+  const {accessToken} = useContext(UserContext)
+
+  const [listaPerfis, setListaPerfis] = useState([])
 
   console.log(idServico)
+  console.log(nomeTagServico)
 
   const [openModal, setOpenModal] = useState(false)
+
+  useEffect(() => {
+    pegarPerfis()
+  }, [])
+
+  const pegarPerfis = async () => {
+
+    try {
+      const response = await blogFetch.post('/usuario/select_by_tag', {
+        id_tag: idServico,
+        nome_tag: nomeTagServico
+      }, {
+        headers: {
+          'x-access-token' : accessToken
+        }
+      })
+
+      console.log(response)
+      console.log(response.data)
+      setListaPerfis(response.data)
+    } catch (error) {
+      console.log(error)
+    }
+
+  }
 
   return (
     <>
@@ -55,52 +88,20 @@ const servicosPerfil = () => {
         <section className='containerServicos__secaoDeTags'>
           <div className='listaPerfis'>
 
-            <div className="tagPerfil">
-              <img src={imagemPerfil} className="imagemPerfil" />
-              <p className='nomePerfil'>Beltrana dos Santos</p>
-            </div>
-
-            <div className="tagPerfil">
-              <img src={imagemPerfil} className="imagemPerfil" />
-              <p className='nomePerfil'>Beltrana dos Santos</p>
-            </div>
-            <div className="tagPerfil">
-              <img src={imagemPerfil} className="imagemPerfil" />
-              <p className='nomePerfil'>Beltrana dos Santos</p>
-            </div>
-            <div className="tagPerfil">
-              <img src={imagemPerfil} className="imagemPerfil" />
-              <p className='nomePerfil'>Beltrana dos Santos</p>
-            </div>
-            <div className="tagPerfil">
-              <img src={imagemPerfil} className="imagemPerfil" />
-              <p className='nomePerfil'>Beltrana dos Santos</p>
-            </div>
-            <div className="tagPerfil">
-              <img src={imagemPerfil} className="imagemPerfil" />
-              <p className='nomePerfil'>Beltrana dos Santos</p>
-            </div>
-            <div className="tagPerfil">
-              <img src={imagemPerfil} className="imagemPerfil" />
-              <p className='nomePerfil'>Beltrana dos Santos</p>
-            </div>
-            <div className="tagPerfil">
-              <img src={imagemPerfil} className="imagemPerfil" />
-              <p className='nomePerfil'>Beltrana dos Santos</p>
-            </div>
-            <div className="tagPerfil">
-              <img src={imagemPerfil} className="imagemPerfil" />
-              <p className='nomePerfil'>Beltrana dos Santos</p>
-            </div>
-            <div className="tagPerfil">
-              <img src={imagemPerfil} className="imagemPerfil" />
-              <p className='nomePerfil'>Beltrana dos Santos</p>
-            </div>
-            <div className="tagPerfil">
-              <img src={imagemPerfil} className="imagemPerfil" />
-              <p className='nomePerfil'>Beltrana dos Santos</p>
-            </div>
-
+            {
+              listaPerfis.length === 0 ? (
+                <>Carregando</>
+              ) : (
+                listaPerfis.usuarios.map((item) => (
+                  <CardPerfil
+                    key={item.id}
+                    nome={item.nome}
+                    img={item.foto}
+                  ></CardPerfil>
+                ))
+              )
+            }
+            
           </div>
         </section>
 

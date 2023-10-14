@@ -6,7 +6,7 @@ import iconFiltro from './images/filtro.svg'
 import {Link} from 'react-router-dom'
 import ModalLocalizacao from '../../../../ui/components/global/Modal/Modal'
 import ComboBoxLocalizacao from '../../../../ui/components/personalizarPerfil/ComboBoxLocalizacao/ComboBoxLocalizacao'
-import UserContext from '../../../../data/hooks/context/userContext'
+import UserContext from '../../../../data/hooks/context/UserContext'
 import { useContext } from 'react'
 import CardPerfil from '../../../../ui/components/menu/servicosPerfil/CardPerfil/CardPerfil'
 import blogFetch from '../../../../data/services/api/ApiService'
@@ -17,6 +17,8 @@ const servicosPerfil = () => {
 
   const {idServico} = useContext(UserContext)
   const {nomeTagServico} = useContext(UserContext)
+
+  const {idPerfil, setIdPerfil} = useContext(UserContext)
 
   const {accessToken} = useContext(UserContext)
 
@@ -30,6 +32,11 @@ const servicosPerfil = () => {
   useEffect(() => {
     pegarPerfis()
   }, [])
+
+  const setPerfil = (id) => {
+    setIdPerfil(id)
+    navigator('/menu/servicos/perfil/perfil-selecionado')
+  }
 
   const pegarPerfis = async () => {
 
@@ -94,6 +101,7 @@ const servicosPerfil = () => {
               ) : (
                 listaPerfis.usuarios.map((item) => (
                   <CardPerfil
+                    onClick={() => setPerfil(item.id)}
                     key={item.id}
                     nome={item.nome}
                     img={item.foto}

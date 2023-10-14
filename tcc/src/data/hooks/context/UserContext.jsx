@@ -18,6 +18,8 @@ export const UserProvider = ({children}) => {
     const [idServico, setIdServico] = useState(0)
     const [nomeTagServico, setNomeTagServico] = useState('')
 
+    const [idPerfil, setIdPerfil] = useState(0)
+
     const userData = {
         id: id,
         nome: nome,
@@ -60,7 +62,9 @@ export const UserProvider = ({children}) => {
             idServico,
             setIdServico,
             nomeTagServico,
-            setNomeTagServico
+            setNomeTagServico,
+            idPerfil,
+            setIdPerfil
         }
         }>
         {children}

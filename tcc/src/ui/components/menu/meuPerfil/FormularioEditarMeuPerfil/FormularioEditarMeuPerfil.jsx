@@ -8,7 +8,7 @@ import IconeEditar from '../../../../../pages/menu/menu/perfil/images/iconeEdita
 import TelaTransparente from '../../../../../pages/menu/menu/perfil/images/telaTransparente.svg'
 import { useState, useContext, useEffect } from 'react'
 import blogFetch from '../../../../../data/services/api/ApiService'
-import UserContext from '../../../../../data/hooks/context/userContext'
+import UserContext from '../../../../../data/hooks/context/UserContext'
 import { useNavigate } from 'react-router-dom'
 import { uploadImage } from '../../../../../data/services/firebase/firebase'
 

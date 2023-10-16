@@ -139,22 +139,24 @@ function FormularioRegistrar() {
         )
 
         
-        const idUsuario = response.data.aluno.id_usuario
+        const idUsuario = response.data.usuario.id_usuario
         console.log(idUsuario)
+        
 
         setAccessToken(response.data.token)
         setId(idUsuario)
 
-        setEmail('')
-        setPwd('')
-        setUser('')
-        setMatchPwd('')
-
         navigate("/personalizar-perfil/personalizar-nome")
       } catch (erro) {
+        console.log(erro)
 
-        if (!erro.response) {
-          setErrMsg('Sem Resposta Do Servidor')
+        if (erro.status === 201) {
+          
+          console.log(erro)
+
+        } else if (!erro.response) {
+
+          setErrMsg('Usuario já cadastrado')
 
         } else if (erro.response.status === 400) {
 

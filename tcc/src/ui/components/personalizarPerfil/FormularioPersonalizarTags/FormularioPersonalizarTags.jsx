@@ -35,12 +35,9 @@ const FormularioPersonalizarTags = () => {
   const [busca, setBusca] = useState('')
 
   useEffect(() => {
-    console.log(value)
-  }, [value])
-
-  useEffect(() => {
     console.log(tagsSelecionadas)
   }, [tagsSelecionadas])
+
 
   useEffect(() => {
     pegarCategorias()
@@ -233,15 +230,17 @@ const FormularioPersonalizarTags = () => {
             {/* <AtualizarListaTags /> */}
               <p className='subtitle'>*As tags de serviço são utilizadas pelas costureiras para identificar que tipo de serviço elas prestam.</p>
 
-              <InputGlobal
-                onChange={setBusca}
-                value={busca}
-                placeholder={'Pesquise uma tag...'}
-              ></InputGlobal>
+              <div className='main__opcoesTags'>
+                <InputGlobal
+                  onChange={setBusca}
+                  value={busca}
+                  placeholder={'Pesquise uma tag...'}
+                ></InputGlobal>
 
-              <i className='teste' onClick={(e) => {
-                setListaFechada(!listaFechada)
-              }}>Clique aqui</i>
+                <i className='aparecerLista' onClick={(e) => {
+                  setListaFechada(!listaFechada)
+                }}>LISTA DE TAGS SELECIONADAS</i>
+              </div>
 
               <div className='listasTags'>
                 <div className='tagsList'>
@@ -252,10 +251,12 @@ const FormularioPersonalizarTags = () => {
                         <p>Carregando</p>
                       ) : (
                         listaTags.tags.filter((item) => {
+
+                          const buscaPequena = busca.toLowerCase()
                           
-                          return busca.toLowerCase() === '' 
+                          return buscaPequena.toLowerCase() === '' 
                           ? item 
-                          : item.nome.toLowerCase().includes(busca)
+                          : item.nome.toLowerCase().includes(buscaPequena)
 
                         }).map((item) => {
                         
@@ -275,15 +276,12 @@ const FormularioPersonalizarTags = () => {
                               }
 
                               if(!tagSel == true) {
-                                // console.log(lista)
+                              
                                 listaTags.tags.map((tag, indice ) => {
                                   if (tag.id_tag == item.id_tag) {
-                                    
-                                    // console.log(item.id_tag)
-                                    // console.log(tag.id_tag)
-                                    // console.log(indice)
+                                  
                                     listaTags.tags.splice(indice, 1)
-                                    // console.log(lista)
+                                   
                                   }
                                 })
                               }
@@ -292,9 +290,6 @@ const FormularioPersonalizarTags = () => {
                                 tagsSelecionadas.map((tag, indice ) => {
                                   if (tag.id_tag == item.id_tag) {
                                     
-                                    // console.log(item.id_tag)
-                                    // console.log(tag.id_tag)
-                                    // console.log(indice)
                                     tagsSelecionadas.splice(indice, 1)
                             
                                   }
@@ -315,58 +310,69 @@ const FormularioPersonalizarTags = () => {
                 </div>
               </div>
 
-              <div className={`tagsListaFechada ${listaFechada ? "tagsListaFechada" : "tagsListaAberta"}`}>
-                <div className='containerTagsLista'>
-                  {
-                    tagsSelecionadas === undefined ||  tagsSelecionadas.length == 0 ? (
-                      <p>Sem tags selecionadas...</p>
-                    ) : (
-                      tagsSelecionadas.map((item) => {
+              
 
-                        return (
+        </div>
+        <div className={`tagsListaFechada ${listaFechada ? "tagsListaFechada" : "tagsListaAberta"}`}>
+          <span>TAGS SELECIONADAS</span>
+          <div className='containerTagsLista'>
+            {
+              tagsSelecionadas === undefined ||  tagsSelecionadas.length == 0 ? (
+                <p>Sem tags selecionadas...</p>
+              ) : (
+                tagsSelecionadas.map((item) => {
 
-                          <BotaoTag option={(e) => {
-                            // const tagSel = handleCallBack(e)
-          
-                            // if(!tagSel == false) {
-                            //   tagsSelecionadas.push(item)
-                            // }
+                  return (
 
-                            // if(!tagSel == true) {
-                            //   console.log(lista)
-                            //   lista.map((tag, indice ) => {
-                            //     if (tag.id_tag == item.id_tag) {
-                                  
-                            //       console.log(item.id_tag)
-                            //       console.log(tag.id_tag)
-                            //       console.log(indice)
-                            //       lista.splice(indice, 1)
-                            //       console.log(lista)
-                            //     }
-                            //   })
-                            // }
-          
-                            // if(!tagSel == false) {
-                            //   tagsSelecionadas.map((tag, indice ) => {
-                            //     if (tag.id_tag == item.id_tag) {
-                                  
-                            //       console.log(item.id_tag)
-                            //       console.log(tag.id_tag)
-                            //       console.log(indice)
-                            //       tagsSelecionadas.splice(indice, 1)
+                    <BotaoTag
+                      key={item.id_tag} 
+                      text={item.nome}
+                      estado={true}
+                      option={(e) => {
+                        const tagSel = handleCallBack(e)
+
+                        if(!tagSel == true) {
+                        
+                          listaTags.tags.map((tag, indice ) => {
                           
-                            //     }
-                            //   })
-                            // }
-          
-                          }} key={item.id_tag} text={item.nome}></BotaoTag>
-                        )
-                      })
-                    )
-                  }
-                </div>
-              </div>
 
+                            if (tag.id_tag == item.id_tag) {
+                            
+                              console.log('a')
+                              
+                            }
+                          })
+                        }
+      
+                        if(!tagSel == true) {
+                          tagsSelecionadas.map((tag, indice ) => {
+                            
+                            if (tag.id_tag == item.id_tag) {
+
+                              console.log(tag.id_tag)
+                              console.log(item.id_tag)
+
+                              
+                              let itemTag = [...tagsSelecionadas]
+                              itemTag.splice(indice, 1) 
+                              setTagsSelecionadas(itemTag)
+                            
+                              
+
+                              console.log(tagsSelecionadas)
+                              
+                              console.log('b')
+                      
+                            }
+                          })
+                        }
+                      }}
+                    ></BotaoTag>
+                  )
+                })
+              )
+            }
+          </div>
         </div>
     </form>
   )

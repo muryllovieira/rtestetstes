@@ -20,6 +20,7 @@ function Servicos() {
   const [listaTags, setListaTags] = useState()
   const [busca, setBusca] = useState('')
 
+
   useEffect(() => {
     getTagsGeral()
   }, [])
@@ -45,6 +46,7 @@ function Servicos() {
 
       
       setListaCategorias(response.data)
+      console.log(response.data)
 
     } catch (error) {
       console.log(error)
@@ -96,7 +98,7 @@ function Servicos() {
 
           <ul className='secaoDeFiltros__listaDeFiltros'>
 
-            <li onClick={(e) => setValue(0)} className='listaDeFiltros__filtro'>Geral</li>
+            
 
             {
               listaCategorias === undefined ? (
@@ -122,16 +124,22 @@ function Servicos() {
                 <p></p>
               ) : (
                 listaTags.tags.filter((item) => {
-                  return busca.toLowerCase == '' ? item : item.nome.toLowerCase().includes(busca)
-                }).map((tag) => {
+                  
+                  const buscaPequena = busca.toLowerCase()
 
-                  if (tag.id_categoria == value) {
+                  return buscaPequena.toLowerCase() === '' ? item : item.nome.toLowerCase().includes(buscaPequena)
+
+                }).map((item) => {
+
+                 
+
+                  if (item.id_categoria == value) {
 
                     return (
 
-                      <div className='tag' onClick={() => setServico(tag.id_tag, tag.nome)}>
-                          <img src={tag.imagem} className="imagem_Tag" />
-                          <p className='textoTag' key={tag.id_tag}>{tag.nome}</p>
+                      <div className='tag' onClick={() => setServico(item.id_tag, item.nome)}>
+                          <img src={item.imagem} className="imagem_Tag" />
+                          <p className='textoTag' key={item.id_tag}>{item.nome}</p>
                         </div>
                       
                     )
@@ -140,19 +148,26 @@ function Servicos() {
 
                     return (
 
-                      <div className='tag' onClick={() => setServico(tag.id_tag, tag.nome)}>
-                          <img src={tag.imagem} className="imagem_Tag" />
-                          <p className='textoTag' key={tag.id_tag}>{tag.nome}</p>
+                      <div className='tag' onClick={() => setServico(item.id_tag, item.nome)}>
+                          <img src={item.imagem} className="imagem_Tag" />
+                          <p className='textoTag' key={item.id_tag}>{item.nome}</p>
                         </div>
                       
                     )
 
-                  } else {
+                  } else if (value == 7){
 
+                    return (
+                      <div className='tag' onClick={() => setServico(item.id_tag, item.nome)}>
+                          <img src={item.imagem} className="imagem_Tag" />
+                          <p className='textoTag' key={item.id_tag}>{item.nome}</p>
+                        </div>
+                    )
+
+                  } else {
                     return (
                       <></>
                     )
-
                   }
                 
                 })

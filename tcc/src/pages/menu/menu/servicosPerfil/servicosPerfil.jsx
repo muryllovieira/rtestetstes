@@ -3,7 +3,7 @@ import './styleServicosPerfil.css'
 import InputGlobal from '../../../../ui/components/global/InputGlobal/InputGlobal'
 import setaEsquerda from './images/setaEsquerda.svg'
 import iconFiltro from './images/filtro.svg'
-import {Link} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 import ModalLocalizacao from '../../../../ui/components/global/Modal/Modal'
 import ComboBoxLocalizacao from '../../../../ui/components/personalizarPerfil/ComboBoxLocalizacao/ComboBoxLocalizacao'
 import UserContext from '../../../../data/hooks/context/UserContext'
@@ -11,9 +11,9 @@ import { useContext } from 'react'
 import CardPerfil from '../../../../ui/components/menu/servicosPerfil/CardPerfil/CardPerfil'
 import blogFetch from '../../../../data/services/api/ApiService'
 
-import imagemPerfil from "./images/imagemPerfil.png"
-
 const servicosPerfil = () => {
+
+  const navigator = useNavigate()
 
   const {idServico} = useContext(UserContext)
   const {nomeTagServico} = useContext(UserContext)
@@ -24,19 +24,12 @@ const servicosPerfil = () => {
 
   const [listaPerfis, setListaPerfis] = useState([])
 
-  console.log(idServico)
-  console.log(nomeTagServico)
 
   const [openModal, setOpenModal] = useState(false)
 
   useEffect(() => {
     pegarPerfis()
   }, [])
-
-  const setPerfil = (id) => {
-    setIdPerfil(id)
-    navigator('/menu/servicos/perfil/perfil-selecionado')
-  }
 
   const pegarPerfis = async () => {
 
@@ -50,7 +43,6 @@ const servicosPerfil = () => {
         }
       })
 
-      console.log(response)
       console.log(response.data)
       setListaPerfis(response.data)
     } catch (error) {
@@ -101,7 +93,10 @@ const servicosPerfil = () => {
               ) : (
                 listaPerfis.usuarios.map((item) => (
                   <CardPerfil
-                    onClick={() => setPerfil(item.id)}
+                    onClick={() => {
+                      setIdPerfil(item.id)
+                      navigator('/menu/servicos/perfil/perfil-selecionado')
+                    }}
                     key={item.id}
                     nome={item.nome}
                     img={item.foto}

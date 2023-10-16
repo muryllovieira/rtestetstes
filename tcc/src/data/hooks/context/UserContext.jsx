@@ -34,7 +34,7 @@ export const UserProvider = ({children}) => {
         bairro: bairro
     }
 
-
+console.log(idPerfil, accessToken)
     // useEffect(() => {
     //     console.log(userLocation)
     //   }, [estado, cidade, bairro])

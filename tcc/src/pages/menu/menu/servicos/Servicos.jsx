@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react'
 import './styleServicos.css'
 import InputGlobal from '../../../../ui/components/global/InputGlobal/InputGlobal'
-import UserContext from '../../../../data/hooks/context/userContext'
+import UserContext from '../../../../data/hooks/context/UserContext'
 import blogFetch from '../../../../data/services/api/ApiService'
 import { useNavigate } from 'react-router-dom'
 

@@ -3,9 +3,9 @@
  * Data Inicio: 04-09-2023
  * Data Fim: X
  * 
- * Commits: Rotas Definidas v0.6, Estruturação de Diretórios Concluída, 
- * Componentes Iniciados v2.23, Responsividade v0.6, Funcionalidades v0.12,
- * Integração Iniciada v0.17, Contexto Aplicado, Lista Icones v0.3, Conflito v0.4
+ * Commits: Rotas Definidas v0.7, Estruturação de Diretórios Concluída, 
+ * Componentes Iniciados v2.24, Responsividade v0.6, Funcionalidades v0.12,
+ * Integração Iniciada v0.18, Contexto Aplicado, Lista Icones v0.3, Conflito v0.4
  * 
 *****************/
 
@@ -33,7 +33,8 @@ import Servicos from './src/pages/menu/menu/servicos/Servicos.jsx'
 import Publicar from './src/pages/menu/menu/publicar/Publicar.jsx'
 import Conversas from './src/pages/menu/menu/conversas/Conversas.jsx'
 import Configuracoes from './src/pages/menu/menu/configuracoes/Configuracoes.jsx'
-import ServicosPerfil from './src/pages/menu/menu/servicosPerfil/ServicosPerfil.jsx'
+import ServicosPerfil from './src/pages/menu/menu/servicosPerfil/servicosPerfil.jsx'
+import PerfilSelecionado from './src/pages/menu/menu/perfilSelecionado/PerfilSelecionado.jsx'
 
 //páginas - rotas de Personalização
 import PersonalizarNome from './src/pages/registrar/personalizarPerfil/personalizarNome/PersonalizarNome.jsx'
@@ -43,7 +44,7 @@ import PersonalizarTipo from './src/pages/registrar/personalizarPerfil/personali
 import PersonalizarTags from './src/pages/registrar/personalizarPerfil/personalizarTags/PersonalizarTags.jsx'
 
 
-import { UserProvider } from './src/data/hooks/context/userContext.jsx'
+import { UserProvider } from './src/data/hooks/context/UserContext.jsx'
 
 //Importe Estilo Global
 import './src/ui/styles/global.css'
@@ -114,6 +115,10 @@ const router = createBrowserRouter([
       {
         path: "/menu/servicos/perfil",
         element: <ServicosPerfil />
+      },
+      {
+        path: "/menu/servicos/perfil/perfil-selecionado",
+        element: <PerfilSelecionado/>
       },
       {
         path: "/menu/publicar",

@@ -1,63 +1,41 @@
-import React from 'react'
-import './styleMeuPerfil.css'
-import IconObject from '../../../../ui/components/global/IconesGlobais/iconesGlobais'
-import CardUsuarioMeuPerfil from '../../../../ui/components/menu/meuPerfil/CardUsuarioMeuPerfil/CardUsuarioMeuPerfil'
-import BotaoRecomendacao from '../../../../ui/components/menu/meuPerfil/BotaoRecomendacao/BotaoRecomendacao'
-import TagGlobal from '../../../../ui/components/global/TagGlobal/TagGlobal'
-import CardPublicacaoMeuPerfil from '../../../../ui/components/menu/meuPerfil/CardPublicacaoMeuPerfil/CardPublicacaoMeuPerfil'
-import { useState, useContext, useEffect } from 'react'
-import FormularioEditarMeuPerfil from '../../../../ui/components/menu/meuPerfil/FormularioEditarMeuPerfil/FormularioEditarMeuPerfil'
+import React, { useEffect, useState, useContext } from 'react'
 import blogFetch from '../../../../data/services/api/ApiService'
 import UserContext from '../../../../data/hooks/context/UserContext'
 
-function MeuPerfil() {
+const PerfilSelecionado = () => {
 
+    const {acessToken} = useContext(UserContext)
+    const {idPerfil} = useContext(UserContext)
 
+    const [perfil, setPerfil] = useState(null)
+    const [tags, setTags] = useState([])
 
-  const [ open, setOpen ] = useState(false)
+    const getPerfil = async () => {
+        try {
+            const response = await blogFetch.get(`/usuario/meu_perfil/${idPerfil}`, {
+                headers: {
+                    'x-acess-token' : acessToken
+                }
+            })
 
-  const { accessToken } = useContext(UserContext)
-  const { id } = useContext(UserContext)
-  console.log(id, accessToken)
+            setPerfil(response.data)
 
-  const [ user, setUser ] = useState(null)
-  const [tags, setTags] = useState([])
+            if (response.data.usuario.tags === undefined) {
+                console.log('a')
+            } else {
+                setTags(response.data.usuario.tags)
+            }
 
-  console.log(user)
-
-  const pegarUsuario = async () => {
-    
-      try {
-        const response = await blogFetch.get(`/usuario/meu_perfil/${id}`, {
-          headers: {
-            'x-access-token' : accessToken
-          }
-        })
-  
-        setUser(response.data)
-        console.log(response.data)
-
-        if (response.data.usuario.tags === undefined) {
-          console.log('a')
-        } else {
-          setTags(response.data.usuario.tags)
+        } catch (error) {
+            console.log(error)
         }
-  
-      } catch (error) {
-        console.log(error)
-      }
+    }
 
-      
-  
-  }
+    useEffect(() => {
+        getPerfil()
+    }, [])
 
 
-  useEffect(()  => {
-    pegarUsuario()
-  }, [])
-  
-
- 
   return (
     <>
         <div className="containerPerfil">
@@ -88,25 +66,23 @@ function MeuPerfil() {
                     {/* SVG Absolute */}
 
                     <section className='containerCardPerfil__secaoMeuPerfil'>
-                      
-                          <div className='secaoMeuPerfil__apresentacaoPerfil'>
-                            <h1 className='apresentacaoMeuPerfil__tituloPerfil'>MEU PERFIL</h1>
-                            <i onClick={() => {
-                              setOpen(!open)
-                        
-                            }} >{IconObject.editarMeuPerfil}</i>
-                          </div>
 
                           {
-                            user === null ? (
+                            perfil === null ? (
                               <p>Carregando...</p>
                             ) : (
-                              <CardUsuarioMeuPerfil
-                                nomePerfil={user.usuario.nome}
-                                tagPerfil={user.usuario.nome_de_usuario}
-                                localicaoPerfil={`${user.usuario.cidade},${user.usuario.estado}`}
-                                fotoPerfil={user.usuario.foto}
-                              ></CardUsuarioMeuPerfil>
+                                <>
+                                <div className='secaoMeuPerfil__apresentacaoPerfil'>
+                                    <h1 className='apresentacaoMeuPerfil__tituloPerfil'>{perfil.usuario.nome}</h1>
+                                </div>
+                                <CardUsuarioMeuPerfil
+                                    nomePerfil={perfil.usuario.nome}
+                                    tagPerfil={perfil.usuario.nome_de_usuario}
+                                    localicaoPerfil={`${perfil.usuario.cidade},${perfil.usuario.estado}`}
+                                    fotoPerfil={perfil.usuario.foto}
+                                ></CardUsuarioMeuPerfil>
+                                </>
+                              
                             )
                           }
                     
@@ -123,11 +99,11 @@ function MeuPerfil() {
                         
 
                           {
-                             user === null ? (
+                             perfil === null ? (
                               <p>Carregando...</p>
                             ) : (
                               <p className='secaoMeuPerfil__descricaoPerfil'>
-                              {user.usuario.descricao}
+                              {perfil.usuario.descricao}
                               </p>
                             )
                           }
@@ -135,7 +111,7 @@ function MeuPerfil() {
                           <div>
                             
                             {
-                              user === null ? (
+                              perfil === null ? (
                                 <p className='carregandoPerfil'>Usuário Não Encontrado</p>
                               ) : (
                                 
@@ -146,24 +122,24 @@ function MeuPerfil() {
                                     ) : (
                                       <>
                                       
-                                            <TagGlobal
-                                          key={user.usuario.tags[0].id_tag}
-                                          id={user.usuario.tags[0].id_tag}
-                                          value={user.usuario.tags[0].nome_tag}
+                                        <TagGlobal
+                                          key={perfil.usuario.tags[0].id_tag}
+                                          id={perfil.usuario.tags[0].id_tag}
+                                          value={perfil.usuario.tags[0].nome_tag}
                                         ></TagGlobal>
                                         <TagGlobal
-                                          key={user.usuario.tags[1].id_tag}
-                                          id={user.usuario.tags[1].id_tag}
-                                          value={user.usuario.tags[1].nome_tag}
+                                          key={perfil.usuario.tags[1].id_tag}
+                                          id={perfil.usuario.tags[1].id_tag}
+                                          value={perfil.usuario.tags[1].nome_tag}
                                         ></TagGlobal>
                                         {
-                                        user.usuario.tags[2] === undefined ? (
+                                        perfil.usuario.tags[2] === undefined ? (
                                           <></>
                                         ) : (
                                           <TagGlobal
-                                            key={user.usuario.tags[2].id_tag}
-                                            id={user.usuario.tags[2].id_tag}
-                                            value={user.usuario.tags[2].nome_tag}
+                                            key={perfil.usuario.tags[2].id_tag}
+                                            id={perfil.usuario.tags[2].id_tag}
+                                            value={perfil.usuario.tags[2].nome_tag}
                                           ></TagGlobal>
                                         ) 
                                         }
@@ -217,30 +193,7 @@ function MeuPerfil() {
                       </svg>
                     {/* SVG Absolute */}
 
-                      {
-
-                        user === null ? (
-                          <p className='carregandoPerfil'>Usuário Não Encontrado</p>
-                        ) : (
-
-                          <FormularioEditarMeuPerfil open={() => {
-                            setOpen(!open)
-                          }}
-                            reloadUser={pegarUsuario}
-                            nomePerfil={user.usuario.nome}
-                            tagPerfil={user.usuario.nome_de_usuario}
-                            cidadePerfil={user.usuario.cidade}
-                            bairroPerfil={user.usuario.bairro}
-                            estadoPerfil={user.usuario.estado}
-                            descricaoPerfil={user.usuario.descricao}
-                            tagsPerfil={user.usuario.tags}
-                            idLocalizacao={user.usuario.id_localizacao}
-                            imgPerfil={user.usuario.foto}
-                          ></FormularioEditarMeuPerfil>
-
-                        )
-
-                      }
+                     
 
                     </section>
                   </div>
@@ -258,4 +211,4 @@ function MeuPerfil() {
   )
 }
 
-export default MeuPerfil
+export default PerfilSelecionado

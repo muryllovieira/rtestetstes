@@ -12,8 +12,6 @@ import UserContext from '../../../../data/hooks/context/UserContext'
 
 function MeuPerfil() {
 
-
-
   const [ open, setOpen ] = useState(false)
 
   const { accessToken } = useContext(UserContext)
@@ -146,7 +144,7 @@ function MeuPerfil() {
                                     ) : (
                                       <>
                                       
-                                            <TagGlobal
+                                        <TagGlobal
                                           key={user.usuario.tags[0].id_tag}
                                           id={user.usuario.tags[0].id_tag}
                                           value={user.usuario.tags[0].nome_tag}

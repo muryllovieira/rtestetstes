@@ -1,7 +1,9 @@
 import React from 'react'
 import "./styleExplorar.css"
 
+
 function Explorar() {
+
   return (
     <>
       <div className='containerExplorar'>

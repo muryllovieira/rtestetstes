@@ -1,0 +1,21 @@
+.container_principal{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    width: 70vh;
+    height: 60vh;
+    background-color: azure;
+    border-radius: 30px;
+}
+
+.card_01{
+    width: 10vh;
+    height: 10vh;
+}
+
+.card_02{
+    width: 10vh;
+    height: 10vh;
+}

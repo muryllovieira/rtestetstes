@@ -1,0 +1,52 @@
+.formularioPublicacao{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    height: 90%;
+    gap: 25px;
+    padding-bottom: 50px;
+}
+
+.container__main{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+}
+
+.container__footer{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 25px;
+}
+
+.titulo__tag{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.tags{
+    font-size: smaller;
+    font-weight: lighter;
+    display: flex;
+    flex-direction: row;
+
+}
+
+.containerTags{
+    width: 350px;
+    height: 140px;
+    background-color: var(--input-color);
+    color: var(--textInput-color);
+    border-radius: 15px;
+    border: inherit;
+    box-shadow: 0px 4px 20px 0px rgba(65, 57, 70, 0.15);
+    padding-left: 10px;
+    border: solid 2px #C98FEC;
+}

@@ -4,7 +4,6 @@ import AncoraMenu from '../../menu/AncoraMenu/AncoraMenu'
 import IconObject from '../IconesGlobais/iconesGlobais'
 import IconeMenuBar from '../../menu/IconeMenuBar/IconeMenuBar'
 import { useState } from 'react'
-import FormularioPublicar from '../../menu/publicar/formularioPublicar/FormularioPublicar'
 
 function MenuBarGlobal() {
 

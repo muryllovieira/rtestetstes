@@ -1,22 +1,23 @@
 import React, { useState } from 'react'
 import ModalPublicar from '../../../../ui/components/menu/publicar/modalPublicar/ModalPublicar'
-import FormularioPublicar from '../../../../ui/components/menu/publicar/formularioPublicar/FormularioPublicar'
+import FormularioPublicacao from '../../../../ui/components/menu/publicar/FormularioPublicacao/FormularioPublicacao'
 
 function Publicar() {
 
-  const [openModal, setOpenModal] = useState(true)
+  const [openModal, setOpenModal] = useState(false)
   console.log(openModal)
 
   return (
     <>
 
-      <button onClick={() => setOpenModal}>Modal</button>
+      <button onClick={(e) => setOpenModal(true)}>Modal</button>
 
       <div>
 
       
 
       <ModalPublicar isOpen={openModal} setModalOpen={() => setOpenModal(!openModal)}>
+          <FormularioPublicacao></FormularioPublicacao>
       </ModalPublicar>
     </div>
     </>

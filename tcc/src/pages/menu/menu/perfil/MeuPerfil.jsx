@@ -16,12 +16,9 @@ function MeuPerfil() {
 
   const { accessToken } = useContext(UserContext)
   const { id } = useContext(UserContext)
-  console.log(id, accessToken)
 
   const [ user, setUser ] = useState(null)
   const [tags, setTags] = useState([])
-
-  console.log(user)
 
   const pegarUsuario = async () => {
     
@@ -110,7 +107,7 @@ function MeuPerfil() {
                     
                           <div className='secaoMeuPerfil__botoesRecomendacao'>
                             <BotaoRecomendacao
-                              url={'/'}
+                              url={'/personalizar-perfil/personalizar-tags'}
                               value={'RECOMENDAÇÕES'}
                             ></BotaoRecomendacao>
                             <BotaoRecomendacao

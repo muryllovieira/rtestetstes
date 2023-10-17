@@ -16,8 +16,6 @@ const FormularioPersonalizarTags = () => {
  
   const {id} = useContext(UserContext)
 
-  console.log(accessToken, id)
-
   const [value, setValue] = useState(0)
 
   const [todasTags, setTodasTags] = useState(false)
@@ -35,12 +33,12 @@ const FormularioPersonalizarTags = () => {
   const [busca, setBusca] = useState('')
 
   useEffect(() => {
-    console.log(value)
-  }, [value])
-
-  useEffect(() => {
     console.log(tagsSelecionadas)
   }, [tagsSelecionadas])
+
+  useEffect(() => {
+    console.log(listaTags)
+  }, [listaTags])
 
   useEffect(() => {
     pegarCategorias()
@@ -130,49 +128,54 @@ const FormularioPersonalizarTags = () => {
 
   const percorrerListaTagsSelecionadas = () => {
 
-    tagsSelecionadas.map((id) => {
-      idTagsSelecionadas.push({id:id.id_tag})
+    if (tagsSelecionadas.length == 0) {
+      return false
+    } else {
 
-    })
+      tagsSelecionadas.map((id) => {
+        idTagsSelecionadas.push({id:id.id_tag})
+      })
+
+      return true
+    }
 
   }
 
   const enviarTags = async () => {
 
-    percorrerListaTagsSelecionadas()
+    const verificacaoLista = percorrerListaTagsSelecionadas()
 
-    // console.log(idTagsSelecionadas)
+    if (verificacaoLista == false) {
+      console.log('Sem items na lista')
+    } else if (verificacaoLista == true) {
 
-    // const test = {
-    //   tags: idTagsSelecionadas
-    // }
+      try {
+        const response = await blogFetch.post("/tag/inserir_tags", {
+          id_usuario: id,
+          tags: idTagsSelecionadas
+        }, {
+          headers: {
+            'x-access-token' : accessToken
+          }
+        })
+        
+        navigator('/menu/explorar')
+  
+      } catch (error) {
+        console.log(error)
+      }
 
-    // console.log(test)
+      console.log('Deu certo')
 
-    try {
-      const response = await blogFetch.post("/tag/inserir_tags", {
-        id_usuario: id,
-        tags: idTagsSelecionadas
-      }, {
-        headers: {
-          'x-access-token' : accessToken
-        }
-      })
-
-      console.log(response)
-      console.log(response.data)
-      
-      navigator('/menu/explorar')
-
-    } catch (error) {
-      console.log(error)
+    } else {
+      console.log('Erro')
     }
+
+    
   }
 
   const handleCallBack = (dados) => {
     const value = dados
-    console.log(value)
-    console.log(tagsSelecionadas)
     return value
   }
 
@@ -185,7 +188,6 @@ const FormularioPersonalizarTags = () => {
       })
 
       setListaCategorias(response.data)
-      console.log(response.data)
     } catch (error) {
       console.log(error)
     }
@@ -202,7 +204,6 @@ const FormularioPersonalizarTags = () => {
          
       })
 
-      console.log(response)
       setListaTags(response.data)
     } catch (error) {
       console.log(error)
@@ -233,15 +234,17 @@ const FormularioPersonalizarTags = () => {
             {/* <AtualizarListaTags /> */}
               <p className='subtitle'>*As tags de serviço são utilizadas pelas costureiras para identificar que tipo de serviço elas prestam.</p>
 
-              <InputGlobal
-                onChange={setBusca}
-                value={busca}
-                placeholder={'Pesquise uma tag...'}
-              ></InputGlobal>
+              <div className='main__opcoesTags'>
+                <InputGlobal
+                  onChange={setBusca}
+                  value={busca}
+                  placeholder={'Pesquise uma tag...'}
+                ></InputGlobal>
 
-              <i className='teste' onClick={(e) => {
-                setListaFechada(!listaFechada)
-              }}>Clique aqui</i>
+                <i className='aparecerLista' onClick={(e) => {
+                  setListaFechada(!listaFechada)
+                }}>LISTA DE TAGS SELECIONADAS</i>
+              </div>
 
               <div className='listasTags'>
                 <div className='tagsList'>
@@ -252,10 +255,12 @@ const FormularioPersonalizarTags = () => {
                         <p>Carregando</p>
                       ) : (
                         listaTags.tags.filter((item) => {
+
+                          const buscaPequena = busca.toLowerCase()
                           
-                          return busca.toLowerCase() === '' 
+                          return buscaPequena.toLowerCase() === '' 
                           ? item 
-                          : item.nome.toLowerCase().includes(busca)
+                          : item.nome.toLowerCase().includes(buscaPequena)
 
                         }).map((item) => {
                         
@@ -275,15 +280,12 @@ const FormularioPersonalizarTags = () => {
                               }
 
                               if(!tagSel == true) {
-                                // console.log(lista)
+                              
                                 listaTags.tags.map((tag, indice ) => {
                                   if (tag.id_tag == item.id_tag) {
-                                    
-                                    // console.log(item.id_tag)
-                                    // console.log(tag.id_tag)
-                                    // console.log(indice)
+                                  
                                     listaTags.tags.splice(indice, 1)
-                                    // console.log(lista)
+                                   
                                   }
                                 })
                               }
@@ -292,9 +294,6 @@ const FormularioPersonalizarTags = () => {
                                 tagsSelecionadas.map((tag, indice ) => {
                                   if (tag.id_tag == item.id_tag) {
                                     
-                                    // console.log(item.id_tag)
-                                    // console.log(tag.id_tag)
-                                    // console.log(indice)
                                     tagsSelecionadas.splice(indice, 1)
                             
                                   }
@@ -315,58 +314,57 @@ const FormularioPersonalizarTags = () => {
                 </div>
               </div>
 
-              <div className={`tagsListaFechada ${listaFechada ? "tagsListaFechada" : "tagsListaAberta"}`}>
-                <div className='containerTagsLista'>
-                  {
-                    tagsSelecionadas === undefined ||  tagsSelecionadas.length == 0 ? (
-                      <p>Sem tags selecionadas...</p>
-                    ) : (
-                      tagsSelecionadas.map((item) => {
+              
 
-                        return (
+        </div>
+        <div className={`tagsListaFechada ${listaFechada ? "tagsListaFechada" : "tagsListaAberta"}`}>
+          <span>TAGS SELECIONADAS</span>
+          <div className='containerTagsLista'>
+            {
+              tagsSelecionadas === undefined ||  tagsSelecionadas.length == 0 ? (
+                <p>Sem tags selecionadas...</p>
+              ) : (
+                tagsSelecionadas.map((item) => {
 
-                          <BotaoTag option={(e) => {
-                            // const tagSel = handleCallBack(e)
-          
-                            // if(!tagSel == false) {
-                            //   tagsSelecionadas.push(item)
-                            // }
+                  return (
 
-                            // if(!tagSel == true) {
-                            //   console.log(lista)
-                            //   lista.map((tag, indice ) => {
-                            //     if (tag.id_tag == item.id_tag) {
-                                  
-                            //       console.log(item.id_tag)
-                            //       console.log(tag.id_tag)
-                            //       console.log(indice)
-                            //       lista.splice(indice, 1)
-                            //       console.log(lista)
-                            //     }
-                            //   })
-                            // }
-          
-                            // if(!tagSel == false) {
-                            //   tagsSelecionadas.map((tag, indice ) => {
-                            //     if (tag.id_tag == item.id_tag) {
-                                  
-                            //       console.log(item.id_tag)
-                            //       console.log(tag.id_tag)
-                            //       console.log(indice)
-                            //       tagsSelecionadas.splice(indice, 1)
-                          
-                            //     }
-                            //   })
-                            // }
-          
-                          }} key={item.id_tag} text={item.nome}></BotaoTag>
-                        )
-                      })
-                    )
-                  }
-                </div>
-              </div>
+                    <BotaoTag
+                      key={item.id_tag} 
+                      text={item.nome}
+                      estado={true}
+                      option={(e) => {
+                        const tagSel = handleCallBack(e)
 
+                        
+      
+                        if(!tagSel == true) {
+                          tagsSelecionadas.map((tag, indice ) => {
+                            
+                            if (tag.id_tag == item.id_tag) {
+
+                              console.log(tag.id_tag)
+                              console.log(item.id_tag)
+
+                              
+                              let itemTag = [...tagsSelecionadas]
+                              itemTag.splice(indice, 1) 
+                              setTagsSelecionadas(itemTag)
+                            
+                             
+                              listaTags.tags.push(item)
+                             
+                             
+                      
+                            }
+                          })
+                        }
+                      }}
+                    ></BotaoTag>
+                  )
+                })
+              )
+            }
+          </div>
         </div>
     </form>
   )

@@ -52,7 +52,85 @@
     border-top-right-radius: 20px;
 }
 
+@media (max-width: 1300px) {
+    .marca {
+        height: 100vh;
+        width: 50vw;
+        left: 50%;
+        top: 12%;
+    }
 
+    .marcaTransparente {
+        top: 8%;
+    }
+}
+
+@media (max-width: 1100px) {
+    .marca {
+        height: 100vh;
+        width: 50vw;
+        left: 50%;
+        top: 9%;
+    }
+
+    .marcaTransparente {
+        top: 6%;
+    }
+}
+
+@media (max-width: 1000px) {
+    .containerLogin {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .containerLogin__formLogin {
+        border-bottom-left-radius: 0px;
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
+    }
+
+    .containerLogin__imageLogin {
+        border-bottom-right-radius: 20px;
+        border-top-right-radius: 0px;
+        border-bottom-left-radius: 20px;
+    }
+
+    .marca {
+        position: fixed;
+        z-index: -1;
+        height: 100vh;
+        width: 90vw;
+        left: 10%;
+        top: 21%;
+    }
+    .marcaTransparente {
+      
+        position: fixed;
+        z-index: -1;
+        height: 109vh;
+        width: 100vw;
+        left: 0%;
+        top: 14%;
+        
+    }
+}
+
+@media (max-width: 800px) {
+    .marca {
+        height: 100vh;
+        width: 90vw;
+        left: 10%;
+        top: 18%;
+    }
+
+    .marcaTransparente {
+        height: 109vh;
+        width: 100vw;
+        left: 0%;
+        top: 10%;
+    }
+}
 
 @media (max-width: 600px) {
     .marca, .marcaTransparente {

@@ -32,8 +32,8 @@ function Registrar() {
 
       <div className="containerRegistrar">
 
-      <div className='containerRegistrar__imageRegistrar containerRegistrar-displayFlex'>
-          <img id="costureiraRegistrarImagem" src={costureiraRegistrarImagem} alt="Imagem de uma costureira fazendo login num app" />
+        <div className='containerRegistrar__imageRegistrar containerRegistrar-displayFlex'>
+            <img id="costureiraRegistrarImagem" src={costureiraRegistrarImagem} alt="Imagem de uma costureira fazendo login num app" />
         </div>
 
         <div className='containerRegistrar__formRegistrar containerRegistrar-displayFlex'>

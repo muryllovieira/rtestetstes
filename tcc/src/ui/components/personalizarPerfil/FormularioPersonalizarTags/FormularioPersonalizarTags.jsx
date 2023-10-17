@@ -16,8 +16,6 @@ const FormularioPersonalizarTags = () => {
  
   const {id} = useContext(UserContext)
 
-  console.log(accessToken, id)
-
   const [value, setValue] = useState(0)
 
   const [todasTags, setTodasTags] = useState(false)
@@ -38,6 +36,9 @@ const FormularioPersonalizarTags = () => {
     console.log(tagsSelecionadas)
   }, [tagsSelecionadas])
 
+  useEffect(() => {
+    console.log(listaTags)
+  }, [listaTags])
 
   useEffect(() => {
     pegarCategorias()
@@ -127,49 +128,54 @@ const FormularioPersonalizarTags = () => {
 
   const percorrerListaTagsSelecionadas = () => {
 
-    tagsSelecionadas.map((id) => {
-      idTagsSelecionadas.push({id:id.id_tag})
+    if (tagsSelecionadas.length == 0) {
+      return false
+    } else {
 
-    })
+      tagsSelecionadas.map((id) => {
+        idTagsSelecionadas.push({id:id.id_tag})
+      })
+
+      return true
+    }
 
   }
 
   const enviarTags = async () => {
 
-    percorrerListaTagsSelecionadas()
+    const verificacaoLista = percorrerListaTagsSelecionadas()
 
-    // console.log(idTagsSelecionadas)
+    if (verificacaoLista == false) {
+      console.log('Sem items na lista')
+    } else if (verificacaoLista == true) {
 
-    // const test = {
-    //   tags: idTagsSelecionadas
-    // }
+      try {
+        const response = await blogFetch.post("/tag/inserir_tags", {
+          id_usuario: id,
+          tags: idTagsSelecionadas
+        }, {
+          headers: {
+            'x-access-token' : accessToken
+          }
+        })
+        
+        navigator('/menu/explorar')
+  
+      } catch (error) {
+        console.log(error)
+      }
 
-    // console.log(test)
+      console.log('Deu certo')
 
-    try {
-      const response = await blogFetch.post("/tag/inserir_tags", {
-        id_usuario: id,
-        tags: idTagsSelecionadas
-      }, {
-        headers: {
-          'x-access-token' : accessToken
-        }
-      })
-
-      console.log(response)
-      console.log(response.data)
-      
-      navigator('/menu/explorar')
-
-    } catch (error) {
-      console.log(error)
+    } else {
+      console.log('Erro')
     }
+
+    
   }
 
   const handleCallBack = (dados) => {
     const value = dados
-    console.log(value)
-    console.log(tagsSelecionadas)
     return value
   }
 
@@ -182,7 +188,6 @@ const FormularioPersonalizarTags = () => {
       })
 
       setListaCategorias(response.data)
-      console.log(response.data)
     } catch (error) {
       console.log(error)
     }
@@ -199,7 +204,6 @@ const FormularioPersonalizarTags = () => {
          
       })
 
-      console.log(response)
       setListaTags(response.data)
     } catch (error) {
       console.log(error)
@@ -331,18 +335,7 @@ const FormularioPersonalizarTags = () => {
                       option={(e) => {
                         const tagSel = handleCallBack(e)
 
-                        if(!tagSel == true) {
                         
-                          listaTags.tags.map((tag, indice ) => {
-                          
-
-                            if (tag.id_tag == item.id_tag) {
-                            
-                              console.log('a')
-                              
-                            }
-                          })
-                        }
       
                         if(!tagSel == true) {
                           tagsSelecionadas.map((tag, indice ) => {
@@ -357,11 +350,10 @@ const FormularioPersonalizarTags = () => {
                               itemTag.splice(indice, 1) 
                               setTagsSelecionadas(itemTag)
                             
-                              
-
-                              console.log(tagsSelecionadas)
-                              
-                              console.log('b')
+                             
+                              listaTags.tags.push(item)
+                             
+                             
                       
                             }
                           })

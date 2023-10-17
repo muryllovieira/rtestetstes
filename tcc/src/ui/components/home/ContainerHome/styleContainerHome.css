@@ -32,7 +32,7 @@ font {
 
 .containerHome__containerBotoes {
     display: flex;
-    width: 30%;
+    width: 40vw;
     align-items: center;
     justify-content: space-between;
 }
@@ -42,6 +42,48 @@ font {
     width: 45%;
     top: 30vh;
     left: 55vw;
+}
+
+@media (max-width: 1000px) {
+
+    .containerHome__apresentacao {
+        width: 100%;
+    }
+
+    .containerHome__titulo {
+        width: 100%;
+        font-size: 2rem;
+        text-align: center;
+    }
+
+    .containerHome__paragrafo {
+        font-size: 1.5rem;
+        text-align: center;
+    }
+
+    .containerHome__imagemCostureira {
+        z-index: -1;
+        position: fixed;
+        width: 80%;
+        left: 50%;
+        top: 50%;
+        filter: opacity(60%);
+    }
+
+    .containerHome__containerBotoes {
+        width: 45%;
+    }
+}
+
+@media (max-width: 900px) {
+    .containerHome__imagemCostureira {
+        z-index: -1;
+        position: fixed;
+        width: 80%;
+        left: 55%;
+        top: 50%;
+        filter: opacity(60%);
+    }
 }
 
 @media (max-width: 600px) {
@@ -78,5 +120,14 @@ font {
 
     .containerHome__containerBotoes {
         width: 100%;
+    }
+}
+
+@media (max-width: 300px) {
+    .containerHome__containerBotoes {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
     }
 }

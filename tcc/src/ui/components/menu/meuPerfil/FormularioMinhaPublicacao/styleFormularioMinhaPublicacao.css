@@ -1,0 +1,47 @@
+.formularioMinhaPublicacao{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    height: 90%;
+    gap: 25px;
+    padding-bottom: 50px;
+}
+
+.setor_01{
+    background-color: aliceblue;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 40vw;
+    height: 80vh;
+    border-radius: 25px ;
+}
+
+.setor01_header{
+    display: flex;
+    flex-direction: row;
+    padding: 16px;
+    align-items: center;
+    justify-content: start;
+    gap: 70vh;
+    padding-left: 24px;
+    padding-top: 25px;
+    width: 100%;
+}
+
+
+
+
+.setor_02{
+    background-color: aliceblue;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 40vw;
+    height: 80vh;
+    border-radius: 25px ;
+}

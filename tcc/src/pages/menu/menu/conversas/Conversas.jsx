@@ -2,10 +2,13 @@ import React from 'react'
 import './styleConversas.css'
 import InputGlobal from '../../../../ui/components/global/InputGlobal/InputGlobal'
 import IconObject from '../../../../ui/components/global/IconesGlobais/iconesGlobais'
+import { Outlet } from 'react-router-dom'
+
 
 function Conversas() {
   return (
     <>
+      <Outlet/>
     
       <div className="containerConversas">
           <div className='containerConversas__apresentacaoConversas'>

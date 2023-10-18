@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import ModalPublicar from '../../../../ui/components/menu/publicar/modalPublicar/ModalPublicar'
 import FormularioPublicacao from '../../../../ui/components/menu/publicar/FormularioPublicacao/FormularioPublicacao'
+import './stylePublicar.css'
 
 function Publicar() {
 
@@ -8,19 +9,11 @@ function Publicar() {
   console.log(openModal)
 
   return (
-    <>
-
-      <button onClick={(e) => setOpenModal(true)}>Modal</button>
-
-      <div>
-
+    
+      <div className='teste'>
       
-
-      <ModalPublicar isOpen={openModal} setModalOpen={() => setOpenModal(!openModal)}>
-          <FormularioPublicacao></FormularioPublicacao>
-      </ModalPublicar>
-    </div>
-    </>
+      </div>
+    
     
   )
 }

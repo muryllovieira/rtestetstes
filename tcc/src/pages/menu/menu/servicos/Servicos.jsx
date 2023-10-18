@@ -4,6 +4,7 @@ import InputGlobal from '../../../../ui/components/global/InputGlobal/InputGloba
 import UserContext from '../../../../data/hooks/context/UserContext'
 import blogFetch from '../../../../data/services/api/ApiService'
 import { useNavigate } from 'react-router-dom'
+import { Outlet } from 'react-router-dom'
 
 function Servicos() {
 
@@ -70,6 +71,8 @@ function Servicos() {
 
   return (
     <>
+
+      <Outlet/>
     
       <div className='containerServicos'>
 

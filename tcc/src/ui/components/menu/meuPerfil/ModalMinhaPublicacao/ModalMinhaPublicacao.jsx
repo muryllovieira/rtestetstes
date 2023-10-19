@@ -1,6 +1,5 @@
 import React from 'react'
 import './styleModalMinhaPublicacao.css'
-import setaEsquerda from '../FormularioMinhaPublicacao/images/setaEsquerda.svg'
 
 const ModalMinhaPublicacao = ({isOpen, setModalOpen, children}) => {
 

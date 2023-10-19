@@ -1,0 +1,28 @@
+.swiper{
+    .swiper-slide{
+        overflow: hidden;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .slide_item{
+        width: 60vh;
+        height: 40vh;
+        align-items: center;
+        justify-content: center;
+        object-fit: cover;
+        border-radius: 15px;
+        box-shadow: 10px 10px #A89BFF;
+    }
+
+    .swiper-button-prev{
+        color: #A89BFF;
+    }
+
+    .swiper-button-next{
+        color: #A89BFF;
+    }
+
+}

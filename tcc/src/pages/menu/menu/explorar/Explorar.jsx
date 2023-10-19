@@ -1,12 +1,14 @@
 import React from 'react'
 import "./styleExplorar.css"
-
+import { Outlet } from 'react-router-dom'
 
 function Explorar() {
 
   return (
     <>
       <div className='containerExplorar'>
+        
+        <Outlet/>
 
         <div className='containerExplorar__tituloEFoto'>
           <p>

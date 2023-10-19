@@ -3,9 +3,10 @@
  * Data Inicio: 04-09-2023
  * Data Fim: X
  * 
- * Commits: Rotas Definidas v0.7, Estruturação de Diretórios Concluída, 
+ * Commits: Rotas Definidas v0.8, Estruturação de Diretórios Concluída, 
  * Componentes Iniciados v2.25, Responsividade v0.7, Funcionalidades v0.15,
- * Integração Iniciada v0.20, Contexto Aplicado, Lista Icones v0.3, Conflito v0.4
+ * Integração Iniciada v0.20, Contexto Aplicado, Lista Icones v0.3, Conflito v0.4,
+ * 
  * 
 *****************/
 
@@ -55,47 +56,58 @@ import './src/ui/styles/global.css'
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Home /> 
+    element: <Home />,
+    errorElement: <NaoEncontrado />,
   },
   {
     path: "/login",
-    element: <Login />
+    element: <Login />,
+    errorElement: <NaoEncontrado />,
   },
   {
     path: "/registrar",
-    element: <Registrar />
+    element: <Registrar />,
+    errorElement: <NaoEncontrado />,
   },
   {
     path: "/personalizar-perfil/personalizar-nome",
-    element: <PersonalizarNome />
+    element: <PersonalizarNome />,
+    errorElement: <NaoEncontrado />,
   },
   {
     path: "/personalizar-perfil/personalizar-foto",
-    element: <PersonalizarFoto />
+    element: <PersonalizarFoto />,
+    errorElement: <NaoEncontrado />,
   },
   {
     path: "/personalizar-perfil/personalizar-localizacao",
-    element: <PersonalizarLocalizacao />
+    element: <PersonalizarLocalizacao />,
+    errorElement: <NaoEncontrado />,
   },
   {
     path: "/personalizar-perfil/personalizar-tipo",
-    element: <PersonalizarTipo />
+    element: <PersonalizarTipo />,
+    errorElement: <NaoEncontrado />,
   },
   {
     path: "/personalizar-perfil/personalizar-tags",
-    element: <PersonalizarTags />
+    element: <PersonalizarTags />,
+    errorElement: <NaoEncontrado />,
   },
   {
     path: "/recuperar-senha",
-    element: <RecuperarSenha />
+    element: <RecuperarSenha />,
+    errorElement: <NaoEncontrado />,
   },
   {
     path: "/validar-codigo",
-    element: <ValidarCodigo />
+    element: <ValidarCodigo />,
+    errorElement: <NaoEncontrado />,
   },
   {
     path: "/troca-de-senha",
-    element: <TrocaDeSenha />
+    element: <TrocaDeSenha />,
+    errorElement: <NaoEncontrado />,
   },
   {
     path: "/menu",
@@ -103,38 +115,78 @@ const router = createBrowserRouter([
   },
   {
     element: <Menu />,
+    errorElement: <NaoEncontrado />,
     children: [
       {
         path: "/menu/explorar",
-        element: <Explorar />
+        element: <Explorar />,
+        errorElement: <NaoEncontrado />,
+        children: [
+          {
+            path: "/menu/explorar/publicar/",
+            element: <Publicar />
+          }
+        ]
       },
       {
         path: "/menu/servicos",
-        element: <Servicos />
+        element: <Servicos />,
+        errorElement: <NaoEncontrado />,
+        children: [
+          {
+            path: "/menu/servicos/publicar/",
+            element: <Publicar />
+          }
+        ]
       },
       {
         path: "/menu/servicos/perfil",
-        element: <ServicosPerfil />
+        element: <ServicosPerfil />,
+        errorElement: <NaoEncontrado />,
+        children: [
+          {
+            path: "/menu/servicos/perfil/publicar",
+            element: <Publicar />
+          }
+        ]
       },
       {
         path: "/menu/servicos/perfil/perfil-selecionado",
-        element: <PerfilSelecionado/>
-      },
-      {
-        path: "/menu/publicar",
-        element: <Publicar />
+        element: <PerfilSelecionado/>,
+        errorElement: <NaoEncontrado />,
+        children: [
+          {
+            path: "/menu/servicos/perfil/perfil-selecionado/publicar",
+            element: <Publicar />
+          }
+        ]
       },
       {
         path: "/menu/conversas",
-        element: <Conversas />
+        element: <Conversas />,
+        errorElement: <NaoEncontrado />,
+        children: [
+          {
+            path: "/menu/conversas/publicar/",
+            element: <Publicar />
+          }
+        ]
       },
       {
         path: "/menu/configuracoes",
-        element: <Configuracoes />
+        element: <Configuracoes />,
+        errorElement: <NaoEncontrado />,
       },
       {
         path: "/menu/meu-perfil",
-        element: <MeuPerfil />
+        element: <MeuPerfil />,
+        errorElement: <NaoEncontrado />,
+        children: [
+          {
+            path: "/menu/meu-perfil/publicar",
+            element: <Publicar />
+          }
+        ]
       }
     ]
   }

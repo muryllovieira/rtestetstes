@@ -16,9 +16,6 @@ function FormularioTrocaDeSenha({id}) {
   const [errMsg, setErrMsg] = useState()
 
   const navigate = useNavigate()
-
-  const [ pwdAtual, setPwdAtual ] = useState('')
-  const [ pwdAtualValid, setPwdAtualValid ] = useState(false)
   
   const [ pwdNova, setPwdNova ] = useState('')
   const [ pwdNovaValid, setPwdNovaValid ] = useState(false)
@@ -70,18 +67,17 @@ function FormularioTrocaDeSenha({id}) {
     event.preventDefault()
     
 
-    const v1 = PWD_REGEX.test(pwdAtual)
     const v2 = PWD_REGEX.test(pwdNova)
     const v3 = PWD_REGEX.test(pwdMatch)
 
-    if (!v1 || !v2 || !v3) {
+    if (!v2 || !v3) {
       // console.log(v1)
       // console.log(v2)
       // console.log(v3)
       setErrMsg("Os campos precisam cumprir os requisitos")
       return
       
-    } else if (pwdAtual == '' && pwdNova == '' && pwdMatch == '') {
+    } else if (pwdNova == '' && pwdMatch == '') {
 
       setErrMsg("Os campos não podem estar vazios")
 
@@ -97,25 +93,13 @@ function FormularioTrocaDeSenha({id}) {
 
       setErrMsg("A repetição da senha precisa cumprir os requisitos")
 
-    } else if (!v1) {
-
-      setErrMsg("A senha atual não é válida, tente novamente.")
-
     } else {
 
       try {
-        const response = await blogFetch.put("/usuario/atualizar_senha", 
-        JSON.stringify({
+        const response = await blogFetch.put("/usuario/atualizar_senha", {
           id: id,
           senha: pwdNova
-        }),
-        {
-          headers: { 'Content-Type' : 'application/json' }
         })
-
-        setPwdAtual('')
-        setPwdNova('')
-        setPwdMatch('')
 
         navigate("/login")
 
@@ -156,13 +140,6 @@ function FormularioTrocaDeSenha({id}) {
 
       <p>Nesta tela você pode alterar sua senha.</p>
       
-      <label className='formularioTrocaDeSenha__labelFormulario' htmlFor="">Digite sua senha atual:</label>
-      <InputGlobal
-        
-        type={'password'}
-        placeholder={'********'}
-        onChange={setPwdAtual}
-      ></InputGlobal>
 
       <label className='formularioTrocaDeSenha__labelFormulario' htmlFor="">Digite sua nova senha:</label>
       <InputGlobal

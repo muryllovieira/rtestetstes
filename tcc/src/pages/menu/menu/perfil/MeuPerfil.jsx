@@ -9,6 +9,7 @@ import { useState, useContext, useEffect } from 'react'
 import FormularioEditarMeuPerfil from '../../../../ui/components/menu/meuPerfil/FormularioEditarMeuPerfil/FormularioEditarMeuPerfil'
 import blogFetch from '../../../../data/services/api/ApiService'
 import UserContext from '../../../../data/hooks/context/UserContext'
+import { Outlet } from 'react-router-dom'
 
 function MeuPerfil() {
 
@@ -55,6 +56,8 @@ function MeuPerfil() {
  
   return (
     <>
+        <Outlet/>
+
         <div className="containerPerfil">
 
                 {!open ? (

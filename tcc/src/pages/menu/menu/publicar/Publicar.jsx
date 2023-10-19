@@ -2,17 +2,23 @@ import React, { useState } from 'react'
 import ModalPublicar from '../../../../ui/components/menu/publicar/modalPublicar/ModalPublicar'
 import FormularioPublicacao from '../../../../ui/components/menu/publicar/FormularioPublicacao/FormularioPublicacao'
 import './stylePublicar.css'
+import { useNavigate } from 'react-router-dom'
 
 function Publicar() {
 
-  const [openModal, setOpenModal] = useState(false)
-  console.log(openModal)
+  const navigate = useNavigate()
 
   return (
     
-      <div className='teste'>
-      
-      </div>
+      <>
+        <div></div>
+        <div>
+          <ModalPublicar>
+            <FormularioPublicacao></FormularioPublicacao>
+          </ModalPublicar>
+        </div>
+       
+      </>
     
     
   )

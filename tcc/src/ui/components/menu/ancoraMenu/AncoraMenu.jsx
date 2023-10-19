@@ -10,9 +10,7 @@ function AncoraMenu({ icon ,url, value, publicar, troca, config, onClick}) {
  if (troca) {
   return (
     <>
-       <div onClick={() => {
-        onClick
-       }} className='ancoraMenu'>
+       <div onClick={(e) => onClick(e.target.value)} className='ancoraMenu'>
           <Link className='link linkHome' to={url}> 
             <i className={`default ${publicar ? "publicarIcone" : ""}`}>{icon}</i>
           </Link>
@@ -47,7 +45,7 @@ function AncoraMenu({ icon ,url, value, publicar, troca, config, onClick}) {
  } else {
   return (
     <>
-       <div className='ancoraMenu'>
+       <div onClick={(e) => onClick(e.target.value)} className='ancoraMenu'>
           
           <Link className='link linkHome' to={url}> 
             <i className={`default ${publicar ? "publicarIcone" : ""}`}>{icon}</i> 

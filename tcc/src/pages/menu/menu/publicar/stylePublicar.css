@@ -1,8 +1,0 @@
-.teste {
-    position: absolute;
-    width: 90vw;
-    height: 90vh;
-    background-color: aqua;
-    filter: opacity(60%);
-    z-index: 100000;
-}

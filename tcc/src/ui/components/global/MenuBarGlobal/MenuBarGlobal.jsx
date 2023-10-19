@@ -80,6 +80,7 @@ function MenuBarGlobal() {
                 if(rota.publicar == true) {
                   return (
                     <AncoraMenu
+                      
                       icon={rota.icone}
                       url={`menu/${value}/publicar`}
                       value={rota.nome}
@@ -89,6 +90,9 @@ function MenuBarGlobal() {
                 } else {
                   return (
                       <AncoraMenu
+                        onClick={() => {
+                          setValue(rota.publicar)
+                        }}
                         icon={rota.icone}
                         url={rota.path}
                         value={rota.nome}
@@ -143,41 +147,41 @@ function MenuBarGlobal() {
     )
   } else {
     return (
-      <div onClick={handleOpenMenu} className='menuBarGlobalFechado'>
+      <div className='menuBarGlobalFechado'>
           <div onClick={handleOpenMenu} className='botaoExpandirComprimirFechado'>
               <IconeMenuBar  func={handleOpenMenu} aberto={menu} ></IconeMenuBar>
           </div>
   
           <div className='menuBarGlobal__ancorasMenuFechado'>
-            <AncoraMenu
-              troca={true}
-              icon={IconObject.home}
-              url={'/menu/explorar'}
-            ></AncoraMenu>
-            <AncoraMenu
-              troca={true}
-              icon={IconObject.servicos}
-              url={'/menu/servicos'}
-            ></AncoraMenu>
-             
-            <AncoraMenu
-              troca={true}
-              publicar={true}
-              icon={IconObject.publicar}
-              url={'/menu/publicar'}
-            ></AncoraMenu>
-              
-            <AncoraMenu
-            troca={true}
-              icon={IconObject.conversas}
-              url={'/menu/conversas'}
-            ></AncoraMenu>
-
-            <AncoraMenu
-              troca={true}
-              icon={IconObject.perfil}
-              url={'/menu/meu-perfil'}
-            ></AncoraMenu>
+            
+          {
+              RouteObject.rotas.map((rota) => {
+                if(rota.publicar == true) {
+                  return (
+                    <AncoraMenu
+                      troca={true}
+                      icon={rota.icone}
+                      url={`menu/${value}/publicar`}
+                      value={rota.nome}
+                      publicar={rota.publicar}
+                    ></AncoraMenu>
+                  )
+                } else {
+                  return (
+                      <AncoraMenu
+                        onClick={() => {
+                          setValue(rota.publicar)
+                        }}
+                        troca={true}
+                        icon={rota.icone}
+                        url={rota.path}
+                        value={rota.nome}
+                      ></AncoraMenu>
+                      
+                  )
+                }
+              })
+            }
             
           </div>
           

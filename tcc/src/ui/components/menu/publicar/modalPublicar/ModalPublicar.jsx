@@ -2,31 +2,37 @@ import React from 'react'
 import './styleModalPublicar.css'
 import fechar from './images/fechar.svg'
 import enviar from './images/enviar.svg'
+import { useNavigate } from 'react-router-dom'
 
-const ModalPublicar = ({isOpen, setModalOpen, children}) => {
+const ModalPublicar = ({isOpen, children}) => {
 
-if (isOpen) {
+    const navigate = useNavigate()
+
     return (
         <>
-        <div className='modal__background'>
+            <div onClick={() => {
+                navigate(-1)
+            }} className='modal__background'></div>
+            
             <div className='container'>
 
                 <div className='header'>
-                    <img src={fechar} alt='Fechar' onClick={setModalOpen} className='botaoFechar'/>
+                    <img onClick={() => {
+                        navigate(-1)
+                    }} src={fechar} alt='Fechar' className='botaoFechar'/>
                     <img src={enviar} alt="Enviar" className='botaoEnviar' />
+                
                 </div>
 
+                    
                 {children}
-
                 
+           
             </div>
-        </div>
           
         </>
       )
-} else {
-    null
-}
+
 }
 
 export default ModalPublicar

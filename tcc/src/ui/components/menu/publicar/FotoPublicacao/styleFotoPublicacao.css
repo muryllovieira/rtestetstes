@@ -2,16 +2,52 @@
     display: none;
 }
 
+.umaImgSelecionada {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.listaImgSelecionadas {
+    height: 50%;
+    width: 50%;
+    object-fit: cover;
+}
+
+.listImgs {
+    position: relative;
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    flex-wrap: wrap;
+    object-fit: cover;
+    align-items: center;
+    z-index: 10;
+}
+
+.listaTamanhoCincoImgSelecionadas {
+    position: relative;
+    width: 50%;
+    height: 50%;
+    border-radius: 20px;
+    z-index: 10;
+}
+
+.fotoInput {
+    position: relative;
+    cursor: pointer;
+    z-index: 10000;
+}
+
 .foto__container{
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 350px;
-    height: 350px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    width: 362px;
+    height: 332px;
     border-radius: 15px;
     background-color: #413946;
-    cursor: pointer;
     box-shadow: 10px 10px #A89BFF;
     background-image: url('../FotoPublicacao/images/imageBackground.svg');
     background-repeat: no-repeat;

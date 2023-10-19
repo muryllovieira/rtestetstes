@@ -63,6 +63,8 @@
     gap: 16px;
 }
 
+
+
 .menuBarGlobalFechado {
     position: fixed;
     left: 0%;
@@ -77,7 +79,6 @@
     padding: 16px;
     justify-content: space-between;
     gap: 8px;
-    cursor: pointer;
 }
 
 .menuBarGlobalFechado:hover {

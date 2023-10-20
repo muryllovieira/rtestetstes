@@ -63,11 +63,48 @@
     overflow-y: auto;
 }
 
-.cardTeste {
+.cardPublicacao {
+    display: block;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: start;
     position: relative;
-    height: 157px;
-    width: 120px;
+    height: 21vh;
+    width: 8vw;
     background-color: var(--default-color);
     box-shadow: var(--default-shadow);
-    border-radius: 10px;
+    border-radius: 15px;
+    cursor: pointer;
+}
+
+.container_textos{
+    padding-left: 10px;
+}
+
+.fotoPublicacao{
+    width: 96%;
+    height: 13vh;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 15px;
+    box-shadow: 7px 7px #A89BFF;
+}
+
+.nomePerfilPublicacao{
+    font-size: large;
+}
+
+.tituloPublicacao{
+    font-size: small;
+    color: gray;
+}
+
+.maisPopulares{
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.maisPopulares:hover{
+    font-size: 1.5rem;
+    color: #A89BFF;
 }

@@ -3,7 +3,6 @@ import './styleCardPublicacaoMeuPerfil.css'
 import FundoImagemPerfil from '../../../../../pages/menu/menu/perfil/images/fundoImagemPerfil.svg'
 import UsuarioImagemPerfil from '../../../../../pages/menu/menu/perfil/images/usuarioImagemPerfil.svg'
 import ModalMinhaPublicacao from '../ModalMinhaPublicacao/ModalMinhaPublicacao'
-import FormularioMinhaPublicacao from '../FormularioMinhaPublicacao/FormularioMinhaPublicacao'
 
 function CardPublicacaoMeuPerfil() {
 
@@ -14,7 +13,6 @@ function CardPublicacaoMeuPerfil() {
         <div className="cardPublicacaoMeuPerfil" onClick={() => setOpenModal(true)}>
 
           <ModalMinhaPublicacao isOpen={openModal} setModalOpen={() => setOpenModal(!openModal)}>
-            <FormularioMinhaPublicacao></FormularioMinhaPublicacao>
           </ModalMinhaPublicacao>
           
             <div className="cardPublicacaoMeuPerfil__containerImagemPublicacao">

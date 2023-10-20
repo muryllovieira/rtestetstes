@@ -9,8 +9,8 @@ export const UserProvider = ({children}) => {
 
     const [ nome, setNome ] = useState("")
     const [ foto, setFoto ] = useState("")
-    const [ fotoPublicacao, setFotoPublicacao ] = useState("")
     const [ descricao, setDescricao ] = useState("")
+
 
     const [ estado, setEstado ] = useState("")
     const [ cidade, setCidade ] = useState("")
@@ -66,8 +66,6 @@ console.log(idPerfil, accessToken)
             setNomeTagServico,
             idPerfil,
             setIdPerfil,
-            fotoPublicacao,
-            setFotoPublicacao
         }
         }>
         {children}

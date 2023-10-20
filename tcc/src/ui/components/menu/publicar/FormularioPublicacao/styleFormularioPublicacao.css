@@ -39,6 +39,15 @@
 
 }
 
+.tagsList {
+    display: flex;
+    flex-wrap: wrap;
+    overflow-y: scroll;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
 .containerTags{
     width: 350px;
     height: 140px;
@@ -49,4 +58,7 @@
     box-shadow: 0px 4px 20px 0px rgba(65, 57, 70, 0.15);
     padding-left: 10px;
     border: solid 2px #C98FEC;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

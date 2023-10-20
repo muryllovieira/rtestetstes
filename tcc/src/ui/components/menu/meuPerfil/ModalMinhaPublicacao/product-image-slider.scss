@@ -5,11 +5,21 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        height: 15vh;
+    }
+
+    .slide_post{
+        overflow: hidden;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 40vh;
     }
 
     .slide_item{
-        width: 60vh;
-        height: 40vh;
+        width: 55vh;
+        height: 35vh;
         align-items: center;
         justify-content: center;
         object-fit: cover;

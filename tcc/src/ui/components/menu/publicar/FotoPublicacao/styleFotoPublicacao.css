@@ -2,10 +2,43 @@
     display: none;
 }
 
-.umaImgSelecionada {
-    height: 100%;
-    width: 100%;
+.containerCardImagem {
+    cursor: pointer;
+}
+
+.cardImagem {
+    z-index: 3;
+    position: relative;
+    top: 75px;
+    width: 70px;
+    height: 70px;
+    background-image: url(./images/imageLixo.svg);
+    background-repeat: no-repeat;
+    background-position: center;
     object-fit: cover;
+}
+
+.fundoTransparente {
+    z-index: 2;
+    top: 5px;
+    position: relative;
+    width: 73px;
+    height: 75px;
+    background-color: var(--contrast-color);
+    filter: opacity(30%);
+    border-radius: 10px;
+}
+
+.imgSelecionada {
+    z-index: 1;
+    position: relative;
+    top: -70px;
+    height: 76px;
+    width: 74px;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 1px solid var(--default-color);
+    box-shadow: 3px 3px rgba(168, 155, 255, 0.40);
 }
 
 .listaImgSelecionadas {
@@ -14,15 +47,29 @@
     object-fit: cover;
 }
 
-.listImgs {
-    position: relative;
+.imgContainer {
     width: 100%;
-    height: fit-content;
     display: flex;
-    flex-wrap: wrap;
-    object-fit: cover;
+    flex-direction: column;
     align-items: center;
-    z-index: 10;
+    justify-content: center;
+    gap: 24px;
+}
+
+.listImgs {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    border-radius: 30px;
+    border: 1px solid var(--primary-color);
+    width: 100%;
+    max-width: 542px;
+    max-height: 88px;
+    height: 100%;
+    padding: 16px;
+    gap: 24px;
 }
 
 .listaTamanhoCincoImgSelecionadas {
@@ -44,11 +91,28 @@
     align-items: flex-start;
     justify-content: flex-start;
     flex-wrap: wrap;
-    width: 362px;
-    height: 332px;
+    width: 137px;
+    height: 180px;
     border-radius: 15px;
-    background-color: #413946;
-    box-shadow: 10px 10px #A89BFF;
+    background-color: var(--default-color);
+    border: 1px solid var(--secundary-color);
+    border-radius: 30px;
+    background-image: url('../FotoPublicacao/images/imageBackground.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.foto__containerDois{
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    width: 137px;
+    height: 127px;
+    border-radius: 15px;
+    background-color: var(--default-color);
+    border: 1px solid var(--secundary-color);
+    border-radius: 30px;
     background-image: url('../FotoPublicacao/images/imageBackground.svg');
     background-repeat: no-repeat;
     background-position: center;

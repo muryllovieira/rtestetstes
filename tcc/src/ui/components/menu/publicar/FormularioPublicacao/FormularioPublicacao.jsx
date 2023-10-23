@@ -7,31 +7,18 @@ import { useState, useEffect, useContext } from 'react'
 import UserContext from '../../../../../data/hooks/context/UserContext'
 import blogFetch from '../../../../../data/services/api/ApiService'
 import BotaoTag from '../../../personalizarPerfil/BotaoTag/BotaoTag'
+import { uploadImage } from '../../../../../data/services/firebase/firebase'
 
 
-const FormularioPublicacao = ({imageURL, setImageURL}) => {
+const FormularioPublicacao = ({imageURL, setImageURL, setTitulo, setDescricao, setTagsList, tagsList, setTagsSelecionadas, tagsSelecionadas, onImageChange}) => {
 
     const { accessToken } = useContext(UserContext)
-
-    const [ images, setImage ] = useState([])
-    const [ tags, setTags ] = useState([])
-
-    useEffect(() => {
-        if (images.length < 1) return
-    
-        const newImageUrl = []
-        images.forEach(image => newImageUrl.push(URL.createObjectURL(image)))
-        setImageURL(newImageUrl)
-    
-      }, [images])
-
-    function onImageChange(e) {
-        setImage([...e.target.files])
-      }
 
     useEffect(() => {
         pegarTags()
     },[])
+
+
 
     const pegarTags = async () => {
         try {
@@ -41,9 +28,7 @@ const FormularioPublicacao = ({imageURL, setImageURL}) => {
                 }
             })
 
-            console.log(response)
-
-            setTags(response.data)
+            setTagsList(response.data.tags)
         } catch (error) {
             console.log(error)
         }
@@ -63,34 +48,64 @@ const FormularioPublicacao = ({imageURL, setImageURL}) => {
                     type={'email'}
                     placeholder={'Título'}
                     emailWeb={true}
+                    onChange={setTitulo}
                 ></InputGlobal>
             </div>
 
             <div className='container__footer'>
+
                 <FormDescricao
                     type={'descricao'}
                     placeholder={'Dígite uma descrição'}
+                    onChange={setDescricao}
                 ></FormDescricao>
+
                 <div className='titulo__tag'>
+
                     <p className='tags'>TAGS</p>
+
                     <div className='containerTags'>
 
                         <div className='tagsList'>
                             {
-                                tags.length == 0 ? (
+                                tagsList.length == 0 ? (
                                     <p>Carregando</p>
                                 ) : (
-                                    tags.tags.map((item, indice) => {
+                                    tagsList.map((item, indice) => {
                                         
                                         if (item.selecao == true) {
-                                            return (
-                                                <BotaoTag
-                                                    text={item.nome}
-                                                    key={item.id_tag}
+                                           return (
+                                            <BotaoTag
+                                                text={item.nome}
+                                                key={item.id_tag}
+                                                selecao={item.selecao}
+                                                option={() => {
+                                                    tagsList.map((tag, indice) => {
+                                                        if (item.id_tag == tag.id_tag) {
+                                                            tagsList.splice(indice, 1)
 
-                                                ></BotaoTag> 
+                                                            const letTags = [...tagsList]
 
-                                            )
+                                                            letTags.push({
+                                                                id_tag: item.id_tag,
+                                                                nome: item.nome,
+                                                                id_categoria: item.id_categoria,
+                                                                imagem: item.imagem,
+                                                                nome_categoria: item.nome_categoria
+                                                            })
+
+                                                            const letTagsSelecionadas = [...tagsSelecionadas]
+
+                                                            setTagsList(letTags)
+
+                                                            letTagsSelecionadas.splice(indice, 1)
+
+                                                            setTagsSelecionadas(letTagsSelecionadas)
+                                                        }
+                                                    })
+                                                }}
+                                            ></BotaoTag>
+                                           )
                                         } else {
                                             return (
                                                <BotaoTag
@@ -98,14 +113,16 @@ const FormularioPublicacao = ({imageURL, setImageURL}) => {
                                                 text={item.nome}
                                                 option={() => {
 
+                                                    
 
-
-                                                    tags.tags.map((tag, indice) => {
+                                                    tagsList.map((tag, indice) => {
                                                         if (item.id_tag == tag.id_tag) {
                                                             
-                                                            tags.tags.splice(indice, 1)
+                                                            tagsList.splice(indice, 1)
 
-                                                            tags.tags.push({
+                                                            const letTags = [...tagsList]
+
+                                                            letTags.unshift({
                                                                 id_tag: item.id_tag,
                                                                 nome: item.nome,
                                                                 id_categoria: item.id_categoria,
@@ -114,11 +131,20 @@ const FormularioPublicacao = ({imageURL, setImageURL}) => {
                                                                 selecao: true
                                                             })
 
+                                                            setTagsList(letTags)
+
+                                                            const letTagsSelecionadas = [...tagsSelecionadas]
+
+                                                            letTagsSelecionadas.unshift({
+                                                                id_tag: item.id_tag
+                                                            })
+
+                                                            setTagsSelecionadas(letTagsSelecionadas)
                                                         
                                                         }
                                                     })
 
-                                                    console.log(tags.tags)
+                                           
                                                 }}
                                                ></BotaoTag>
                                             )   

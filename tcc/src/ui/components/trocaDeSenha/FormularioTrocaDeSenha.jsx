@@ -112,6 +112,8 @@ function FormularioTrocaDeSenha({id}) {
 
         } else if (error.response.status === 400) {
 
+          console.log(error)
+
           setErrMsg('Usuario já cadastrado')
   
         } else if (error.response.status === 404) {

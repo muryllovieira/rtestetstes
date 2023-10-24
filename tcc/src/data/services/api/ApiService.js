@@ -1,7 +1,7 @@
 import axios from "axios"
 
 const blogFetch = axios.create({
-    baseURL: "http://10.107.144.21:3000",
+    baseURL: "https://super-hare-shoulder-pads.cyclic.cloud",
     headers: {'Content-Type': 'application/json'}
 })
 

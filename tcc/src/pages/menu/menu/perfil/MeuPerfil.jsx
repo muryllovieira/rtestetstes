@@ -43,8 +43,6 @@ function MeuPerfil() {
         console.log(error)
       }
 
-      
-  
   }
 
 

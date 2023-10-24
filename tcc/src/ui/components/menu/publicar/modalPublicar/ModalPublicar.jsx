@@ -17,49 +17,36 @@ const ModalPublicar = () => {
 
     const [imageURL, setImageURL] = useState([])
 
-    const [ tags, setTags ] = useState([])
-    const [ tagsSelecionadas, setTagsSelecionadas ] = useState([])
+    const [tags, setTags] = useState([])
+    const [tagsSelecionadas, setTagsSelecionadas] = useState([])
 
-    const [ titulo, setTitulo ] = useState('')
-    const [ descricao, setDescricao ] = useState('')
+    const [titulo, setTitulo] = useState('')
+    const [descricao, setDescricao] = useState('')
 
-    const [ images, setImage ] = useState([])
-    const [ imagensSelecionadas, setImagensSelecionadas ] = useState([])
-
-    const imagesList = []
-
-    useEffect(() => {
-  
-        console.log(imagensSelecionadas)
-    },[imagensSelecionadas])
+    const [images, setImage] = useState([])
 
     const salvarFoto = async () => {
 
-        if(images !== undefined && images !== null && images[0] !== undefined && images[0] !== null && images.length != 0) {
-            
+        if (images !== undefined && images !== null && images[0] !== undefined && images[0] !== null && images.length != 0) {
+
             try {
 
-                
-
-                images.map( async (item, indice) => {
+                const arrayPromiseImagesResponse = images.map(async (item, indice) => {
 
                     const responseImgList = await uploadImage(item, item.name)
 
-                    imagesList.push({
-                        conteudo: responseImgList
-                    })
-
-                    return imagesList
-                    
+                    return await responseImgList
                 })
 
-                return imagesList
+                const arrayImagesResponse = await Promise.all(arrayPromiseImagesResponse)
+
+                return arrayImagesResponse
 
             } catch (error) {
-              console.log(error)
+                console.log(error)
             }
-              
-            return imagesList
+
+            return arrayImagesResponse      
         } else {
             return false
         }
@@ -71,47 +58,39 @@ const ModalPublicar = () => {
 
         const foto = await salvarFoto()
 
-        // const letImagensSelecionadas = [...imagensSelecionadas]
+        const arrayImagesUrl = []
 
-        // letImagensSelecionadas.push(foto)
+        if (foto != false) {
 
-        // setImagensSelecionadas(letImagensSelecionadas)
+            foto.map((item) => {
+                arrayImagesUrl.push({
+                    conteudo: item
+                })
+            })
 
-        console.log(imagensSelecionadas)
-        console.log(foto);
+        }
 
-        if (titulo != '' && descricao != '' && tagsSelecionadas.length != 0) {
+        if (titulo != '' && descricao != '' && tagsSelecionadas.length != 0 && arrayImagesUrl.length != 0) {
 
-            if (foto != null && foto !== undefined) {
-                try {
-
-                    console.log({
-                        id_usuario: id,
-                        titulo: titulo,
-                        descricao: descricao,
-                        tags: tagsSelecionadas,
-                        anexos: imagesList
-                    })
-                    
-                    const response = await blogFetch.post('/publicacao/inserir', {
-                        id_usuario: id,
-                        titulo: titulo,
-                        descricao: descricao,
-                        tags: tagsSelecionadas,
-                        anexos: [imagesList]
-                    }, 
+            try {
+                const response = await blogFetch.post('/publicacao/inserir', {
+                    id_usuario: id,
+                    titulo: titulo,
+                    descricao: descricao,
+                    tags: tagsSelecionadas,
+                    anexos: arrayImagesUrl
+                },
                     {
                         headers: {
                             'x-access-token': accessToken
                         }
                     }
                 )
+
+                
                 console.log(response)
-                } catch (error) {
-                    console.log(error)
-                }
-            } else {
-                console.log('É obrigatório o envio de fotos')
+            } catch (error) {
+                console.log(error)
             }
 
         } else {
@@ -121,14 +100,14 @@ const ModalPublicar = () => {
 
     useEffect(() => {
         if (images.length < 1) return
-    
+
         const newImageUrl = []
         images.forEach(image => newImageUrl.push(
-            URL.createObjectURL(image)    
+            URL.createObjectURL(image)
         ))
         setImageURL(newImageUrl)
-    
-      }, [images])
+
+    }, [images])
 
     function onImageChange(e) {
         setImage([...e.target.files])
@@ -140,15 +119,15 @@ const ModalPublicar = () => {
             <div onClick={() => {
 
                 navigate(-1)
-                
+
                 imageURL.map((item) => {
-                      
+
                     imageURL.splice(0, imageURL.length)
-                   
+
                 })
 
             }} className='modal__background'></div>
-            
+
             <div className='container'>
 
                 <div className='header'>
@@ -156,19 +135,19 @@ const ModalPublicar = () => {
                     <img onClick={() => {
                         navigate(-1)
                         imageURL.map((item) => {
-                      
+
                             imageURL.splice(0, imageURL.length)
-                            
+
                         })
-                    }} src={fechar} alt='Fechar' className='botaoFechar'/>
+                    }} src={fechar} alt='Fechar' className='botaoFechar' />
 
                     <img onClick={() => {
                         enviarPublicacao()
                     }} src={enviar} alt="Enviar" className='botaoEnviar' />
-                
+
                 </div>
 
-                    
+
                 <FormularioPublicacao
                     imageURL={imageURL}
                     setImageURL={setImageURL}
@@ -180,12 +159,12 @@ const ModalPublicar = () => {
                     tagsSelecionadas={tagsSelecionadas}
                     onImageChange={onImageChange}
                 ></FormularioPublicacao>
-                
-           
+
+
             </div>
-          
+
         </>
-      )
+    )
 
 }
 

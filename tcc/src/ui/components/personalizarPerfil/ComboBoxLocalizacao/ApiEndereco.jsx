@@ -1,0 +1,19 @@
+const BASE_URL = 'https://servicodados.ibge.gov.br/api/v1'
+
+export const fetchEstados = () => {
+    const url = `${BASE_URL}/localidades/estados`
+    return fetch(url)
+    .then(response => response.json())
+}
+
+export const fetchCidadesPorEstado = (estado) => {
+    const url = `${BASE_URL}/localidades/estados/${estado}/municipios`
+    return fetch(url)
+    .then(response => response.json())
+}
+
+export const fetchBairroPorCidade = (cidade) => {
+    const url = `${BASE_URL}/localidades/municipios/${cidade}/subdistritos`
+    return fetch(url)
+    .then(response => response.json())
+}

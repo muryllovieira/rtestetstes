@@ -26,7 +26,10 @@ const ModalPublicar = () => {
     const [ images, setImage ] = useState([])
     const [ imagensSelecionadas, setImagensSelecionadas ] = useState([])
 
+    const imagesList = []
+
     useEffect(() => {
+  
         console.log(imagensSelecionadas)
     },[imagensSelecionadas])
 
@@ -36,29 +39,26 @@ const ModalPublicar = () => {
             
             try {
 
-                const imagesList = []
+                
 
                 images.map( async (item, indice) => {
+
                     const responseImgList = await uploadImage(item, item.name)
 
-                    
                     imagesList.push({
                         conteudo: responseImgList
                     })
 
-                    imagensSelecionadas.push({
-                        conteudo: responseImgList
-                    })
-
                     return imagesList
+                    
                 })
 
                 return imagesList
 
             } catch (error) {
-                console.log(error)
+              console.log(error)
             }
-
+              
             return imagesList
         } else {
             return false
@@ -71,18 +71,34 @@ const ModalPublicar = () => {
 
         const foto = await salvarFoto()
 
+        // const letImagensSelecionadas = [...imagensSelecionadas]
+
+        // letImagensSelecionadas.push(foto)
+
+        // setImagensSelecionadas(letImagensSelecionadas)
+
+        console.log(imagensSelecionadas)
         console.log(foto);
 
         if (titulo != '' && descricao != '' && tagsSelecionadas.length != 0) {
 
             if (foto != null && foto !== undefined) {
                 try {
+
+                    console.log({
+                        id_usuario: id,
+                        titulo: titulo,
+                        descricao: descricao,
+                        tags: tagsSelecionadas,
+                        anexos: imagesList
+                    })
+                    
                     const response = await blogFetch.post('/publicacao/inserir', {
                         id_usuario: id,
                         titulo: titulo,
                         descricao: descricao,
                         tags: tagsSelecionadas,
-                        anexos: imagensSelecionadas
+                        anexos: [imagesList]
                     }, 
                     {
                         headers: {

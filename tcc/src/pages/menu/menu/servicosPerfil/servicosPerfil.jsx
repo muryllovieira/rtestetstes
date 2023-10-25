@@ -100,8 +100,9 @@ const servicosPerfil = () => {
                 }).map((item) => (
                   <CardPerfil
                     onClick={() => {
-                       setIdPerfil(item.id)
-                       navigator('/menu/servicos/perfil/perfil-selecionado')
+                        setIdPerfil(item.id_usuario)
+                        
+                        navigator('/menu/servicos/perfil/perfil-selecionado')
                      }}
                     key={item.id}
                     nome={item.nome}

@@ -70,7 +70,7 @@
     justify-content: start;
     position: relative;
     height: 21vh;
-    width: 8vw;
+    width: 9vw;
     background-color: var(--default-color);
     box-shadow: var(--default-shadow);
     border-radius: 15px;
@@ -90,13 +90,31 @@
     box-shadow: 7px 7px #A89BFF;
 }
 
-.nomePerfilPublicacao{
-    font-size: large;
+.nomePublicacao{
+    font-size: 1rem;
+    display: flex;
+    flex-direction: row;
+    max-width: 13em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
-.tituloPublicacao{
+.descricaoPublicacao{
     font-size: small;
     color: gray;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    overflow: hidden;
+    width: 100%;
+    max-width: 14em;
+    max-height: 14em;
+    padding-bottom: 40px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    
 }
 
 .maisPopulares{
@@ -108,12 +126,6 @@
     cursor: pointer;
 }
 
-.maisPopulares:hover{
-    font-size: 1.5rem;
-    color: #A89BFF;
-}
-
-.recentes:hover{
-    font-size: 1.5rem;
+.selected{
     color: #A89BFF;
 }

@@ -13,7 +13,7 @@ export const fetchCidadesPorEstado = (estado) => {
 }
 
 export const fetchBairroPorCidade = (cidade) => {
-    const url = `${BASE_URL}/localidades/municipios/${cidade}/subdistritos`
+    const url = `${BASE_URL}/localidades/municipios/${cidade}/distritos`
     return fetch(url)
     .then(response => response.json())
 }

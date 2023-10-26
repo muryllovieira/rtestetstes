@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './styleModalMinhaPublicacao.css'
 import './product-image-slider.scss'
 import { Swiper, SwiperSlide } from 'swiper/react'
@@ -10,6 +10,7 @@ import ImagemPerfil from './images/imagemPerfil.png'
 import IconeMais from './images/icone_mais.svg'
 import Enviar from './images/enviar.svg'
 import Fechar from './images/fechar.svg'
+import ModalMenu from '../ModalMinhaPublicacao/modalMenu/ModalMenu.jsx'
 
 register()
 
@@ -18,6 +19,8 @@ import 'swiper/css/navigation'
 import 'swiper/css/scrollbar'
 
 const ModalMinhaPublicacao = ({isOpen}) => {
+
+  const [openModal, setOpenModal] = useState(false)
 
     const navigate = useNavigate()
 
@@ -95,14 +98,15 @@ if (isOpen) {
         </div>
 
         <div className='menu'>
-          <img src={IconeMais} className='botao_mais' />
+          <img src={IconeMais} className='botao_mais' onClick={() => setOpenModal(true)} />
+          <ModalMenu isOpen={openModal} setModalOpen={() => setOpenModal(!openModal)} />
         </div>
 
     </div>
   </div>
 
   <div className='setor02_main'>
-
+  
     <div className='titulo_descricao'>
         <h1 className='titulo'>Titulo</h1>
         <p className='descricao'>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Modi, architecto iure? Hic iste iusto maiores accusantium esse ipsa, molestiae libero blanditiis! Consectetur voluptatibus excepturi accusantium odio ducimus laborum assumenda dignissimos.</p>

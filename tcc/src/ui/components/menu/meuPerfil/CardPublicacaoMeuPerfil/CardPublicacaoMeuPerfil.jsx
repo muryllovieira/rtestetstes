@@ -1,10 +1,36 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import './styleCardPublicacaoMeuPerfil.css'
 import FundoImagemPerfil from '../../../../../pages/menu/menu/perfil/images/fundoImagemPerfil.svg'
-import UsuarioImagemPerfil from '../../../../../pages/menu/menu/perfil/images/usuarioImagemPerfil.svg'
 import ModalMinhaPublicacao from '../ModalMinhaPublicacao/ModalMinhaPublicacao'
+import blogFetch from '../../../../../data/services/api/ApiService'
+import UserContext from '../../../../../data/hooks/context/UserContext'
 
 function CardPublicacaoMeuPerfil() {
+
+  const {accessToken} = useContext(UserContext)
+  const {id} = useContext(UserContext)
+
+  const [perfil, setPerfil] = useState(null)
+
+  const getUsuario = async () => {
+    try {
+      const response = await blogFetch.get(`/usuario/meu_perfil/${id}`, {
+        headers: {
+          'x-access-token' : accessToken
+        }
+      })
+
+      setPerfil(response.data)
+      console.log(response.data)
+
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  useEffect(() => {
+    getUsuario()
+  }, [])
 
   const [openModal, setOpenModal] = useState(false)
 
@@ -12,16 +38,31 @@ function CardPublicacaoMeuPerfil() {
     <>
         <div className="cardPublicacaoMeuPerfil" onClick={() => setOpenModal(true)}>
 
-          <ModalMinhaPublicacao isOpen={openModal} setModalOpen={() => setOpenModal(!openModal)}>
-          </ModalMinhaPublicacao>
-          
-            <div className="cardPublicacaoMeuPerfil__containerImagemPublicacao">
-                <img className='containerImagemPublicacao__imagemFundo' src={FundoImagemPerfil} alt="" />
-                <img className='containerImagemPublicacao__imagemPublicacao' src={UsuarioImagemPerfil} alt="" />
-            </div>
+        <ModalMinhaPublicacao isOpen={openModal} setModalOpen={() => setOpenModal(!openModal)}/>
 
-            <p className='cardPublicacaoMeuPerfil__nomeUsuario'>Beltrana dos Santos Silva</p>
-            <p className='cardPublicacaoMeuPerfil__tituloPublicacao'>Titulo Teste</p>
+        {
+          perfil === undefined ? (
+            <p>Carregando...</p>
+          ) : (
+            perfil.usuario.map((data) => (
+              data.publicacoes.map((item) => (
+                  <>
+                  <div className="cardPublicacaoMeuPerfil__containerImagemPublicacao" key={data.id}>
+                    <img className='containerImagemPublicacao__imagemFundo' src={FundoImagemPerfil} alt="" />
+                    <img className='containerImagemPublicacao__imagemPublicacao' src={item.anexo} alt="" />
+                  </div>
+  
+                  <p className='cardPublicacaoMeuPerfil__nomeUsuario'>{item.titulo}</p>
+                  <p className='cardPublicacaoMeuPerfil__tituloPublicacao'>{item.descricao}</p>
+                  </>
+              ))
+            ))
+          )
+        }
+
+
+                 
+            
         </div>
     </>
   )

@@ -23,9 +23,8 @@ const servicosPerfil = () => {
   const {accessToken} = useContext(UserContext)
 
   const [listaPerfis, setListaPerfis] = useState([])
-
-
   const [openModal, setOpenModal] = useState(false)
+  const [busca, setBusca] = useState('')
 
   useEffect(() => {
     pegarPerfis()
@@ -64,6 +63,7 @@ const servicosPerfil = () => {
            <div className='pesquisaPerfil'>
            <div className="header__inputPesquisar">
            <InputGlobal
+              onChange={setBusca}
               type={'search'}
               placeholder={'Procurar um perfil'}
             ></InputGlobal>
@@ -91,12 +91,19 @@ const servicosPerfil = () => {
               listaPerfis.length === 0 ? (
                 <>Carregando</>
               ) : (
-                listaPerfis.usuarios.map((item) => (
+                listaPerfis.usuarios.filter((item) => {
+
+                    const buscaPequena = busca.toLowerCase()
+
+                    return buscaPequena.toLowerCase() == '' ? item : item.nome.toLowerCase().includes(buscaPequena)
+
+                }).map((item) => (
                   <CardPerfil
                     onClick={() => {
-                      setIdPerfil(item.id)
-                      navigator('/menu/servicos/perfil/perfil-selecionado')
-                    }}
+                        setIdPerfil(item.id_usuario)
+                        
+                        navigator('/menu/servicos/perfil/perfil-selecionado')
+                     }}
                     key={item.id}
                     nome={item.nome}
                     img={item.foto}

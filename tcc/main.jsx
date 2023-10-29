@@ -45,7 +45,7 @@ import PersonalizarTipo from './src/pages/registrar/personalizarPerfil/personali
 import PersonalizarTags from './src/pages/registrar/personalizarPerfil/personalizarTags/PersonalizarTags.jsx'
 
 
-import { UserProvider } from './src/data/hooks/context/UserContext.jsx'
+import { UserContext } from './src/data/hooks/context/UserContext.jsx'
 
 //Importe Estilo Global
 import './src/ui/styles/global.css'

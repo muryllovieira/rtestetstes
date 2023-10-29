@@ -8,7 +8,7 @@
     cursor: pointer;
 }
 
-.cardPublicacaoMeuPerfil__nomeUsuario {
+.cardPublicacaoMeuPerfil__descricaoUsuario {
     position: relative;
     top: 120px;
     font-size: 0.5rem;

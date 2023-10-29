@@ -5,7 +5,7 @@
  * 
  * Commits: Rotas Definidas v0.8, Estruturação de Diretórios Concluída, 
  * Componentes Iniciados v2.30, Responsividade v0.7, Funcionalidades v0.17,
- * Integração Iniciada v0.24, Contexto Aplicado, Lista Icones v0.3, Conflito v0.4,
+ * Integração Iniciada v0.25, Contexto Aplicado, Lista Icones v0.3, Conflito v0.4,
  *  
  * 
 *****************/ 
@@ -45,7 +45,7 @@ import PersonalizarTipo from './src/pages/registrar/personalizarPerfil/personali
 import PersonalizarTags from './src/pages/registrar/personalizarPerfil/personalizarTags/PersonalizarTags.jsx'
 
 
-import { UserContext } from './src/data/hooks/context/UserContext.jsx'
+import { UserProvider } from './src/data/hooks/context/UserContext.jsx'
 
 //Importe Estilo Global
 import './src/ui/styles/global.css'

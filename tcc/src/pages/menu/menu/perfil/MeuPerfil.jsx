@@ -21,6 +21,8 @@ function MeuPerfil() {
   const [ user, setUser ] = useState(null)
   const [tags, setTags] = useState([])
 
+  const [perfil, setPerfil] = useState()
+
   const pegarUsuario = async () => {
     
       try {
@@ -45,9 +47,28 @@ function MeuPerfil() {
 
   }
 
-
   useEffect(()  => {
     pegarUsuario()
+  }, [])
+
+  const getUsuario = async () => {
+    try {
+      const response = await blogFetch.get(`/usuario/meu_perfil/${id}`, {
+        headers: {
+          'x-access-token' : accessToken
+        }
+      })
+
+      setPerfil(response.data)
+      console.log(response.data)
+
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  useEffect(() => {
+    getUsuario()
   }, [])
   
 
@@ -243,7 +264,23 @@ function MeuPerfil() {
                 )}
 
           <div className="containerPerfil__containerPublicacoes">
-              <CardPublicacaoMeuPerfil></CardPublicacaoMeuPerfil>
+              {
+                perfil === undefined ? (
+                  <p>Sem Conteudo</p>
+                ) : (
+                  perfil.usuario.publicacoes.map((item) => {
+                    return(
+                      <CardPublicacaoMeuPerfil
+                        idPublicacao={item.id}
+                        nomePublicacao={item.titulo}
+                        descricaoPublicacao={item.descricao}
+                      ></CardPublicacaoMeuPerfil> 
+                    )
+                  })
+                )
+              }
+          
+            
           
           </div>
 

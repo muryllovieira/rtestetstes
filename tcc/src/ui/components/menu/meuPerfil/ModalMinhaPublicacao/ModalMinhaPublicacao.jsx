@@ -10,6 +10,7 @@ import BotaoAncoraGlobal from '../../../global/BotaoAncoraGlobal/BotaoAncoraGlob
 import ImagemPerfil from './images/imagemPerfil.png'
 import IconeMais from './images/icone_mais.svg'
 import Enviar from './images/enviar.svg'
+import blogFetch from '../../../../../data/services/api/ApiService'
 import Fechar from './images/fechar.svg'
 
 register()
@@ -19,8 +20,9 @@ import 'swiper/css/navigation'
 import 'swiper/css/scrollbar'
 import { useEffect } from 'react'
 
+const ModalMinhaPublicacao = ({ isOpen, setModalOpen, accessToken, idPublicacao, dadosPublicacao }) => {
 
-const ModalMinhaPublicacao = ({ isOpen, setModalOpen }) => {
+  console.log(dadosPublicacao)
 
   const navigate = useNavigate()
 
@@ -29,20 +31,28 @@ const ModalMinhaPublicacao = ({ isOpen, setModalOpen }) => {
   const [firstSwiper, setFirstSwiper] = useState(null);
   const [secondSwiper, setSecondSwiper] = useState(null);
 
-  useEffect(() => {
-    console.log(firstSwiper)
-  }, [firstSwiper])
 
   const [opcoes, setOpcoes] = useState(false)
   const [value, setValue] = useState(0)
+  const [editar, setEditar] = useState(false)
 
   const setListLenght = () => {
 
-    if (data.length >= 4) {
-      setValue(4)
+    if(dadosPublicacao === undefined) {
+      return false
     } else {
-      setValue(data.length)
+      if (dadosPublicacao.publicacao.anexos.length >= 4) {
+        setValue(4)
+        console.log('a')
+      } else {
+        
+        setValue(dadosPublicacao.publicacao.anexos.length)
+
+        console.log('b')
+      }
     }
+
+    
   }
 
   const data = [
@@ -55,166 +65,260 @@ const ModalMinhaPublicacao = ({ isOpen, setModalOpen }) => {
     { id: '4', image: 'https://t.ctcdn.com.br/JlHwiRHyv0mTD7GfRkIlgO6eQX8=/640x360/smart/i257652.jpeg' },
   ]
 
+
+  const apagarPublicacao = async (id) => {
+    try {
+      const response = await blogFetch.delete(`/publicacao/${id}`, {
+        headers: {
+          'x-access-token': accessToken
+        }
+      })
+      navigate('/menu/explorar')
+      console.log(response.data)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const editarPublicacao = async () => {
+
+  }
+
+  useEffect(() => {
+    console.log(firstSwiper)
+  },[firstSwiper])
+
   useEffect(() => {
     setListLenght()
-  }, [value])
+  }, [dadosPublicacao])
 
   if (isOpen) {
     return (
-      <>
-        <div className='modal__background'>
-          <div className='formularioMinhaPublicacao'>
+      editar === false ? (
+        <>
+          <div className='modal__background'>
+            <div className='formularioMinhaPublicacao'>
 
-            <div className='setor_01'>
+              <div className='setor_01'>
 
-              <div className='setor01_header'>
-                <img src={Fechar} alt="Voltar" className='setaVoltar' onClick={() => 
-                  {
+                <div className='setor01_header'>
+                  <img src={Fechar} alt="Voltar" className='setaVoltar' onClick={() => {
                     setModalOpen(!isOpen)
                   }
-                } />
-              </div>
+                  } />
+                </div>
 
-              <div className='setor01_main'>
-                <Swiper
-                  slidesPerView={1}
-                  navigation
-                  virtual
-                  modules={[Controller, Virtual]}
-                  onSwiper={setFirstSwiper}
-                  controller={{ control: secondSwiper }}
-                >
-                  {data.map((item, index) => (
-                    <SwiperSlide
-                      key={item}
-                      className='slide_post'
-                      virtualIndex={index}
-
-                    >
-                      <img src={item.image} alt="" className='slide_item' />
-                    </SwiperSlide>
-                  ))}
-                </Swiper>
-              </div>
-
-              <div className='lista_imagens'>
-                <Swiper
-                  slidesPerView={value}
-                  modules={[Controller, Virtual]}
-                  onSwiper={setSecondSwiper}
-                  controller={{ control: firstSwiper }}
-                  virtual
-                >
-                  {data.map((item, index) => (
-                    <SwiperSlide
-                      key={item}
-                      virtualIndex={index}
-                    
-
-                    >
-                      <img src={item.image} alt="" className='thumb_item' />
-                    </SwiperSlide>
-                  ))}
-                </Swiper>
-              </div>
-
-              <div className='setor01_footer'>
-                <BotaoAncoraGlobal
-                  titulo={'Dar Ponto'}
-                ></BotaoAncoraGlobal>
-
-                <BotaoAncoraGlobal
-                  titulo={'Responder'}
-                ></BotaoAncoraGlobal>
-              </div>
-            </div>
-
-            <div className='setor_02'>
-
-              <div className="setor02_header">
-                <div className="card">
-
-                  <div className='perfil_container'>
-                    <img src={ImagemPerfil} className='foto_perfil' />
-                    <p className='nome_perfil'>Beltrana dos santos</p>
-                  </div>
-
-                  <div className='menu'>
-                    <img onClick={() => {
-                      setOpcoes(!opcoes)
-                    }} src={IconeMais} className='botao_mais' />
+                <div className='setor01_main'>
+                  <Swiper
+                    slidesPerView={1}
+                    navigation
+                    virtual
+                    modules={[Controller, Virtual]}
+                    onSwiper={firstSwiper}
+                    controller={{ control: secondSwiper }}
+                  >
                     {
-                      opcoes == false ? (
-                        null
-                      ) : (
-                        <p className='teste'>
-                          asoidjaij
-                        </p>
-                      )
+                    dadosPublicacao === undefined ? (
+                      <p>Carregando</p>
+                    ) : (
+                      dadosPublicacao.publicacao.anexos.map((item, index) => (
+                        <SwiperSlide
+                          key={item}
+                          className='slide_post'
+                          virtualIndex={index}
+  
+                        >
+                          <img src={item.anexo} alt="" className='slide_item' />
+                        </SwiperSlide>
+                      ))
+                    )
+                    
+                    
                     }
-                  </div>
+                  </Swiper>
+                </div>
 
+                <div className='lista_imagens'>
+                
+                    {
+
+                      dadosPublicacao === undefined ? (
+                        <p>Carregando...</p>
+                      ) : (
+                        dadosPublicacao.publicacao.anexos.map((item, index) => (
+                         
+                            <img onClick={() => setFirstSwiper(index)} src={item.anexo} alt="" className='thumb_item' />
+                          
+                        ))
+                      )
+                      
+
+                     }
+                
+                </div>
+
+                <div className='setor01_footer'>
+                  <BotaoAncoraGlobal
+                    titulo={'Dar Ponto'}
+                  ></BotaoAncoraGlobal>
+
+                  <BotaoAncoraGlobal
+                    titulo={'Responder'}
+                  ></BotaoAncoraGlobal>
                 </div>
               </div>
 
-              <div className='setor02_main'>
+              <div className='setor_02'>
 
-                <div className='titulo_descricao'>
-                  <h1 className='titulo'>Titulo</h1>
-                  <p className='descricao'>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Modi, architecto iure? Hic iste iusto maiores accusantium esse ipsa, molestiae libero blanditiis! Consectetur voluptatibus excepturi accusantium odio ducimus laborum assumenda dignissimos.</p>
+                <div className="setor02_header">
+                  <div className="card">
+
+                    <div className='perfil_container'>
+                      <img src={ImagemPerfil} className='foto_perfil' />
+                      <p className='nome_perfil'>Beltrana dos santos</p>
+                    </div>
+
+                    <div className='menu'>
+                      <img onClick={() => {
+                        setOpcoes(!opcoes)
+                      }} src={IconeMais} className='iconeMenuPublicacao' />
+                      {
+                        opcoes == false ? (
+                          null
+                        ) : (
+                          <div className='modalOpcoesPublicacao'>
+                            <div onClick={
+                              () => {
+
+                                apagarPublicacao(idPublicacao)
+                              }
+                            } className='opcaoExcluir'>
+                              <p className='textoExcluirPublicacao'>
+                                Apagar publicação
+                              </p>
+                            </div>
+                            <div onClick={() => {
+                              setEditar(!editar)
+                            }} className='opcaoEditar'>
+                              <p className='textoEditarPublicacao'>
+                                Editar publicação
+                              </p>
+                            </div>
+                          </div>
+                        )
+                      }
+                    </div>
+
+                  </div>
                 </div>
 
-                <div className='lista_comentarios'>
+                <div className='setor02_main'>
 
-                  <div className='card_comentario'>
-                    <img src={ImagemPerfil} alt="" className='foto_perfil' />
-                    <div className='container_textos'>
-                      <p className='nome'>Mayara</p>
-                      <p className='texto_comentario'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Et magni neque beatae magnam, quia ab labore nihil itaque repellendus aut cum reprehenderit distinctio cupiditate velit voluptate dolor exercitationem cumque aliquid.</p>
-                      <p className='responder'>Responder</p>
-                    </div>
-                  </div>
-                  <div className='card_comentario'>
-                    <img src={ImagemPerfil} alt="" className='foto_perfil' />
-                    <div className='container_textos'>
-                      <p className='nome'>Mayara</p>
-                      <p className='texto_comentario'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Et magni neque beatae magnam, quia ab labore nihil itaque repellendus aut cum reprehenderit distinctio cupiditate velit voluptate dolor exercitationem cumque aliquid.</p>
-                      <p className='responder'>Responder</p>
-                    </div>
-                  </div>
-                  <div className='card_comentario'>
-                    <img src={ImagemPerfil} alt="" className='foto_perfil' />
-                    <div className='container_textos'>
-                      <p className='nome'>Mayara</p>
-                      <p className='texto_comentario'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Et magni neque beatae magnam, quia ab labore nihil itaque repellendus aut cum reprehenderit distinctio cupiditate velit voluptate dolor exercitationem cumque aliquid.</p>
-                      <p className='responder'>Responder</p>
-                    </div>
-                  </div>
-                  <div className='card_comentario'>
-                    <img src={ImagemPerfil} alt="" className='foto_perfil' />
-                    <div className='container_textos'>
-                      <p className='nome'>Mayara</p>
-                      <p className='texto_comentario'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Et magni neque beatae magnam, quia ab labore nihil itaque repellendus aut cum reprehenderit distinctio cupiditate velit voluptate dolor exercitationem cumque aliquid.</p>
-                      <p className='responder'>Responder</p>
-                    </div>
+                  <div className='titulo_descricao'>
+                    <h1 className='titulo'>Titulo</h1>
+                    <p className='descricao'>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Modi, architecto iure? Hic iste iusto maiores accusantium esse ipsa, molestiae libero blanditiis! Consectetur voluptatibus excepturi accusantium odio ducimus laborum assumenda dignissimos.</p>
                   </div>
 
+                  <div className='lista_comentarios'>
+
+                    <div className='card_comentario'>
+                      <img src={ImagemPerfil} alt="" className='foto_perfil' />
+                      <div className='container_textos'>
+                        <p className='nome'>Mayara</p>
+                        <p className='texto_comentario'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Et magni neque beatae magnam, quia ab labore nihil itaque repellendus aut cum reprehenderit distinctio cupiditate velit voluptate dolor exercitationem cumque aliquid.</p>
+                        <p className='responder'>Responder</p>
+                      </div>
+                    </div>
+                    <div className='card_comentario'>
+                      <img src={ImagemPerfil} alt="" className='foto_perfil' />
+                      <div className='container_textos'>
+                        <p className='nome'>Mayara</p>
+                        <p className='texto_comentario'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Et magni neque beatae magnam, quia ab labore nihil itaque repellendus aut cum reprehenderit distinctio cupiditate velit voluptate dolor exercitationem cumque aliquid.</p>
+                        <p className='responder'>Responder</p>
+                      </div>
+                    </div>
+                    <div className='card_comentario'>
+                      <img src={ImagemPerfil} alt="" className='foto_perfil' />
+                      <div className='container_textos'>
+                        <p className='nome'>Mayara</p>
+                        <p className='texto_comentario'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Et magni neque beatae magnam, quia ab labore nihil itaque repellendus aut cum reprehenderit distinctio cupiditate velit voluptate dolor exercitationem cumque aliquid.</p>
+                        <p className='responder'>Responder</p>
+                      </div>
+                    </div>
+                    <div className='card_comentario'>
+                      <img src={ImagemPerfil} alt="" className='foto_perfil' />
+                      <div className='container_textos'>
+                        <p className='nome'>Mayara</p>
+                        <p className='texto_comentario'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Et magni neque beatae magnam, quia ab labore nihil itaque repellendus aut cum reprehenderit distinctio cupiditate velit voluptate dolor exercitationem cumque aliquid.</p>
+                        <p className='responder'>Responder</p>
+                      </div>
+                    </div>
+
+                  </div>
                 </div>
-              </div>
 
-              <div className='setor02_footer'>
-                <InputGlobal
-                  type={'email'}
-                  emailWeb={true}
-                  placeholder={'Escreva um comentário...'}
-                ></InputGlobal>
-                <img src={Enviar} alt="" />
-              </div>
+                <div className='setor02_footer'>
+                  <InputGlobal
+                    type={'email'}
+                    emailWeb={true}
+                    placeholder={'Escreva um comentário...'}
+                  ></InputGlobal>
+                  <img src={Enviar} alt="" />
+                </div>
 
+              </div>
             </div>
           </div>
-        </div>
-      </>
+        </>
+      ) : (
+        <>
+          <div className='modal__background'>
+            <div className='formularioMinhaPublicacao'>
+
+              <div className='setor_01'>
+
+                <div className='setor01_header'>
+                  <img src={Fechar} alt="Voltar" className='setaVoltar' onClick={() => {
+                    setEditar(!editar)
+                    setModalOpen(!isOpen)
+                  }
+                  } />
+                </div>
+
+
+
+
+              </div>
+
+              <div className='setor_02'>
+
+                <div className="setor02_header">
+                  <div className="card">
+
+                    <div className='perfil_container'>
+                      <img src={ImagemPerfil} className='foto_perfil' />
+                      <p className='nome_perfil'>Beltrana dos santos</p>
+                    </div>
+
+
+
+                  </div>
+                </div>
+
+                <div className='setor02_main'>
+
+
+
+
+                </div>
+
+
+
+              </div>
+            </div>
+          </div>
+        </>
+      )
     )
   } else {
     return (

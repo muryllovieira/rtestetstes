@@ -20,7 +20,7 @@
     flex-direction: row;
     padding: 16px;
     align-items: center;
-    justify-content: start;
+    justify-content: space-around;
     gap: 70vh;
     padding-left: 24px;
     padding-top: 25px;

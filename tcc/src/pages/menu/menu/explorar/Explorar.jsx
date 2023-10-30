@@ -6,7 +6,7 @@ import UserContext from '../../../../data/hooks/context/UserContext'
 
 function Explorar() {
 
-  const {accessToken} = useContext(UserContext)
+  const { accessToken } = useContext(UserContext)
 
   const [listaPublicacoes, setListaPublicacoes] = useState()
 
@@ -18,12 +18,12 @@ function Explorar() {
     try {
       const response = await blogFetch.get('/publicacao/select_all', {
         headers: {
-          'x-access-token' : accessToken
+          'x-access-token': accessToken
         }
       })
 
       setListaPublicacoes(response.data)
-      console.log(response)
+      console.log(response.data)
 
     } catch (error) {
       console.log(error)
@@ -34,8 +34,8 @@ function Explorar() {
   return (
     <>
       <div className='containerExplorar'>
-        
-        <Outlet/>
+
+        <Outlet />
 
         <div className='containerExplorar__tituloEFoto'>
           <p>
@@ -51,32 +51,30 @@ function Explorar() {
           <div className='secaoPublicacao__filtroPublicacao'>
             <span className='maisPopulares' activeClassName='selected'>MAIS POPULARES <i></i> </span>
             <span className='recentes' activeClassName='selected'>RECENTES <i></i> </span>
-            
+
           </div>
 
           <div className='secaoPublicacao__listaPublicacoes'>
 
 
             {
-              listaPublicacoes === undefined ?(
+              listaPublicacoes === undefined ? (
                 <p>Carregando...</p>
               ) : (
-                listaPublicacoes.publicacoes.map((data) => (
-                  data.anexos.map((item) => (
-                    <div className="cardPublicacao" key={data.id}>
-                    <img src={item.anexo} className='fotoPublicacao' alt="" />
-                  <div className='container_textos'>
-                    <p className='nomePublicacao'>{data.titulo}</p>
-                    <p className='descricaoPublicacao'>{data.descricao} <p>...</p> </p>
-                  </div> 
-                </div>
-                  
-                  ))
+                listaPublicacoes.publicacoes.map((item) => (
+                   
+                  <div className="cardPublicacao" key={item.id}>
+                    <img src={item.anexos[0].anexo} className='fotoPublicacao' alt="" />
+                    <div className='container_textos'>
+                      <p className='nomePublicacao'>{item.titulo}</p>
+                      <p className='descricaoPublicacao'>{item.descricao} <p>...</p> </p>
+                    </div>
+                  </div>
                 ))
               )
             }
 
-            
+
           </div>
 
         </section>

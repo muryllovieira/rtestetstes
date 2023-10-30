@@ -15,8 +15,13 @@ function PerfilSelecionado() {
     const {idPerfil} = useContext(UserContext)
     console.log(idPerfil, accessToken)
 
-    const [perfil, setPerfil] = useState(null)
     const [tags, setTags] = useState([])
+
+    const [perfil, setPerfil] = useState()
+
+    useEffect(() => {
+      console.log(perfil)
+    },[perfil])
 
     const getPerfil = async () => {
         try {
@@ -27,7 +32,7 @@ function PerfilSelecionado() {
             })
 
             setPerfil(response.data)
-            console.log(perfil)
+            console.log(response.data)
 
             if (response.data.usuario.tags === undefined) {
                 console.log('a')
@@ -39,6 +44,8 @@ function PerfilSelecionado() {
             console.log(error)
         }
     }
+
+    console.log(perfil)
 
     useEffect(() => {
         getPerfil()
@@ -53,7 +60,7 @@ function PerfilSelecionado() {
                   <div className="containerPerfil__containerCardPerfil">
 
                     {/* SVG Absolute */}
-                      <svg className='marcaTransparentePerfil' xmlns="http://www.w3.org/2000/svg" width="410" height="226" viewBox="0 0 410 226" fill="none">
+                      <svg className='marcaTransparentePerfilSelecionado' xmlns="http://www.w3.org/2000/svg" width="410" height="226" viewBox="0 0 410 226" fill="none">
                         <path d="M0 20C0 8.9543 8.9543 0 20 0H390C401.046 0 410 8.9543 410 20V181.613C410 193.724 399.321 203.055 387.319 201.432L309.128 190.855C307.384 190.62 305.616 190.615 303.871 190.842L40.6858 225.027C31.7245 226.191 23.0959 221.202 19.6347 212.854L1.52516 169.178C0.51827 166.75 0 164.147 0 161.518V20Z" fill="url(#paint0_linear_461_13635)" fillOpacity="0.4"/>
                         <defs>
                         <linearGradient id="paint0_linear_461_13635" x1="205" y1="0" x2="205" y2="279" gradientUnits="userSpaceOnUse">
@@ -63,7 +70,7 @@ function PerfilSelecionado() {
                         </defs>
                       </svg>
         
-                      <svg className='marcaPerfil' xmlns="http://www.w3.org/2000/svg" width="410" height="200" viewBox="0 0 410 200" fill="none">
+                      <svg className='marcaPerfilSelecionado' xmlns="http://www.w3.org/2000/svg" width="410" height="200" viewBox="0 0 410 200" fill="none">
                         <path d="M0 20C0 8.95431 8.9543 0 20 0H390C401.046 0 410 8.95431 410 20V160.046C410 172.521 398.705 181.951 386.431 179.725L309.07 165.695C307.036 165.326 304.956 165.275 302.906 165.543L46.8069 199.062C38.0246 200.211 29.5323 195.448 25.9351 187.354L1.72377 132.878C0.587246 130.321 0 127.554 0 124.756V20Z" fill="url(#paint0_linear_461_13634)"/>
                         <defs>
                         <linearGradient id="paint0_linear_461_13634" x1="205" y1="0" x2="205" y2="258" gradientUnits="userSpaceOnUse">
@@ -77,7 +84,8 @@ function PerfilSelecionado() {
                     <section className='containerCardPerfil__secaoMeuPerfil'>
 
                           {
-                            perfil === null ? (
+                          
+                            perfil === undefined ? (
                               <p>Carregando...</p>
                             ) : (
                                 <>
@@ -88,7 +96,7 @@ function PerfilSelecionado() {
                                   </Link>
                                 </div>
                                 <CardUsuarioMeuPerfil
-                                    key={perfil.usuario.id}
+                                    key={perfil.usuario.id_usuario}
                                     nomePerfil={perfil.usuario.nome}
                                     tagPerfil={perfil.usuario.nome_de_usuario}
                                     localicaoPerfil={`${perfil.usuario.cidade},${perfil.usuario.estado}`}
@@ -112,7 +120,7 @@ function PerfilSelecionado() {
                         
 
                           {
-                             perfil === null ? (
+                             perfil === undefined ? (
                               <p>Carregando...</p>
                             ) : (
                               <p className='secaoMeuPerfil__descricaoPerfil'>
@@ -124,10 +132,10 @@ function PerfilSelecionado() {
                           <div>
                             
                             {
-                              perfil === null ? (
+                              perfil === undefined ? (
                                 <p className='carregandoPerfil'>Usuário Não Encontrado</p>
                               ) : (
-                                
+                              
                                 <div className="containerPerfil__containerTags">
                                   {
                                     tags.length == 0 ? (
@@ -196,7 +204,37 @@ function PerfilSelecionado() {
                   </div>
 
           <div className="containerPerfil__containerPublicacoes">
-              <CardPublicacaoMeuPerfil/>
+          {
+                perfil === undefined ? (
+                  <p>Sem Conteudo</p>
+                ) : (
+                  
+                        perfil.usuario.publicacoes.length > 10 ? (
+
+                          <p className='containerPublicacoesVazia'>{perfil.usuario.publicacoes}</p>
+
+                        ) : (
+                          perfil.usuario.publicacoes.map((item) => {
+
+                            
+                            return(
+
+                              <CardPublicacaoMeuPerfil
+                                idPublicacao={item.id}
+                                nomePublicacao={item.titulo}
+                                descricaoPublicacao={item.descricao}
+                              ></CardPublicacaoMeuPerfil> 
+                              
+                            )
+                          })
+                        )
+                      
+                    
+              
+                )
+
+                
+              }
           </div>
 
         </div>

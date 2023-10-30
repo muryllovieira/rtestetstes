@@ -1,0 +1,75 @@
+.containerConfiguracoes{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 90vw;
+    height: 90vh;
+    background-color: var(--default-color);
+    box-shadow: var(--default-shadow);
+    position: relative;
+    left: 30px;
+    border-radius: 20px;
+}
+
+.containerConfiguracoes_header{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.containerConfiguracoes_main{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    flex-wrap: wrap;
+    overflow: hidden;
+    gap: 30px;
+}
+
+.containerExplorar__tituloEFoto {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: fit-content;
+    padding: 16px;
+    align-content: center;
+}
+
+.containerExplorar__tituloEFoto p {
+    font-size: 1.5rem;
+    color: var(--contrast-color);
+    font-weight: 600;
+    font-style: normal;
+    text-align: center;
+    height: fit-content;
+}
+
+.tituloEFoto__cardFoto {
+    height: 88px;
+    width: 86px;
+    background-color: var(--secundary-color);
+}
+
+.botoesConfiguracao{
+    display: flex;
+    flex-direction: center;
+    justify-content: start;
+    align-items: center;
+    width: 18vw;
+    height: 10vh;
+    border-radius: 10px;
+    border: solid 2px var(--secundary-color);
+    box-shadow: var(--default-shadow);
+}
+
+.titulo{
+    font-size: 1.5rem;
+    font-weight: lighter;
+    padding-left: 25px;
+    color: var(--secundary-color);
+}

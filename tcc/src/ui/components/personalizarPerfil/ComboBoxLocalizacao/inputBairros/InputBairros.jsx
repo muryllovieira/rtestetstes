@@ -7,10 +7,10 @@ const InputBairros = ({city, onChange = () => {}}) => {
   const [bairros, setBairros] = useState([])
   
   useEffect(() => {
-      fetchBairroPorCidade(city)
+    fetchBairroPorCidade(city)
       .then((data) => {
           setBairros(data)
-      })
+    })
   }, [city])
 
   return (

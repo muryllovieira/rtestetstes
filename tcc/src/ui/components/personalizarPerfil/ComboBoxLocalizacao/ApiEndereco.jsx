@@ -12,8 +12,8 @@ export const fetchCidadesPorEstado = (estado) => {
     .then(response => response.json())
 }
 
-export const fetchBairroPorCidade = (cidade) => {
-    const url = `${BASE_URL}/localidades/municipios/${cidade}/distritos`
-    return fetch(url)
+export const fetchBairroPorCidade = async (cidade) => {
+    const url = `${BASE_URL}/localidades/municipios/${cidade}/subdistritos`
+    return await fetch(url)
     .then(response => response.json())
 }

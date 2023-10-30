@@ -4,7 +4,7 @@ import '../styleComboBoxLocalizacao.css'
 
 const InputCidades = ({state, onChange = () => {} }) => {
 
-    const [cidades, setCidades] = useState([])
+const [cidades, setCidades] = useState([])
 
   useEffect(() => {
     fetchCidadesPorEstado(state)

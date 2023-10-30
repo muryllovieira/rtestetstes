@@ -7,6 +7,6 @@ const blogFetch = axios.create({
 
 
 // https://super-hare-shoulder-pads.cyclic.cloud
-//  http://10.107.144.10:3000
+//  http://10.107.144.21:3000
 
 export default blogFetch

@@ -1,0 +1,56 @@
+.containerSobre{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 90vw;
+    height: 90vh;
+    background-color: var(--default-color);
+    box-shadow: var(--default-shadow);
+    position: relative;
+    left: 30px;
+    border-radius: 20px;
+}
+
+.containerSobre_header{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 95%;
+    height: 10vh;
+}
+
+.sobre{
+    font-size: 1.5rem;
+    color: var(--contrast-color);
+    font-weight: 600;
+    font-style: normal;
+    text-align: center;
+    height: fit-content;
+}
+
+.tituloEFoto__cardFoto {
+    height: 88px;
+    width: 86px;
+    background-color: var(--secundary-color);
+}
+
+
+.containerSobre_main{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+    height: 80vh;
+}
+
+.containerSobre_main p {
+    color: #000;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: 1.6px;
+}

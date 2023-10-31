@@ -9,7 +9,17 @@ const handleChange = (e) => {
   
 }
 
-if (type == 'descricao') {
+if(type == 'description'){
+
+  return (
+    <>
+        <form>
+            <textarea className='description' value={textarea} type={type} onChange={(e) => onChange(e.target.value)} placeholder={placeholder}></textarea>
+        </form>
+    </>
+  )
+
+} if (type == 'descricao') {
   return (
     <>
         <form>

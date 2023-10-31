@@ -4,7 +4,7 @@
  * Data Fim: X
  * 
  * Commits: Rotas Definidas v0.8, Estruturação de Diretórios Concluída, 
- * Componentes Iniciados v2.32, Responsividade v0.7, Funcionalidades v0.17,
+ * Componentes Iniciados v2.33, Responsividade v0.7, Funcionalidades v0.17,
  * Integração Iniciada v0.26, Contexto Aplicado, Lista Icones v0.3, Conflito v0.4,
  *  
  * 
@@ -43,6 +43,12 @@ import PersonalizarFoto from './src/pages/registrar/personalizarPerfil/personali
 import PersonalizarLocalizacao from './src/pages/registrar/personalizarPerfil/personalizarLocalizacao/PersonalizarLocalizacao.jsx'
 import PersonalizarTipo from './src/pages/registrar/personalizarPerfil/personalizarTipo/PersonalizarTipo.jsx'
 import PersonalizarTags from './src/pages/registrar/personalizarPerfil/personalizarTags/PersonalizarTags.jsx'
+
+//paginas - rotas de configuracao
+import Sobre from './src/pages/menu/menu/configuracoes/sobre/Sobre.jsx'
+import AjudaSuporte from './src/pages/menu/menu/configuracoes/ajudaSuporte/AjudaSuporte.jsx'
+import TermosCondicoes from './src/pages/menu/menu/configuracoes/termosECondicoes/TermosCondicoes.jsx'
+import SuaConta from './src/pages/menu/menu/configuracoes/suaConta/SuaConta.jsx'
 
 
 import { UserProvider } from './src/data/hooks/context/UserContext.jsx'
@@ -175,6 +181,26 @@ const router = createBrowserRouter([
       {
         path: "/menu/configuracoes",
         element: <Configuracoes />,
+        errorElement: <NaoEncontrado />,
+      },
+      {
+        path: "/menu/configuracoes/sobre",
+        element: <Sobre/>,
+        errorElement: <NaoEncontrado />,
+      },
+      {
+        path: "/menu/configuracoes/ajuda-suporte",
+        element: <AjudaSuporte/>,
+        errorElement: <NaoEncontrado />,
+      },
+      {
+        path: "/menu/configuracoes/termos-condicoes",
+        element: <TermosCondicoes/>,
+        errorElement: <NaoEncontrado />,
+      },
+      {
+        path: "/menu/configuracoes/sua-conta",
+        element: <SuaConta/>,
         errorElement: <NaoEncontrado />,
       },
       {

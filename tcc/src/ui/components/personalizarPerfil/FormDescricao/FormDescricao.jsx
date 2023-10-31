@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import './styleFormDescricao.css'
 
-const formDescricao = ({onChange, type, placeholder}) => {
+const FormDescricao = ({onChange, type, placeholder}) => {
 
 const [textarea, setTextArea] = useState()
 
@@ -30,4 +30,4 @@ if (type == 'descricao') {
   
 }
 
-export default formDescricao
+export default FormDescricao

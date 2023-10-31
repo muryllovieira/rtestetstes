@@ -36,8 +36,20 @@
     left: 3px;
 }
 
-.containerImagemPublicacao__imagemPublicacao {
-    height: 105px;
-    width: 115px;
-    position: absolute;   
+
+
+.cardPublicacaoMeuPerfil__containerImagem {
+    position: absolute;
+    width: 100%;
+    height: 80%;
+}
+
+.containerImagem__imagemPublicacao {
+    width: 90%;
+    height: 80%;
+    left: 5%;
+    position: relative;
+    object-fit: cover;
+    border-radius: 10px;
+    box-shadow: 4px 3px #A89BFF;
 }

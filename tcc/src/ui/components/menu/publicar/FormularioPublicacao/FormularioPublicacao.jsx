@@ -10,15 +10,13 @@ import BotaoTag from '../../../personalizarPerfil/BotaoTag/BotaoTag'
 import { uploadImage } from '../../../../../data/services/firebase/firebase'
 
 
-const FormularioPublicacao = ({imageURL, setImageURL, setTitulo, setDescricao, setTagsList, tagsList, setTagsSelecionadas, tagsSelecionadas, onImageChange}) => {
+const FormularioPublicacao = ({ imageURL, setImageURL, setTitulo, setDescricao, setTagsList, tagsList, setTagsSelecionadas, tagsSelecionadas, onImageChange }) => {
 
     const { accessToken } = useContext(UserContext)
 
     useEffect(() => {
         pegarTags()
-    },[])
-
-
+    }, [])
 
     const pegarTags = async () => {
         try {
@@ -34,134 +32,134 @@ const FormularioPublicacao = ({imageURL, setImageURL, setTitulo, setDescricao, s
         }
     }
 
-  return (
-      <>
-        <div className='formularioPublicacao'>
+    return (
+        <>
+            <div className='formularioPublicacao'>
 
-            <div className='container__main'>
-                <FotoPublicacao
-                    imageURL={imageURL}
-                    func={onImageChange}
-                    setImageURL={setImageURL}
-                ></FotoPublicacao>
-                <InputGlobal
-                    type={'email'}
-                    placeholder={'Título'}
-                    emailWeb={true}
-                    onChange={setTitulo}
-                ></InputGlobal>
-            </div>
+                <div className='container__main'>
+                    <FotoPublicacao
+                        imageURL={imageURL}
+                        func={onImageChange}
+                        setImageURL={setImageURL}
+                    ></FotoPublicacao>
+                    <InputGlobal
+                        type={'email'}
+                        placeholder={'Título'}
+                        emailWeb={true}
+                        onChange={setTitulo}
+                    ></InputGlobal>
+                </div>
 
-            <div className='container__footer'>
+                <div className='container__footer'>
 
-                <FormDescricao
-                    type={'descricao'}
-                    placeholder={'Dígite uma descrição'}
-                    onChange={setDescricao}
-                ></FormDescricao>
+                    <FormDescricao
+                        type={'descricao'}
+                        placeholder={'Dígite uma descrição'}
+                        onChange={setDescricao}
+                    ></FormDescricao>
 
-                <div className='titulo__tag'>
+                    <div className='titulo__tag'>
 
-                    <p className='tags'>TAGS</p>
+                        <p className='tags'>TAGS</p>
 
-                    <div className='containerTags'>
+                        <div className='containerTags'>
 
-                        <div className='tagsList'>
-                            {
-                                tagsList.length == 0 ? (
-                                    <p>Carregando</p>
-                                ) : (
-                                    tagsList.map((item, indice) => {
-                                        
-                                        if (item.selecao == true) {
-                                           return (
-                                            <BotaoTag
-                                                text={item.nome}
-                                                key={item.id_tag}
-                                                selecao={item.selecao}
-                                                option={() => {
-                                                    tagsList.map((tag, indice) => {
-                                                        if (item.id_tag == tag.id_tag) {
-                                                            tagsList.splice(indice, 1)
+                            <div className='tagsList'>
+                                {
+                                    tagsList.length == 0 ? (
+                                        <p>Carregando</p>
+                                    ) : (
+                                        tagsList.map((item, indice) => {
 
-                                                            const letTags = [...tagsList]
+                                            if (item.selecao == true) {
+                                                return (
+                                                    <BotaoTag
+                                                        text={item.nome}
+                                                        key={item.id_tag}
+                                                        selecao={item.selecao}
+                                                        option={() => {
+                                                            tagsList.map((tag, indice) => {
+                                                                if (item.id_tag == tag.id_tag) {
+                                                                    tagsList.splice(indice, 1)
 
-                                                            letTags.push({
-                                                                id_tag: item.id_tag,
-                                                                nome: item.nome,
-                                                                id_categoria: item.id_categoria,
-                                                                imagem: item.imagem,
-                                                                nome_categoria: item.nome_categoria
+                                                                    const letTags = [...tagsList]
+
+                                                                    letTags.push({
+                                                                        id_tag: item.id_tag,
+                                                                        nome: item.nome,
+                                                                        id_categoria: item.id_categoria,
+                                                                        imagem: item.imagem,
+                                                                        nome_categoria: item.nome_categoria
+                                                                    })
+
+                                                                    const letTagsSelecionadas = [...tagsSelecionadas]
+
+                                                                    setTagsList(letTags)
+
+                                                                    letTagsSelecionadas.splice(indice, 1)
+
+                                                                    setTagsSelecionadas(letTagsSelecionadas)
+                                                                }
+                                                            })
+                                                        }}
+                                                    ></BotaoTag>
+                                                )
+                                            } else {
+                                                return (
+                                                    <BotaoTag
+                                                        key={item.id_tag}
+                                                        text={item.nome}
+                                                        option={() => {
+
+
+
+                                                            tagsList.map((tag, indice) => {
+                                                                if (item.id_tag == tag.id_tag) {
+
+                                                                    tagsList.splice(indice, 1)
+
+                                                                    const letTags = [...tagsList]
+
+                                                                    letTags.unshift({
+                                                                        id_tag: item.id_tag,
+                                                                        nome: item.nome,
+                                                                        id_categoria: item.id_categoria,
+                                                                        imagem: item.imagem,
+                                                                        nome_categoria: item.nome_categoria,
+                                                                        selecao: true
+                                                                    })
+
+                                                                    setTagsList(letTags)
+
+                                                                    const letTagsSelecionadas = [...tagsSelecionadas]
+
+                                                                    letTagsSelecionadas.unshift({
+                                                                        id_tag: item.id_tag
+                                                                    })
+
+                                                                    setTagsSelecionadas(letTagsSelecionadas)
+
+                                                                }
                                                             })
 
-                                                            const letTagsSelecionadas = [...tagsSelecionadas]
 
-                                                            setTagsList(letTags)
+                                                        }}
+                                                    ></BotaoTag>
+                                                )
+                                            }
+                                        })
+                                    )
+                                }
+                            </div>
 
-                                                            letTagsSelecionadas.splice(indice, 1)
-
-                                                            setTagsSelecionadas(letTagsSelecionadas)
-                                                        }
-                                                    })
-                                                }}
-                                            ></BotaoTag>
-                                           )
-                                        } else {
-                                            return (
-                                               <BotaoTag
-                                                key={item.id_tag}
-                                                text={item.nome}
-                                                option={() => {
-
-                                                    
-
-                                                    tagsList.map((tag, indice) => {
-                                                        if (item.id_tag == tag.id_tag) {
-                                                            
-                                                            tagsList.splice(indice, 1)
-
-                                                            const letTags = [...tagsList]
-
-                                                            letTags.unshift({
-                                                                id_tag: item.id_tag,
-                                                                nome: item.nome,
-                                                                id_categoria: item.id_categoria,
-                                                                imagem: item.imagem,
-                                                                nome_categoria: item.nome_categoria,
-                                                                selecao: true
-                                                            })
-
-                                                            setTagsList(letTags)
-
-                                                            const letTagsSelecionadas = [...tagsSelecionadas]
-
-                                                            letTagsSelecionadas.unshift({
-                                                                id_tag: item.id_tag
-                                                            })
-
-                                                            setTagsSelecionadas(letTagsSelecionadas)
-                                                        
-                                                        }
-                                                    })
-
-                                           
-                                                }}
-                                               ></BotaoTag>
-                                            )   
-                                        }
-                                    })
-                                )
-                            }
                         </div>
-
                     </div>
                 </div>
-            </div>
 
-        </div>
-      </>
-    
-  )
+            </div>
+        </>
+
+    )
 }
 
 export default FormularioPublicacao

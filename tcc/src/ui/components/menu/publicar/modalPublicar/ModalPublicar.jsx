@@ -53,7 +53,6 @@ const ModalPublicar = () => {
 
     }
 
-
     const enviarPublicacao = async () => {
 
         const foto = await salvarFoto()
@@ -112,7 +111,6 @@ const ModalPublicar = () => {
     function onImageChange(e) {
         setImage([...e.target.files])
     }
-
 
     return (
         <>

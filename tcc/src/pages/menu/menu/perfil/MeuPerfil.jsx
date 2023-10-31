@@ -271,6 +271,8 @@ function MeuPerfil() {
                   perfil.usuario.publicacoes.map((item) => {
                     return(
                       <CardPublicacaoMeuPerfil
+                        idUsuario={id}
+                        fotoPublicacao={item.anexos[0].anexo}
                         accessToken={accessToken}
                         idPublicacao={item.id}
                         nomePublicacao={item.titulo}

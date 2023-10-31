@@ -5,7 +5,7 @@ import ModalMinhaPublicacao from '../ModalMinhaPublicacao/ModalMinhaPublicacao'
 import blogFetch from '../../../../../data/services/api/ApiService'
 import UserContext from '../../../../../data/hooks/context/UserContext'
 
-function CardPublicacaoMeuPerfil({idPublicacao, nomePublicacao, descricaoPublicacao, accessToken}) {
+function CardPublicacaoMeuPerfil({idUsuario, idPublicacao, nomePublicacao, descricaoPublicacao, accessToken, fotoPublicacao}) {
 
 
   const [openModal, setOpenModal] = useState(false)
@@ -29,12 +29,17 @@ function CardPublicacaoMeuPerfil({idPublicacao, nomePublicacao, descricaoPublica
 
   return (
     <>
-      <ModalMinhaPublicacao dadosPublicacao={publicacao} idPublicacao={idPublicacao} accessToken={accessToken} isOpen={openModal} setModalOpen={setOpenModal}/>
+      <ModalMinhaPublicacao idUsuario={idUsuario} dadosPublicacao={publicacao} idPublicacao={idPublicacao} accessToken={accessToken} isOpen={openModal} setModalOpen={setOpenModal}/>
 
       <div key={idPublicacao} className="cardPublicacaoMeuPerfil" onClick={() => {
         setOpenModal(!openModal)
         pegarPublicacao()
       }}>
+
+        <div className='cardPublicacaoMeuPerfil__containerImagem'>
+          <img className='containerImagem__imagemPublicacao' src={fotoPublicacao} alt="" />
+        </div>
+        
 
         <p className='cardPublicacaoMeuPerfil__tituloPublicacao'>
           {nomePublicacao}

@@ -50,6 +50,8 @@ const ModalMinhaPublicacao = ({ isOpen, setModalOpen, accessToken, idPublicacao,
   const [titulo, setTitulo] = useState('')
   const [descricao, setDescricao] = useState('')
 
+  const [clique, setClique] = useState(false)
+
   function onImageChange(e) {
     setImage([...e.target.files])
   }
@@ -121,6 +123,7 @@ const ModalMinhaPublicacao = ({ isOpen, setModalOpen, accessToken, idPublicacao,
       })
 
       setTags(response.data.tags)
+      console.log(response.data)
 
     } catch (error) {
       console.log(error)
@@ -131,6 +134,10 @@ const ModalMinhaPublicacao = ({ isOpen, setModalOpen, accessToken, idPublicacao,
     pegarTags()
   }, [])
 
+  // useEffect(() => {
+  //   console.log(dadosPublicacao)
+  // },[dadosPublicacao])
+
   const teste = () => {
 
     const array = []
@@ -140,9 +147,14 @@ const ModalMinhaPublicacao = ({ isOpen, setModalOpen, accessToken, idPublicacao,
     } else {
       dadosPublicacao.publicacao.tags.map((item, index) => {
         tags.map((tag, indice) => {
+
+          // console.log(item)
+
           if (item.id_tag == tag.id_tag) {
 
-            tags.splice(index, 1)
+            // console.log(item)
+
+            // tags.splice(indice, 1)
 
             array.push({
               id_tag: item.id_tag,
@@ -158,7 +170,7 @@ const ModalMinhaPublicacao = ({ isOpen, setModalOpen, accessToken, idPublicacao,
         })
       })
 
-      
+
       return array
     }
 
@@ -169,7 +181,9 @@ const ModalMinhaPublicacao = ({ isOpen, setModalOpen, accessToken, idPublicacao,
 
     const list = teste()
 
-    if(list == false) {
+    // console.log(list)
+
+    if (list == false) {
       console.log('as')
     } else {
 
@@ -177,43 +191,89 @@ const ModalMinhaPublicacao = ({ isOpen, setModalOpen, accessToken, idPublicacao,
 
       const letTagsSelecionadas = [...tagsSelecionadas]
 
-      tags.map((tag, index) => {
-        letTags.map((letTag, letIndex) => {
-          list.map((item,indice) => {
-            if (item.id_tag == tag.id_tag && letTag.id_tag == item.id_tag) {
-  
-              tags.splice(index, 1)
-  
-              letTags.splice(letIndex, 1)
-  
-              letTags.unshift(item)
 
-              letTagsSelecionadas.push({
-                id_tag: item.id_tag,
-                nome: item.nome
-              })
-            }
-          })
+      letTags.map((letTag, letIndex) => {
+        list.map((item, indice) => {
+          if (letTag.id_tag == item.id_tag) {
+
+
+
+            letTags.splice(letIndex, 1)
+
+            letTags.unshift(item)
+
+            letTagsSelecionadas.push({
+              id_tag: item.id_tag,
+              nome: item.nome
+            })
+
+          }
         })
       })
+
 
       setTagsSelecionadas(letTagsSelecionadas)
 
       setTags(letTags)
-  
+
       console.log(tags)
-  
+
     }
 
   }
 
+  const apagarListaAoFechar = () => {
+
+    const array = []
+
+    tags.map((tag, index) => {
+      tagsSelecionadas.map((item, indice) => {
+
+        if (item.novo == true && tag.id_tag == item.id_tag) {
+          console.log({
+            tag: tag,
+            index: index
+          })
+          console.log({
+            item: item,
+            indice: indice
+          })
+          
+          array.push(item)
+        }
+      })
+    })
+
+    return array
+  }
+
   useEffect(() => {
     console.log(tagsSelecionadas)
-  },[tagsSelecionadas])
-
+  }, [tagsSelecionadas])
 
   useEffect(() => {
-    
+    const list = apagarListaAoFechar()
+
+    const letTags = [...tags]
+
+    const letTagsSelecionadas = [...tagsSelecionadas]
+
+    list.map((tagSel, indexSel) => {
+      letTags.map((tag, index) => {
+        letTagsSelecionadas.map((item, indice) => {
+          if (tagSel.id_tag == item.id_tag) {
+
+            console.log(item)
+            letTagsSelecionadas.splice(indice, 1)
+          }
+        })
+      })
+    })
+    console.log(list)
+  },[clique])
+
+  useEffect(() => {
+
     ab()
 
   }, [dadosPublicacao])
@@ -287,9 +347,6 @@ const ModalMinhaPublicacao = ({ isOpen, setModalOpen, accessToken, idPublicacao,
     }
   }
 
-  useEffect(() => {
-    console.log(firstSwiper)
-  }, [firstSwiper])
 
   useEffect(() => {
     setListLenght()
@@ -479,7 +536,8 @@ const ModalMinhaPublicacao = ({ isOpen, setModalOpen, accessToken, idPublicacao,
                 <div className='containerImagens'>
                   <img src={Fechar} alt="Voltar" className='setaVoltar' onClick={() => {
                     setEditar(!editar)
-                    setTagsSelecionadas([])
+
+                    setClique(!clique)
                     // setModalOpen(!isOpen)
                   }
                   } />
@@ -547,7 +605,7 @@ const ModalMinhaPublicacao = ({ isOpen, setModalOpen, accessToken, idPublicacao,
                                           const letTagsSelecionadas = [...tagsSelecionadas]
 
                                           letTagsSelecionadas.map((letItem, letIndice) => {
-                                            if(item.id_tag == letItem.id_tag) {
+                                            if (item.id_tag == letItem.id_tag) {
                                               letTagsSelecionadas.splice(letIndice, 1)
                                             }
                                           })
@@ -590,7 +648,9 @@ const ModalMinhaPublicacao = ({ isOpen, setModalOpen, accessToken, idPublicacao,
                                           const letTagsSelecionadas = [...tagsSelecionadas]
 
                                           letTagsSelecionadas.unshift({
-                                            id_tag: item.id_tag
+                                            id_tag: item.id_tag,
+                                            nome: item.nome,
+                                            novo: true
                                           })
 
                                           setTagsSelecionadas(letTagsSelecionadas)

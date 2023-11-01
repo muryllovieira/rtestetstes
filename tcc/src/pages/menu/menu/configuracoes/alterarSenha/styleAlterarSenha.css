@@ -1,4 +1,4 @@
-.containerSuaConta{
+.containerAlterarSenha{
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -13,20 +13,11 @@
     gap: 10vh;
 }
 
-.containerSuaConta_header{
+.containerAlterarSenha_header{
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
     width: 95%;
-    height: 10vh;
-}
-
-.containerSuaConta_main{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    width: 60%;
     height: 10vh;
 }

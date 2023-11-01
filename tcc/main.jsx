@@ -4,7 +4,7 @@
  * Data Fim: X
  * 
  * Commits: Rotas Definidas v0.8, Estruturação de Diretórios Concluída, 
- * Componentes Iniciados v2.35, Responsividade v0.7, Funcionalidades v0.17,
+ * Componentes Iniciados v2.36, Responsividade v0.7, Funcionalidades v0.18,
  * Integração Iniciada v0.27, Contexto Aplicado, Lista Icones v0.3, Conflito v0.4,
  *  
  * 
@@ -49,14 +49,14 @@ import Sobre from './src/pages/menu/menu/configuracoes/sobre/Sobre.jsx'
 import AjudaSuporte from './src/pages/menu/menu/configuracoes/ajudaSuporte/AjudaSuporte.jsx'
 import TermosCondicoes from './src/pages/menu/menu/configuracoes/termosECondicoes/TermosCondicoes.jsx'
 import SuaConta from './src/pages/menu/menu/configuracoes/suaConta/SuaConta.jsx'
+import AlterarEmail from './src/pages/menu/menu/configuracoes/alterarEmail/AlterarEmail.jsx'
+import AlterarSenha from './src/pages/menu/menu/configuracoes/alterarSenha/AlterarSenha.jsx'
 
 
 import { UserProvider } from './src/data/hooks/context/UserContext.jsx'
 
 //Importe Estilo Global
 import './src/ui/styles/global.css'
-
-
 
 //Rotas
 const router = createBrowserRouter([
@@ -201,6 +201,16 @@ const router = createBrowserRouter([
       {
         path: "/menu/configuracoes/sua-conta",
         element: <SuaConta/>,
+        errorElement: <NaoEncontrado />,
+      },
+      {
+        path: "/menu/configuracoes/sua-conta/alterar-email",
+        element: <AlterarEmail/>,
+        errorElement: <NaoEncontrado />,
+      },
+      {
+        path: "/menu/configuracoes/sua-conta/alterar-senha",
+        element: <AlterarSenha/>,
         errorElement: <NaoEncontrado />,
       },
       {

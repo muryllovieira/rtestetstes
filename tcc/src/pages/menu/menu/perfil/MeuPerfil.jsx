@@ -268,18 +268,23 @@ function MeuPerfil() {
                 perfil === undefined ? (
                   <p>Sem Conteudo</p>
                 ) : (
-                  perfil.usuario.publicacoes.map((item) => {
-                    return(
-                      <CardPublicacaoMeuPerfil
-                        idUsuario={id}
-                        fotoPublicacao={item.anexos[0].anexo}
-                        accessToken={accessToken}
-                        idPublicacao={item.id}
-                        nomePublicacao={item.titulo}
-                        descricaoPublicacao={item.descricao}
-                      ></CardPublicacaoMeuPerfil> 
-                    )
-                  })
+                  perfil.usuario.publicacoes.length > 10 ? (
+                    <p className='containerPublicacoesVazia'>{perfil.usuario.publicacoes}</p>
+                  ) : (
+                    perfil.usuario.publicacoes.map((item) => {
+                    
+                      return(
+                        <CardPublicacaoMeuPerfil
+                          idUsuario={id}
+                          fotoPublicacao={item.anexos[0].anexo}
+                          accessToken={accessToken}
+                          idPublicacao={item.id}
+                          nomePublicacao={item.titulo}
+                          descricaoPublicacao={item.descricao}
+                        ></CardPublicacaoMeuPerfil> 
+                      )
+                    })
+                  )
                 )
               }
           

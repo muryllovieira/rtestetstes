@@ -216,10 +216,13 @@ function PerfilSelecionado() {
                         ) : (
                           perfil.usuario.publicacoes.map((item) => {
 
-                            
+                            console.log(item)
                             return(
 
                               <CardPublicacaoMeuPerfil
+                                idUsuario={idPerfil}
+                                accessToken={accessToken}
+                                fotoPublicacao={item.anexos[0].anexo}
                                 idPublicacao={item.id}
                                 nomePublicacao={item.titulo}
                                 descricaoPublicacao={item.descricao}

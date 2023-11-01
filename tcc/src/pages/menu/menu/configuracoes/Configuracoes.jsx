@@ -19,13 +19,6 @@ function Configuracoes() {
 
         <div className='containerConfiguracoes_main'>
 
-          <div className="botoesConfiguracao">
-            <div className='textos'>
-              <h1 className='titulo'>APARÊNCIA</h1>
-              <img src={setaDireita} className='seta' />
-            </div>
-          </div>
-
       <Link to={"/menu/configuracoes/sua-conta"}>
           <div className="botoesConfiguracao">
             <div className='textos'>

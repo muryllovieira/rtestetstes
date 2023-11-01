@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import './styleFormDescricao.css'
 
-const FormDescricao = ({onChange, type, placeholder}) => {
+const FormDescricao = ({onChange, type, placeholder, value}) => {
 
 const [textarea, setTextArea] = useState()
 
@@ -14,7 +14,7 @@ if(type == 'description'){
   return (
     <>
         <form>
-            <textarea className='description' value={textarea} type={type} onChange={(e) => onChange(e.target.value)} placeholder={placeholder}></textarea>
+            <textarea className='description' value={value} type={type} onChange={(e) => onChange(e.target.value)} placeholder={placeholder}></textarea>
         </form>
     </>
   )
@@ -23,7 +23,7 @@ if(type == 'description'){
   return (
     <>
         <form>
-            <textarea className='formulario_descricao' value={textarea} type={type} onChange={(e) => onChange(e.target.value)} placeholder={placeholder}></textarea>
+            <textarea className='formulario_descricao' value={value} type={type} onChange={(e) => onChange(e.target.value)} placeholder={placeholder}></textarea>
         </form>
     </>
   )
@@ -31,7 +31,7 @@ if(type == 'description'){
   return (
     <>
         <form>
-            <textarea className='formulario' value={textarea} onChange={(e) => onChange(e.target.value)} placeholder={placeholder}></textarea>
+            <textarea className='formulario' value={value} onChange={(e) => onChange(e.target.value)} placeholder={placeholder}></textarea>
         </form>
     </>
   )

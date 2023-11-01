@@ -132,37 +132,90 @@ const ModalMinhaPublicacao = ({ isOpen, setModalOpen, accessToken, idPublicacao,
   }, [])
 
   const teste = () => {
+
+    const array = []
+
     if (dadosPublicacao === undefined) {
       return false
     } else {
-      const tagalList = dadosPublicacao.publicacao.tags.map((item, index) => {
-        const taggal = tags.map((tag, indice) => {
+      dadosPublicacao.publicacao.tags.map((item, index) => {
+        tags.map((tag, indice) => {
           if (item.id_tag == tag.id_tag) {
 
-            const tagal = {
+            tags.splice(index, 1)
+
+            array.push({
               id_tag: item.id_tag,
               nome: item.nome,
               id_categoria: item.id_categoria,
               imagem: item.imagem,
               nome_categoria: item.nome_categoria,
               selecao: true
-            }
+            })
 
-            return tagal
 
           }
         })
-        return taggal
       })
-      return tagalList
+
+      
+      return array
     }
+
+
   }
 
+  const ab = () => {
+
+    const list = teste()
+
+    if(list == false) {
+      console.log('as')
+    } else {
+
+      const letTags = [...tags]
+
+      const letTagsSelecionadas = [...tagsSelecionadas]
+
+      tags.map((tag, index) => {
+        letTags.map((letTag, letIndex) => {
+          list.map((item,indice) => {
+            if (item.id_tag == tag.id_tag && letTag.id_tag == item.id_tag) {
+  
+              tags.splice(index, 1)
+  
+              letTags.splice(letIndex, 1)
+  
+              letTags.unshift(item)
+
+              letTagsSelecionadas.push({
+                id_tag: item.id_tag,
+                nome: item.nome
+              })
+            }
+          })
+        })
+      })
+
+      setTagsSelecionadas(letTagsSelecionadas)
+
+      setTags(letTags)
+  
+      console.log(tags)
+  
+    }
+
+  }
+
+  useEffect(() => {
+    console.log(tagsSelecionadas)
+  },[tagsSelecionadas])
 
 
   useEffect(() => {
-    const list = teste()
-    console.log(list)
+    
+    ab()
+
   }, [dadosPublicacao])
 
   const data = [
@@ -426,6 +479,7 @@ const ModalMinhaPublicacao = ({ isOpen, setModalOpen, accessToken, idPublicacao,
                 <div className='containerImagens'>
                   <img src={Fechar} alt="Voltar" className='setaVoltar' onClick={() => {
                     setEditar(!editar)
+                    setTagsSelecionadas([])
                     // setModalOpen(!isOpen)
                   }
                   } />
@@ -492,9 +546,13 @@ const ModalMinhaPublicacao = ({ isOpen, setModalOpen, accessToken, idPublicacao,
 
                                           const letTagsSelecionadas = [...tagsSelecionadas]
 
-                                          setTags(letTags)
+                                          letTagsSelecionadas.map((letItem, letIndice) => {
+                                            if(item.id_tag == letItem.id_tag) {
+                                              letTagsSelecionadas.splice(letIndice, 1)
+                                            }
+                                          })
 
-                                          letTagsSelecionadas.splice(indice, 1)
+                                          setTags(letTags)
 
                                           setTagsSelecionadas(letTagsSelecionadas)
                                         }

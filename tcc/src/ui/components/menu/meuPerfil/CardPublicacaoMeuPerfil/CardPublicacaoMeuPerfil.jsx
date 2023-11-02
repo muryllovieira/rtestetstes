@@ -5,12 +5,37 @@ import ModalMinhaPublicacao from '../ModalMinhaPublicacao/ModalMinhaPublicacao'
 import blogFetch from '../../../../../data/services/api/ApiService'
 import UserContext from '../../../../../data/hooks/context/UserContext'
 
-function CardPublicacaoMeuPerfil({idUsuario, idPublicacao, nomePublicacao, descricaoPublicacao, accessToken, fotoPublicacao}) {
+function CardPublicacaoMeuPerfil({ idUsuario, idPublicacao, nomePublicacao, descricaoPublicacao, accessToken, fotoPublicacao, anexosPublicacao }) {
 
 
   const [openModal, setOpenModal] = useState(false)
 
-  const [ publicacao, setPublicacao ] = useState()
+  const [publicacao, setPublicacao] = useState()
+
+  const [anexo, setAnexo] = useState([])
+
+  const listarAnexosPublicacao = () => {
+
+    const listaAnexos = []
+
+    anexosPublicacao.map((anexo, indice) => {
+      listaAnexos.push(anexo.anexo)
+    })
+
+    return listaAnexos
+  }
+
+  useEffect(() => {
+
+    const lista = listarAnexosPublicacao()
+
+    if (lista.length == 0) {
+      return false
+    } else {
+      setAnexo(lista)
+    }
+
+  }, [anexosPublicacao])
 
   const pegarPublicacao = async () => {
     try {
@@ -29,7 +54,23 @@ function CardPublicacaoMeuPerfil({idUsuario, idPublicacao, nomePublicacao, descr
 
   return (
     <>
-      <ModalMinhaPublicacao idUsuario={idUsuario} dadosPublicacao={publicacao} idPublicacao={idPublicacao} accessToken={accessToken} isOpen={openModal} setModalOpen={setOpenModal}/>
+      {
+        anexo.length == 0 ? (
+          <p>Carregando...</p>
+        ) : (
+          <ModalMinhaPublicacao
+            idUsuario={idUsuario}
+            dadosPublicacao={publicacao}
+            idPublicacao={idPublicacao}
+            accessToken={accessToken}
+            isOpen={openModal}
+            setModalOpen={setOpenModal}
+            tituloPublicacao={nomePublicacao}
+            descricaoPublicacao={descricaoPublicacao}
+            anexosPublicacao={anexo}
+          />
+        )
+      }
 
       <div key={idPublicacao} className="cardPublicacaoMeuPerfil" onClick={() => {
         setOpenModal(!openModal)
@@ -39,7 +80,7 @@ function CardPublicacaoMeuPerfil({idUsuario, idPublicacao, nomePublicacao, descr
         <div className='cardPublicacaoMeuPerfil__containerImagem'>
           <img className='containerImagem__imagemPublicacao' src={fotoPublicacao} alt="" />
         </div>
-        
+
 
         <p className='cardPublicacaoMeuPerfil__tituloPublicacao'>
           {nomePublicacao}
@@ -48,7 +89,7 @@ function CardPublicacaoMeuPerfil({idUsuario, idPublicacao, nomePublicacao, descr
         <p className='cardPublicacaoMeuPerfil__descricaoUsuario'>
           {descricaoPublicacao}
         </p>
-            
+
       </div>
     </>
   )

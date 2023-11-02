@@ -347,3 +347,22 @@
 .carregandoPublicacao {
     color: var(--contrast-color);
 }
+
+.containerFormulario__iconeSalvarPublicacaoMeuPerfil {
+    height: 100px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}
+
+.iconeSalvarPublicacaoMeuPerfil {
+    display: grid;
+    align-content: center;
+    justify-content: center;
+    height: 50px;
+    width: 50px;
+    background-color: var(--secundary-color);
+    border-radius: 10px;
+    cursor: pointer;
+}

@@ -135,7 +135,10 @@ const IconObject = {
     <stop offset="1" stopColor="#A89BFF"/>
     </linearGradient>
     </defs>
-    </svg>
+    </svg>,
+    salvarMinhaPublicacao:  <svg className='iconeSalvarMinhaPublicacao' xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28" fill="none">
+    <path d="M4.66699 15.1667V21C4.66699 22.2887 5.71166 23.3333 7.00033 23.3333H21.0003C22.289 23.3333 23.3337 22.2887 23.3337 21V18.6667M4.66699 9.33333V7C4.66699 5.71133 5.71166 4.66666 7.00033 4.66666H16.5339C17.1527 4.66666 17.7461 4.91249 18.1838 5.35009L22.6502 9.81658C23.0878 10.2542 23.3337 10.8477 23.3337 11.4665V14M17.5003 23.3333V17.5H10.5003V23.3333" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>,
 
 }
 

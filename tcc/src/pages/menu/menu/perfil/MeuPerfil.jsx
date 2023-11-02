@@ -272,7 +272,7 @@ function MeuPerfil() {
                     <p className='containerPublicacoesVazia'>{perfil.usuario.publicacoes}</p>
                   ) : (
                     perfil.usuario.publicacoes.map((item) => {
-                    
+                      console.log(item)
                       return(
                         <CardPublicacaoMeuPerfil
                           idUsuario={id}
@@ -281,6 +281,7 @@ function MeuPerfil() {
                           idPublicacao={item.id}
                           nomePublicacao={item.titulo}
                           descricaoPublicacao={item.descricao}
+                          anexosPublicacao={item.anexos}
                         ></CardPublicacaoMeuPerfil> 
                       )
                     })

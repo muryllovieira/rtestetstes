@@ -73,7 +73,7 @@ function InputGlobal({type, placeholder, id, register, onChange, onFocus, onBlur
       </> 
   } if (type == 'email' && emailWeb) {
     return <>
-      <input className='inputEmailGlobalWeb' type={type} placeholder={placeholder} onChange={(e) => onChange(e.target.value)} onFocus={onFocus} onBlur={onBlur} required /> 
+      <input className='inputEmailGlobalWeb' type={type} placeholder={placeholder} onChange={(e) => onChange(e.target.value)} onFocus={onFocus} onBlur={onBlur} value={value} required /> 
     </>
   } if (type == 'email') {
 

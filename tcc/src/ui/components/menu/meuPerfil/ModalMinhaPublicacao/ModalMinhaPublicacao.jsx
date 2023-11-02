@@ -13,6 +13,8 @@ import Enviar from './images/enviar.svg'
 import FotoPublicacao from '../../publicar/FotoPublicacao/FotoPublicacao'
 import BotaoTag from '../../../personalizarPerfil/BotaoTag/BotaoTag'
 import FormDescricao from '../../../personalizarPerfil/FormDescricao/formDescricao'
+import IconObject from '../../../global/IconesGlobais/iconesGlobais'
+import { uploadImage } from '../../../../../data/services/firebase/firebase'
 import blogFetch from '../../../../../data/services/api/ApiService'
 
 import Fechar from './images/fechar.svg'
@@ -25,7 +27,7 @@ import 'swiper/css/navigation'
 import 'swiper/css/scrollbar'
 import { useEffect } from 'react'
 
-const ModalMinhaPublicacao = ({ isOpen, setModalOpen, accessToken, idPublicacao, dadosPublicacao, idUsuario }) => {
+const ModalMinhaPublicacao = ({ isOpen, setModalOpen, accessToken, idPublicacao, dadosPublicacao, idUsuario, tituloPublicacao, descricaoPublicacao, anexosPublicacao }) => {
 
   console.log(dadosPublicacao)
 
@@ -41,14 +43,14 @@ const ModalMinhaPublicacao = ({ isOpen, setModalOpen, accessToken, idPublicacao,
   const [value, setValue] = useState(0)
   const [editar, setEditar] = useState(false)
 
-  const [imageURL, setImageURL] = useState([])
+  const [imageURL, setImageURL] = useState(anexosPublicacao)
   const [images, setImage] = useState([])
 
   const [tags, setTags] = useState([])
   const [tagsSelecionadas, setTagsSelecionadas] = useState([])
 
-  const [titulo, setTitulo] = useState('')
-  const [descricao, setDescricao] = useState('')
+  const [titulo, setTitulo] = useState(tituloPublicacao)
+  const [descricao, setDescricao] = useState(descricaoPublicacao)
 
   const [clique, setClique] = useState(false)
 
@@ -59,10 +61,12 @@ const ModalMinhaPublicacao = ({ isOpen, setModalOpen, accessToken, idPublicacao,
   useEffect(() => {
     if (images.length < 1) return
 
-    const newImageUrl = []
+    const newImageUrl = [...imageURL]
+
     images.forEach(image => newImageUrl.push(
       URL.createObjectURL(image)
     ))
+
     setImageURL(newImageUrl)
 
   }, [images])
@@ -138,9 +142,9 @@ const ModalMinhaPublicacao = ({ isOpen, setModalOpen, accessToken, idPublicacao,
   //   console.log(dadosPublicacao)
   // },[dadosPublicacao])
 
-  const teste = () => {
+  const listarTagsDaPublicacao = () => {
 
-    const array = []
+    const listaTagsPublicacao = []
 
     if (dadosPublicacao === undefined) {
       return false
@@ -148,15 +152,10 @@ const ModalMinhaPublicacao = ({ isOpen, setModalOpen, accessToken, idPublicacao,
       dadosPublicacao.publicacao.tags.map((item, index) => {
         tags.map((tag, indice) => {
 
-          // console.log(item)
-
           if (item.id_tag == tag.id_tag) {
 
-            // console.log(item)
 
-            // tags.splice(indice, 1)
-
-            array.push({
+            listaTagsPublicacao.push({
               id_tag: item.id_tag,
               nome: item.nome,
               id_categoria: item.id_categoria,
@@ -171,19 +170,17 @@ const ModalMinhaPublicacao = ({ isOpen, setModalOpen, accessToken, idPublicacao,
       })
 
 
-      return array
+      return listaTagsPublicacao
     }
 
 
   }
 
-  const ab = () => {
+  const adicionarTagsComSelecao = () => {
 
-    const list = teste()
+    const listaTagsPublicacao = listarTagsDaPublicacao()
 
-    // console.log(list)
-
-    if (list == false) {
+    if (listaTagsPublicacao == false) {
       console.log('as')
     } else {
 
@@ -193,18 +190,15 @@ const ModalMinhaPublicacao = ({ isOpen, setModalOpen, accessToken, idPublicacao,
 
 
       letTags.map((letTag, letIndex) => {
-        list.map((item, indice) => {
+        listaTagsPublicacao.map((item, indice) => {
           if (letTag.id_tag == item.id_tag) {
-
-
 
             letTags.splice(letIndex, 1)
 
             letTags.unshift(item)
 
             letTagsSelecionadas.push({
-              id_tag: item.id_tag,
-              nome: item.nome
+              id_tag: item.id_tag
             })
 
           }
@@ -216,78 +210,136 @@ const ModalMinhaPublicacao = ({ isOpen, setModalOpen, accessToken, idPublicacao,
 
       setTags(letTags)
 
-      console.log(tags)
-
     }
 
   }
 
-  const apagarListaAoFechar = () => {
+  const pegarTagsSelecionadasListaTagsAlterada = () => {
 
-    const array = []
+    const listaTags = []
 
     tags.map((tag, index) => {
       tagsSelecionadas.map((item, indice) => {
 
         if (item.novo == true && tag.id_tag == item.id_tag) {
-          console.log({
-            tag: tag,
-            index: index
-          })
-          console.log({
-            item: item,
-            indice: indice
-          })
-          
-          array.push(item)
+          listaTags.push(item)
         }
+
       })
     })
 
-    return array
+    return listaTags
+  }
+
+  const removerTagsListaTagsListaSelecionadas = () => {
+
+    const listaTagsSelecionadasAlteradas = pegarTagsSelecionadasListaTagsAlterada()
+
+    const listaTagsRemovidas = []
+
+    if (listaTagsSelecionadasAlteradas.length == 0) {
+
+      return false
+
+    } else {
+
+      listaTagsSelecionadasAlteradas.map((tagSel, indexSel) => {
+        tags.map((tag, index) => {
+          tagsSelecionadas.map((item, indice) => {
+            if (tagSel.id_tag == item.id_tag) {
+
+              tagsSelecionadas.splice(indice, 1)
+
+              tags.splice(index, 1)
+
+              listaTagsRemovidas.push({
+                id_categoria: tag.id_categoria,
+                id_tag: tag.id_tag,
+                imagem: tag.imagem,
+                nome: tag.nome,
+                nome_categoria: tag.nome_categoria
+              })
+
+              // letTags.unshift({
+              //   id_categoria: tag.id_categoria,
+              //   id_tag: tag.id_tag,
+              //   imagem: tag.imagem,
+              //   nome: tag.nome,
+              //   nome_categoria: tag.nome_categoria
+              // })
+            }
+          })
+        })
+      })
+
+      return listaTagsRemovidas
+    }
+
+  }
+
+  const adicionarTagsSemAlteracaoListaTags = () => {
+
+    const listaTagsRemovidas = removerTagsListaTagsListaSelecionadas()
+
+    if (listaTagsRemovidas == false) {
+      return false
+    } else {
+      listaTagsRemovidas.map((tagRemovida, indice) => {
+        tags.push(tagRemovida)
+      })
+
+      return true
+    }
+  }
+
+  const alterarTagsSelecionadas = () => {
+
+    const tagsSelecionadasAlteradas = []
+
+    tagsSelecionadas.map((tag, indice) => {
+      tagsSelecionadasAlteradas.push({
+        id_tag: tag.id_tag
+      })
+    })
+
+    return tagsSelecionadasAlteradas
   }
 
   useEffect(() => {
-    console.log(tagsSelecionadas)
-  }, [tagsSelecionadas])
 
-  useEffect(() => {
-    const list = apagarListaAoFechar()
+    const listaTagsInalterada = adicionarTagsSemAlteracaoListaTags()
 
-    const letTags = [...tags]
+    if (listaTagsInalterada == false) {
+      console.log('deu erro')
+    } else {
+      console.log('deu certo')
+    }
 
-    const letTagsSelecionadas = [...tagsSelecionadas]
-
-    list.map((tagSel, indexSel) => {
-      letTags.map((tag, index) => {
-        letTagsSelecionadas.map((item, indice) => {
-          if (tagSel.id_tag == item.id_tag) {
-
-            console.log(item)
-            letTagsSelecionadas.splice(indice, 1)
-          }
-        })
-      })
-    })
-    console.log(list)
-  },[clique])
+  }, [clique])
 
   useEffect(() => {
 
-    ab()
+    adicionarTagsComSelecao()
 
   }, [dadosPublicacao])
 
-  const data = [
-    { id: '1', image: 'https://www.curitiba.pr.leg.br/atividade-parlamentar/legislacao/imagens/bandeira-do-brasil.png/image' },
-    { id: '2', image: 'https://imagepng.org/wp-content/uploads/2017/10/batman-simbolo.png' },
-    { id: '3', image: 'https://s2-techtudo.glbimg.com/CDCDKUhS0FMmWH6daMavnixT6cg=/0x0:1024x609/984x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_08fbf48bc0524877943fe86e43087e7a/internal_photos/bs/2022/c/u/15eppqSmeTdHkoAKM0Uw/dall-e-2.jpg' },
-    { id: '4', image: 'https://t.ctcdn.com.br/JlHwiRHyv0mTD7GfRkIlgO6eQX8=/640x360/smart/i257652.jpeg' },
-    { id: '4', image: 'https://t.ctcdn.com.br/JlHwiRHyv0mTD7GfRkIlgO6eQX8=/640x360/smart/i257652.jpeg' },
-    { id: '4', image: 'https://t.ctcdn.com.br/JlHwiRHyv0mTD7GfRkIlgO6eQX8=/640x360/smart/i257652.jpeg' },
-    { id: '4', image: 'https://t.ctcdn.com.br/JlHwiRHyv0mTD7GfRkIlgO6eQX8=/640x360/smart/i257652.jpeg' },
-  ]
+  const listarAnexosPublicacao = () => {
 
+    const listaAnexos = []
+
+    if (anexosPublicacao.length == 0) {
+      return false
+    } else {
+      anexosPublicacao.map((item) => {
+        listaAnexos.push({
+          conteudo: item
+        })
+      })
+    }
+
+    return listaAnexos
+
+  }
 
   const apagarPublicacao = async (id) => {
     try {
@@ -304,40 +356,61 @@ const ModalMinhaPublicacao = ({ isOpen, setModalOpen, accessToken, idPublicacao,
   }
 
   const editarPublicacao = async () => {
-    const foto = await salvarFoto()
 
-    const arrayImagesUrl = []
+    const tagsAlteradas = alterarTagsSelecionadas()
 
-    if (foto != false) {
+    const listaAnexos = listarAnexosPublicacao()
 
-      foto.map((item) => {
-        arrayImagesUrl.push({
-          conteudo: item
+    const arrayImagesUrl = [...listaAnexos]
+
+    if (listaAnexos == false) {
+      console.log('erro')
+    } else {
+      const foto = await salvarFoto()
+
+      if (foto != false) {
+
+        foto.map((item) => {
+          arrayImagesUrl.push({
+            conteudo: item
+          })
+
         })
-      })
 
+      }
     }
 
-    if (titulo != '' && descricao != '' && tagsSelecionadas.length != 0 && arrayImagesUrl.length != 0) {
+
+    if (titulo != '' && descricao != '' && tagsAlteradas.length != 0 && arrayImagesUrl.length != 0) {
+
 
       try {
-        const response = await blogFetch.put('/publicacao/editar_publicacao', {
+        // const response = await blogFetch.put('/publicacao/editar_publicacao', {
+        //   id_publicacao: idPublicacao,
+        //   id_usuario: idUsuario,
+        //   titulo: titulo,
+        //   descricao: descricao,
+        //   tags: tagsAlteradas,
+        //   anexos: arrayImagesUrl
+        // },
+        //   {
+        //     headers: {
+        //       'x-access-token': accessToken
+        //     }
+        //   }
+        // )
+
+        console.log(JSON.stringify({
           id_publicacao: idPublicacao,
           id_usuario: idUsuario,
           titulo: titulo,
           descricao: descricao,
-          tags: tagsSelecionadas,
+          tags: tagsAlteradas,
           anexos: arrayImagesUrl
-        },
-          {
-            headers: {
-              'x-access-token': accessToken
-            }
-          }
-        )
+        }))
 
-
-        console.log(response)
+        // console.log(response)
+        // console.log(response.data)
       } catch (error) {
         console.log(error)
       }
@@ -346,7 +419,6 @@ const ModalMinhaPublicacao = ({ isOpen, setModalOpen, accessToken, idPublicacao,
       console.log('Dados obrigatórios não foram preenchidos!')
     }
   }
-
 
   useEffect(() => {
     setListLenght()
@@ -536,9 +608,10 @@ const ModalMinhaPublicacao = ({ isOpen, setModalOpen, accessToken, idPublicacao,
                 <div className='containerImagens'>
                   <img src={Fechar} alt="Voltar" className='setaVoltar' onClick={() => {
                     setEditar(!editar)
-
+                    setDescricao(descricaoPublicacao)
+                    setTitulo(tituloPublicacao)
                     setClique(!clique)
-                    // setModalOpen(!isOpen)
+                    setImageURL(anexosPublicacao)
                   }
                   } />
                 </div>
@@ -554,19 +627,48 @@ const ModalMinhaPublicacao = ({ isOpen, setModalOpen, accessToken, idPublicacao,
 
               <div className='containerEditarPublicacao__containerFormulario'>
 
-                <div className='containerFormulario'>
-                  <InputGlobal
-                    type={'email'}
-                    placeholder={'Título'}
-                    emailWeb={true}
-                    onChange={setTitulo}
-                  ></InputGlobal>
+                <div className='containerFormulario__iconeSalvarPublicacaoMeuPerfil'>
+                  <i onClick={() => {
+                    editarPublicacao()
+                  }} className='iconeSalvarPublicacaoMeuPerfil'>{IconObject.salvarMeuPerfil}</i>
+                </div>
 
-                  <FormDescricao
-                    type={'descricao'}
-                    placeholder={'Dígite uma descrição'}
-                    onChange={setDescricao}
-                  ></FormDescricao>
+                <div className='containerFormulario'>
+
+
+                  {
+
+                    dadosPublicacao == undefined ? (
+                      <p>Carregando</p>
+                    ) : (
+                      <InputGlobal
+                        type={'email'}
+                        placeholder={'Título'}
+                        emailWeb={true}
+                        onChange={setTitulo}
+                        value={titulo}
+                      ></InputGlobal>
+                    )
+
+                  }
+
+
+                  {
+
+                    dadosPublicacao == undefined ? (
+                      <p>Carregando</p>
+                    ) : (
+                      <FormDescricao
+                        type={'descricao'}
+                        placeholder={'Dígite uma descrição'}
+                        onChange={setDescricao}
+                        value={descricao}
+                      ></FormDescricao>
+                    )
+
+                  }
+
+
 
                   <div className='containerEditarTags'>
 
@@ -649,7 +751,6 @@ const ModalMinhaPublicacao = ({ isOpen, setModalOpen, accessToken, idPublicacao,
 
                                           letTagsSelecionadas.unshift({
                                             id_tag: item.id_tag,
-                                            nome: item.nome,
                                             novo: true
                                           })
 

@@ -18,9 +18,11 @@ function CardPublicacaoMeuPerfil({ idUsuario, idPublicacao, nomePublicacao, desc
 
     const listaAnexos = []
 
-    anexosPublicacao.map((anexo, indice) => {
-      listaAnexos.push(anexo.anexo)
+   anexosPublicacao.map((anexo, indice) => {
+       listaAnexos.push(anexo.anexo)
     })
+
+    console.log(anexosPublicacao)
 
     return listaAnexos
   }

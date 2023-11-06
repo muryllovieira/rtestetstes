@@ -226,6 +226,7 @@ function PerfilSelecionado() {
                                 idPublicacao={item.id}
                                 nomePublicacao={item.titulo}
                                 descricaoPublicacao={item.descricao}
+                                anexosPublicacao={item.anexos}
                               ></CardPublicacaoMeuPerfil> 
                               
                             )

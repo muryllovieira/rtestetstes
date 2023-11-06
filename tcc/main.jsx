@@ -26,7 +26,7 @@ import ValidarCodigo from './src/pages/validarCodigo/ValidarCodigo.jsx'
 import TrocaDeSenha from './src/pages/trocaDeSenha/TrocaDeSenha.jsx'
 import Explorar from './src/pages/menu/menu/explorar/Explorar.jsx'
 import Menu from './src/pages/menu/Menu.jsx'
-import NaoEncontrado from './src/pages/naoEncontrado/naoEncontrado.jsx'
+import NaoEncontrado from './src/pages/naoEncontrado/NaoEncontrado.jsx'
 import MeuPerfil from './src/pages/menu/menu/perfil/MeuPerfil.jsx'
 
 //páginas - rotas do Menu

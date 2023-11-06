@@ -1,9 +1,9 @@
 import React from 'react'
 
-function naoEncontrado() {
+function NaoEncontrado() {
   return (
-    <div>naoEncontrado</div>
+    <div>NaoEncontrado Erro 404</div>
   )
 }
 
-export default naoEncontrado
+export default NaoEncontrado

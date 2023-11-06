@@ -105,7 +105,7 @@ function Servicos() {
 
             {
               listaCategorias === undefined ? (
-                  <p>Carregando</p>
+                  <p>Nenhuma categoria encontrada</p>
               ) : (
                 listaCategorias.categorias.map((item) => (
                   <li onClick={(e) => setValue(item.id)} key={item.id} className='listaDeFiltros__filtro'>

@@ -18,11 +18,15 @@ const InputBairros = ({city, onChange = () => {}}) => {
         <select id="neighborhoods" name='neighborhood' onChange={onChange} className='inputList'>
             <option value="">Selecione um bairro...</option>
             {
+              bairros.length == 0 ? (
+                <p>Carregando</p>
+              ) : (
                 bairros.map((item) => (
-                    <option key={item.id} value={item.id}>
-                        {item.nome}
-                    </option>
+                     <option key={item.id} value={item.id}>
+                         {item.nome}
+                     </option>
                 ))
+              )
             }
         </select>
     </>

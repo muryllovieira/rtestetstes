@@ -4,8 +4,8 @@
  * Data Fim: X
  * 
  * Commits: Rotas Definidas v0.8, Estruturação de Diretórios Concluída, 
- * Componentes Iniciados v2.37, Responsividade v0.7, Funcionalidades v0.18,
- * Integração Iniciada v0.29, Contexto Aplicado, Lista Icones v0.4, Conflito v0.4, Ajustes v0.1,
+ * Componentes Iniciados v2.38, Responsividade v0.7, Funcionalidades v0.18,
+ * Integração Iniciada v0.30, Contexto Aplicado, Lista Icones v0.4, Conflito v0.4, Ajustes v0.1,
  *  
  * 
 *****************/ 
@@ -26,7 +26,7 @@ import ValidarCodigo from './src/pages/validarCodigo/ValidarCodigo.jsx'
 import TrocaDeSenha from './src/pages/trocaDeSenha/TrocaDeSenha.jsx'
 import Explorar from './src/pages/menu/menu/explorar/Explorar.jsx'
 import Menu from './src/pages/menu/Menu.jsx'
-import NaoEncontrado from './src/pages/naoEncontrado/naoEncontrado.jsx'
+import NaoEncontrado from './src/pages/naoEncontrado/NaoEncontrado.jsx'
 import MeuPerfil from './src/pages/menu/menu/perfil/MeuPerfil.jsx'
 
 //páginas - rotas do Menu

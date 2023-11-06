@@ -11,7 +11,7 @@ import { useContext } from 'react'
 import CardPerfil from '../../../../ui/components/menu/servicosPerfil/CardPerfil/CardPerfil'
 import blogFetch from '../../../../data/services/api/ApiService'
 
-const servicosPerfil = () => {
+const ServicosPerfil = () => {
 
   const navigator = useNavigate()
 
@@ -120,4 +120,4 @@ const servicosPerfil = () => {
   )
 }
 
-export default servicosPerfil
+export default ServicosPerfil

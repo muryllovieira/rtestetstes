@@ -30,8 +30,6 @@ import { useEffect } from 'react'
 
 const ModalMinhaPublicacao = ({ isOpen, setModalOpen, accessToken, idPublicacao, dadosPublicacao, idUsuario, tituloPublicacao, descricaoPublicacao, anexosPublicacao }) => {
 
-  console.log(dadosPublicacao)
-
   const navigate = useNavigate()
 
   const swiper = useSwiper()
@@ -139,9 +137,6 @@ const ModalMinhaPublicacao = ({ isOpen, setModalOpen, accessToken, idPublicacao,
     pegarTags()
   }, [])
 
-  // useEffect(() => {
-  //   console.log(dadosPublicacao)
-  // },[dadosPublicacao])
 
   const listarTagsDaPublicacao = () => {
 
@@ -261,13 +256,6 @@ const ModalMinhaPublicacao = ({ isOpen, setModalOpen, accessToken, idPublicacao,
                 nome_categoria: tag.nome_categoria
               })
 
-              // letTags.unshift({
-              //   id_categoria: tag.id_categoria,
-              //   id_tag: tag.id_tag,
-              //   imagem: tag.imagem,
-              //   nome: tag.nome,
-              //   nome_categoria: tag.nome_categoria
-              // })
             }
           })
         })
@@ -386,32 +374,23 @@ const ModalMinhaPublicacao = ({ isOpen, setModalOpen, accessToken, idPublicacao,
 
 
       try {
-        // const response = await blogFetch.put('/publicacao/editar_publicacao', {
-        //   id_publicacao: idPublicacao,
-        //   id_usuario: idUsuario,
-        //   titulo: titulo,
-        //   descricao: descricao,
-        //   tags: tagsAlteradas,
-        //   anexos: arrayImagesUrl
-        // },
-        //   {
-        //     headers: {
-        //       'x-access-token': accessToken
-        //     }
-        //   }
-        // )
-
-        console.log(JSON.stringify({
+        const response = await blogFetch.put('/publicacao/editar_publicacao', {
           id_publicacao: idPublicacao,
           id_usuario: idUsuario,
           titulo: titulo,
           descricao: descricao,
           tags: tagsAlteradas,
           anexos: arrayImagesUrl
-        }))
+        },
+          {
+            headers: {
+              'x-access-token': accessToken
+            }
+          }
+        )
 
-        // console.log(response)
-        // console.log(response.data)
+        console.log(response)
+
       } catch (error) {
         console.log(error)
       }

@@ -55,12 +55,23 @@
 
 .secaoPublicacao__listaPublicacoes {
     display: flex;
+    flex-direction: column;
     width: 90%;
-    max-height: 60vh;
+    height: 70vh;
     padding: 24px;
     gap: 24px;
     flex-wrap: wrap;
-    overflow-y: auto;
+}
+
+.listaPublicacao__containerPublicacao {
+    display: flex;
+    max-height: 100%;
+    width: 100%;
+    flex-wrap: wrap;
+    overflow-y: hidden;
+    gap: 32px;
+    align-items: flex-start;
+    justify-content: center;
 }
 
 .cardPublicacao {
@@ -117,15 +128,25 @@
     
 }
 
-.maisPopulares{
+.filtroPublicacao__maisPopularesAtivado{
     font-size: 1rem;
     cursor: pointer;
+    color: var(--primary-color);
 }
-.recentes{
+
+.filtroPublicacao__maisPopulares{
     font-size: 1rem;
     cursor: pointer;
 }
 
-.selected{
-    color: #A89BFF;
+.filtroPublicacao__recentesAtivado{
+    font-size: 1rem;
+    cursor: pointer;
+    color: var(--primary-color);
 }
+
+.filtroPublicacao__recentes{
+    font-size: 1rem;
+    cursor: pointer;
+}
+

@@ -129,19 +129,16 @@ function Explorar() {
                       <p>Carregando...</p>
                     ) : (
                       listaPublicacoesRecentes.publicacoes.map((item) => (
-                        <>
-
-                          <ModalPublicacaoExplorar></ModalPublicacaoExplorar>
-
-                          <div className="cardPublicacao" key={item.id}>
-                            <img src={item.anexos[0].anexo} className='fotoPublicacao' alt="" />
-                            <div className='container_textos'>
-                              <p className='nomePublicacao'>{item.titulo}</p>
-                              <p className='descricaoPublicacao'>{item.descricao} <p>...</p> </p>
-                            </div>
-                          </div>
-
-                        </>
+                        <CardPublicacaoExplorar
+                          accessToken={accessToken}
+                          key={item.id}
+                          anexosPublicacao={item.anexos}
+                          descricaoPublicacao={item.descricao}
+                          fotoPublicacao={item.anexos[0].anexo}
+                          idPublicacao={item.id}
+                          idUsuario={id}
+                          nomePublicacao={item.titulo}
+                        ></CardPublicacaoExplorar>
                       ))
                     )
 

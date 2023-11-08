@@ -36,6 +36,7 @@ const ModalPublicacaoExplorar = ({ isOpen, setModalOpen, accessToken, idPublicac
   const [firstSwiper, setFirstSwiper] = useState(null)
   const [secondSwiper, setSecondSwiper] = useState(null)
 
+  const [ comentar, setComentar ] = useState('')
 
   const [opcoes, setOpcoes] = useState(false)
   const [value, setValue] = useState(0)
@@ -69,6 +70,10 @@ const ModalPublicacaoExplorar = ({ isOpen, setModalOpen, accessToken, idPublicac
     }
   }, [isOpen])
 
+  useEffect(() => {
+    console.log(comentar)
+  }, [comentar])
+
   const pegarTags = async () => {
     try {
       const response = await blogFetch.get('/tag', {
@@ -98,6 +103,28 @@ const ModalPublicacaoExplorar = ({ isOpen, setModalOpen, accessToken, idPublicac
     }
   }
 
+  const adicionarComentario = async () => {
+    try {
+      const response = await blogFetch.post('/comentario/inserir', {
+        id_publicacao: idPublicacao,
+        id_usuario: idUsuario,
+        mensagem: comentar
+      }, {
+        headers: {
+          'x-access-token': accessToken
+        }
+      })
+
+      console.log(response)
+
+      setComentar('')
+      pegarComentarios()
+
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   useEffect(() => {
     pegarTags()
   }, [])
@@ -111,8 +138,11 @@ const ModalPublicacaoExplorar = ({ isOpen, setModalOpen, accessToken, idPublicac
   if (isOpen) {
     return (
       <>
-        <div className='modal__background'>
-          <div className='formularioMinhaPublicacao'>
+        <div>
+
+          <div className='modalBackground'></div>
+
+          <div className='formularioPublicacaoExplorar'>
 
             <div className='setor_01'>
 
@@ -236,6 +266,7 @@ const ModalPublicacaoExplorar = ({ isOpen, setModalOpen, accessToken, idPublicac
                     comentario === undefined ? (
                       <p>Carregando...</p>
                     ) : (
+
                       comentario.comentarios.map((item, indice) => (
                         // console.log(item)
                         <div className='card_comentario'>
@@ -245,10 +276,14 @@ const ModalPublicacaoExplorar = ({ isOpen, setModalOpen, accessToken, idPublicac
                             <p className='texto_comentario'>{item.mensagem}</p>
                             <p className='responder'>Responder</p>
                           </div>
+                          <div className='botaoOpcao' onClick={() => {
+                            console.log('a')
+                          }}>...</div>
                         </div>
 
                       ))
                     )
+
                   }
 
 
@@ -256,12 +291,19 @@ const ModalPublicacaoExplorar = ({ isOpen, setModalOpen, accessToken, idPublicac
               </div>
 
               <div className='setor02_footer'>
+
                 <InputGlobal
                   type={'email'}
                   emailWeb={true}
                   placeholder={'Escreva um comentário...'}
+                  value={comentar}
+                  onChange={setComentar}
                 ></InputGlobal>
-                <img src={Enviar} alt="" />
+
+                <img onClick={() => {
+                  adicionarComentario()
+                }} src={Enviar} alt="" />
+
               </div>
 
             </div>

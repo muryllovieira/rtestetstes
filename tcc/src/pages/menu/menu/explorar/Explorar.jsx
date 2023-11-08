@@ -105,16 +105,22 @@ function Explorar() {
                     ) : (
                       listaPublicacoesPopulares.publicacao.map((item) => (
 
-                        <CardPublicacaoExplorar
+                        
+
+                        item === undefined ? (
+                          <p>Carregando...</p>
+                        ) : (
+                          <CardPublicacaoExplorar
                           accessToken={accessToken}
                           key={item.id}
                           anexosPublicacao={item.anexos}
                           descricaoPublicacao={item.descricao}
-                          fotoPublicacao={item.anexos[0].anexo}
+                          fotoPublicacao={item.anexos[0]}
                           idPublicacao={item.id}
                           idUsuario={id}
                           nomePublicacao={item.titulo}
                         ></CardPublicacaoExplorar>
+                        )
 
                       ))
                     )

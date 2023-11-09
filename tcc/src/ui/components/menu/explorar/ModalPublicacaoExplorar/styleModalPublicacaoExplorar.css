@@ -25,3 +25,19 @@
     z-index: 1002;
     background-color: var(--default-color);
 }
+
+.opcaoDenunciar {
+    width: 100%;
+    padding: 16px;
+    cursor: pointer;
+}
+
+.opcaoDenunciar:hover {
+    background-color: #c2c2c2;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+.textoDenunciarPublicacao {
+    color: var(--contrast-color);
+}

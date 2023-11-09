@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
+import UserContext from '../../../../../data/hooks/context/UserContext'
 import './styleModalPublicacaoExplorar.css'
 import './product-image-slider.scss'
 import { Swiper, SwiperSlide, useSwiper } from 'swiper/react'
@@ -15,6 +16,7 @@ import BotaoTag from '../../../personalizarPerfil/BotaoTag/BotaoTag'
 import FormDescricao from '../../../personalizarPerfil/FormDescricao/formDescricao'
 import IconObject from '../../../global/IconesGlobais/iconesGlobais'
 import { uploadImage } from '../../../../../data/services/firebase/firebase'
+import ComentarioPublicacaoExplorar from '../ComentarioPublicacaoExplorar/ComentarioPublicacaoExplorar'
 import blogFetch from '../../../../../data/services/api/ApiService'
 
 import Fechar from './images/fechar.svg'
@@ -27,18 +29,21 @@ import 'swiper/css/navigation'
 import 'swiper/css/scrollbar'
 import { useEffect } from 'react'
 
-const ModalPublicacaoExplorar = ({ isOpen, setModalOpen, accessToken, idPublicacao, dadosPublicacao, idUsuario, tituloPublicacao, descricaoPublicacao, anexosPublicacao}) => {
+const ModalPublicacaoExplorar = ({ isOpen, setModalOpen, accessToken, idPublicacao, dadosPublicacao, idUsuario, tituloPublicacao, descricaoPublicacao, anexosPublicacao }) => {
 
   const navigate = useNavigate()
+
+  const { id } = useContext(UserContext)
 
   const swiper = useSwiper()
 
   const [firstSwiper, setFirstSwiper] = useState(null)
   const [secondSwiper, setSecondSwiper] = useState(null)
 
-  const [ comentar, setComentar ] = useState('')
+  const [comentar, setComentar] = useState('')
 
   const [opcoes, setOpcoes] = useState(false)
+  const [opcoesComentario, setOpcoesComentario] = useState(false)
   const [value, setValue] = useState(0)
   const [editar, setEditar] = useState(false)
 
@@ -65,7 +70,7 @@ const ModalPublicacaoExplorar = ({ isOpen, setModalOpen, accessToken, idPublicac
   }
 
   useEffect(() => {
-    if(isOpen == true) {
+    if (isOpen == true) {
       pegarComentarios()
     }
   }, [isOpen])
@@ -149,7 +154,7 @@ const ModalPublicacaoExplorar = ({ isOpen, setModalOpen, accessToken, idPublicac
               <div className='setor01_header'>
                 <img src={Fechar} alt="Voltar" className='setaVoltar' onClick={() => {
                   setModalOpen(!isOpen)
-                 
+
                 }
                 } />
               </div>
@@ -221,25 +226,46 @@ const ModalPublicacaoExplorar = ({ isOpen, setModalOpen, accessToken, idPublicac
                       opcoes == false ? (
                         null
                       ) : (
-                        <div className='modalOpcoesPublicacao'>
-                          <div onClick={
-                            () => {
 
-                              apagarPublicacao(idPublicacao)
-                            }
-                          } className='opcaoExcluir'>
-                            <p className='textoExcluirPublicacao'>
-                              Apagar publicação
-                            </p>
+                        id == dadosPublicacao.publicacao.usuario.id_usuario ? (
+
+                          <div className='modalOpcoesPublicacao'>
+                            <div onClick={
+                              () => {
+
+                                apagarPublicacao(idPublicacao)
+                              }
+                            } className='opcaoExcluir'>
+                              <p className='textoExcluirPublicacao'>
+                                Apagar publicação
+                              </p>
+                            </div>
+                            <div onClick={() => {
+                              setEditar(!editar)
+                            }} className='opcaoEditar'>
+                              <p className='textoEditarPublicacao'>
+                                Editar publicação
+                              </p>
+                            </div>
                           </div>
-                          <div onClick={() => {
-                            setEditar(!editar)
-                          }} className='opcaoEditar'>
-                            <p className='textoEditarPublicacao'>
-                              Editar publicação
-                            </p>
+
+                        ) : (
+
+                          <div className='modalOpcoesPublicacao'>
+                            <div onClick={
+                              () => {
+
+                              }
+                            } className='opcaoDenunciar'>
+                              <p className='textoDenunciarPublicacao'>
+                                Denunciar publicação
+                              </p>
+                            </div>
+
                           </div>
-                        </div>
+
+                        )
+
                       )
                     }
                   </div>
@@ -268,18 +294,15 @@ const ModalPublicacaoExplorar = ({ isOpen, setModalOpen, accessToken, idPublicac
                     ) : (
 
                       comentario.comentarios.map((item, indice) => (
-                        // console.log(item)
-                        <div className='card_comentario'>
-                          <img src={item.usuario.foto} alt="" className='foto_perfil' />
-                          <div className='container_textos'>
-                            <p className='nome'>{item.usuario.nome_de_usuario}</p>
-                            <p className='texto_comentario'>{item.mensagem}</p>
-                            <p className='responder'>Responder</p>
-                          </div>
-                          <div className='botaoOpcao' onClick={() => {
-                            console.log('a')
-                          }}>...</div>
-                        </div>
+                        
+                        <ComentarioPublicacaoExplorar
+                          fotoUsuario={item.usuario.foto}
+                          idUsuarioAtual={id}
+                          idUsuarioComentario={item.id_usuario}
+                          mensagemComentario={item.mensagem}
+                          nomeUsuario={item.usuario.nome_de_usuario}
+                          key={item.id}
+                        ></ComentarioPublicacaoExplorar>
 
                       ))
                     )

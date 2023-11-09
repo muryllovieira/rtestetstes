@@ -1,0 +1,28 @@
+.comentarioPublicacaoExplorar {
+    width: 100%;
+    height: 20%;
+    background-color: var(--default-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.comentarioExplorar__containerDados {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+}
+
+.fotoPerfilUsuario {
+    width: 60px;
+    height: 60px;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+.responderComentario {
+    color: #A09CA2;
+    font-size: 0.75rem;
+    font-style: normal;
+    font-weight: 400;
+}

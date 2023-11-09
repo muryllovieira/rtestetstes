@@ -68,10 +68,69 @@
 }
 
 .tagTeste {
-    width: 300px;
-    height: 59px;
+    width: 350px;
+    height: 70px;
     border-radius: 10px;
     background-color: var(--default-color);
     box-shadow: var(--default-shadow);
     cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.foto{
+    width: 55px;
+    height: 55px;
+    flex-shrink: 0;
+    border-radius: 10px;
+    box-shadow: 3px 3px rgba(168, 155, 255, 0.40);
+}
+
+.container_textos{
+    display: block;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-around;
+    gap: 10px;
+}
+
+.nome{
+    width: 100%;
+    color: black;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin: 0;
+}
+
+.container_status{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    gap: 10px;
+    width: auto;
+}
+
+.ultimaMensagem{
+    color: rgba(65, 57, 70, 0.60);
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin: 0;
+}
+
+.horas{
+    color: rgba(65, 57, 70, 0.60);
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin: 0;
 }

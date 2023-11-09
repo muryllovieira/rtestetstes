@@ -3,8 +3,8 @@
  * Data Inicio: 04-09-2023
  * Data Fim: X
  * 
- * Commits: Rotas Definidas v0.8, Estruturação de Diretórios Concluída, 
- * Componentes Iniciados v2.38, Responsividade v0.7, Funcionalidades v0.18,
+ * Commits: Rotas Definidas v0.9, Estruturação de Diretórios Concluída, 
+ * Componentes Iniciados v2.39, Responsividade v0.7, Funcionalidades v0.18,
  * Integração Iniciada v0.31, Contexto Aplicado, Lista Icones v0.4, Conflito v0.4, Ajustes v0.1,
  *  
  * 
@@ -36,6 +36,7 @@ import Conversas from './src/pages/menu/menu/conversas/Conversas.jsx'
 import Configuracoes from './src/pages/menu/menu/configuracoes/Configuracoes.jsx'
 import ServicosPerfil from './src/pages/menu/menu/servicosPerfil/servicosPerfil.jsx'
 import PerfilSelecionado from './src/pages/menu/menu/perfilSelecionado/PerfilSelecionado.jsx'
+import Chat from './src/pages/menu/menu/chat/Chat.jsx'
 
 //páginas - rotas de Personalização
 import PersonalizarNome from './src/pages/registrar/personalizarPerfil/personalizarNome/PersonalizarNome.jsx'
@@ -174,6 +175,17 @@ const router = createBrowserRouter([
         children: [
           {
             path: "/menu/conversas/publicar/",
+            element: <Publicar />
+          }
+        ]
+      },
+      {
+        path: "/menu/conversas/chat",
+        element: <Chat/>,
+        errorElement: <NaoEncontrado />,
+        children: [
+          {
+            path: "/menu/conversas/chat/publicar/",
             element: <Publicar />
           }
         ]

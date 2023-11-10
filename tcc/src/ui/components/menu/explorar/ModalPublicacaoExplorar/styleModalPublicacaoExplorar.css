@@ -12,7 +12,7 @@
 .formularioPublicacaoExplorar {
     position: fixed;
     top: 10%;
-    left: 15%;
+    left: 10%;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -21,9 +21,177 @@
     height: 80vh;
     width: 80vw;
     gap: 25px;
-    padding-bottom: 50px;
     z-index: 1002;
+}
+
+.formularioPublicacaoExplorar__containerImagensPublicacaoExplorar {
+    width: 50%;
+    height: 100%;
+    padding: 24px;
+    border-radius: 30px;
     background-color: var(--default-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.containerImagensPublicacaoExplorar__itemVoltar {
+    display: flex;
+    width: 70px;
+    height: 70px;
+    align-items: center;
+    justify-content: flex-start;
+    border-radius: 10px;
+}
+
+.setaVoltarPublicacaoExplorar {
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+
+.containerImagensPublicacaoExplorar__itemVoltar:hover {
+    background-color: #f7e7ff;
+}
+
+.containerImagensPublicacaoExplorar__botoesPublicacaoExplorar {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.formularioPublicacaoExplorar__containerDadosPublicacaoExplorar {
+    background-color: var(--default-color);
+    width: 50%;
+    height: 100%;
+    border-radius: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.containerDadosPublicacaoExplorar__cardUsuarioPublicacaoExplorar {
+    width: 100%;
+    height: 10%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cardUsuarioPublicacaoExplorar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px;
+    width: 80%;
+    height: 100%;
+    background-color: var(--default-color);
+    box-shadow: 0px 0px 20px 0px rgba(65, 57, 70, 0.10);
+    border-radius: 20px;
+}
+
+.cardUsuarioPublicacaoExplorar__containerDadosUsuarioPublicacao {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 24px;
+}
+
+.fotoUsuarioPublicacaoExplorar {
+    border-radius: 10px;
+    width: 60px;
+    height: 60px;
+    box-shadow: 4px 3px #A89BFF;
+    object-fit: cover;
+}
+
+.nomeUsuarioPublicacaoExplorar {
+    color: var(--contrast-color);
+    font-size: 1.25rem;
+    text-align: center;
+    font-weight: 400;
+}
+
+.cardUsuarioPublicacaoExplorar__menuOpcoesPublicacaoExplorar {
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cardUsuarioPublicacaoExplorar__menuOpcoesPublicacaoExplorar:hover {
+    width: 40px;
+    height: 40px;
+    background-color: #dedddd;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cardUsuarioPublicacaoExplorar__menuOpcoesPublicacaoExplorarAtivada {
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #dedddd;
+    border-radius: 10px;
+}
+
+.modalOpcoesPublicacaoExplorar {
+    background-color: var(--default-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 20%;
+    border-radius: 20px;
+    box-shadow: 0px 4px 20px 0px rgba(65, 57, 70, 0.25);
+}
+
+.opcaoExcluirPublicacaoExplorar {
+    width: 100%;
+    padding: 12px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+.opcaoEditarPublicacaoExplorar {
+    width: 100%;
+    padding: 12px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+.opcaoExcluirPublicacaoExplorar:hover {
+    background-color: #dadada;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+.opcaoEditarPublicacaoExplorar:hover {
+    background-color: #dadada;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+
+.opcaoDenunciarPublicacaoExplorar {
+    width: 100%;
+    padding: 12px;
+    border-radius: 20px;
+}
+
+.opcaoDenunciarPublicacaoExplorar:hover {
+    background-color: #dadada;
 }
 
 .opcaoDenunciar {
@@ -40,4 +208,10 @@
 
 .textoDenunciarPublicacao {
     color: var(--contrast-color);
+}
+
+.listaComentarioExplorar {
+    height: 100%;
+    width: 100%;
+    background-color: #413946;
 }

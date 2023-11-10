@@ -23,63 +23,76 @@ function ComentarioPublicacaoExplorar({ fotoUsuario, nomeUsuario, mensagemComent
                     </div>
                 </div>
 
-                <div onMouseOver={
+                <div onClick={() => {
                     setOpcoesComentario(!opcoesComentario)
-                } className="botaoOpcoesComentario">
+                }} className={`botaoOpcoesComentario ${opcoesComentario == true ? 'botaoOpcoesComentarioShow' : 'botaoOpcoesComentario'}`}>
                     ...
-
-                    {
-                        opcoesComentario == true ? (
-
-                            idUsuarioAtual == idUsuarioComentario ? (
-                                <div className="modalOpcoesComentario">
-                                    <div onClick={
-                                        () => {
-
-                                        }
-                                    } className='opcaoExcluirComentario'>
-
-                                        <p className='textoExcluirComentario'>
-                                            Apagar comentário
-                                        </p>
-
-                                    </div>
-
-                                    <div onClick={() => {
-
-                                    }} className='opcaoEditarComentario'>
-
-                                        <p className='textoEditarComentario'>
-                                            Editar comentário
-                                        </p>
-
-                                    </div>
-
-                                </div>
-                            ) : (
-                                <div className="modalOpcoesComentario">
-                                    <div onClick={
-                                        () => {
-
-                                        }
-                                    } className='opcaoDenunciarComentario'>
-
-                                        <p className='textoDenunciarComentario'>
-                                            Denunciar comentário
-                                        </p>
-
-                                    </div>
-
-
-
-                                </div>
-                            )
-
-                        ) : (
-                            null
-                        )
-                    }
                 </div>
+
+                {
+                    opcoesComentario == true ? (
+
+                        <div>
+
+                            <div className='tes' onClick={() => {
+                                setOpcoesComentario(!opcoesComentario)
+                            }}></div>
+
+                            {
+                                idUsuarioAtual == idUsuarioComentario ? (
+                                    <div className="modalOpcoesComentario">
+                                        <div onClick={
+                                            () => {
+
+                                            }
+                                        } className='opcaoExcluirComentario'>
+
+                                            <p className='textoExcluirComentario'>
+                                                Apagar comentário
+                                            </p>
+
+                                        </div>
+
+                                        <div onClick={() => {
+
+                                        }} className='opcaoEditarComentario'>
+
+                                            <p className='textoEditarComentario'>
+                                                Editar comentário
+                                            </p>
+
+                                        </div>
+
+                                    </div>
+                                ) : (
+                                    <div className="modalOpcoesComentario">
+                                        <div onClick={
+                                            () => {
+
+                                            }
+                                        } className='opcaoDenunciarComentario'>
+
+                                            <p className='textoDenunciarComentario'>
+                                                Denunciar comentário
+                                            </p>
+
+                                        </div>
+
+
+
+                                    </div>
+                                )
+                            }
+                        </div>
+
+
+
+
+
+                    ) : (
+                        null
+                    )
+                }
             </div>
         </>
     )

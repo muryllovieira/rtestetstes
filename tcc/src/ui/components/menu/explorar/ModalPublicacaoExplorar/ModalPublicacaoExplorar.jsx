@@ -149,17 +149,17 @@ const ModalPublicacaoExplorar = ({ isOpen, setModalOpen, accessToken, idPublicac
 
           <div className='formularioPublicacaoExplorar'>
 
-            <div className='setor_01'>
+            <div className='formularioPublicacaoExplorar__containerImagensPublicacaoExplorar'>
 
-              <div className='setor01_header'>
-                <img src={Fechar} alt="Voltar" className='setaVoltar' onClick={() => {
+              <div className='containerImagensPublicacaoExplorar__itemVoltar'>
+
+                <img src={Fechar} alt="Voltar" className='setaVoltarPublicacaoExplorar' onClick={() => {
                   setModalOpen(!isOpen)
-
-                }
-                } />
+                }}
+                />
               </div>
 
-              <div className='setor01_main'>
+              <div className='containerImagensPublicacaoExplorar__listaImagensPublicacaoExplorar'>
                 <Swiper
                   slidesPerView={1}
                   navigation
@@ -189,9 +189,7 @@ const ModalPublicacaoExplorar = ({ isOpen, setModalOpen, accessToken, idPublicac
                 </Swiper>
               </div>
 
-
-
-              <div className='setor01_footer'>
+              <div className='containerImagensPublicacaoExplorar__botoesPublicacaoExplorar'>
                 <BotaoAncoraGlobal
                   titulo={'Dar Ponto'}
                 ></BotaoAncoraGlobal>
@@ -202,26 +200,40 @@ const ModalPublicacaoExplorar = ({ isOpen, setModalOpen, accessToken, idPublicac
               </div>
             </div>
 
-            <div className='setor_02'>
+            <div className='formularioPublicacaoExplorar__containerDadosPublicacaoExplorar'>
 
-              <div className="setor02_header">
-                <div className="card">
+              <div className="containerDadosPublicacaoExplorar__cardUsuarioPublicacaoExplorar">
+                <div className="cardUsuarioPublicacaoExplorar">
 
                   {
                     dadosPublicacao === undefined ? (
+
                       <p className='carregandoPublicacao'>Carregando</p>
+
                     ) : (
-                      <div className='perfil_container'>
-                        <img src={dadosPublicacao.publicacao.usuario.foto} className='foto_perfil' />
-                        <p className='nome_perfil'>{dadosPublicacao.publicacao.usuario.nome}</p>
+
+                      <div className='cardUsuarioPublicacaoExplorar__containerDadosUsuarioPublicacao'>
+
+                        <img className='fotoUsuarioPublicacaoExplorar' src={dadosPublicacao.publicacao.usuario.foto} />
+
+                        <p className='nomeUsuarioPublicacaoExplorar'>{dadosPublicacao.publicacao.usuario.nome}</p>
+
                       </div>
+
                     )
                   }
 
-                  <div className='menu'>
+                  <div className={`cardUsuarioPublicacaoExplorar__menuOpcoesPublicacaoExplorar ${ opcoes == true ? 'cardUsuarioPublicacaoExplorar__menuOpcoesPublicacaoExplorarAtivada' : ''}`}>
+
                     <img onClick={() => {
+
                       setOpcoes(!opcoes)
-                    }} src={IconeMais} className='iconeMenuPublicacao' />
+
+                    }}
+                      src={IconeMais} className='menuOpcoesPublicacaoExplorar__iconeMenuPublicacao'
+                    />
+
+
                     {
                       opcoes == false ? (
                         null
@@ -229,37 +241,55 @@ const ModalPublicacaoExplorar = ({ isOpen, setModalOpen, accessToken, idPublicac
 
                         id == dadosPublicacao.publicacao.usuario.id_usuario ? (
 
-                          <div className='modalOpcoesPublicacao'>
-                            <div onClick={
-                              () => {
+                          <div className='modalOpcoesPublicacaoExplorar'>
 
-                                apagarPublicacao(idPublicacao)
-                              }
-                            } className='opcaoExcluir'>
-                              <p className='textoExcluirPublicacao'>
+                            <div onClick={() => {
+
+                              apagarPublicacao(idPublicacao)
+
+                            }}
+
+                              className='opcaoExcluirPublicacaoExplorar'
+                            >
+
+                              <p className='textoExcluirPublicacaoExplorar'>
                                 Apagar publicação
                               </p>
+
                             </div>
+
                             <div onClick={() => {
+
                               setEditar(!editar)
-                            }} className='opcaoEditar'>
-                              <p className='textoEditarPublicacao'>
+
+                            }}
+
+                              className='opcaoEditarPublicacaoExplorar'
+                            >
+
+                              <p className='textoEditarPublicacaoExplorar'>
                                 Editar publicação
                               </p>
+
                             </div>
+
                           </div>
 
                         ) : (
 
-                          <div className='modalOpcoesPublicacao'>
-                            <div onClick={
-                              () => {
+                          <div className='modalOpcoesPublicacaoExplorar'>
 
-                              }
-                            } className='opcaoDenunciar'>
-                              <p className='textoDenunciarPublicacao'>
+                            <div onClick={() => {
+
+                            }}
+
+                              className='opcaoDenunciarPublicacaoExplorar'
+                            >
+
+                              <p className='textoDenunciarPublicacaoExplorar'>
                                 Denunciar publicação
                               </p>
+
                             </div>
 
                           </div>
@@ -286,7 +316,7 @@ const ModalPublicacaoExplorar = ({ isOpen, setModalOpen, accessToken, idPublicac
                   )
                 }
 
-                <div className='lista_comentarios'>
+                <div className='listaComentarioExplorar'>
 
                   {
                     comentario === undefined ? (
@@ -294,7 +324,7 @@ const ModalPublicacaoExplorar = ({ isOpen, setModalOpen, accessToken, idPublicac
                     ) : (
 
                       comentario.comentarios.map((item, indice) => (
-                        
+
                         <ComentarioPublicacaoExplorar
                           fotoUsuario={item.usuario.foto}
                           idUsuarioAtual={id}

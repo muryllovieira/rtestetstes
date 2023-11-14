@@ -173,6 +173,17 @@
     height: max-content;
 }
 
+.containerDadosPublicacaoExplorar__campoInserirComentario {
+    width: 100%;
+    height: fit-content;
+}
+
+.iconeInserirComentario {
+    height: 40px;
+    width: 40px;
+    background-color: #413946;
+}
+
 .modalOpcoesPublicacaoExplorar {
     background-color: var(--default-color);
     display: flex;
@@ -241,4 +252,10 @@
 .listaComentarioExplorar {
     height: 100%;
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    overflow-y: auto;
 }

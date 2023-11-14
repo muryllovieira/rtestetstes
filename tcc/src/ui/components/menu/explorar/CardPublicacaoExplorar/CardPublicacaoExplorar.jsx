@@ -10,6 +10,8 @@ function CardPublicacaoExplorar({ idUsuario, idPublicacao, nomePublicacao, descr
     const [anexo, setAnexo] = useState([])
     const [publicacao, setPublicacao] = useState()
 
+    const [ usuario, setUsuario ] = useState()
+
     useEffect(() => {
         console.log(publicacao)
     }, [publicacao])
@@ -37,6 +39,10 @@ function CardPublicacaoExplorar({ idUsuario, idPublicacao, nomePublicacao, descr
 
     }, [anexosPublicacao])
 
+    // useEffect(() => {
+    //   pegarUsuario()
+    // }, [publicacao])
+
     const pegarPublicacao = async () => {
         try {
           const response = await blogFetch.get(`/publicacao/select_by_id/${idPublicacao}`, {
@@ -50,7 +56,25 @@ function CardPublicacaoExplorar({ idUsuario, idPublicacao, nomePublicacao, descr
         } catch (error) {
           console.log(error)
         }
-      }
+    }
+
+    // const pegarUsuario = async () => {
+    //   try {
+    //     const response = await blogFetch.get(`/usuario/meu_perfil/${idUsuario}`, {
+    //       headers: {
+    //         'x-access-token': accessToken
+    //       }
+    //     })
+
+    //     console.log(response)
+    //     setUsuario(response.data)
+
+    //   } catch (error) {
+
+    //     console.log(response)
+
+    //   }
+    // }
 
     return (
         <>
@@ -68,6 +92,7 @@ function CardPublicacaoExplorar({ idUsuario, idPublicacao, nomePublicacao, descr
             setModalOpen={setOpenModal}
             descricaoPublicacao={descricaoPublicacao}
             tituloPublicacao={nomePublicacao}
+            usuarioPublicacao={usuario}
           ></ModalPublicacaoExplorar>
         )
       }

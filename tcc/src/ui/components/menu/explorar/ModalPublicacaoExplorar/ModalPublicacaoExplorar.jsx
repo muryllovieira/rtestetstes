@@ -29,7 +29,7 @@ import 'swiper/css/navigation'
 import 'swiper/css/scrollbar'
 import { useEffect } from 'react'
 
-const ModalPublicacaoExplorar = ({ isOpen, setModalOpen, accessToken, idPublicacao, dadosPublicacao, idUsuario, tituloPublicacao, descricaoPublicacao, anexosPublicacao }) => {
+const ModalPublicacaoExplorar = ({ isOpen, setModalOpen, accessToken, idPublicacao, dadosPublicacao, idUsuario, tituloPublicacao, descricaoPublicacao, anexosPublicacao, usuarioPublicacao }) => {
 
   const navigate = useNavigate()
 
@@ -50,6 +50,8 @@ const ModalPublicacaoExplorar = ({ isOpen, setModalOpen, accessToken, idPublicac
   const [comentario, setComentario] = useState()
 
   const [tags, setTags] = useState([])
+
+  console.log(usuarioPublicacao)
 
   const setListLenght = () => {
 
@@ -106,9 +108,18 @@ const ModalPublicacaoExplorar = ({ isOpen, setModalOpen, accessToken, idPublicac
       })
 
       console.log(response)
-      setComentario(response.data)
+      if(comentario == null) {
+        setComentario(response.data)
+      } else if (response.status == 404) {
+        setComentario(response.status)
+      } else {
+        setComentario(response.data)
+      }
+      
     } catch (error) {
-      console.log(error)
+      if(error.response.status == 404) {
+        setComentario(error.response.status)
+      }
     }
   }
 
@@ -217,7 +228,17 @@ const ModalPublicacaoExplorar = ({ isOpen, setModalOpen, accessToken, idPublicac
 
                       <div className='cardUsuarioPublicacaoExplorar__containerDadosUsuarioPublicacao'>
 
-                        <img className='fotoUsuarioPublicacaoExplorar' src={dadosPublicacao.publicacao.usuario.foto} />
+                        {
+                          usuarioPublicacao === undefined ? (
+
+                            <img className='fotoUsuarioPublicacaoExplorar' src={dadosPublicacao.publicacao.usuario.foto} />
+
+                          ) : (
+
+                            <img className='fotoUsuarioPublicacaoExplorar' src={usuarioPublicacao} />
+
+                          )
+                        }
 
                         <p className='nomeUsuarioPublicacaoExplorar'>{dadosPublicacao.publicacao.usuario.nome}</p>
 
@@ -322,27 +343,31 @@ const ModalPublicacaoExplorar = ({ isOpen, setModalOpen, accessToken, idPublicac
                 <div className='listaComentarioExplorar'>
 
                   {
-                    comentario === undefined ? (
-                      <p>Carregando...</p>
+                    comentario == 404 ? (
+                      <p>Sem Comentários</p>
                     ) : (
-
-                      comentario.comentarios.map((item, indice) => (
-
-                        <ComentarioPublicacaoExplorar
-                          fotoUsuario={item.usuario.foto}
-                          idUsuarioAtual={id}
-                          idUsuarioComentario={item.id_usuario}
-                          mensagemComentario={item.mensagem}
-                          nomeUsuario={item.usuario.nome_de_usuario}
-                          idComentario={item.id}
-                          accessToken={accessToken}
-                          pegarComentarios={() => {
-                            pegarComentarios()
-                          }}
-                          key={item.id}
-                        ></ComentarioPublicacaoExplorar>
-
-                      ))
+                      comentario === undefined ? (
+                        <p>Carregando...</p>
+                      ) : (
+  
+                        comentario.comentarios.map((item, indice) => (
+  
+                          <ComentarioPublicacaoExplorar
+                            fotoUsuario={item.usuario.foto}
+                            idUsuarioAtual={id}
+                            idUsuarioComentario={item.id_usuario}
+                            mensagemComentario={item.mensagem}
+                            nomeUsuario={item.usuario.nome_de_usuario}
+                            idComentario={item.id}
+                            accessToken={accessToken}
+                            pegarComentarios={() => {
+                              pegarComentarios()
+                            }}
+                            key={item.id}
+                          ></ComentarioPublicacaoExplorar>
+  
+                        ))
+                      )
                     )
 
                   }
@@ -351,7 +376,7 @@ const ModalPublicacaoExplorar = ({ isOpen, setModalOpen, accessToken, idPublicac
                 </div>
               </div>
 
-              <div className='setor02_footer'>
+              <div className='containerDadosPublicacaoExplorar__campoInserirComentario'>
 
                 <InputGlobal
                   type={'email'}
@@ -363,7 +388,7 @@ const ModalPublicacaoExplorar = ({ isOpen, setModalOpen, accessToken, idPublicac
 
                 <img onClick={() => {
                   adicionarComentario()
-                }} src={Enviar} alt="" />
+                }} src={Enviar} alt="" className='iconeInserirComentario'/>
 
               </div>
 

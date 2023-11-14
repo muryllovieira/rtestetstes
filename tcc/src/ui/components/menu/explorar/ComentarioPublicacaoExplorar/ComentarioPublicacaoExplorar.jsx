@@ -1,9 +1,28 @@
 import React, { useState, useEffect } from 'react'
 import './styleComentarioPublicacaoExplorar.css'
+import blogFetch from '../../../../../data/services/api/ApiService'
 
-function ComentarioPublicacaoExplorar({ fotoUsuario, nomeUsuario, mensagemComentario, idUsuarioComentario, idUsuarioAtual }) {
+function ComentarioPublicacaoExplorar({ pegarComentarios ,accessToken ,fotoUsuario, nomeUsuario, mensagemComentario, idUsuarioComentario, idUsuarioAtual, idComentario }) {
 
     const [opcoesComentario, setOpcoesComentario] = useState(false)
+
+    console.log(idComentario)
+
+    const apagarComentario = async () => {
+        try {
+          const response = await blogFetch.delete(`/comentario/${idComentario}`, {
+            headers: {
+              'x-access-token': accessToken
+            }
+          })
+
+          pegarComentarios()
+
+          console.log(response)
+        } catch (error) {
+          console.log(error)
+        }
+      }
 
     return (
         <>
@@ -43,7 +62,7 @@ function ComentarioPublicacaoExplorar({ fotoUsuario, nomeUsuario, mensagemComent
                                     <div className="modalOpcoesComentario">
                                         <div onClick={
                                             () => {
-
+                                                apagarComentario()
                                             }
                                         } className='opcaoExcluirComentario'>
 

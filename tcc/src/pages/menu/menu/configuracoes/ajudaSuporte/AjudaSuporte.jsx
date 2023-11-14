@@ -6,6 +6,7 @@ import {Link} from 'react-router-dom'
 import InputGlobal from '../../../../../ui/components/global/InputGlobal/InputGlobal'
 import FormDescricao from '../../../../../ui/components/personalizarPerfil/FormDescricao/formDescricao'
 import BotaoFormularioGlobal from '../../../../../ui/components/global/BotaoFormularioGlobal/BotaoFormularioGlobal'
+import FotoPerfil from '../../../../../ui/components/global/FotoPerfil/FotoPerfil'
 
 const AjudaSuporte = () => {
 
@@ -42,7 +43,7 @@ const AjudaSuporte = () => {
           <img src={setaEsquerda} alt="" />
         </Link>
           <p className='sobre'>AJUDA E SUPORTE</p>
-          <div className='tituloEFoto__cardFoto'></div>
+          <FotoPerfil/>
       </div>
 
       <form onSubmit={enviarEmail} className='containerAjudaSuporte_main'>

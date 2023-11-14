@@ -81,6 +81,11 @@
     gap: 20px;
 }
 
+.tagTeste:hover{
+    width: 355px;
+    height: 75px;
+}
+
 .foto{
     width: 55px;
     height: 55px;

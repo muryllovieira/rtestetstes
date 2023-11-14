@@ -4,6 +4,7 @@ import InputGlobal from '../../../../ui/components/global/InputGlobal/InputGloba
 import IconObject from '../../../../ui/components/global/IconesGlobais/iconesGlobais'
 import { Outlet, Link } from 'react-router-dom'
 import Foto from './images/foto.jpg'
+import FotoPerfil from '../../../../ui/components/global/FotoPerfil/FotoPerfil'
 
 
 function Conversas() {
@@ -25,7 +26,7 @@ function Conversas() {
               <i>{IconObject.home}</i>
             </div>
 
-            <div className='containerConversas__cardFoto'></div>
+            <FotoPerfil/>
 
           </div>
 

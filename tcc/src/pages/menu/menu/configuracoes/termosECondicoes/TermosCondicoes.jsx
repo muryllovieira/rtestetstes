@@ -2,6 +2,7 @@ import React from 'react'
 import './styleTermosCondicoes.css'
 import setaEsquerda from '../images/setaEsquerda.svg'
 import {Link} from 'react-router-dom'
+import FotoPerfil from '../../../../../ui/components/global/FotoPerfil/FotoPerfil'
 
 const TermosCondicoes = () => {
   return (
@@ -14,8 +15,7 @@ const TermosCondicoes = () => {
           <img src={setaEsquerda} alt="" />
         </Link>
           <p className='sobre'>TERMOS E CONDICOES</p>
-          <div className='tituloEFoto__cardFoto'></div>
-
+          <FotoPerfil/>
       </div>
 
       <div className='containerTermosCondicoes_main'>

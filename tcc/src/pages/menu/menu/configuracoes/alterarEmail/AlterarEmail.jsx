@@ -4,6 +4,7 @@ import {Link} from 'react-router-dom'
 import setaEsquerda from '../images/setaEsquerda.svg'
 import FormularioTrocaDeEmail from '../../../../../ui/components/trocaDeEmail/FormularioTrocaDeEmail'
 import UserContext from '../../../../../data/hooks/context/UserContext'
+import FotoPerfil from '../../../../../ui/components/global/FotoPerfil/FotoPerfil'
 
 const AlterarEmail = () => {
 
@@ -18,7 +19,7 @@ const AlterarEmail = () => {
             <img src={setaEsquerda} alt="" />
           </Link>
             <p className='sobre'>SUA CONTA - ALTERAR E-MAIL</p>
-            <div className='tituloEFoto__cardFoto'></div>
+            <FotoPerfil/>
         </div>
 
         <div className='containerAlterarEmail_main'>

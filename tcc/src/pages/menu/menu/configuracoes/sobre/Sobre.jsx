@@ -2,6 +2,7 @@ import React from 'react'
 import './styleSobre.css'
 import setaEsquerda from '../images/setaEsquerda.svg'
 import {Link} from 'react-router-dom'
+import FotoPerfil from '../../../../../ui/components/global/FotoPerfil/FotoPerfil'
 
 const Sobre = () => {
   return (
@@ -14,7 +15,7 @@ const Sobre = () => {
           <img src={setaEsquerda} alt="" />
         </Link>
           <p className='sobre'>SOBRE</p>
-          <div className='tituloEFoto__cardFoto'></div>
+          <FotoPerfil/>
 
       </div>
 

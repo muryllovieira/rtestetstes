@@ -3,6 +3,7 @@ import './styleSuaConta.css'
 import setaEsquerda from '../images/setaEsquerda.svg'
 import setaDireita from '../images/setaDireita.png'
 import {Link} from 'react-router-dom'
+import FotoPerfil from '../../../../../ui/components/global/FotoPerfil/FotoPerfil'
 
 const SuaConta = () => {
   return (
@@ -14,7 +15,7 @@ const SuaConta = () => {
             <img src={setaEsquerda} alt="" />
           </Link>
             <p className='sobre'>AJUDA E SUPORTE</p>
-            <div className='tituloEFoto__cardFoto'></div>
+            <FotoPerfil/>
         </div>
 
         <div className='containerSuaConta_main'>

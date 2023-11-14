@@ -3,6 +3,7 @@ import './styleConfiguracoes.css'
 import setaDireita from './images/setaDireita.png'
 import exit from './images/exit.png'
 import {Link} from 'react-router-dom'
+import FotoPerfil from '../../../../ui/components/global/FotoPerfil/FotoPerfil'
 
 function Configuracoes() {
   return (
@@ -14,7 +15,7 @@ function Configuracoes() {
           <p>
             Configuracoes
           </p>
-        <div className='tituloEFoto__cardFoto'></div>
+        <FotoPerfil/>
         </div>
 
         <div className='containerConfiguracoes_main'>
@@ -58,14 +59,17 @@ function Configuracoes() {
     </div>
   </div>
 
-    <div className='containerConfiguracoes_footer'>
-      <div className='botoesConfiguracao'>
-        <div className='textos'>
-          <h1 className='titulo_sair'>SAIR</h1>
-          <img src={exit} alt="" />
+      <Link to={"/"}>
+        <div className='containerConfiguracoes_footer'>
+          <div className='botoesConfiguracao'>
+            <div className='textos'>
+              <h1 className='titulo_sair'>SAIR</h1>
+              <img src={exit} alt="" />
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
+      </Link>
+
 </div>
     </>
   )

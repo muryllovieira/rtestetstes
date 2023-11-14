@@ -31,6 +31,11 @@
     background: var(--Principal-2, #FCF6FF);
     box-shadow: 0px 4px 20px 0px rgba(65, 57, 70, 0.20);
     border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: end;
+    gap: 20px;
 }
 
 .container_header{
@@ -68,4 +73,106 @@
 .menu{
     transform: rotate(90deg);
     padding-left: 5px;
+}
+
+.containerChat_footer{
+    width: 95%;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    padding-bottom: 20px;
+    gap: 20px;
+}
+
+.inputMensagem{
+    width: 95%;
+    height: 50px;
+    border-radius: 10px;
+    background: rgba(168, 155, 255, 0.20);
+    padding: 10px;
+}
+
+.inputMensagem::placeholder{
+    color: rgba(65, 57, 70, 0.60);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.containerMensagens{
+    display: flex;
+    flex-direction: column;
+    width: 95%;
+    height: 85%;
+    align-items: center;
+    flex-wrap: wrap;
+    overflow: hidden;
+    overflow-y: scroll;
+}
+
+.linhaMensagem_enviada{
+    padding-top: 10px;
+    width: 95%;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+}
+
+.linhaMensagem_recebida{
+    padding-top: 10px;
+    width: 95%;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: end;
+    flex-wrap: wrap;
+}
+
+.cardMensagem_enviada{
+    display: flex;
+    flex-direction: row;
+    width: auto;
+    height: auto;
+    padding: 1px 10px;
+    justify-content: end;
+    align-items: flex-end;
+    border-radius: 5px;
+    background: #413946;
+}
+
+.cardMensagem_recebida{
+    display: flex;
+    flex-direction: row;
+    width: auto;
+    height: auto;
+    padding: 1px 10px;
+    justify-content: end;
+    align-items: flex-end;
+    border-radius: 5px;
+    background: rgba(168, 155, 255, 0.50);
+}
+
+.cardMensagem_recebida p{
+    color: #413946;
+}
+
+.textoCard{
+    color: #FCF6FF;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.horas{
+    color: #FCF6FF;
+    font-size: 9px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    padding-left: 10px;
+    padding-bottom: 5px;
 }

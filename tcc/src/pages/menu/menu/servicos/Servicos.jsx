@@ -5,6 +5,7 @@ import UserContext from '../../../../data/hooks/context/UserContext'
 import blogFetch from '../../../../data/services/api/ApiService'
 import { useNavigate } from 'react-router-dom'
 import { Outlet } from 'react-router-dom'
+import FotoPerfil from '../../../../ui/components/global/FotoPerfil/FotoPerfil'
 
 function Servicos() {
 
@@ -89,7 +90,7 @@ function Servicos() {
             ></InputGlobal>
           </div>
 
-          <div className='containerServicos__cardFoto'></div>
+          <FotoPerfil/>
 
         </div>
 

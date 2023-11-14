@@ -5,6 +5,7 @@ import blogFetch from '../../../../data/services/api/ApiService'
 import UserContext from '../../../../data/hooks/context/UserContext'
 import ModalPublicacaoExplorar from '../../../../ui/components/menu/explorar/ModalPublicacaoExplorar/ModalPublicacaoExplorar'
 import CardPublicacaoExplorar from '../../../../ui/components/menu/explorar/CardPublicacaoExplorar/CardPublicacaoExplorar'
+import FotoPerfil from '../../../../ui/components/global/FotoPerfil/FotoPerfil'
 
 function Explorar() {
 
@@ -69,7 +70,7 @@ function Explorar() {
             EXPLORAR
           </p>
 
-          <div className='tituloEFoto__cardFoto'></div>
+          <FotoPerfil/>
 
         </div>
 

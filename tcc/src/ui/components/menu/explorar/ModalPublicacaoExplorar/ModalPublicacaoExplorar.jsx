@@ -79,6 +79,10 @@ const ModalPublicacaoExplorar = ({ isOpen, setModalOpen, accessToken, idPublicac
     console.log(comentar)
   }, [comentar])
 
+  useEffect(() => {
+    console.log(comentario)
+  }, [comentario])
+
   const pegarTags = async () => {
     try {
       const response = await blogFetch.get('/tag', {
@@ -133,7 +137,6 @@ const ModalPublicacaoExplorar = ({ isOpen, setModalOpen, accessToken, idPublicac
   useEffect(() => {
     pegarTags()
   }, [])
-
 
 
   useEffect(() => {
@@ -303,15 +306,15 @@ const ModalPublicacaoExplorar = ({ isOpen, setModalOpen, accessToken, idPublicac
                 </div>
               </div>
 
-              <div className='setor02_main'>
+              <div className='containerDadosPublicacaoExplorar__listaDadosPublicacaoExplorar'>
 
                 {
                   dadosPublicacao === undefined ? (
                     <p className='carregandoPublicacao'>Carregando...</p>
                   ) : (
-                    <div className='titulo_descricao'>
-                      <h1 className='titulo'>{dadosPublicacao.publicacao.titulo}</h1>
-                      <p className='descricao'>{dadosPublicacao.publicacao.descricao}</p>
+                    <div className='listaDadosPublicacaoExplorar__textoPublicacaoExplorar'>
+                      <p className='listaDadosPublicacaoExplorar__tituloPublicacaoExplorar'>{dadosPublicacao.publicacao.titulo}</p>
+                      <p className='listaDadosPublicacaoExplorar__descricaoPublicacaoExplorar'>{dadosPublicacao.publicacao.descricao}</p>
                     </div>
                   )
                 }
@@ -331,6 +334,11 @@ const ModalPublicacaoExplorar = ({ isOpen, setModalOpen, accessToken, idPublicac
                           idUsuarioComentario={item.id_usuario}
                           mensagemComentario={item.mensagem}
                           nomeUsuario={item.usuario.nome_de_usuario}
+                          idComentario={item.id}
+                          accessToken={accessToken}
+                          pegarComentarios={() => {
+                            pegarComentarios()
+                          }}
                           key={item.id}
                         ></ComentarioPublicacaoExplorar>
 

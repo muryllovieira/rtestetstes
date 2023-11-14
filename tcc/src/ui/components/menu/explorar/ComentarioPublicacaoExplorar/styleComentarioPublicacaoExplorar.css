@@ -2,14 +2,70 @@
     width: 100%;
     height: 20%;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.comentarioPublicacaoExplorarExpandido {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    align-items: flex-start;
     justify-content: space-between;
 }
 
 .comentarioExplorar__containerDados {
     display: flex;
+    justify-content: flex-start;
     align-items: flex-start;
     gap: 16px;
+}
+
+.containerDados__containerTextosExplorar {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    height: 150px;
+}
+
+.nomeUsuarioComentario {
+  font-size: 1rem;
+  font-weight: 500;
+  position: relative;
+  top: -15px;
+}
+
+.mensagemComentario {
+    font-size: 1rem;
+    font-weight: 300;
+    position: relative;
+    top: -30px;
+    max-width: 700px;
+    inline-size: 600px;
+    overflow-wrap: break-word;
+    flex-wrap: wrap;
+}
+
+.mensagemComentarioReduzido {
+    font-size: 1rem;
+    font-weight: 300;
+    position: relative;
+    top: -30px;
+    inline-size: 600px;
+    height: 20px;
+}
+
+.botaoVerMaisComentarioExplorar {
+    cursor: pointer;
+    font-weight: 500;
+    color: #A09CA2;
+}
+
+.botaoVerMenosComentarioExplorar {
+    cursor: pointer;
+    font-weight: 500;
+    color: #A09CA2;
 }
 
 .fotoPerfilUsuario {
@@ -24,6 +80,9 @@
     font-size: 0.75rem;
     font-style: normal;
     font-weight: 400;
+    position: relative;
+    top: -30px;
+    cursor: pointer;
 }
 
 .botaoOpcoesComentario {
@@ -31,7 +90,15 @@
 }
 
 .comentarioPublicacaoExplorar:hover .botaoOpcoesComentario {
-    display: initial;
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    left: -15px;
+    top: 10px;
+    height: 20px;
+    width: 20px;
 }
 
 .botaoOpcoesComentarioShow {

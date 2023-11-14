@@ -2,40 +2,81 @@ import React, { useState, useEffect } from 'react'
 import './styleComentarioPublicacaoExplorar.css'
 import blogFetch from '../../../../../data/services/api/ApiService'
 
-function ComentarioPublicacaoExplorar({ pegarComentarios ,accessToken ,fotoUsuario, nomeUsuario, mensagemComentario, idUsuarioComentario, idUsuarioAtual, idComentario }) {
+function ComentarioPublicacaoExplorar({ pegarComentarios, accessToken, fotoUsuario, nomeUsuario, mensagemComentario, idUsuarioComentario, idUsuarioAtual, idComentario }) {
 
     const [opcoesComentario, setOpcoesComentario] = useState(false)
+
+    const [verMais, setVerMais] = useState(false)
 
     console.log(idComentario)
 
     const apagarComentario = async () => {
         try {
-          const response = await blogFetch.delete(`/comentario/${idComentario}`, {
-            headers: {
-              'x-access-token': accessToken
-            }
-          })
+            const response = await blogFetch.delete(`/comentario/${idComentario}`, {
+                headers: {
+                    'x-access-token': accessToken
+                }
+            })
 
-          pegarComentarios()
+            pegarComentarios()
 
-          console.log(response)
+            console.log(response)
         } catch (error) {
-          console.log(error)
+            console.log(error)
         }
-      }
+    }
 
     return (
         <>
-            <div className='comentarioPublicacaoExplorar'>
+            <div className={`comentarioPublicacaoExplorar ${verMais == true ? 'comentarioPublicacaoExplorarExpandido' : 'comentarioPublicacaoExplorar'}`}>
 
                 <div className='comentarioExplorar__containerDados'>
                     <img src={fotoUsuario} alt="" className="fotoPerfilUsuario" />
 
-                    <div className="containerDados__containerTextos">
+                    <div className="containerDados__containerTextosExplorar">
+
 
                         <p className="nomeUsuarioComentario">{nomeUsuario}</p>
 
-                        <p className="mensagemComentario">{mensagemComentario}</p>
+                        {
+
+                            mensagemComentario.length < 50 ? (
+
+                                <p className='mensagemComentario'>{mensagemComentario}</p>
+
+                            ) : (
+
+                                mensagemComentario.length > 50 ? (
+
+                                    // console.log({
+                                    //     tes: `S${mensagemComentario.slice(0, 50)}`
+                                    // })
+
+
+                                    verMais == false ? (
+
+                                        <p className="mensagemComentarioReduzido">{mensagemComentario.slice(0, 50)} <b onClick={() => {
+                                            setVerMais(!verMais)
+                                        }} className='botaoVerMaisComentarioExplorar'> ver mais</b> </p>
+
+                                    ) : (
+
+                                        <p className="mensagemComentario">{mensagemComentario} <b onClick={() => {
+                                            setVerMais(!verMais)
+                                        }} className='botaoVerMenosComentarioExplorar'> ver menos</b></p>
+                                    )
+
+                                ) : (
+
+                                    <p className="mensagemComentario">{mensagemComentario} </p>
+
+
+                                )
+
+                            )
+
+                        }
+
 
                         <p className="responderComentario">Responder</p>
 

@@ -9,8 +9,8 @@
 }
 
 .foto_Perfil{
-    width: 97%;
-    height: 97%;
+    width: 100%;
+    height: 100%;
     border-radius: 20px;
     border: 2px solid #C98FEC;
     object-fit: cover;

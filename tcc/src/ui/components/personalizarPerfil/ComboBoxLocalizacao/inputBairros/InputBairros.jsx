@@ -7,10 +7,12 @@ const InputBairros = ({city, onChange = () => {}}) => {
   const [bairros, setBairros] = useState([])
   
   useEffect(() => {
-    fetchBairroPorCidade(city)
+    if(city != undefined){
+      fetchBairroPorCidade(city)
       .then((data) => {
           setBairros(data)
     })
+    }
   }, [city])
 
   return (
@@ -18,15 +20,12 @@ const InputBairros = ({city, onChange = () => {}}) => {
         <select id="neighborhoods" name='neighborhood' onChange={onChange} className='inputList'>
             <option value="">Selecione um bairro...</option>
             {
-              bairros.length == 0 ? (
-                <p>Carregando</p>
-              ) : (
+              
                 bairros.map((item) => (
                      <option key={item.id} value={item.id}>
                          {item.nome}
                      </option>
                 ))
-              )
             }
         </select>
     </>

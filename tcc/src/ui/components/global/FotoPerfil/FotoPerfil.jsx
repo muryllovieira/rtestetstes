@@ -9,7 +9,7 @@ const FotoPerfil = () => {
   const {accessToken}  = useContext(UserContext)
   const {id} = useContext(UserContext)
 
-  const [user, setUser] = useState()
+  const [user, setUser] = useState(null)
 
   const getUsuario = async () => {
     const response = await blogFetch.get(`/usuario/meu_perfil/${id}`, {
@@ -23,7 +23,11 @@ const FotoPerfil = () => {
   }
 
   useEffect(() => {
+    if(id != undefined){
       getUsuario()
+    } else {
+      null
+    }
   }, [])
 
   return (
@@ -34,7 +38,7 @@ const FotoPerfil = () => {
       ) : (
         <Link to={"/menu/meu-perfil"}>
           <div className='cardFoto'>
-             {/* <img className='foto_Perfil' src={user.usuario.foto} alt="" /> */}
+             <img className='foto_Perfil' src={user.usuario.foto} alt="" />
           </div>
         </Link>
       )

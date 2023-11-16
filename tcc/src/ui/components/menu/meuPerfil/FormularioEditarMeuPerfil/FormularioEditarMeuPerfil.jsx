@@ -97,6 +97,13 @@ function FormularioEditarMeuPerfil({open, nomePerfil, tagPerfil, cidadePerfil, e
         
     }
 
+
+    //Endpoints enderecos
+
+    useEffect(() => {
+
+    })
+
     const salvarNovosDadosPerfil = async () => {
 
         const tag = formatarTags()

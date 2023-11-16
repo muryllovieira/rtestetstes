@@ -1,37 +1,81 @@
-.modal__background {
+.modalBackgroundMeuPerfil {
     position: fixed;
     top: 0;
     bottom: 0;
     left: 0;
     right: 0;
+    z-index: 1100;
+    filter: opacity(80%);
     background-color: #413946;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
-.formularioMinhaPublicacao {
+.formularioPublicacaoMeuPerfil {
+    position: fixed;
+    top: 10%;
+    left: 10%;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    width: auto;
-    height: 90%;
+    height: 80vh;
+    width: 80vw;
     gap: 25px;
-    padding-bottom: 50px;
-    z-index: 1000;
+    z-index: 1200;
 }
 
-.containerEditarPublicacao {
+.formularioPublicacaoMeuPerfil__containerImagensPublicacaoMeuPerfil {
+    width: 50%;
+    height: 100%;
+    padding: 24px;
+    border-radius: 30px;
+    background-color: var(--default-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.containerEditarPublicacaoMeuPerfil {
+    position: fixed;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    width: auto;
-    height: 90%;
-    gap: 25px;
-    padding-bottom: 50px;
-    z-index: 1000;
+    width: 80vw;
+    height: 80vh;
+    top: 10%;
+    left: 10%;
+    gap: 24px;
+    z-index: 1200;
+}
+
+.containerImagensPublicacaoMeuPerfil__itemVoltar {
+    display: flex;
+    width: 70px;
+    height: 70px;
+    align-items: center;
+    justify-content: flex-start;
+    border-radius: 10px;
+}
+
+.setaVoltarPublicacaoMeuPerfil {
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+
+.containerImagensPublicacaoMeuPerfil__itemVoltar:hover {
+    background-color: #f7e7ff;
+}
+
+.formularioPublicacaoMeuPerfil__containerDadosPublicacaoMeuPerfil {
+    background-color: var(--default-color);
+    width: 50%;
+    height: 100%;
+    border-radius: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
 }
 
 .containerEditarPublicacao__containerImagens {
@@ -46,16 +90,32 @@
     gap: 30px;
 }
 
-.setor_01 {
-    background-color: var(--default-color);
+.containerDadosPublicacaoMeuPerfil__cardUsuarioPublicacaoMeuPerfil {
+    width: 100%;
+    height: 10%;
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 40vw;
-    height: 80vh;
-    border-radius: 25px;
-    gap: 30px;
+}
+
+.cardUsuarioPublicacaoMeuPerfil {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px;
+    width: 80%;
+    height: 100%;
+    background-color: var(--default-color);
+    box-shadow: 0px 0px 20px 0px rgba(65, 57, 70, 0.10);
+    border-radius: 20px;
+}
+
+.cardUsuarioPublicacaoMeuPerfil__containerDadosUsuarioPublicacao {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 24px;
 }
 
 .containerImagens {
@@ -68,42 +128,40 @@
     height: 100%;
 }
 
-.setor01_header {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: start;
-    padding-left: 24px;
-    width: 100%;
+.fotoUsuarioPublicacaoMeuPerfil {
+    border-radius: 10px;
+    width: 60px;
+    height: 60px;
+    box-shadow: 4px 3px #A89BFF;
+    object-fit: cover;
 }
 
-.setaVoltar {
-    width: 50px;
-    height: 50px;
-    background-color: #413946;
+.nomeUsuarioPublicacaoMeuPerfil {
+    color: var(--contrast-color);
+    font-size: 1.25rem;
+    text-align: center;
+    font-weight: 400;
+}
+
+
+.cardUsuarioPublicacaoMeuPerfil__menuOpcoesPublicacaoMeuPerfil {
     cursor: pointer;
-}
-
-.setor01_main {
+    width: 40px;
+    height: 40px;
     display: flex;
-    flex-direction: row;
     align-items: center;
     justify-content: center;
-    width: 100%;
-    height: 45vh;
 }
 
-
-.setor01_footer {
+.cardUsuarioPublicacaoMeuPerfil__menuOpcoesPublicacaoMeuPerfil:hover {
+    width: 40px;
+    height: 40px;
+    background-color: #dedddd;
+    border-radius: 10px;
     display: flex;
-    flex-direction: row;
     align-items: center;
     justify-content: center;
-    width: 100%;
-    height: 5vh;
-    gap: 10vh;
 }
-
 
 .containerEditarPublicacao__containerFormulario {
     background-color: var(--default-color);
@@ -118,12 +176,58 @@
     gap: 2vh;
 }
 
+.cardUsuarioPublicacaoMeuPerfil__menuOpcoesPublicacaoMeuPerfilAtivada {
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #dedddd;
+    border-radius: 10px;
+}
+
+.containerDadosPublicacaoMeuPerfil__listaDadosPublicacaoMeuPerfil {
+    display: flex;
+    flex-direction: column;
+    height: 60%;
+    width: 80%;
+    justify-content: space-between;
+    gap: 32px;
+}
+
 .containerEditarTags {
     width: 100%;
     height: 30%;
     display: flex;
     flex-direction: column;
     color: var(--contrast-color);
+}
+
+.listaDadosPublicacaoMeuPerfil__textoPublicacaoMeuPerfil {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    max-height: 50%;
+}
+
+.listaDadosPublicacaoMeuPerfil__tituloPublicacaoMeuPerfil {
+    color: var(--secundary-color);
+    font-size: 1.5rem;
+}
+
+.listaDadosPublicacaoMeuPerfil__descricaoPublicacaoMeuPerfil {
+    width: 100%;
+    height: max-content;
+}
+
+.containerDadosPublicacaoMeuPerfil__campoInserirComentario {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    justify-content: space-around;
 }
 
 .containerFormulario {
@@ -134,6 +238,23 @@
     align-items: center;
     gap: 24px;
     padding: 16px;
+}
+
+.iconeInserirComentario {
+    height: 40px;
+    width: 40px;
+}
+
+.modalOpcoesPublicacaoMeuPerfil {
+    background-color: var(--default-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 20%;
+    border-radius: 20px;
+    box-shadow: 0px 4px 20px 0px rgba(65, 57, 70, 0.25);
 }
 
 .containerTagsEditarPublicacao {
@@ -156,174 +277,73 @@
     overflow-y: scroll;
 }
 
-.setor_02 {
-    background-color: var(--default-color);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 40vw;
-    height: 80vh;
-    border-radius: 25px;
-    gap: 2vh;
-}
 
-.setor02_header {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
+
+.opcaoExcluirPublicacaoMeuPerfil {
     width: 100%;
-    height: auto;
+    padding: 12px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
 }
 
-.card {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: start;
-    width: 90%;
-    height: 100px;
-    border-radius: 10px;
-    gap: 40vh;
-    background-color: var(--default-color);
-    box-shadow: var(--default-shadow);
-    padding-left: 20px;
-}
-
-.perfil_container {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 20px;
-}
-
-.foto_perfil {
-    width: 70px;
-    height: 70px;
-    border-radius: 10px;
-    border: 2px solid var(--secundary-color);
-}
-
-.nome_perfil {
-    color: black;
-    font-size: 1.5rem;
-}
-
-
-.setor02_main {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-.titulo_descricao {
-    width: 89%;
-    height: auto;
-}
-
-.titulo {
-    font-size: xx-large;
-    color: black;
-}
-
-.descricao {
-    flex-wrap: wrap;
+.opcaoEditarPublicacaoMeuPerfil {
     width: 100%;
-    font-size: 1.3rem;
-    padding-left: 30px;
-    color: black;
+    padding: 12px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
 }
 
-.lista_comentarios {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: start;
-    width: 89%;
-    height: 43vh;
-    flex-wrap: wrap;
-    overflow: hidden;
-    overflow-y: auto;
-
+.opcaoExcluirPublicacaoMeuPerfil:hover {
+    background-color: #dadada;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
 }
 
-.card_comentario {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    width: 95%;
-    height: auto;
-    gap: 20px;
-}
-
-.container_textos {
-    display: block;
-    flex-direction: column;
-    align-items: flex-start;
-    align-content: stretch;
-    justify-content: flex-start;
-}
-
-.texto_comentario {
-    color: black;
-}
-
-.responder {
-    color: gray;
-    cursor: pointer;
-}
-
-.nome {
-    color: black;
-    font-size: 1.5rem;
+.opcaoEditarPublicacaoMeuPerfil:hover {
+    background-color: #dadada;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
 }
 
 
-.setor02_footer {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    width: 90%;
-    height: auto;
-    gap: 3vh;
-}
-
-
-
-.modalOpcoesPublicacao {
-    background-color: var(--default-color);
-    position: fixed;
-    z-index: 1000;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    background-color: var(--default-color);
-    box-shadow: 0px 4px 20px 0px rgba(65, 57, 70, 0.25);
+.opcaoDenunciarPublicacaoMeuPerfil {
+    width: 100%;
+    padding: 12px;
     border-radius: 20px;
-
 }
 
-.textoExcluirPublicacao {
-    color: var(--contrast-color);
+.opcaoDenunciarPublicacaoMeuPerfil:hover {
+    background-color: #dadada;
 }
 
-.opcaoExcluir {
+.opcaoDenunciar {
     width: 100%;
     padding: 16px;
     cursor: pointer;
 }
 
-.opcaoExcluir:hover {
+.opcaoDenunciar:hover {
     background-color: #c2c2c2;
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
 }
 
-.textoEditarPublicacao {
+.textoDenunciarPublicacaoMeuPerfil {
+    color: var(--contrast-color);
+}
+
+.listaComentarioMeuPerfil {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    overflow-y: auto;
+}
+
+.textoEditarPublicacaoMeuPerfil {
     color: var(--contrast-color);
 }
 
@@ -347,6 +367,10 @@
     color: var(--contrast-color);
 }
 
+.textoExcluirPublicacaoMeuPerfil {
+    color: var(--contrast-color);
+}
+
 .containerFormulario__iconeSalvarPublicacaoMeuPerfil {
     height: 100px;
     width: 100%;
@@ -365,3 +389,4 @@
     border-radius: 10px;
     cursor: pointer;
 }
+

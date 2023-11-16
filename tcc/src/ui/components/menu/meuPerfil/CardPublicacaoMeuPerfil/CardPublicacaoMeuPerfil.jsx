@@ -14,6 +14,8 @@ function CardPublicacaoMeuPerfil({ idUsuario, idPublicacao, nomePublicacao, desc
 
   const [anexo, setAnexo] = useState([])
 
+  const [usuario, setUsuario] = useState()
+
   const listarAnexosPublicacao = () => {
 
     const listaAnexos = []
@@ -61,15 +63,22 @@ function CardPublicacaoMeuPerfil({ idUsuario, idPublicacao, nomePublicacao, desc
           <p>Carregando...</p>
         ) : (
           <ModalMinhaPublicacao
+
             idUsuario={idUsuario}
-            dadosPublicacao={publicacao}
             idPublicacao={idPublicacao}
+
+            anexosPublicacao={anexo}
+            dadosPublicacao={publicacao}
+
             accessToken={accessToken}
             isOpen={openModal}
             setModalOpen={setOpenModal}
+            
+            
             tituloPublicacao={nomePublicacao}
             descricaoPublicacao={descricaoPublicacao}
-            anexosPublicacao={anexo}
+            
+            usuarioPublicacao={usuario}
           />
         )
       }

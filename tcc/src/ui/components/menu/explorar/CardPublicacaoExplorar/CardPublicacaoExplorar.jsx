@@ -6,118 +6,123 @@ import blogFetch from '../../../../../data/services/api/ApiService'
 
 function CardPublicacaoExplorar({ idUsuario, idPublicacao, nomePublicacao, descricaoPublicacao, accessToken, fotoPublicacao, anexosPublicacao }) {
 
-    const [openModal, setOpenModal] = useState(false)
-    const [anexo, setAnexo] = useState([])
-    const [publicacao, setPublicacao] = useState()
+  const [openModal, setOpenModal] = useState(false)
+  const [anexo, setAnexo] = useState([])
+  const [publicacao, setPublicacao] = useState()
 
-    const [ usuario, setUsuario ] = useState()
+  const [usuario, setUsuario] = useState()
 
-    useEffect(() => {
-        console.log(publicacao)
-    }, [publicacao])
+  useEffect(() => {
+    console.log(publicacao)
+  }, [publicacao])
 
-    const listarAnexosPublicacao = () => {
+  const listarAnexosPublicacao = () => {
 
-        const listaAnexos = []
+    const listaAnexos = []
 
-        anexosPublicacao.map((anexo, indice) => {
-            listaAnexos.push(anexo.anexo)
-        })
+    anexosPublicacao.map((anexo, indice) => {
+      listaAnexos.push(anexo.anexo)
+    })
 
-        return listaAnexos
+    return listaAnexos
+  }
+
+  useEffect(() => {
+
+    const lista = listarAnexosPublicacao()
+
+    if (lista.length == 0) {
+      return false
+    } else {
+      setAnexo(lista)
     }
 
-    useEffect(() => {
+  }, [anexosPublicacao])
 
-        const lista = listarAnexosPublicacao()
+  // useEffect(() => {
+  //   pegarUsuario()
+  // }, [publicacao])
 
-        if (lista.length == 0) {
-            return false
-        } else {
-            setAnexo(lista)
+  const pegarPublicacao = async () => {
+    try {
+      const response = await blogFetch.get(`/publicacao/select_by_id/${idPublicacao}`, {
+        headers: {
+          'x-access-token': accessToken
         }
+      })
 
-    }, [anexosPublicacao])
-
-    // useEffect(() => {
-    //   pegarUsuario()
-    // }, [publicacao])
-
-    const pegarPublicacao = async () => {
-        try {
-          const response = await blogFetch.get(`/publicacao/select_by_id/${idPublicacao}`, {
-            headers: {
-              'x-access-token': accessToken
-            }
-          })
-    
-          setPublicacao(response.data)
-          console.log(response)
-        } catch (error) {
-          console.log(error)
-        }
+      setPublicacao(response.data)
+      console.log(response)
+    } catch (error) {
+      console.log(error)
     }
+  }
 
-    // const pegarUsuario = async () => {
-    //   try {
-    //     const response = await blogFetch.get(`/usuario/meu_perfil/${idUsuario}`, {
-    //       headers: {
-    //         'x-access-token': accessToken
-    //       }
-    //     })
+  // const pegarUsuario = async () => {
+  //   try {
+  //     const response = await blogFetch.get(`/usuario/meu_perfil/${idUsuario}`, {
+  //       headers: {
+  //         'x-access-token': accessToken
+  //       }
+  //     })
 
-    //     console.log(response)
-    //     setUsuario(response.data)
+  //     console.log(response)
+  //     setUsuario(response.data)
 
-    //   } catch (error) {
+  //   } catch (error) {
 
-    //     console.log(response)
+  //     console.log(response)
 
-    //   }
-    // }
+  //   }
+  // }
 
-    return (
-        <>
+  return (
+    <>
       {
         anexo.length == 0 ? (
           <p>Carregando...</p>
         ) : (
           <ModalPublicacaoExplorar
-            idPublicacao={idPublicacao}
+            
             idUsuario={idUsuario}
+            idPublicacao={idPublicacao}
+
             anexosPublicacao={anexo}
+            dadosPublicacao={publicacao}
+
             accessToken={accessToken}
-            dadosPublicacao={publicacao} 
             isOpen={openModal}
             setModalOpen={setOpenModal}
+            
             descricaoPublicacao={descricaoPublicacao}
             tituloPublicacao={nomePublicacao}
+            
             usuarioPublicacao={usuario}
           ></ModalPublicacaoExplorar>
         )
       }
 
-      <div key={idPublicacao} className="cardPublicacao" onClick={() => {
+      <div key={idPublicacao} className="cardPublicacaoExplorar" onClick={() => {
         setOpenModal(!openModal)
         pegarPublicacao()
       }}>
 
-        <div className='cardPublicacaoMeuPerfil__containerImagem'>
-          <img className='containerImagem__imagemPublicacao' src={fotoPublicacao} alt="" />
+        <div className='cardPublicacaoExplorar__containerImagem'>
+          <img className='containerImagemExplorar__imagemPublicacaoExplorar' src={fotoPublicacao} alt="" />
         </div>
 
 
-        <p className='cardPublicacaoMeuPerfil__tituloPublicacao'>
-          {nomePublicacao}
-        </p>
+        <div>
+          <p className='cardPublicacaoMeuExplorar__tituloPublicacao'>
+            {nomePublicacao}
+          </p>
 
-        <p className='cardPublicacaoMeuPerfil__descricaoUsuario'>
-          {descricaoPublicacao}
-        </p>
+          
+        </div>
 
       </div>
     </>
-    )
+  )
 }
 
 export default CardPublicacaoExplorar

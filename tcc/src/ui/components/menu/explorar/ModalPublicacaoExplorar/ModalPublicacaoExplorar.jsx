@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import UserContext from '../../../../../data/hooks/context/UserContext'
 import './styleModalPublicacaoExplorar.css'
 import './product-image-slider.scss'
@@ -21,13 +21,12 @@ import blogFetch from '../../../../../data/services/api/ApiService'
 
 import Fechar from './images/fechar.svg'
 
-
 register()
 
 import 'swiper/css'
 import 'swiper/css/navigation'
+import 'swiper/css/pagination'
 import 'swiper/css/scrollbar'
-import { useEffect } from 'react'
 
 const ModalPublicacaoExplorar = ({ isOpen, setModalOpen, accessToken, idPublicacao, dadosPublicacao, idUsuario, tituloPublicacao, descricaoPublicacao, anexosPublicacao, usuarioPublicacao }) => {
 
@@ -37,21 +36,346 @@ const ModalPublicacaoExplorar = ({ isOpen, setModalOpen, accessToken, idPublicac
 
   const swiper = useSwiper()
 
+
   const [firstSwiper, setFirstSwiper] = useState(null)
   const [secondSwiper, setSecondSwiper] = useState(null)
 
-  const [comentar, setComentar] = useState('')
-
+  
   const [opcoes, setOpcoes] = useState(false)
-  const [opcoesComentario, setOpcoesComentario] = useState(false)
   const [value, setValue] = useState(0)
   const [editar, setEditar] = useState(false)
 
-  const [comentario, setComentario] = useState()
+  const [opcoesComentario, setOpcoesComentario] = useState(false)
+
+  const [imageURL, setImageURL] = useState(anexosPublicacao)
+  const [images, setImage] = useState([])
 
   const [tags, setTags] = useState([])
+  const [tagsSelecionadas, setTagsSelecionadas] = useState([])
 
-  console.log(usuarioPublicacao)
+  const [titulo, setTitulo] = useState(tituloPublicacao)
+  const [descricao, setDescricao] = useState(descricaoPublicacao)
+
+  const [comentar, setComentar] = useState('')
+  const [comentario, setComentario] = useState()
+
+  const [clique, setClique] = useState(false)
+
+  function onImageChange(e) {
+    setImage([...e.target.files])
+  }
+
+  useEffect(() => {
+    if (images.length < 1) return
+
+    const newImageUrl = [...imageURL]
+
+    images.forEach(image => newImageUrl.push(
+      URL.createObjectURL(image)
+    ))
+
+    setImageURL(newImageUrl)
+
+  }, [images])
+
+  const salvarFoto = async () => {
+
+    if (images !== undefined && images !== null && images[0] !== undefined && images[0] !== null && images.length != 0) {
+
+      try {
+
+        const arrayPromiseImagesResponse = images.map(async (item, indice) => {
+
+          const responseImgList = await uploadImage(item, item.name)
+
+          return await responseImgList
+        })
+
+        const arrayImagesResponse = await Promise.all(arrayPromiseImagesResponse)
+
+        return arrayImagesResponse
+
+      } catch (error) {
+        console.log(error)
+      }
+
+      return arrayImagesResponse
+    } else {
+      return false
+    }
+
+  }
+
+  // Edição de tags
+
+  const listarTagsDaPublicacao = () => {
+
+    const listaTagsPublicacao = []
+
+    if (dadosPublicacao === undefined) {
+      return false
+    } else {
+      dadosPublicacao.publicacao.tags.map((item, index) => {
+        tags.map((tag, indice) => {
+
+          if (item.id_tag == tag.id_tag) {
+
+
+            listaTagsPublicacao.push({
+              id_tag: item.id_tag,
+              nome: item.nome,
+              id_categoria: item.id_categoria,
+              imagem: item.imagem,
+              nome_categoria: item.nome_categoria,
+              selecao: true
+            })
+
+
+          }
+        })
+      })
+
+
+      return listaTagsPublicacao
+    }
+
+
+  }
+
+  const adicionarTagsComSelecao = () => {
+
+    const listaTagsPublicacao = listarTagsDaPublicacao()
+
+    if (listaTagsPublicacao == false) {
+      console.log('as')
+    } else {
+
+      const letTags = [...tags]
+
+      const letTagsSelecionadas = [...tagsSelecionadas]
+
+
+      letTags.map((letTag, letIndex) => {
+        listaTagsPublicacao.map((item, indice) => {
+          if (letTag.id_tag == item.id_tag) {
+
+            letTags.splice(letIndex, 1)
+
+            letTags.unshift(item)
+
+            letTagsSelecionadas.push({
+              id_tag: item.id_tag
+            })
+
+          }
+        })
+      })
+
+
+      setTagsSelecionadas(letTagsSelecionadas)
+
+      setTags(letTags)
+
+    }
+
+  }
+
+  const pegarTagsSelecionadasListaTagsAlterada = () => {
+
+    const listaTags = []
+
+    tags.map((tag, index) => {
+      tagsSelecionadas.map((item, indice) => {
+
+        if (item.novo == true && tag.id_tag == item.id_tag) {
+          listaTags.push(item)
+        }
+
+      })
+    })
+
+    return listaTags
+  }
+
+  const removerTagsListaTagsListaSelecionadas = () => {
+
+    const listaTagsSelecionadasAlteradas = pegarTagsSelecionadasListaTagsAlterada()
+
+    const listaTagsRemovidas = []
+
+    if (listaTagsSelecionadasAlteradas.length == 0) {
+
+      return false
+
+    } else {
+
+      listaTagsSelecionadasAlteradas.map((tagSel, indexSel) => {
+        tags.map((tag, index) => {
+          tagsSelecionadas.map((item, indice) => {
+            if (tagSel.id_tag == item.id_tag) {
+
+              tagsSelecionadas.splice(indice, 1)
+
+              tags.splice(index, 1)
+
+              listaTagsRemovidas.push({
+                id_categoria: tag.id_categoria,
+                id_tag: tag.id_tag,
+                imagem: tag.imagem,
+                nome: tag.nome,
+                nome_categoria: tag.nome_categoria
+              })
+
+            }
+          })
+        })
+      })
+
+      return listaTagsRemovidas
+    }
+
+  }
+
+  const adicionarTagsSemAlteracaoListaTags = () => {
+
+    const listaTagsRemovidas = removerTagsListaTagsListaSelecionadas()
+
+    if (listaTagsRemovidas == false) {
+      return false
+    } else {
+      listaTagsRemovidas.map((tagRemovida, indice) => {
+        tags.push(tagRemovida)
+      })
+
+      return true
+    }
+  }
+
+  const alterarTagsSelecionadas = () => {
+
+    const tagsSelecionadasAlteradas = []
+
+    tagsSelecionadas.map((tag, indice) => {
+      tagsSelecionadasAlteradas.push({
+        id_tag: tag.id_tag
+      })
+    })
+
+    return tagsSelecionadasAlteradas
+  }
+
+  useEffect(() => {
+
+    const listaTagsInalterada = adicionarTagsSemAlteracaoListaTags()
+
+    if (listaTagsInalterada == false) {
+      console.log('deu erro')
+    } else {
+      console.log('deu certo')
+    }
+
+  }, [clique])
+
+  useEffect(() => {
+
+    adicionarTagsComSelecao()
+
+  }, [dadosPublicacao])
+
+  //
+
+  // Crud Publicação
+
+  const listarAnexosPublicacao = () => {
+
+    const listaAnexos = []
+
+    if (anexosPublicacao.length == 0) {
+      return false
+    } else {
+      anexosPublicacao.map((item) => {
+        listaAnexos.push({
+          conteudo: item
+        })
+      })
+    }
+
+    return listaAnexos
+
+  }
+
+
+  const apagarPublicacao = async (id) => {
+    try {
+      const response = await blogFetch.delete(`/publicacao/${id}`, {
+        headers: {
+          'x-access-token': accessToken
+        }
+      })
+      navigate('/menu/explorar')
+      console.log(response.data)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const editarPublicacao = async () => {
+
+    const tagsAlteradas = alterarTagsSelecionadas()
+
+    const listaAnexos = listarAnexosPublicacao()
+
+    const arrayImagesUrl = [...listaAnexos]
+
+    if (listaAnexos == false) {
+      console.log('erro')
+    } else {
+      const foto = await salvarFoto()
+
+      if (foto != false) {
+
+        foto.map((item) => {
+          arrayImagesUrl.push({
+            conteudo: item
+          })
+
+        })
+
+      }
+    }
+
+
+    if (titulo != '' && descricao != '' && tagsAlteradas.length != 0 && arrayImagesUrl.length != 0) {
+
+
+      try {
+        const response = await blogFetch.put('/publicacao/editar_publicacao', {
+          id_publicacao: idPublicacao,
+          id_usuario: idUsuario,
+          titulo: titulo,
+          descricao: descricao,
+          tags: tagsAlteradas,
+          anexos: arrayImagesUrl
+        },
+          {
+            headers: {
+              'x-access-token': accessToken
+            }
+          }
+        )
+
+        console.log(response)
+
+      } catch (error) {
+        console.log(error)
+      }
+
+    } else {
+      console.log('Dados obrigatórios não foram preenchidos!')
+    }
+  }
+
+  //
 
   const setListLenght = () => {
 
@@ -60,11 +384,8 @@ const ModalPublicacaoExplorar = ({ isOpen, setModalOpen, accessToken, idPublicac
     } else {
       if (dadosPublicacao.publicacao.anexos.length >= 4) {
         setValue(4)
-
       } else {
-
         setValue(dadosPublicacao.publicacao.anexos.length)
-
       }
     }
 
@@ -156,10 +477,11 @@ const ModalPublicacaoExplorar = ({ isOpen, setModalOpen, accessToken, idPublicac
 
   if (isOpen) {
     return (
-      <>
+      editar === false ? (
+        <>
         <div>
 
-          <div className='modalBackground'></div>
+          <div className='modalBackgroundExplorar'></div>
 
           <div className='formularioPublicacaoExplorar'>
 
@@ -396,6 +718,189 @@ const ModalPublicacaoExplorar = ({ isOpen, setModalOpen, accessToken, idPublicac
           </div>
         </div>
       </>
+      ) : (
+        <>
+          <div>
+
+            <div className='modalBackgroundExplorar'></div>
+
+            <div className='containerEditarPublicacaoExplorar'>
+
+              <div className='containerEditarPublicacao__containerImagens'>
+
+                <div className='containerImagens'>
+                  <img src={Fechar} alt="Voltar" className='setaVoltar' onClick={() => {
+                    setEditar(!editar)
+                    setDescricao(descricaoPublicacao)
+                    setTitulo(tituloPublicacao)
+                    setClique(!clique)
+                    setImageURL(anexosPublicacao)
+                  }
+                  } />
+                </div>
+
+                <FotoPublicacao
+                  imageURL={imageURL}
+                  func={onImageChange}
+                  setImageURL={setImageURL}
+                ></FotoPublicacao>
+
+
+              </div>
+
+              <div className='containerEditarPublicacao__containerFormulario'>
+
+                <div className='containerFormulario__iconeSalvarPublicacaoMeuPerfil'>
+                  <i onClick={() => {
+                    editarPublicacao()
+                  }} className='iconeSalvarPublicacaoMeuPerfil'>{IconObject.salvarMeuPerfil}</i>
+                </div>
+
+                <div className='containerFormulario'>
+
+
+                  {
+
+                    dadosPublicacao == undefined ? (
+                      <p>Carregando</p>
+                    ) : (
+                      <InputGlobal
+                        type={'email'}
+                        placeholder={'Título'}
+                        emailWeb={true}
+                        onChange={setTitulo}
+                        value={titulo}
+                      ></InputGlobal>
+                    )
+
+                  }
+
+
+                  {
+
+                    dadosPublicacao == undefined ? (
+                      <p>Carregando</p>
+                    ) : (
+                      <FormDescricao
+                        type={'descricao'}
+                        placeholder={'Dígite uma descrição'}
+                        onChange={setDescricao}
+                        value={descricao}
+                      ></FormDescricao>
+                    )
+
+                  }
+
+
+
+                  <div className='containerEditarTags'>
+
+                    <p className='tags'>TAGS</p>
+
+                    <div className='containerTagsEditarPublicacao'>
+
+                      <div className='tagsListEditarPublicacao'>
+                        {
+                          tags.length == 0 ? (
+                            <p>Carregando</p>
+                          ) : (
+                            tags.map((item, indice) => {
+
+                              if (item.selecao == true) {
+                                return (
+                                  <BotaoTag
+                                    text={item.nome}
+                                    key={item.id_tag}
+                                    selecao={item.selecao}
+                                    option={() => {
+                                      tags.map((tag, indice) => {
+                                        if (item.id_tag == tag.id_tag) {
+                                          tags.splice(indice, 1)
+
+                                          const letTags = [...tags]
+
+                                          letTags.push({
+                                            id_tag: item.id_tag,
+                                            nome: item.nome,
+                                            id_categoria: item.id_categoria,
+                                            imagem: item.imagem,
+                                            nome_categoria: item.nome_categoria
+                                          })
+
+                                          const letTagsSelecionadas = [...tagsSelecionadas]
+
+                                          letTagsSelecionadas.map((letItem, letIndice) => {
+                                            if (item.id_tag == letItem.id_tag) {
+                                              letTagsSelecionadas.splice(letIndice, 1)
+                                            }
+                                          })
+
+                                          setTags(letTags)
+
+                                          setTagsSelecionadas(letTagsSelecionadas)
+                                        }
+                                      })
+                                    }}
+                                  ></BotaoTag>
+                                )
+                              } else {
+                                return (
+                                  <BotaoTag
+                                    key={item.id_tag}
+                                    text={item.nome}
+                                    option={() => {
+
+
+
+                                      tags.map((tag, indice) => {
+                                        if (item.id_tag == tag.id_tag) {
+
+                                          tags.splice(indice, 1)
+
+                                          const letTags = [...tags]
+
+                                          letTags.unshift({
+                                            id_tag: item.id_tag,
+                                            nome: item.nome,
+                                            id_categoria: item.id_categoria,
+                                            imagem: item.imagem,
+                                            nome_categoria: item.nome_categoria,
+                                            selecao: true
+                                          })
+
+                                          setTags(letTags)
+
+                                          const letTagsSelecionadas = [...tagsSelecionadas]
+
+                                          letTagsSelecionadas.unshift({
+                                            id_tag: item.id_tag,
+                                            novo: true
+                                          })
+
+                                          setTagsSelecionadas(letTagsSelecionadas)
+
+                                        }
+                                      })
+
+
+                                    }}
+                                  ></BotaoTag>
+                                )
+                              }
+                            })
+                          )
+                        }
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </>
+      )
     )
   } else {
     return (

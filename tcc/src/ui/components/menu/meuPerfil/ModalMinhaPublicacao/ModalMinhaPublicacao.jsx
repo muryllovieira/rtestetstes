@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
+import UserContext from '../../../../../data/hooks/context/UserContext'
 import './styleModalMinhaPublicacao.css'
 import './product-image-slider.scss'
 import { Swiper, SwiperSlide, useSwiper } from 'swiper/react'
@@ -15,10 +16,10 @@ import BotaoTag from '../../../personalizarPerfil/BotaoTag/BotaoTag'
 import FormDescricao from '../../../personalizarPerfil/FormDescricao/formDescricao'
 import IconObject from '../../../global/IconesGlobais/iconesGlobais'
 import { uploadImage } from '../../../../../data/services/firebase/firebase'
+import ComentarioPublicacaoMeuPerfil from '../ComentarioPublicacaoMeuPerfil/ComentarioPublicacaoMeuPerfil'
 import blogFetch from '../../../../../data/services/api/ApiService'
 
 import Fechar from './images/fechar.svg'
-
 
 register()
 
@@ -26,13 +27,15 @@ import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 import 'swiper/css/scrollbar'
-import { useEffect } from 'react'
 
-const ModalMinhaPublicacao = ({ isOpen, setModalOpen, accessToken, idPublicacao, dadosPublicacao, idUsuario, tituloPublicacao, descricaoPublicacao, anexosPublicacao }) => {
+const ModalMinhaPublicacao = ({ isOpen, setModalOpen, accessToken, idPublicacao, dadosPublicacao, idUsuario, tituloPublicacao, descricaoPublicacao, anexosPublicacao, usuarioPublicacao }) => {
 
   const navigate = useNavigate()
 
+  const { id } = useContext(UserContext)
+
   const swiper = useSwiper()
+
 
   const [firstSwiper, setFirstSwiper] = useState(null)
   const [secondSwiper, setSecondSwiper] = useState(null)
@@ -41,6 +44,7 @@ const ModalMinhaPublicacao = ({ isOpen, setModalOpen, accessToken, idPublicacao,
   const [opcoes, setOpcoes] = useState(false)
   const [value, setValue] = useState(0)
   const [editar, setEditar] = useState(false)
+  const [opcoesComentario, setOpcoesComentario] = useState(false)
 
   const [imageURL, setImageURL] = useState(anexosPublicacao)
   const [images, setImage] = useState([])
@@ -50,6 +54,9 @@ const ModalMinhaPublicacao = ({ isOpen, setModalOpen, accessToken, idPublicacao,
 
   const [titulo, setTitulo] = useState(tituloPublicacao)
   const [descricao, setDescricao] = useState(descricaoPublicacao)
+
+  const [comentar, setComentar] = useState('')
+  const [comentario, setComentario] = useState()
 
   const [clique, setClique] = useState(false)
 
@@ -105,12 +112,8 @@ const ModalMinhaPublicacao = ({ isOpen, setModalOpen, accessToken, idPublicacao,
     } else {
       if (dadosPublicacao.publicacao.anexos.length >= 4) {
         setValue(4)
-        console.log('a')
       } else {
-
         setValue(dadosPublicacao.publicacao.anexos.length)
-
-        console.log('b')
       }
     }
 
@@ -312,6 +315,8 @@ const ModalMinhaPublicacao = ({ isOpen, setModalOpen, accessToken, idPublicacao,
 
   }, [dadosPublicacao])
 
+  //
+
   const listarAnexosPublicacao = () => {
 
     const listaAnexos = []
@@ -404,23 +409,89 @@ const ModalMinhaPublicacao = ({ isOpen, setModalOpen, accessToken, idPublicacao,
     setListLenght()
   }, [dadosPublicacao])
 
+  // Pegar Comentário
+
+  useEffect(() => {
+    if (isOpen == true) {
+      pegarComentarios()
+    }
+  }, [isOpen])
+
+  useEffect(() => {
+    console.log(comentar)
+  }, [comentar])
+
+  useEffect(() => {
+    console.log(comentario)
+  }, [comentario])
+
+  const pegarComentarios = async () => {
+    try {
+      const response = await blogFetch.get(`/comentario/select_by_id_publicacao/${idPublicacao}`, {
+        headers: {
+          'x-access-token': accessToken
+        }
+      })
+
+      console.log(response)
+      if (comentario == null) {
+        setComentario(response.data)
+      } else if (response.status == 404) {
+        setComentario(response.status)
+      } else {
+        setComentario(response.data)
+      }
+
+    } catch (error) {
+      if (error.response.status == 404) {
+        setComentario(error.response.status)
+      }
+    }
+  }
+
+  const adicionarComentario = async () => {
+    try {
+      const response = await blogFetch.post('/comentario/inserir', {
+        id_publicacao: idPublicacao,
+        id_usuario: idUsuario,
+        mensagem: comentar
+      }, {
+        headers: {
+          'x-access-token': accessToken
+        }
+      })
+
+      console.log(response)
+
+      setComentar('')
+      pegarComentarios()
+
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   if (isOpen) {
     return (
       editar === false ? (
         <>
-          <div className='modal__background'>
-            <div className='formularioMinhaPublicacao'>
+          <div>
 
-              <div className='setor_01'>
+            <div className='modalBackgroundMeuPerfil'></div>
 
-                <div className='setor01_header'>
-                  <img src={Fechar} alt="Voltar" className='setaVoltar' onClick={() => {
+
+            <div className='formularioPublicacaoMeuPerfil'>
+
+              <div className='formularioPublicacaoMeuPerfil__containerImagensPublicacaoMeuPerfil'>
+
+                <div className='containerImagensPublicacaoMeuPerfil__itemVoltar'>
+                  <img src={Fechar} alt="Voltar" className='setaVoltarPublicacaoMeuPerfil' onClick={() => {
                     setModalOpen(!isOpen)
                   }
                   } />
                 </div>
 
-                <div className='setor01_main'>
+                <div className='containerImagensPublicacaoMeuPerfil__listaImagensPublicacaoMeuPerfil'>
                   <Swiper
                     slidesPerView={1}
                     navigation
@@ -453,7 +524,7 @@ const ModalMinhaPublicacao = ({ isOpen, setModalOpen, accessToken, idPublicacao,
 
 
 
-                <div className='setor01_footer'>
+                <div className='containerImagensPublicacaoExplorar__botoesPublicacaoExplorar'>
                   <BotaoAncoraGlobal
                     titulo={'Dar Ponto'}
                   ></BotaoAncoraGlobal>
@@ -464,49 +535,112 @@ const ModalMinhaPublicacao = ({ isOpen, setModalOpen, accessToken, idPublicacao,
                 </div>
               </div>
 
-              <div className='setor_02'>
+              <div className='formularioPublicacaoMeuPerfil__containerDadosPublicacaoMeuPerfil'>
 
-                <div className="setor02_header">
-                  <div className="card">
+                <div className="containerDadosPublicacaoMeuPerfil__cardUsuarioPublicacaoMeuPerfil">
+                  <div className="cardUsuarioPublicacaoMeuPerfil">
 
                     {
                       dadosPublicacao === undefined ? (
+
                         <p className='carregandoPublicacao'>Carregando</p>
+
                       ) : (
-                        <div className='perfil_container'>
-                          <img src={dadosPublicacao.publicacao.usuario.foto} className='foto_perfil' />
-                          <p className='nome_perfil'>{dadosPublicacao.publicacao.usuario.nome}</p>
+
+                        <div className='cardUsuarioPublicacaoMeuPerfil__containerDadosUsuarioPublicacao'>
+
+                          {
+                            usuarioPublicacao === undefined ? (
+
+                              <img className='fotoUsuarioPublicacaoMeuPerfil' src={dadosPublicacao.publicacao.usuario.foto} />
+
+                            ) : (
+
+                              <img className='fotoUsuarioPublicacaoMeuPerfil' src={usuarioPublicacao} />
+
+                            )
+                          }
+
+                          <p className='nomeUsuarioPublicacaoMeuPerfil'>{dadosPublicacao.publicacao.usuario.nome}</p>
+
                         </div>
+
                       )
                     }
 
-                    <div className='menu'>
+                    <div className={`cardUsuarioPublicacaoMeuPerfil__menuOpcoesPublicacaoMeuPerfil ${opcoes == true ? 'cardUsuarioPublicacaoMeuPerfil__menuOpcoesPublicacaoMeuPerfilAtivada' : ''}`}>
+
                       <img onClick={() => {
+
                         setOpcoes(!opcoes)
-                      }} src={IconeMais} className='iconeMenuPublicacao' />
+
+                      }}
+                        src={IconeMais} className='menuOpcoesPublicacaoMeuPerfil__iconeMenuPublicacao'
+                      />
+
+
                       {
                         opcoes == false ? (
                           null
                         ) : (
-                          <div className='modalOpcoesPublicacao'>
-                            <div onClick={
-                              () => {
+
+                          id == dadosPublicacao.publicacao.usuario.id ? (
+
+                            <div className='modalOpcoesPublicacaoMeuPerfil'>
+
+                              <div onClick={() => {
 
                                 apagarPublicacao(idPublicacao)
-                              }
-                            } className='opcaoExcluir'>
-                              <p className='textoExcluirPublicacao'>
-                                Apagar publicação
-                              </p>
+
+                              }}
+
+                                className='opcaoExcluirPublicacaoMeuPerfil'
+                              >
+
+                                <p className='textoExcluirPublicacaoMeuPerfil'>
+                                  Apagar publicação
+                                </p>
+
+                              </div>
+
+                              <div onClick={() => {
+
+                                setEditar(!editar)
+
+                              }}
+
+                                className='opcaoEditarPublicacaoMeuPerfil'
+                              >
+
+                                <p className='textoEditarPublicacaoMeuPerfil'>
+                                  Editar publicação
+                                </p>
+
+                              </div>
+
                             </div>
-                            <div onClick={() => {
-                              setEditar(!editar)
-                            }} className='opcaoEditar'>
-                              <p className='textoEditarPublicacao'>
-                                Editar publicação
-                              </p>
+
+                          ) : (
+
+                            <div className='modalOpcoesPublicacaoMeuPerfil'>
+
+                              <div onClick={() => {
+
+                              }}
+
+                                className='opcaoDenunciarPublicacaoMeuPerfil'
+                              >
+
+                                <p className='textoDenunciarPublicacaoMeuPerfil'>
+                                  Denunciar publicação
+                                </p>
+
+                              </div>
+
                             </div>
-                          </div>
+
+                          )
+
                         )
                       }
                     </div>
@@ -514,64 +648,66 @@ const ModalMinhaPublicacao = ({ isOpen, setModalOpen, accessToken, idPublicacao,
                   </div>
                 </div>
 
-                <div className='setor02_main'>
+                <div className='containerDadosPublicacaoMeuPerfil__listaDadosPublicacaoMeuPerfil'>
 
                   {
                     dadosPublicacao === undefined ? (
                       <p className='carregandoPublicacao'>Carregando...</p>
                     ) : (
-                      <div className='titulo_descricao'>
-                        <h1 className='titulo'>{dadosPublicacao.publicacao.titulo}</h1>
-                        <p className='descricao'>{dadosPublicacao.publicacao.descricao}</p>
+                      <div className='listaDadosPublicacaoMeuPerfil__textoPublicacaoMeuPerfil'>
+                        <h1 className='listaDadosPublicacaoMeuPerfil__tituloPublicacaoMeuPerfil'>{dadosPublicacao.publicacao.titulo}</h1>
+                        <p className='listaDadosPublicacaoMeuPerfil__descricaoPublicacaoMeuPerfil'>{dadosPublicacao.publicacao.descricao}</p>
                       </div>
                     )
                   }
 
-                  <div className='lista_comentarios'>
+                  <div className='listaComentarioMeuPerfil'>
 
-                    <div className='card_comentario'>
-                      <img src={ImagemPerfil} alt="" className='foto_perfil' />
-                      <div className='container_textos'>
-                        <p className='nome'>Mayara</p>
-                        <p className='texto_comentario'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Et magni neque beatae magnam, quia ab labore nihil itaque repellendus aut cum reprehenderit distinctio cupiditate velit voluptate dolor exercitationem cumque aliquid.</p>
-                        <p className='responder'>Responder</p>
-                      </div>
-                    </div>
-                    <div className='card_comentario'>
-                      <img src={ImagemPerfil} alt="" className='foto_perfil' />
-                      <div className='container_textos'>
-                        <p className='nome'>Mayara</p>
-                        <p className='texto_comentario'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Et magni neque beatae magnam, quia ab labore nihil itaque repellendus aut cum reprehenderit distinctio cupiditate velit voluptate dolor exercitationem cumque aliquid.</p>
-                        <p className='responder'>Responder</p>
-                      </div>
-                    </div>
-                    <div className='card_comentario'>
-                      <img src={ImagemPerfil} alt="" className='foto_perfil' />
-                      <div className='container_textos'>
-                        <p className='nome'>Mayara</p>
-                        <p className='texto_comentario'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Et magni neque beatae magnam, quia ab labore nihil itaque repellendus aut cum reprehenderit distinctio cupiditate velit voluptate dolor exercitationem cumque aliquid.</p>
-                        <p className='responder'>Responder</p>
-                      </div>
-                    </div>
-                    <div className='card_comentario'>
-                      <img src={ImagemPerfil} alt="" className='foto_perfil' />
-                      <div className='container_textos'>
-                        <p className='nome'>Mayara</p>
-                        <p className='texto_comentario'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Et magni neque beatae magnam, quia ab labore nihil itaque repellendus aut cum reprehenderit distinctio cupiditate velit voluptate dolor exercitationem cumque aliquid.</p>
-                        <p className='responder'>Responder</p>
-                      </div>
-                    </div>
+                    {
+                      comentario == 404 ? (
+                        <p>Sem Comentários</p>
+                      ) : (
+                        comentario === undefined ? (
+                          <p>Carregando...</p>
+                        ) : (
+
+                          comentario.comentarios.map((item, indice) => (
+
+                            <ComentarioPublicacaoMeuPerfil
+                              fotoUsuario={item.usuario.foto}
+                              idUsuarioAtual={id}
+                              idUsuarioComentario={item.id_usuario}
+                              mensagemComentario={item.mensagem}
+                              nomeUsuario={item.usuario.nome_de_usuario}
+                              idComentario={item.id}
+                              accessToken={accessToken}
+                              pegarComentarios={() => {
+                                pegarComentarios()
+                              }}
+                              key={item.id}
+                            ></ComentarioPublicacaoMeuPerfil>
+
+                          ))
+                        )
+                      )
+
+                    }
 
                   </div>
                 </div>
 
-                <div className='setor02_footer'>
+                <div className='containerDadosPublicacaoMeuPerfil__campoInserirComentario'>
                   <InputGlobal
                     type={'email'}
                     emailWeb={true}
                     placeholder={'Escreva um comentário...'}
+                    value={comentar}
+                    onChange={setComentar}
                   ></InputGlobal>
-                  <img src={Enviar} alt="" />
+
+                  <img onClick={() => {
+                    adicionarComentario()
+                  }} src={Enviar} alt="" className='iconeInserirComentario' />
                 </div>
 
               </div>
@@ -580,8 +716,11 @@ const ModalMinhaPublicacao = ({ isOpen, setModalOpen, accessToken, idPublicacao,
         </>
       ) : (
         <>
-          <div className='modal__background'>
-            <div className='containerEditarPublicacao'>
+          <div>
+
+            <div className='modalBackgroundMeuPerfil'></div>
+
+            <div className='containerEditarPublicacaoMeuPerfil'>
 
               <div className='containerEditarPublicacao__containerImagens'>
 

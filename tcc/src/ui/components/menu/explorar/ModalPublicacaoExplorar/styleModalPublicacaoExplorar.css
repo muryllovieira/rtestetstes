@@ -1,10 +1,10 @@
-.modalBackground {
+.modalBackgroundExplorar {
     position: fixed;
     top: 0;
     bottom: 0;
     left: 0;
     right: 0;
-    z-index: 1000;
+    z-index: 1100;
     filter: opacity(80%);
     background-color: #413946;
 }
@@ -17,11 +17,10 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    width: auto;
     height: 80vh;
     width: 80vw;
     gap: 25px;
-    z-index: 1002;
+    z-index: 1200;
 }
 
 .formularioPublicacaoExplorar__containerImagensPublicacaoExplorar {
@@ -33,6 +32,20 @@
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+}
+
+.containerEditarPublicacaoExplorar {
+    position: fixed;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: 80vh;
+    width: 80vw;
+    top: 10%;
+    left: 10%;
+    gap: 25px;
+    z-index: 1200;
 }
 
 .containerImagensPublicacaoExplorar__itemVoltar {
@@ -72,6 +85,18 @@
     align-items: center;
 }
 
+.containerEditarPublicacao__containerImagens {
+    background-color: var(--default-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 40vw;
+    height: 80vh;
+    border-radius: 30px;
+    gap: 30px;
+}
+
 .containerDadosPublicacaoExplorar__cardUsuarioPublicacaoExplorar {
     width: 100%;
     height: 10%;
@@ -100,6 +125,16 @@
     gap: 24px;
 }
 
+.containerImagens {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: start;
+    padding-left: 24px;
+    width: 100%;
+    height: 100%;
+}
+
 .fotoUsuarioPublicacaoExplorar {
     border-radius: 10px;
     width: 60px;
@@ -114,6 +149,8 @@
     text-align: center;
     font-weight: 400;
 }
+
+
 
 .cardUsuarioPublicacaoExplorar__menuOpcoesPublicacaoExplorar {
     cursor: pointer;
@@ -134,6 +171,19 @@
     justify-content: center;
 }
 
+.containerEditarPublicacao__containerFormulario {
+    background-color: var(--default-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    padding: 24px;
+    width: 40vw;
+    height: 80vh;
+    border-radius: 30px;
+    gap: 2vh;
+}
+
 .cardUsuarioPublicacaoExplorar__menuOpcoesPublicacaoExplorarAtivada {
     cursor: pointer;
     width: 40px;
@@ -152,6 +202,14 @@
     width: 80%;
     justify-content: space-between;
     gap: 32px;
+}
+
+.containerEditarTags {
+    width: 100%;
+    height: 30%;
+    display: flex;
+    flex-direction: column;
+    color: var(--contrast-color);
 }
 
 .listaDadosPublicacaoExplorar__textoPublicacaoExplorar {
@@ -176,12 +234,23 @@
 .containerDadosPublicacaoExplorar__campoInserirComentario {
     width: 100%;
     height: fit-content;
+    display: flex;
+    justify-content: space-around;
+}
+
+.containerFormulario {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    gap: 24px;
+    padding: 16px;
 }
 
 .iconeInserirComentario {
     height: 40px;
     width: 40px;
-    background-color: #413946;
 }
 
 .modalOpcoesPublicacaoExplorar {
@@ -194,6 +263,26 @@
     top: 20%;
     border-radius: 20px;
     box-shadow: 0px 4px 20px 0px rgba(65, 57, 70, 0.25);
+}
+
+.containerTagsEditarPublicacao {
+    width: 100%;
+    height: 90%;
+    border-radius: 10px;
+    border: 1px solid #C98FEC;
+    background: var(--Principal-2, #FCF6FF);
+    box-shadow: 0px 4px 20px 0px rgba(65, 57, 70, 0.10);
+}
+
+.tagsListEditarPublicacao {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    overflow-y: scroll;
 }
 
 .opcaoExcluirPublicacaoExplorar {
@@ -258,4 +347,47 @@
     align-items: flex-start;
     justify-content: flex-start;
     overflow-y: auto;
+}
+
+.textoEditarPublicacao {
+    color: var(--contrast-color);
+}
+
+.opcaoEditar {
+    width: 100%;
+    padding: 16px;
+    cursor: pointer;
+}
+
+.opcaoEditar:hover {
+    background-color: #c2c2c2;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+.iconeMenuPublicacao {
+    cursor: pointer;
+}
+
+.carregandoPublicacao {
+    color: var(--contrast-color);
+}
+
+.containerFormulario__iconeSalvarPublicacaoExplorar {
+    height: 100px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}
+
+.iconeSalvarPublicacaoExplorar {
+    display: grid;
+    align-content: center;
+    justify-content: center;
+    height: 50px;
+    width: 50px;
+    background-color: var(--secundary-color);
+    border-radius: 10px;
+    cursor: pointer;
 }

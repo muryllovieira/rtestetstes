@@ -69,6 +69,7 @@
     width: 100%;
     flex-wrap: wrap;
     overflow-y: hidden;
+    padding: 16px;
     gap: 32px;
     align-items: flex-start;
     justify-content: center;

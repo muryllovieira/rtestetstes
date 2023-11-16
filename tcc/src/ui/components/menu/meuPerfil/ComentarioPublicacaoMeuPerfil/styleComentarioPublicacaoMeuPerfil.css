@@ -1,0 +1,169 @@
+.comentarioPublicacaoMeuPerfil {
+    width: 100%;
+    height: 20%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.comentarioPublicacaoMeuPerfilExpandido {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.comentarioMeuPerfil__containerDados {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 16px;
+}
+
+.containerDados__containerTextosMeuPerfil {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    height: 150px;
+}
+
+.nomeUsuarioComentario {
+  font-size: 1rem;
+  font-weight: 500;
+  position: relative;
+  top: -15px;
+}
+
+.mensagemComentario {
+    font-size: 1rem;
+    font-weight: 300;
+    position: relative;
+    top: -30px;
+    max-width: 700px;
+    inline-size: 600px;
+    overflow-wrap: break-word;
+    flex-wrap: wrap;
+}
+
+.mensagemComentarioReduzido {
+    font-size: 1rem;
+    font-weight: 300;
+    position: relative;
+    top: -30px;
+    inline-size: 600px;
+    height: 20px;
+}
+
+.botaoVerMaisComentarioMeuPerfil {
+    cursor: pointer;
+    font-weight: 500;
+    color: #A09CA2;
+}
+
+.botaoVerMenosComentarioMeuPerfil {
+    cursor: pointer;
+    font-weight: 500;
+    color: #A09CA2;
+}
+
+.fotoPerfilUsuario {
+    width: 60px;
+    height: 60px;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+.responderComentario {
+    color: #A09CA2;
+    font-size: 0.75rem;
+    font-style: normal;
+    font-weight: 400;
+    position: relative;
+    top: -30px;
+    cursor: pointer;
+}
+
+.botaoOpcoesComentario {
+    display: none;
+}
+
+.comentarioPublicacaoMeuPerfil:hover .botaoOpcoesComentario {
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    left: -15px;
+    top: 10px;
+    height: 20px;
+    width: 20px;
+}
+
+.botaoOpcoesComentarioShow {
+    display: initial;
+}
+
+.tes {
+    position: absolute;
+    top: -25px;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    background-color: #A09CA2;
+    border-radius: 20px;
+    filter: opacity(60%);
+}
+
+.modalOpcoesComentario {
+    position: fixed;
+    z-index: 1001;
+    width: 200px;
+    background-color: var(--default-color);
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+}
+
+.textoExcluirComentario {
+    width: 100%;
+    padding: 12px;
+}
+
+.textoEditarComentario {
+    width: 100%;
+    padding: 12px;
+}
+
+.textoDenunciarComentario {
+    width: 100%;
+    padding: 12px;
+}
+
+.opcaoExcluirComentario:hover {
+    background-color: #A09CA2;
+    width: 100%;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    cursor: pointer;
+}
+
+.opcaoEditarComentario:hover {
+    width: 100%;
+    background-color: #A09CA2;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    cursor: pointer;
+}
+
+.opcaoDenunciarComentario:hover {
+    width: 100%;
+    background-color: #A09CA2;
+    cursor: pointer;
+    border-radius: 20px;
+}

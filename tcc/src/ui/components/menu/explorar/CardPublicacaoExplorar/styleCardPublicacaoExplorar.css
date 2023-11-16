@@ -1,0 +1,42 @@
+.cardPublicacaoExplorar {
+    background-color: var(--default-color);
+    height: 300px;
+    width: 250px;
+    box-shadow: 0px 4px 20px 0px rgba(65, 57, 70, 0.10);
+    cursor: pointer;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    position: relative;
+}
+
+.cardPublicacaoExplorar__containerImagem {
+    width: 250px;
+    height: 300px;
+}
+
+.containerImagemExplorar__imagemPublicacaoExplorar  {
+    width: 100%;
+    height: 70%;
+    object-fit: cover;
+    border-radius: 20px;
+    box-shadow: 4px 3px #A89BFF;
+    
+}
+
+.cardPublicacaoMeuExplorar__tituloPublicacao {
+    color: var(--contrast-color);
+    font-size: 1rem;
+    height: 10px;
+    position: absolute;
+    top: 70%;
+    left: 10%;
+}
+
+.cardPublicacaoMeuExplorar__descricaoUsuario {
+    color: var(--contrast-color);
+    font-size: 1rem;
+    height: 10px;
+
+}

@@ -49,8 +49,7 @@ const ComboBoxLocalizacao = ({onChange}) => {
             <p className='text'>Bairros:</p>
 
             <input onChange={(e) => setBairro(e.target.value)}  className='inputNone' list='neighborhoods' placeholder='Selecione um Bairro'/>
-            {/* <InputBairros onChange={handleInputChange} city={formValues.city} /> */}
-
+            <InputBairros onChange={handleInputChange} city={formValues.city} />
         </div>
         
     </div>

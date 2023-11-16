@@ -75,6 +75,7 @@
     border: solid 2px var(--secundary-color);
     box-shadow: var(--default-shadow);
     cursor: pointer;
+    background-color: white;
 }
 
 .textos{
@@ -86,8 +87,6 @@
     justify-content: flex-start;
     gap: 7vw;
 }
-
-
 
 .botoesConfiguracao:hover{
     width: 19vw;
@@ -108,4 +107,22 @@
     padding-left: 25px;
     color: red;
     width: 9vw;
+}
+.botaoSair{
+    display: flex;
+    flex-direction: center;
+    justify-content: start;
+    align-items: center;
+    width: 18vw;
+    height: 10vh;
+    border-radius: 10px;
+    border: solid 2px var(--secundary-color);
+    box-shadow: var(--default-shadow);
+    cursor: pointer;
+    background-color: white;
+}
+
+.botaoSair:hover{
+    width: 19vw;
+    height: 11vh;
 }

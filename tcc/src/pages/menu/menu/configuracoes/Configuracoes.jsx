@@ -1,11 +1,15 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import './styleConfiguracoes.css'
 import setaDireita from './images/setaDireita.png'
 import exit from './images/exit.png'
 import {Link} from 'react-router-dom'
 import FotoPerfil from '../../../../ui/components/global/FotoPerfil/FotoPerfil'
+import UserContext from '../../../../data/hooks/context/UserContext'
 
 function Configuracoes() {
+
+  const {setAccessToken} = useContext(UserContext)
+
   return (
     <>
     <div className='container'>
@@ -61,18 +65,19 @@ function Configuracoes() {
 
       <Link to={"/"}>
         <div className='containerConfiguracoes_footer'>
-          <div className='botoesConfiguracao'>
+          <button className='botaoSair'>
             <div className='textos'>
               <h1 className='titulo_sair'>SAIR</h1>
               <img src={exit} alt="" />
             </div>
-          </div>
+          </button>
         </div>
       </Link>
 
 </div>
     </>
   )
+
 }
 
 export default Configuracoes

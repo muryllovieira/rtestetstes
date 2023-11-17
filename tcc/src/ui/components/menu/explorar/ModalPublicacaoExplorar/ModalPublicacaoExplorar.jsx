@@ -438,7 +438,11 @@ const ModalPublicacaoExplorar = ({ isOpen, setModalOpen, accessToken, idPublicac
       }
       
     } catch (error) {
+
+      
       if(error.response.status == 404) {
+        setComentario(error.response.status)
+      } else if (error.response.status == 201) {
         setComentario(error.response.status)
       }
     }
@@ -585,60 +589,70 @@ const ModalPublicacaoExplorar = ({ isOpen, setModalOpen, accessToken, idPublicac
                         null
                       ) : (
 
-                        id == dadosPublicacao.publicacao.usuario.id_usuario ? (
-
+                        dadosPublicacao === undefined ? (
                           <div className='modalOpcoesPublicacaoExplorar'>
-
-                            <div onClick={() => {
-
-                              apagarPublicacao(idPublicacao)
-
-                            }}
-
-                              className='opcaoExcluirPublicacaoExplorar'
-                            >
-
-                              <p className='textoExcluirPublicacaoExplorar'>
-                                Apagar publicação
-                              </p>
-
-                            </div>
-
-                            <div onClick={() => {
-
-                              setEditar(!editar)
-
-                            }}
-
-                              className='opcaoEditarPublicacaoExplorar'
-                            >
-
-                              <p className='textoEditarPublicacaoExplorar'>
-                                Editar publicação
-                              </p>
-
-                            </div>
-
+                            <p className='textoAguardandoPublicacaoExplorar'>
+                              Carregando...
+                            </p>
                           </div>
-
                         ) : (
 
-                          <div className='modalOpcoesPublicacaoExplorar'>
+                          id == dadosPublicacao.publicacao.usuario.id ? (
 
-                            <div onClick={() => {
-
-                            }}
-
-                              className='opcaoDenunciarPublicacaoExplorar'
-                            >
-
-                              <p className='textoDenunciarPublicacaoExplorar'>
-                                Denunciar publicação
-                              </p>
-
+                            <div className='modalOpcoesPublicacaoExplorar'>
+  
+                              <div onClick={() => {
+  
+                                apagarPublicacao(idPublicacao)
+  
+                              }}
+  
+                                className='opcaoExcluirPublicacaoExplorar'
+                              >
+  
+                                <p className='textoExcluirPublicacaoExplorar'>
+                                  Apagar publicação
+                                </p>
+  
+                              </div>
+  
+                              <div onClick={() => {
+  
+                                setEditar(!editar)
+  
+                              }}
+  
+                                className='opcaoEditarPublicacaoExplorar'
+                              >
+  
+                                <p className='textoEditarPublicacaoExplorar'>
+                                  Editar publicação
+                                </p>
+  
+                              </div>
+  
                             </div>
-
-                          </div>
+  
+                          ) : (
+  
+                            <div className='modalOpcoesPublicacaoExplorar'>
+  
+                              <div onClick={() => {
+  
+                              }}
+  
+                                className='opcaoDenunciarPublicacaoExplorar'
+                              >
+  
+                                <p className='textoDenunciarPublicacaoExplorar'>
+                                  Denunciar publicação
+                                </p>
+  
+                              </div>
+  
+                            </div>
+  
+                          )
 
                         )
 
@@ -665,30 +679,37 @@ const ModalPublicacaoExplorar = ({ isOpen, setModalOpen, accessToken, idPublicac
                 <div className='listaComentarioExplorar'>
 
                   {
-                    comentario == 404 ? (
-                      <p>Sem Comentários</p>
+                    
+                    comentario == 201 ? (
+                      <p>ALERTA: 201 - Não Autorizado.</p>
                     ) : (
-                      comentario === undefined ? (
-                        <p>Carregando...</p>
+
+                      comentario == 404 ? (
+                        <p>Essa publicação não possui comentários.</p>
+
                       ) : (
-  
-                        comentario.comentarios.map((item, indice) => (
-  
-                          <ComentarioPublicacaoExplorar
-                            fotoUsuario={item.usuario.foto}
-                            idUsuarioAtual={id}
-                            idUsuarioComentario={item.id_usuario}
-                            mensagemComentario={item.mensagem}
-                            nomeUsuario={item.usuario.nome_de_usuario}
-                            idComentario={item.id}
-                            accessToken={accessToken}
-                            pegarComentarios={() => {
-                              pegarComentarios()
-                            }}
-                            key={item.id}
-                          ></ComentarioPublicacaoExplorar>
-  
-                        ))
+                        comentario === undefined ? (
+                          <p>Carregando...</p>
+                        ) : (
+    
+                          comentario.comentarios.map((item, indice) => (
+    
+                            <ComentarioPublicacaoExplorar
+                              fotoUsuario={item.usuario.foto}
+                              idUsuarioAtual={id}
+                              idUsuarioComentario={item.id_usuario}
+                              mensagemComentario={item.mensagem}
+                              nomeUsuario={item.usuario.nome_de_usuario}
+                              idComentario={item.id}
+                              accessToken={accessToken}
+                              pegarComentarios={() => {
+                                pegarComentarios()
+                              }}
+                              key={item.id}
+                            ></ComentarioPublicacaoExplorar>
+    
+                          ))
+                        )
                       )
                     )
 

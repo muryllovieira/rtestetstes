@@ -391,3 +391,8 @@
     border-radius: 10px;
     cursor: pointer;
 }
+
+.textoAguardandoPublicacaoExplorar {
+    color: var(--contrast-color);
+    padding: 8px;
+}

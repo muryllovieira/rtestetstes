@@ -4,6 +4,7 @@ import UserContext from '../../../../data/hooks/context/UserContext'
 import InputEstados from './inputEstados/InputEstados'
 import InputCidades from './inputCidades/InputCidades'
 import InputBairros from './inputBairros/InputBairros.jsx'
+import { useEffect } from 'react'
 
 const ComboBoxLocalizacao = ({onChange}) => {
 
@@ -22,6 +23,8 @@ const ComboBoxLocalizacao = ({onChange}) => {
   const { cidade, setCidade } = useContext(UserContext)
   const { bairro, setBairro } = useContext(UserContext)
 
+  console.log(estado)
+
   
   return (
     <div className='comboBoxContainer' >
@@ -29,7 +32,7 @@ const ComboBoxLocalizacao = ({onChange}) => {
         <div className='comboBox'>
             <p className='text'>Estados:</p>
 
-            <input onChange={(e) => setEstado(e.target.value)} list='states' className='inputNone' placeholder='Selecione um Estado'/>
+            <input value={estado} onChange={(e) => setEstado(e.target.value)} list='states' className='inputNone' placeholder='Selecione um Estado'/>
             <InputEstados onChange={handleInputChange}/>
 
         </div>

@@ -145,10 +145,6 @@ function ComentarioPublicacaoExplorar({ pegarComentarios, accessToken, fotoUsuar
                             }
                         </div>
 
-
-
-
-
                     ) : (
                         null
                     )

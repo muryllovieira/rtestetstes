@@ -99,7 +99,7 @@
     gap: 24px 32px;
     overflow-y: auto;
     flex-wrap: wrap;
-    padding: 16px;
+    padding: px;
 }
 
 .tag{

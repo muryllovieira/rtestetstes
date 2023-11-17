@@ -49,15 +49,7 @@ function Conversas() {
               </div>
             </Link>
 
-              
-              
-              
-              {/* <div className="tagTeste"></div>
-              <div className="tagTeste"></div>
-              <div className="tagTeste"></div>
-              <div className="tagTeste"></div>
-              <div className="tagTeste"></div>
-              <div className="tagTeste"></div> */}
+            
 
             </div>
          </section>

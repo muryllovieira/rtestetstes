@@ -116,7 +116,7 @@ function Explorar() {
                           key={item.id}
                           anexosPublicacao={item.anexos}
                           descricaoPublicacao={item.descricao}
-                          fotoPublicacao={item.anexos[0]}
+                          fotoPublicacao={item.anexos[0].anexo}
                           idPublicacao={item.id}
                           idUsuario={id}
                           nomePublicacao={item.titulo}

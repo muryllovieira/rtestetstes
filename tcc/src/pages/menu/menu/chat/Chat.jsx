@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './styleChat.css'
 import SetaEsquerda from './images/setaEsquerda.svg'
 import ImagemPerfil from './images/imagemPerfil.png'
@@ -6,7 +6,12 @@ import Menu from './images/icone_mais.svg'
 import Enviar from './images/enviar.svg'
 import { Link } from 'react-router-dom'
 
+import ModalChat from '../../../../ui/components/menu/conversas/ModalChat/ModalChat'
+
 const Chat = () => {
+
+    const [openModal, setOpenModal] = useState(false)
+
   return (
     <>
         <div className='containerChat'>
@@ -21,9 +26,17 @@ const Chat = () => {
                         <img className='fotoPerfil' src={ImagemPerfil} alt="" />
                         <p className='nomePerfil'>Beltrana dos Santos Silva</p>
                     </div>
+
                     <div>
-                        <img src={Menu} alt="" />
+                        <img className='menu' src={Menu} alt="menu" onClick={() => setOpenModal(true)}/>
                     </div>
+
+                    
+                        <ModalChat isOpen={openModal} setModalOpen={() => setOpenModal(!openModal)}>
+
+                        </ModalChat>
+                    
+
                 </div>
             </div>
 

@@ -18,7 +18,7 @@ function MeuPerfil() {
   const { accessToken } = useContext(UserContext)
   const { id } = useContext(UserContext)
 
-  const [ user, setUser ] = useState(null)
+  const [ user, setUser ] = useState()
   const [tags, setTags] = useState([])
 
   const [perfil, setPerfil] = useState()
@@ -115,13 +115,14 @@ function MeuPerfil() {
                           </div>
 
                           {
-                            user === null ? (
+                            user === undefined ? (
                               <p>Carregando...</p>
                             ) : (
                               <CardUsuarioMeuPerfil
                                 nomePerfil={user.usuario.nome}
                                 tagPerfil={user.usuario.nome_de_usuario}
-                                localicaoPerfil={`${user.usuario.cidade},${user.usuario.estado}`}
+                                localizacaoCidadePerfil={user.usuario.localizacao.cidade}
+                                localizacaoEstadoPerfil={user.usuario.localizacao.estado}
                                 fotoPerfil={user.usuario.foto}
                               ></CardUsuarioMeuPerfil>
                             )
@@ -140,7 +141,7 @@ function MeuPerfil() {
                         
 
                           {
-                             user === null ? (
+                             user === undefined ? (
                               <p>Carregando...</p>
                             ) : (
                               <p className='secaoMeuPerfil__descricaoPerfil'>
@@ -152,7 +153,7 @@ function MeuPerfil() {
                           <div>
                             
                             {
-                              user === null ? (
+                              user === undefined ? (
                                 <p className='carregandoPerfil'>Usuário Não Encontrado</p>
                               ) : (
                                 
@@ -236,7 +237,7 @@ function MeuPerfil() {
 
                       {
 
-                        user === null ? (
+                        user === undefined ? (
                           <p className='carregandoPerfil'>Usuário Não Encontrado</p>
                         ) : (
 
@@ -246,9 +247,9 @@ function MeuPerfil() {
                             reloadUser={pegarUsuario}
                             nomePerfil={user.usuario.nome}
                             tagPerfil={user.usuario.nome_de_usuario}
-                            cidadePerfil={user.usuario.cidade}
-                            bairroPerfil={user.usuario.bairro}
-                            estadoPerfil={user.usuario.estado}
+                            cidadePerfil={user.usuario.localizacao.cidade}
+                            bairroPerfil={user.usuario.localizacao.bairro}
+                            estadoPerfil={user.usuario.localizacao.estado}
                             descricaoPerfil={user.usuario.descricao}
                             tagsPerfil={user.usuario.tags}
                             idLocalizacao={user.usuario.id_localizacao}

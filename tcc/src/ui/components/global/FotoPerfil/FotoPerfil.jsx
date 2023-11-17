@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import UserContext from '../../../../data/hooks/context/UserContext'
 import blogFetch from '../../../../data/services/api/ApiService'
+import userIcon from './images/user.png'
 import './styleFotoPerfil.css'
 
 const FotoPerfil = () => {
@@ -34,8 +35,13 @@ const FotoPerfil = () => {
     <>
     {
       user === null ? (
-        <p></p>
+        <Link to={"/menu/meu-perfil"}>
+          <div className='cardFotoPerfil'>
+            <img src={userIcon} alt="" />
+          </div>
+        </Link>
       ) : (
+
         <Link to={"/menu/meu-perfil"}>
           <div className='cardFoto'>
              <img className='foto_Perfil' src={user.usuario.foto} alt="" />

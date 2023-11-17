@@ -221,6 +221,7 @@
 .listaDadosPublicacaoMeuPerfil__descricaoPublicacaoMeuPerfil {
     width: 100%;
     height: max-content;
+    color: black;
 }
 
 .containerDadosPublicacaoMeuPerfil__campoInserirComentario {
@@ -390,3 +391,14 @@
     cursor: pointer;
 }
 
+.mensagemComentario{
+    color: black;
+}
+
+.nomeUsuarioComentario{
+    color: black;
+}
+
+.responderComentario{
+    color: black;
+}

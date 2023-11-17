@@ -912,11 +912,9 @@ const ModalPublicacaoExplorar = ({ isOpen, setModalOpen, accessToken, idPublicac
                           )
                         }
                       </div>
-
                     </div>
                   </div>
                 </div>
-
               </div>
             </div>
           </div>

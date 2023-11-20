@@ -41,8 +41,11 @@ function FormularioLogin () {
       const response = await blogFetch.post("/usuario/login", {
         email: email,
         senha: senha
-       })
+      })
    
+      
+      window.localStorage.setItem('id', JSON.stringify(response.data.login.id))
+      window.localStorage.setItem('token', JSON.stringify(response.data.token))
 
       setAccessToken(response.data.token)
       setId(response.data.login.id)
@@ -84,6 +87,13 @@ function FormularioLogin () {
   return (
     <form className='formularioLogin' onSubmit={(e) => getUsuario(e)}>
       <h1>LOGIN</h1>
+
+      <button onClick={() => {
+
+        window.localStorage.setItem('id', JSON.stringify(1))
+        window.localStorage.setItem('accessToken', JSON.stringify('saidhsauhdashuas'))
+
+      }}> CLICA AQUI </button>
 
       <p ref={errRef} className={errMsg ? "mensagemErro" : 
       "mensagemDesligada"} aria-live='assertive'>{errMsg}</p>

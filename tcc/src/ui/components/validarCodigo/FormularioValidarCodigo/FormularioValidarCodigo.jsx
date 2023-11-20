@@ -32,9 +32,6 @@ function FormularioValidarCodigo({id}) {
         token: token
       })
 
-      console.log(response.data)
-      console.log(id)
-
       navigate("/troca-de-senha", {state: {
         id: id
       }})

@@ -3,17 +3,17 @@
  * Data Inicio: 04-09-2023
  * Data Fim: X
  * 
- * Commits: Rotas Definidas v0.8, Estruturação de Diretórios Concluída, 
- * Componentes Iniciados v2.44, Responsividade v0.7, Funcionalidades v0.19,
+ * Commits: Rotas Definidas v1.0, Estruturação de Diretórios Concluída, 
+ * Componentes Iniciados v2.45, Responsividade v0.7, Funcionalidades v0.20,
  * Integração Iniciada v0.33, Contexto Aplicado, Lista Icones v0.4, Conflito v0.4, Ajustes v0.2,
  *  
  * 
-*****************/ 
+*****************/
 
 //Importe de Biblioteca
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import {createBrowserRouter, RouterProvider, Route} from 'react-router-dom'
+import { createBrowserRouter, RouterProvider, Route, Navigate } from 'react-router-dom'
 
 //Importe de Página - Inicial
 import Home from './src/pages/home/Home.jsx'
@@ -59,7 +59,65 @@ import { UserProvider } from './src/data/hooks/context/UserContext.jsx'
 //Importe Estilo Global
 import './src/ui/styles/global.css'
 
+const validarLogin = (elemento) => {
+
+  if (accessToken === null || id === null || isNaN(id)) {
+
+    return (
+      <Navigate replace to={"/login"} />
+    )
+
+  } else {
+
+    return (
+      elemento
+    )
+
+  }
+
+}
+
+const validarId = (elemento) => {
+
+  if (id === null || isNaN(id)) {
+
+    return (
+      <Navigate replace to={"/login"} />
+    )
+
+  } else {
+
+    return (
+      elemento
+    )
+
+  }
+
+}
+
+const redirecionarMenu = () => {
+
+  if (id === null || isNaN(id) || accessToken === null) {
+
+    return (
+      <Navigate replace to={"/login"} />
+    )
+
+  } else {
+
+    return (
+      <Navigate replace to={"/menu/explorar"} />
+    )
+
+  }
+
+}
+
 //Rotas
+
+const id = JSON.parse(window.localStorage.getItem('id'))
+const accessToken = JSON.parse(window.localStorage.getItem('accessToken'))
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -78,27 +136,27 @@ const router = createBrowserRouter([
   },
   {
     path: "/personalizar-perfil/personalizar-nome",
-    element: <PersonalizarNome />,
+    element: validarLogin(<PersonalizarNome />),
     errorElement: <NaoEncontrado />,
   },
   {
     path: "/personalizar-perfil/personalizar-foto",
-    element: <PersonalizarFoto />,
+    element: validarLogin(<PersonalizarFoto />),
     errorElement: <NaoEncontrado />,
   },
   {
     path: "/personalizar-perfil/personalizar-localizacao",
-    element: <PersonalizarLocalizacao />,
+    element: validarLogin(<PersonalizarLocalizacao />),
     errorElement: <NaoEncontrado />,
   },
   {
     path: "/personalizar-perfil/personalizar-tipo",
-    element: <PersonalizarTipo />,
+    element: validarLogin(<PersonalizarTipo />),
     errorElement: <NaoEncontrado />,
   },
   {
     path: "/personalizar-perfil/personalizar-tags",
-    element: <PersonalizarTags />,
+    element: validarLogin(<PersonalizarTags />),
     errorElement: <NaoEncontrado />,
   },
   {
@@ -108,17 +166,17 @@ const router = createBrowserRouter([
   },
   {
     path: "/validar-codigo",
-    element: <ValidarCodigo />,
+    element: validarId(<ValidarCodigo />),
     errorElement: <NaoEncontrado />,
   },
   {
     path: "/troca-de-senha",
-    element: <TrocaDeSenha />,
+    element: validarId(<TrocaDeSenha />),
     errorElement: <NaoEncontrado />,
   },
   {
     path: "/menu",
-    element: <NaoEncontrado />
+    element: redirecionarMenu(<NaoEncontrado />)
   },
   {
     element: <Menu />,
@@ -126,113 +184,120 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/menu/explorar",
-        element: <Explorar />,
+        element: validarLogin(<Explorar />),
         errorElement: <NaoEncontrado />,
         children: [
           {
             path: "/menu/explorar/publicar/",
-            element: <Publicar />
+            element: validarLogin(<Publicar />),
+            errorElement: <NaoEncontrado />
           }
         ]
       },
       {
         path: "/menu/servicos",
-        element: <Servicos />,
+        element: validarLogin(<Servicos />),
         errorElement: <NaoEncontrado />,
         children: [
           {
             path: "/menu/servicos/publicar/",
-            element: <Publicar />
+            element: validarLogin(<Publicar />),
+            errorElement: <NaoEncontrado />
           }
         ]
       },
       {
         path: "/menu/servicos/perfil",
-        element: <ServicosPerfil />,
+        element: validarLogin(<ServicosPerfil />),
         errorElement: <NaoEncontrado />,
         children: [
           {
             path: "/menu/servicos/perfil/publicar",
-            element: <Publicar />
+            element: validarLogin(<Publicar />),
+            errorElement: <NaoEncontrado />
           }
         ]
       },
       {
         path: "/menu/servicos/perfil/perfil-selecionado",
-        element: <PerfilSelecionado/>,
+        element: validarLogin(<PerfilSelecionado />),
         errorElement: <NaoEncontrado />,
         children: [
           {
             path: "/menu/servicos/perfil/perfil-selecionado/publicar",
-            element: <Publicar />
+            element: validarLogin(<Publicar />),
+            errorElement: <NaoEncontrado />
           }
         ]
       },
       {
         path: "/menu/conversas",
-        element: <Conversas />,
+        element: validarLogin(<Conversas />),
         errorElement: <NaoEncontrado />,
         children: [
           {
             path: "/menu/conversas/publicar/",
-            element: <Publicar />
+            element: validarLogin(<Publicar />),
+            errorElement: <NaoEncontrado />
           }
         ]
       },
       {
         path: "/menu/conversas/chat",
-        element: <Chat/>,
+        element: validarLogin(<Chat />),
         errorElement: <NaoEncontrado />,
         children: [
           {
             path: "/menu/conversas/chat/publicar/",
-            element: <Publicar />
+            element: validarLogin(<Publicar />),
+            errorElement: <NaoEncontrado />
           }
         ]
       },
       {
         path: "/menu/configuracoes",
-        element: <Configuracoes />,
+        element: validarLogin(<Configuracoes />),
         errorElement: <NaoEncontrado />,
       },
       {
         path: "/menu/configuracoes/sobre",
-        element: <Sobre/>,
+        element: validarLogin(<Sobre />),
         errorElement: <NaoEncontrado />,
       },
       {
         path: "/menu/configuracoes/ajuda-suporte",
-        element: <AjudaSuporte/>,
+        element: validarLogin(<AjudaSuporte />),
         errorElement: <NaoEncontrado />,
       },
       {
         path: "/menu/configuracoes/termos-condicoes",
-        element: <TermosCondicoes/>,
+        element: validarLogin(<TermosCondicoes />),
         errorElement: <NaoEncontrado />,
       },
       {
         path: "/menu/configuracoes/sua-conta",
-        element: <SuaConta/>,
+        element: validarLogin(<SuaConta />),
         errorElement: <NaoEncontrado />,
       },
       {
         path: "/menu/configuracoes/sua-conta/alterar-email",
-        element: <AlterarEmail/>,
+        element: validarLogin(<AlterarEmail />),
         errorElement: <NaoEncontrado />,
       },
       {
         path: "/menu/configuracoes/sua-conta/alterar-senha",
-        element: <AlterarSenha/>,
+        element: validarLogin(<AlterarSenha />),
         errorElement: <NaoEncontrado />,
       },
       {
         path: "/menu/meu-perfil",
-        element: <MeuPerfil />,
+        element: validarLogin(<MeuPerfil />),
         errorElement: <NaoEncontrado />,
         children: [
           {
             path: "/menu/meu-perfil/publicar",
-            element: <Publicar />
+            element: validarLogin(<Publicar />),
+            errorElement: <NaoEncontrado />
           }
         ]
       }
@@ -243,7 +308,7 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <UserProvider>
-     <RouterProvider router = {router} />
+      <RouterProvider router={router} />
     </UserProvider>
   </React.StrictMode>,
 )

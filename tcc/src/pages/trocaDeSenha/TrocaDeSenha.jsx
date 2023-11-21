@@ -2,14 +2,12 @@ import React from 'react'
 import './styleTrocaDeSenha.css'
 import FormularioTrocaDeSenha from '../../ui/components/trocaDeSenha/FormularioTrocaDeSenha'
 import BotaoFormularioGlobal from '../../ui/components/global/BotaoFormularioGlobal/BotaoFormularioGlobal'
-import { useLocation } from 'react-router-dom'
+import UserContext from '../../data/hooks/context/UserContext'
+import { useContext } from 'react'
 
 function TrocaDeSenha() {
 
-  const location = useLocation()
-
-  const id = location.state.id
-
+  const { id } = useContext(UserContext)
 
   return (
     <>
@@ -25,9 +23,17 @@ function TrocaDeSenha() {
 
           </div>
 
-          <FormularioTrocaDeSenha
-            id={id}
-          ></FormularioTrocaDeSenha>
+          {
+
+            id === undefined ? (
+              <p>Sem ID</p>
+            ) : (
+              <FormularioTrocaDeSenha
+                id={id}
+              ></FormularioTrocaDeSenha>
+            )
+
+          }
 
 
         </div>

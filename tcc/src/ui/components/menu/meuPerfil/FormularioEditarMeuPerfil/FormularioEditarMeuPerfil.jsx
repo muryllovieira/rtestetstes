@@ -11,8 +11,12 @@ import blogFetch from '../../../../../data/services/api/ApiService'
 import UserContext from '../../../../../data/hooks/context/UserContext'
 import { useNavigate } from 'react-router-dom'
 import { uploadImage } from '../../../../../data/services/firebase/firebase'
+import ModalCarregarGlobal from '../../../global/ModalCarregarGlobal/ModalCarregarGlobal'
 
-function FormularioEditarMeuPerfil({open, nomePerfil, tagPerfil, cidadePerfil, estadoPerfil, bairroPerfil, descricaoPerfil, tagsPerfil, idLocalizacao, reloadUser, imgPerfil}) {
+function FormularioEditarMeuPerfil({ open, nomePerfil, tagPerfil, cidadePerfil, estadoPerfil, bairroPerfil, descricaoPerfil, tagsPerfil, idLocalizacao, reloadUser, imgPerfil }) {
+
+    const [visivel, setVisivel] = useState(false)
+    const [erro, setErro] = useState(0)
 
     const navigate = useNavigate()
 
@@ -31,14 +35,14 @@ function FormularioEditarMeuPerfil({open, nomePerfil, tagPerfil, cidadePerfil, e
 
     const [images, setImage] = useState([])
     const [imageURL, setImageURL] = useState([])
-  
+
     useEffect(() => {
-      if (images.length < 1) return
-  
-      const newImageUrl = []
-      images.forEach(image => newImageUrl.push(URL.createObjectURL(image)))
-      setImageURL(newImageUrl)
-      
+        if (images.length < 1) return
+
+        const newImageUrl = []
+        images.forEach(image => newImageUrl.push(URL.createObjectURL(image)))
+        setImageURL(newImageUrl)
+
     }, [images])
 
     console.log({
@@ -54,9 +58,9 @@ function FormularioEditarMeuPerfil({open, nomePerfil, tagPerfil, cidadePerfil, e
         localizacao: localizacao,
         fotoPerfil: fotoPerfil
     })
-  
+
     function onImageChange(e) {
-      setImage([...e.target.files])
+        setImage([...e.target.files])
     }
 
     const formatarTags = () => {
@@ -73,12 +77,12 @@ function FormularioEditarMeuPerfil({open, nomePerfil, tagPerfil, cidadePerfil, e
         })
 
         return tagEditada
-    
+
     }
 
     const salvarFoto = async () => {
 
-        if(images !== undefined && images !== null && images[0] !== undefined && images[0] !== null ) {
+        if (images !== undefined && images !== null && images[0] !== undefined && images[0] !== null) {
             try {
 
                 const responseImg = await uploadImage(images[0], images[0].name)
@@ -94,28 +98,26 @@ function FormularioEditarMeuPerfil({open, nomePerfil, tagPerfil, cidadePerfil, e
             return false
         }
 
-        
+
     }
 
 
     //Endpoints enderecos
 
-    useEffect(() => {
-
-    })
-
     const salvarNovosDadosPerfil = async () => {
+
+        setVisivel(!visivel)
 
         const tag = formatarTags()
 
         const foto = await salvarFoto()
 
-        if(foto == false) {
+        if (foto == false) {
 
             console.log(localizacao)
 
             try {
-                const response = await blogFetch.put('/usuario/editar_perfil',{
+                const response = await blogFetch.put('/usuario/editar_perfil', {
                     id_usuario: id,
                     id_localizacao: localizacao,
                     bairro: bairro,
@@ -126,18 +128,20 @@ function FormularioEditarMeuPerfil({open, nomePerfil, tagPerfil, cidadePerfil, e
                     foto: fotoPerfil,
                     nome_de_usuario: tagPerfilEditado,
                     tags: tag
-                },{
+                }, {
                     headers: {
-                        'x-access-token' : accessToken
+                        'x-access-token': accessToken
                     }
-                } )
-    
+                })
+
+                setErro(203)
+
                 console.log(response)
-            
+
             } catch (error) {
                 console.log(error)
-              console.log(error.config.data)
-    
+                console.log(error.config.data)
+
                 console.log('erro')
             }
 
@@ -150,7 +154,7 @@ function FormularioEditarMeuPerfil({open, nomePerfil, tagPerfil, cidadePerfil, e
             console.log(localizacao)
 
             try {
-                const response = await blogFetch.put('/usuario/editar_perfil',{
+                const response = await blogFetch.put('/usuario/editar_perfil', {
                     id_usuario: id,
                     id_localizacao: localizacao,
                     bairro: bairro,
@@ -161,18 +165,18 @@ function FormularioEditarMeuPerfil({open, nomePerfil, tagPerfil, cidadePerfil, e
                     foto: foto,
                     nome_de_usuario: tagPerfilEditado,
                     tags: tag
-                },{
+                }, {
                     headers: {
-                        'x-access-token' : accessToken
+                        'x-access-token': accessToken
                     }
-                } )
-    
+                })
+
                 console.log(response)
-            
+
             } catch (error) {
                 console.log(error)
-              console.log(error.config.data)
-    
+                console.log(error.config.data)
+
                 console.log('erro')
             }
 
@@ -181,124 +185,127 @@ function FormularioEditarMeuPerfil({open, nomePerfil, tagPerfil, cidadePerfil, e
 
         }
 
-      
 
-        
+
+
     }
 
 
-  return (
-    <>
-       
+    return (
+        <>
+            <ModalCarregarGlobal
+                visivel={true}
+                erro={erro}
+            ></ModalCarregarGlobal>
 
-        <form className='formularioAtualizarPerfil'>
+            <form className='formularioAtualizarPerfil'>
 
-            <div className='secaoMeuPerfil__apresentacaoPerfil'>
-                <i onClick={open} >{IconObject.voltarOuCancelar}</i>
-                <h1 className='apresentacaoMeuPerfil__tituloPerfil'>MEU PERFIL</h1>
-                <i onClick={salvarNovosDadosPerfil}>
-                   {IconObject.salvarMeuPerfil}
-                </i>
-            </div>
-
-            <div>
-                <label className='formularioAtualizarPerfil__atualizarFoto' itemID='picture__input' tabIndex="0" onChange={(e) => onChange(e.target.value)}>
-                    
-                    <img src={IconeEditar} className='iconeEditarPerfil' alt="" />
-                    <img src={TelaTransparente} className='telaTransparente' alt="" />
-                  
-                        
-                    <input type="file" multiple accept='image/*' id='picture__input' onChange={onImageChange}/>
-                    {imageURL.map(imageSrc => <img src={imageSrc} className='atualizarFoto__fotoEscolhida' />)}
-                         
-                    <img src={fotoPerfil} className='atualizarFoto__fotoAntiga' alt="" />
-                    <img src={TelaCinza} className='telaCinza'  alt="" />
-                    <img src={TelaRoxa} className='telaRoxa'  alt="" />
-                    
-                </label>
-
-               
-              
-            </div>
-
-            <div className='formularioAtualizarPerfil__atualizarNome'>
-                <label>
-                    NOME
-                </label>
-                <InputGlobal
-                    placeholder={'Atualize seu nome'}
-                    type={'text'}
-                    onChange={setNome}
-                    valueperfil={nome}
-                ></InputGlobal>
-            </div>
-
-           <div className='formularioAtualizarPerfil__atualizarTag'>
-            <label>
-                    Tag De Usuário
-                </label>
-                <InputGlobal
-                    placeholder={'Atualize sua tag de usuário'}
-                    type={'text'}
-                    onChange={setTagPerfil}
-                    valueperfil={tagPerfilEditado}
-                ></InputGlobal>
-           </div>
-
-           <div className='containerInputs'>
-                <div className='containerInputs__labelCidadesInput'>
-                    <label>
-                        Cidade
-                    </label>
-                    <input className='containerInputs__inputListaCidades' list='cities' placeholder='Selecione...' onChange={(e) => setCidade(e.target.value)} value={cidade} />
-                    <datalist id='cities'>
-                        <option value="Osasco"></option>
-                        <option value="São Paulo"></option>
-                    </datalist>
+                <div className='secaoMeuPerfil__apresentacaoPerfil'>
+                    <i onClick={open} >{IconObject.voltarOuCancelar}</i>
+                    <h1 className='apresentacaoMeuPerfil__tituloPerfil'>MEU PERFIL</h1>
+                    <i onClick={salvarNovosDadosPerfil}>
+                        {IconObject.salvarMeuPerfil}
+                    </i>
                 </div>
 
-                <div  className='containerInputs__labelCidadesInput'>
-                    <label>
-                        Estado
+                <div>
+                    <label className='formularioAtualizarPerfil__atualizarFoto' itemID='picture__input' tabIndex="0" onChange={(e) => onChange(e.target.value)}>
+
+                        <img src={IconeEditar} className='iconeEditarPerfil' alt="" />
+                        <img src={TelaTransparente} className='telaTransparente' alt="" />
+
+
+                        <input type="file" multiple accept='image/*' id='picture__input' onChange={onImageChange} />
+                        {imageURL.map(imageSrc => <img src={imageSrc} className='atualizarFoto__fotoEscolhida' />)}
+
+                        <img src={fotoPerfil} className='atualizarFoto__fotoAntiga' alt="" />
+                        <img src={TelaCinza} className='telaCinza' alt="" />
+                        <img src={TelaRoxa} className='telaRoxa' alt="" />
+
                     </label>
-                    <input className='containerInputs__inputListaEstados' list='states' placeholder='Selecione...' onChange={(e) => setEstado(e.target.value)} value={estado}/>
-                    <datalist id='states'>
-                        <option value="Santa Catarina"></option>
-                        <option value="São Paulo"></option>
-                        <option value="Rio De Janeiro"></option>
-                        <option value="Rio Grande Do Sul"></option>
-                        <option value="Rio Grande Do SulAAAAAAAAA"></option>
-                    </datalist>
+
+
+
                 </div>
 
-                <div  className='containerInputs__labelBairroInput'>
+                <div className='formularioAtualizarPerfil__atualizarNome'>
                     <label>
-                        Bairro
+                        NOME
                     </label>
-                    <input className='containerInputs__inputListaBairros' list='district' placeholder='Selecione...' onChange={(e) => setBairro(e.target.value)} value={bairro}/>
-                    <datalist id='district'>
-                        <option value="Santa Catarina"></option>
-                        <option value="São Paulo"></option>
-                        <option value="Rio De Janeiro"></option>
-                        <option value="Rio Grande Do Sul"></option>
-                        <option value="Rio Grande Do SulAAAAAAAAA"></option>
-                    </datalist>
+                    <InputGlobal
+                        placeholder={'Atualize seu nome'}
+                        type={'text'}
+                        onChange={setNome}
+                        valueperfil={nome}
+                    ></InputGlobal>
                 </div>
 
-           </div>
+                <div className='formularioAtualizarPerfil__atualizarTag'>
+                    <label>
+                        Tag De Usuário
+                    </label>
+                    <InputGlobal
+                        placeholder={'Atualize sua tag de usuário'}
+                        type={'text'}
+                        onChange={setTagPerfil}
+                        valueperfil={tagPerfilEditado}
+                    ></InputGlobal>
+                </div>
 
-           <div className='formularioAtualizarPerfil__atualizarDescricao'>
-                <label>
-                    Descrição
-                </label>
-                <input className='formularioAtualizarPerfil__editarDescricao' type="text" onChange={(e) => setDescricao(e.target.value)} value={descricao}/>
-           </div>
+                <div className='containerInputs'>
+                    <div className='containerInputs__labelCidadesInput'>
+                        <label>
+                            Cidade
+                        </label>
+                        <input className='containerInputs__inputListaCidades' list='cities' placeholder='Selecione...' onChange={(e) => setCidade(e.target.value)} value={cidade} />
+                        <datalist id='cities'>
+                            <option value="Osasco"></option>
+                            <option value="São Paulo"></option>
+                        </datalist>
+                    </div>
 
-            
+                    <div className='containerInputs__labelCidadesInput'>
+                        <label>
+                            Estado
+                        </label>
+                        <input className='containerInputs__inputListaEstados' list='states' placeholder='Selecione...' onChange={(e) => setEstado(e.target.value)} value={estado} />
+                        <datalist id='states'>
+                            <option value="Santa Catarina"></option>
+                            <option value="São Paulo"></option>
+                            <option value="Rio De Janeiro"></option>
+                            <option value="Rio Grande Do Sul"></option>
+                            <option value="Rio Grande Do SulAAAAAAAAA"></option>
+                        </datalist>
+                    </div>
 
-        </form>
-    </>
-  )
+                    <div className='containerInputs__labelBairroInput'>
+                        <label>
+                            Bairro
+                        </label>
+                        <input className='containerInputs__inputListaBairros' list='district' placeholder='Selecione...' onChange={(e) => setBairro(e.target.value)} value={bairro} />
+                        <datalist id='district'>
+                            <option value="Santa Catarina"></option>
+                            <option value="São Paulo"></option>
+                            <option value="Rio De Janeiro"></option>
+                            <option value="Rio Grande Do Sul"></option>
+                            <option value="Rio Grande Do SulAAAAAAAAA"></option>
+                        </datalist>
+                    </div>
+
+                </div>
+
+                <div className='formularioAtualizarPerfil__atualizarDescricao'>
+                    <label>
+                        Descrição
+                    </label>
+                    <input className='formularioAtualizarPerfil__editarDescricao' type="text" onChange={(e) => setDescricao(e.target.value)} value={descricao} />
+                </div>
+
+
+
+            </form>
+        </>
+    )
 }
 
 export default FormularioEditarMeuPerfil

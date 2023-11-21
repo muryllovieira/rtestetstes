@@ -12,6 +12,12 @@ import UserContext from '../../../../../data/hooks/context/UserContext'
 import { useNavigate } from 'react-router-dom'
 import { uploadImage } from '../../../../../data/services/firebase/firebase'
 import ModalCarregarGlobal from '../../../global/ModalCarregarGlobal/ModalCarregarGlobal'
+import {fetchCidadesPorEstado} from '../../../../../ui/components/personalizarPerfil/ComboBoxLocalizacao/ApiEndereco.jsx'
+import { fetchEstados } from '../../../../../ui/components/personalizarPerfil/ComboBoxLocalizacao/ApiEndereco.jsx'
+import { fetchBairroPorCidade } from '../../../../../ui/components/personalizarPerfil/ComboBoxLocalizacao/ApiEndereco.jsx'
+import InputEstados from '../../../personalizarPerfil/ComboBoxLocalizacao/inputEstados/InputEstados'
+import InputCidades from '../../../personalizarPerfil/ComboBoxLocalizacao/inputCidades/InputCidades'
+import InputBairros from '../../../personalizarPerfil/ComboBoxLocalizacao/inputBairros/InputBairros'
 
 function FormularioEditarMeuPerfil({ open, nomePerfil, tagPerfil, cidadePerfil, estadoPerfil, bairroPerfil, descricaoPerfil, tagsPerfil, idLocalizacao, reloadUser, imgPerfil }) {
 
@@ -191,12 +197,21 @@ function FormularioEditarMeuPerfil({ open, nomePerfil, tagPerfil, cidadePerfil, 
     }
 
 
+    //Localização
+    const [formValues, setFormValues] = useState({})
+
+    const handleInputChange = (e) => {
+        e.preventDefault()
+        const {value, name} = e.target
+        setFormValues({...formValues, [name]:value})
+    }
+
     return (
         <>
-            <ModalCarregarGlobal
+            {/* <ModalCarregarGlobal
                 visivel={true}
                 erro={erro}
-            ></ModalCarregarGlobal>
+            ></ModalCarregarGlobal> */}
 
             <form className='formularioAtualizarPerfil'>
 
@@ -252,30 +267,22 @@ function FormularioEditarMeuPerfil({ open, nomePerfil, tagPerfil, cidadePerfil, 
                     ></InputGlobal>
                 </div>
 
-                <div className='containerInputs'>
-                    <div className='containerInputs__labelCidadesInput'>
-                        <label>
-                            Cidade
-                        </label>
-                        <input className='containerInputs__inputListaCidades' list='cities' placeholder='Selecione...' onChange={(e) => setCidade(e.target.value)} value={cidade} />
-                        <datalist id='cities'>
-                            <option value="Osasco"></option>
-                            <option value="São Paulo"></option>
-                        </datalist>
-                    </div>
+                {/* <div className='containerInputs'>
 
                     <div className='containerInputs__labelCidadesInput'>
                         <label>
                             Estado
                         </label>
                         <input className='containerInputs__inputListaEstados' list='states' placeholder='Selecione...' onChange={(e) => setEstado(e.target.value)} value={estado} />
-                        <datalist id='states'>
-                            <option value="Santa Catarina"></option>
-                            <option value="São Paulo"></option>
-                            <option value="Rio De Janeiro"></option>
-                            <option value="Rio Grande Do Sul"></option>
-                            <option value="Rio Grande Do SulAAAAAAAAA"></option>
-                        </datalist>
+                            <InputEstados id={'states'} onChange={handleInputChange}/>
+                    </div>
+
+                    <div className='containerInputs__labelCidadesInput'>
+                        <label>
+                            Cidade
+                        </label>
+                        <input className='containerInputs__inputListaCidades' list='cities' placeholder='Selecione...' onChange={(e) => setCidade(e.target.value)} value={cidade} />
+                            <InputCidades id={'cities'} onChange={handleInputChange} state={formValues.state}/>
                     </div>
 
                     <div className='containerInputs__labelBairroInput'>
@@ -283,16 +290,10 @@ function FormularioEditarMeuPerfil({ open, nomePerfil, tagPerfil, cidadePerfil, 
                             Bairro
                         </label>
                         <input className='containerInputs__inputListaBairros' list='district' placeholder='Selecione...' onChange={(e) => setBairro(e.target.value)} value={bairro} />
-                        <datalist id='district'>
-                            <option value="Santa Catarina"></option>
-                            <option value="São Paulo"></option>
-                            <option value="Rio De Janeiro"></option>
-                            <option value="Rio Grande Do Sul"></option>
-                            <option value="Rio Grande Do SulAAAAAAAAA"></option>
-                        </datalist>
+                            <InputBairros id={'district'} onChange={handleInputChange} city={formValues.city}/>
                     </div>
 
-                </div>
+                </div> */}
 
                 <div className='formularioAtualizarPerfil__atualizarDescricao'>
                     <label>

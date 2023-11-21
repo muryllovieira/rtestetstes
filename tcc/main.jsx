@@ -61,7 +61,7 @@ import './src/ui/styles/global.css'
 
 const validarLogin = (elemento) => {
 
-  if (accessToken === null || id === null || isNaN(id)) {
+  if (accessToken === null || id === null || isNaN(id) || accessToken == "" || id == "") {
 
     return (
       <Navigate replace to={"/login"} />
@@ -79,7 +79,7 @@ const validarLogin = (elemento) => {
 
 const validarId = (elemento) => {
 
-  if (id === null || isNaN(id)) {
+  if (id === null || isNaN(id) || id == "") {
 
     return (
       <Navigate replace to={"/login"} />
@@ -97,7 +97,7 @@ const validarId = (elemento) => {
 
 const redirecionarMenu = () => {
 
-  if (id === null || isNaN(id) || accessToken === null) {
+  if (id === null || isNaN(id) || accessToken === null || accessToken == "" || id == "") {
 
     return (
       <Navigate replace to={"/login"} />

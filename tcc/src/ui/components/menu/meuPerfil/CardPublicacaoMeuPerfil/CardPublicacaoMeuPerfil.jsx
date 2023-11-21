@@ -24,8 +24,6 @@ function CardPublicacaoMeuPerfil({ idUsuario, idPublicacao, nomePublicacao, desc
        listaAnexos.push(anexo.anexo)
     })
 
-    console.log(anexosPublicacao)
-
     return listaAnexos
   }
 

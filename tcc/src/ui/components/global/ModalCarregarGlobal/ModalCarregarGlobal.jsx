@@ -13,11 +13,11 @@ function ModalCarregarGlobal({ visivel, setVisivel, erro, caminho }) {
 
                 <div className='modalCarregarGlobal'>
                     {
-                        erro === 404 ? (
+                        erro == 404 ? (
 
                             <p className='tess'> erro 404 </p>
 
-                        ) : erro === 401 ? (
+                        ) : erro == 401 ? (
 
                             <div className='modalCarregarGlobal__mensagemGlobal'>
 
@@ -31,11 +31,20 @@ function ModalCarregarGlobal({ visivel, setVisivel, erro, caminho }) {
 
                             </div>
 
-                        ) : erro === 203 ? (
+                        ) : erro == 203 ? (
 
                             <div>
 
                                 <p className='tess'> certo 203 </p>
+                                <button className='tess'>Sair</button>
+
+                            </div>
+
+                        ) : erro == 200 ? (
+
+                            <div>
+
+                                <p className='tess'> certo 200 </p>
                                 <button className='tess'>Sair</button>
 
                             </div>

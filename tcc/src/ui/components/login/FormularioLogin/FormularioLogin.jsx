@@ -12,7 +12,7 @@ import { useNavigate } from 'react-router-dom'
 import UserContext, { UserProvider } from '../../../../data/hooks/context/UserContext'
 
 
-function FormularioLogin () {
+function FormularioLogin() {
 
   const { setAccessToken, setId } = useContext(UserContext)
 
@@ -23,7 +23,7 @@ function FormularioLogin () {
   const [senha, setSenha] = useState()
 
   const [errMsg, setErrMsg] = useState()
-  
+
   const errRef = useRef()
 
 
@@ -35,35 +35,38 @@ function FormularioLogin () {
   const getUsuario = async (e) => {
 
     e.preventDefault()
-   
+
 
     try {
       const response = await blogFetch.post("/usuario/login", {
         email: email,
         senha: senha
       })
-   
-      
-      window.localStorage.setItem('id', JSON.stringify(response.data.login.id))
-      window.localStorage.setItem('token', JSON.stringify(response.data.token))
 
-      setAccessToken(response.data.token)
-      setId(response.data.login.id)
+      if (response.status === 200) {
+        window.localStorage.setItem('id', JSON.stringify(response.data.login.id))
+        window.localStorage.setItem('accessToken', JSON.stringify(response.data.token))
 
-      navigate("/menu/explorar")
+        setAccessToken(response.data.token)
+        setId(response.data.login.id)
+
+        navigate('/menu/explorar')
+      }
+
       
+
     } catch (error) {
 
-      if(!error.response) {
-        
+      if (!error.response) {
+
         setErrMsg('Sem Resposta Do Servidor')
 
       } else if (error.response.status === 429) {
-        
+
         setErrMsg('Muitas Requisições. Aguarde e tente novamente.')
 
       } else if (error.response.status === 404) {
-        
+
         setErrMsg('Email ou Senha Incorretos ou o usuário não possui cadastro.')
 
       } else if (error.response.status === 503) {
@@ -82,6 +85,8 @@ function FormularioLogin () {
 
     }
 
+
+
   }
 
   return (
@@ -90,20 +95,20 @@ function FormularioLogin () {
 
       <button onClick={() => {
 
-        window.localStorage.setItem('id', JSON.stringify(1))
-        window.localStorage.setItem('accessToken', JSON.stringify('saidhsauhdashuas'))
+        window.localStorage.removeItem('id', JSON.stringify(''))
+        window.localStorage.removeItem('accessToken', JSON.stringify(''))
 
       }}> CLICA AQUI </button>
 
-      <p ref={errRef} className={errMsg ? "mensagemErro" : 
-      "mensagemDesligada"} aria-live='assertive'>{errMsg}</p>
+      <p ref={errRef} className={errMsg ? "mensagemErro" :
+        "mensagemDesligada"} aria-live='assertive'>{errMsg}</p>
 
       <div className='formularioLogin__containerInputs'>
 
         <InputGlobal
-         type={'email'}
-         placeholder={'Email'}
-         onChange={setEmail}
+          type={'email'}
+          placeholder={'Email'}
+          onChange={setEmail}
         ></InputGlobal>
 
         <InputGlobal
@@ -133,7 +138,7 @@ function FormularioLogin () {
         url={'/registrar'}
         alternado={false}
       ></BotaoAncoraGlobal>
-      
+
     </form>
   )
 }

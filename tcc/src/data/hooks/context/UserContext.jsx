@@ -2,10 +2,15 @@ import { createContext, useState, useEffect } from "react";
 
 export const UserContext = createContext()
 
+
+
 export const UserProvider = ({children}) => {
 
-    const [accessToken, setAccessToken] = useState("")
-    const [ id, setId ] = useState("")
+    const idLocalStorage = JSON.parse(window.localStorage.getItem('id'))
+    const accessTokenLocalStorage = JSON.parse(window.localStorage.getItem('accessToken'))
+
+    const [accessToken, setAccessToken] = useState(accessTokenLocalStorage)
+    const [ id, setId ] = useState(idLocalStorage)
 
     const [ nome, setNome ] = useState("")
     const [ foto, setFoto ] = useState("")

@@ -19,10 +19,7 @@ import InputEstados from '../../../personalizarPerfil/ComboBoxLocalizacao/inputE
 import InputCidades from '../../../personalizarPerfil/ComboBoxLocalizacao/inputCidades/InputCidades'
 import InputBairros from '../../../personalizarPerfil/ComboBoxLocalizacao/inputBairros/InputBairros'
 
-function FormularioEditarMeuPerfil({ open, nomePerfil, tagPerfil, cidadePerfil, estadoPerfil, bairroPerfil, descricaoPerfil, tagsPerfil, idLocalizacao, reloadUser, imgPerfil }) {
-
-    const [visivel, setVisivel] = useState(false)
-    const [erro, setErro] = useState(0)
+function FormularioEditarMeuPerfil({ open, nomePerfil, tagPerfil, cidadePerfil, estadoPerfil, bairroPerfil, descricaoPerfil, tagsPerfil, idLocalizacao, reloadUser, imgPerfil, funcLoading}) {
 
     const navigate = useNavigate()
 
@@ -38,6 +35,11 @@ function FormularioEditarMeuPerfil({ open, nomePerfil, tagPerfil, cidadePerfil, 
     const [tags, setTagsPerfil] = useState(tagsPerfil)
     const [localizacao, setLocalizacao] = useState(idLocalizacao)
     const [fotoPerfil, setFotoPerfil] = useState(imgPerfil)
+    const [ statusResponse, setStatusResponse ] = useState(0)
+
+    useEffect(() => {
+        console.log(statusResponse)
+    },[statusResponse])
 
     const [images, setImage] = useState([])
     const [imageURL, setImageURL] = useState([])
@@ -112,7 +114,7 @@ function FormularioEditarMeuPerfil({ open, nomePerfil, tagPerfil, cidadePerfil, 
 
     const salvarNovosDadosPerfil = async () => {
 
-        setVisivel(!visivel)
+        funcLoading(true, 0, '/explorar')
 
         const tag = formatarTags()
 
@@ -120,44 +122,42 @@ function FormularioEditarMeuPerfil({ open, nomePerfil, tagPerfil, cidadePerfil, 
 
         if (foto == false) {
 
-            console.log(localizacao)
-
             try {
-                const response = await blogFetch.put('/usuario/editar_perfil', {
-                    id_usuario: id,
-                    id_localizacao: localizacao,
-                    bairro: bairro,
-                    cidade: cidade,
-                    estado: estado,
-                    nome: nome,
-                    descricao: descricao,
-                    foto: fotoPerfil,
-                    nome_de_usuario: tagPerfilEditado,
-                    tags: tag
-                }, {
-                    headers: {
-                        'x-access-token': accessToken
-                    }
-                })
-
-                setErro(203)
+                // const response = await blogFetch.put('/usuario/editar_perfil', {
+                //     id_usuario: id,
+                //     id_localizacao: localizacao,
+                //     bairro: bairro,
+                //     cidade: cidade,
+                //     estado: estado,
+                //     nome: nome,
+                //     descricao: descricao,
+                //     foto: fotoPerfil,
+                //     nome_de_usuario: tagPerfilEditado,
+                //     tags: tag
+                // }, {
+                //     headers: {
+                //         'x-access-token': accessToken
+                //     }
+                // })
 
                 console.log(response)
+                setStatusResponse(200)
+
+                funcLoading(true, 200, '/menu/explorar')
 
             } catch (error) {
-                console.log(error)
-                console.log(error.config.data)
 
-                console.log('erro')
+                funcLoading(true, error.status, '/menu/explorar')
+                
             }
+
+            funcLoading(true, statusResponse, '')
 
             console.log('sem foto')
             reloadUser()
 
         } else {
             setFotoPerfil(foto)
-
-            console.log(localizacao)
 
             try {
                 const response = await blogFetch.put('/usuario/editar_perfil', {
@@ -180,8 +180,6 @@ function FormularioEditarMeuPerfil({ open, nomePerfil, tagPerfil, cidadePerfil, 
                 console.log(response)
 
             } catch (error) {
-                console.log(error)
-                console.log(error.config.data)
 
                 console.log('erro')
             }
@@ -190,9 +188,6 @@ function FormularioEditarMeuPerfil({ open, nomePerfil, tagPerfil, cidadePerfil, 
             reloadUser()
 
         }
-
-
-
 
     }
 
@@ -208,10 +203,6 @@ function FormularioEditarMeuPerfil({ open, nomePerfil, tagPerfil, cidadePerfil, 
 
     return (
         <>
-            {/* <ModalCarregarGlobal
-                visivel={true}
-                erro={erro}
-            ></ModalCarregarGlobal> */}
 
             <form className='formularioAtualizarPerfil'>
 

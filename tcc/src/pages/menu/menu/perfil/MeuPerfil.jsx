@@ -15,7 +15,9 @@ import ModalCarregarGlobal from '../../../../ui/components/global/ModalCarregarG
 function MeuPerfil() {
 
   const [open, setOpen] = useState(false)
-  const [ visivel, setVisivel ] = useState(true)
+  const [ visivel, setVisivel ] = useState(false)
+  const [ erro, setErro ] = useState(0)
+  const [ caminho, setCaminho ] = useState("")
   
 
   const { accessToken } = useContext(UserContext)
@@ -70,6 +72,27 @@ function MeuPerfil() {
     }
   }
 
+  const modalCarregar = (visivel, erro, caminho) => {
+    setVisivel(visivel)
+
+    setErro(erro)
+
+    setCaminho(caminho)
+
+  }
+
+  useEffect(() => {
+    console.log(visivel)
+  },[visivel])
+
+  useEffect(() => {
+    console.log(erro);
+  },[erro])
+
+  useEffect(() => {
+    console.log(caminho);
+  },[caminho])
+
   useEffect(() => {
     getUsuario()
   }, [])
@@ -81,9 +104,9 @@ function MeuPerfil() {
       <Outlet />
 
       <ModalCarregarGlobal
-                visivel={visivel}
-                setVisivel={setVisivel}
-                erro={401}
+        caminho={caminho}
+        erro={erro}
+        visivel={visivel}
       ></ModalCarregarGlobal>
       
 
@@ -261,6 +284,7 @@ function MeuPerfil() {
                   <FormularioEditarMeuPerfil open={() => {
                     setOpen(!open)
                   }}
+                    funcLoading={modalCarregar}
                     reloadUser={pegarUsuario}
                     nomePerfil={user.usuario.nome}
                     tagPerfil={user.usuario.nome_de_usuario}
@@ -291,7 +315,7 @@ function MeuPerfil() {
                 <p className='containerPublicacoesVazia'>{perfil.usuario.publicacoes}</p>
               ) : (
                 perfil.usuario.publicacoes.map((item) => {
-                  console.log(item)
+                 
                   return (
                     <CardPublicacaoMeuPerfil
                       idUsuario={id}

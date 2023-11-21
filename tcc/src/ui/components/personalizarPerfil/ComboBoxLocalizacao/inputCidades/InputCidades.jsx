@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import { fetchCidadesPorEstado } from '../ApiEndereco'
 import '../styleComboBoxLocalizacao.css'
 
-const InputCidades = ({state, onChange = () => {} }) => {
+const InputCidades = ({state, id, onChange = () => {} }) => {
 
 const [cidades, setCidades] = useState([])
 
@@ -15,7 +15,7 @@ const [cidades, setCidades] = useState([])
 
   return (
     <>
-        <select id='cities' name='city' onChange={onChange} className='inputList'>
+        <select id={id} name='city' onChange={onChange} className='inputList'>
             <option value="">Selecione uma cidade...</option>
             {
                 cidades.map((item) => (

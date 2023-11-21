@@ -10,6 +10,7 @@ import UserContext from '../../../../data/hooks/context/UserContext'
 import { useContext } from 'react'
 import CardPerfil from '../../../../ui/components/menu/servicosPerfil/CardPerfil/CardPerfil'
 import blogFetch from '../../../../data/services/api/ApiService'
+import FotoPerfil from '../../../../ui/components/global/FotoPerfil/FotoPerfil'
 
 const ServicosPerfil = () => {
 
@@ -77,10 +78,7 @@ const ServicosPerfil = () => {
            </div>
            </div>
            
-
-          <Link to={"/menu/meu-perfil"}>
-              <div className="cardFoto"></div>
-          </Link>
+           <FotoPerfil/>
            
          </div>
 

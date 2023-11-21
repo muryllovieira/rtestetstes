@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { fetchBairroPorCidade } from '../ApiEndereco'
 import '../styleComboBoxLocalizacao.css'
 
-const InputBairros = ({city, onChange = () => {}}) => {
+const InputBairros = ({city, id, onChange = () => {}}) => {
 
   const [bairros, setBairros] = useState([])
   
@@ -17,7 +17,7 @@ const InputBairros = ({city, onChange = () => {}}) => {
 
   return (
     <>
-        <select id="neighborhoods" name='neighborhood' onChange={onChange} className='inputList'>
+        <select id={id} name='neighborhood' onChange={onChange} className='inputList'>
             <option value="">Selecione um bairro...</option>
             {
               

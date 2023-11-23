@@ -120,11 +120,9 @@ function FormularioEditarMeuPerfil({ open, nomePerfil, tagPerfil, cidadePerfil, 
 
         const foto = await salvarFoto()
 
+        funcLoading(true, 0, '/explorar')
+
         if (foto == false) {
-
-            funcLoading(true, 0, '/explorar')
-
-        
 
             try {
                 // const response = { status: 200}
@@ -141,39 +139,28 @@ function FormularioEditarMeuPerfil({ open, nomePerfil, tagPerfil, cidadePerfil, 
                     tags: tag
                 }, {
                     headers: {
-                        'x-access-token': ''
+                        'x-access-token': accessToken
                     },
 
                 })
-                .catch((error) => {
-                    
-                    console.log(error.toJSON())
-                 
-                })
-
                 
-                console.log(response)
-                // setStatusResponse(response.status)
 
-                if (response.status == 200) {
-                    funcLoading(true, 200, '/menu/explorar')
-                } else {
-                    funcLoading(true, 500, '/menu/explorar')
-                }
+                reloadUser()
+
+                funcLoading(true, response.status, '/menu/explorar')
+
 
             } catch (error) {
-                console.log(error)
-                
-                // funcLoading(true, 401, '/menu/explorar')
+
+                funcLoading(true, error.response.status, '/menu/explorar')
                 
             }
 
-            // funcLoading(true, 200, '')
-
-            console.log('sem foto')
-            reloadUser()
 
         } else {
+
+            funcLoading(true, 0, '/explorar')
+
             setFotoPerfil(foto)
 
             try {
@@ -194,15 +181,20 @@ function FormularioEditarMeuPerfil({ open, nomePerfil, tagPerfil, cidadePerfil, 
                     }
                 })
 
-                console.log(response)
+                reloadUser()
+
+                funcLoading(true, response.status, '/menu/explorar')
+  
 
             } catch (error) {
 
+                funcLoading(true, error.response.status, '/menu/explorar')
                 console.log('erro')
             }
 
             console.log('com foto')
-            reloadUser()
+            
+            
 
         }
 

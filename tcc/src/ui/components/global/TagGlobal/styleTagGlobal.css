@@ -14,6 +14,23 @@
     border-radius: 10px;
 }
 
+.tagGlobalBotaoVerMais {
+    width: fit-content;
+    padding-left: 8px;
+    padding-right: 1px;
+    height: 15px;
+    background: linear-gradient(90deg, var(--primary-color) 0%, var(--secundary-color) 100%);
+    font-size: 0.5rem;
+    font-style: normal;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
 .tagGlobal__numeroRecomendacao {
     background-color: #6e5f8e;
     height: 13px;

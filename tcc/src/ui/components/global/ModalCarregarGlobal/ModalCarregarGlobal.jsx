@@ -3,7 +3,7 @@ import './styleModalCarregarGlobal.css'
 import Loading from './images/loading.gif'
 import IconObject from '../IconesGlobais/iconesGlobais'
 
-function ModalCarregarGlobal({ visivel, setVisivel, erro, caminho }) {
+function ModalCarregarGlobal({ visivel, setVisivel, erro, caminho, open, setOpen, mensagem }) {
 
     if (visivel === true) {
         return (
@@ -15,39 +15,283 @@ function ModalCarregarGlobal({ visivel, setVisivel, erro, caminho }) {
                     {
                         erro == 404 ? (
 
-                            <p className='tess'> erro 404 </p>
+                            open ? (
+
+                                mensagem ? (
+
+                                    <div className='modalCarregarGlobal__mensagemGlobal'>
+
+                                        <div className='iconeFecharMensagemGlobal'>
+                                            <i onClick={() => {
+                                                setVisivel(!visivel)
+                                                setOpen(!open)
+                                            }}>{IconObject.voltarOuCancelarColorido}</i>
+                                        </div>
+
+                                        <p className='tess'>{mensagem}</p>
+
+                                    </div>
+
+                                ) : (
+
+                                    <div className='modalCarregarGlobal__mensagemGlobal'>
+
+                                        <div className='iconeFecharMensagemGlobal'>
+                                            <i onClick={() => {
+                                                setVisivel(!visivel)
+                                                setOpen(!open)
+                                            }}>{IconObject.voltarOuCancelarColorido}</i>
+                                        </div>
+
+                                        <p className='tess'> erro 404 </p>
+
+                                    </div>
+
+                                )
+
+                            ) : (
+
+                                mensagem ? (
+
+                                    <div className='modalCarregarGlobal__mensagemGlobal'>
+
+                                        <div className='iconeFecharMensagemGlobal'>
+                                            <i onClick={() => {
+                                                setVisivel(!visivel)
+                                            }}>{IconObject.voltarOuCancelarColorido}</i>
+                                        </div>
+
+                                        <p className='tess'> {mensagem} </p>
+
+                                    </div>
+
+                                ) : (
+
+                                    <div className='modalCarregarGlobal__mensagemGlobal'>
+
+                                        <div className='iconeFecharMensagemGlobal'>
+                                            <i onClick={() => {
+                                                setVisivel(!visivel)
+                                            }}>{IconObject.voltarOuCancelarColorido}</i>
+                                        </div>
+
+                                        <p className='tess'> erro 404 </p>
+
+                                    </div>
+
+                                )
+
+                            )
 
                         ) : erro == 401 ? (
 
-                            <div className='modalCarregarGlobal__mensagemGlobal'>
+                            open ? (
 
-                                <div className='iconeFecharMensagemGlobal'>
-                                    <i onClick={() => {
-                                        setVisivel(!visivel)
-                                    }}>{IconObject.voltarOuCancelarColorido}</i>
-                                </div>
+                                mensagem ? (
 
-                                <p className='tess'> erro 401 </p>
+                                    <div className='modalCarregarGlobal__mensagemGlobal'>
 
-                            </div>
+                                        <div className='iconeFecharMensagemGlobal'>
+                                            <i onClick={() => {
+                                                setVisivel(!visivel)
+                                                setOpen(!open)
+                                            }}>{IconObject.voltarOuCancelarColorido}</i>
+                                        </div>
 
-                        ) : erro == 203 ? (
+                                        <p className='tess'> {mensagem} </p>
 
-                            <div>
+                                    </div>
 
-                                <p className='tess'> certo 203 </p>
-                                <button className='tess'>Sair</button>
+                                ) : (
 
-                            </div>
+                                    <div className='modalCarregarGlobal__mensagemGlobal'>
+
+                                        <div className='iconeFecharMensagemGlobal'>
+                                            <i onClick={() => {
+                                                setVisivel(!visivel)
+                                                setOpen(!open)
+                                            }}>{IconObject.voltarOuCancelarColorido}</i>
+                                        </div>
+
+                                        <p className='tess'> erro 401 </p>
+
+                                    </div>
+
+                                )
+
+                            ) : (
+
+                                mensagem ? (
+
+                                    <div className='modalCarregarGlobal__mensagemGlobal'>
+
+                                        <div className='iconeFecharMensagemGlobal'>
+                                            <i onClick={() => {
+                                                setVisivel(!visivel)
+                                            }}>{IconObject.voltarOuCancelarColorido}</i>
+                                        </div>
+
+                                        <p className='tess'> {mensagem} </p>
+
+                                    </div>
+
+                                ) : (
+
+                                    <div className='modalCarregarGlobal__mensagemGlobal'>
+
+                                        <div className='iconeFecharMensagemGlobal'>
+                                            <i onClick={() => {
+                                                setVisivel(!visivel)
+                                            }}>{IconObject.voltarOuCancelarColorido}</i>
+                                        </div>
+
+                                        <p className='tess'> erro 401 </p>
+
+                                    </div>
+
+                                )
+
+                            )
+
+                        ) : erro == 201 ? (
+
+                            open ? (
+
+                                mensagem ? (
+
+                                    <div className='modalCarregarGlobal__mensagemGlobal'>
+
+                                        <div className='iconeFecharMensagemGlobal'>
+                                            <i onClick={() => {
+                                                setVisivel(!visivel)
+                                                setOpen(!open)
+                                            }}>{IconObject.voltarOuCancelarColorido}</i>
+                                        </div>
+
+                                        <p className='tess'> {mensagem} </p>
+
+                                    </div>
+
+                                ) : (
+
+                                    <div className='modalCarregarGlobal__mensagemGlobal'>
+
+                                        <div className='iconeFecharMensagemGlobal'>
+                                            <i onClick={() => {
+                                                setVisivel(!visivel)
+                                                setOpen(!open)
+                                            }}>{IconObject.voltarOuCancelarColorido}</i>
+                                        </div>
+
+                                        <p className='tess'> erro 201 </p>
+
+                                    </div>
+
+                                )
+
+                            ) : (
+
+                                mensagem ? (
+
+                                    <div className='modalCarregarGlobal__mensagemGlobal'>
+
+                                        <div className='iconeFecharMensagemGlobal'>
+                                            <i onClick={() => {
+                                                setVisivel(!visivel)
+                                            }}>{IconObject.voltarOuCancelarColorido}</i>
+                                        </div>
+
+                                        <p className='tess'> {mensagem} </p>
+
+                                    </div>
+
+                                ) : (
+
+                                    <div className='modalCarregarGlobal__mensagemGlobal'>
+
+                                        <div className='iconeFecharMensagemGlobal'>
+                                            <i onClick={() => {
+                                                setVisivel(!visivel)
+                                            }}>{IconObject.voltarOuCancelarColorido}</i>
+                                        </div>
+
+                                        <p className='tess'> erro 201 </p>
+
+                                    </div>
+
+                                )
+
+                            )
 
                         ) : erro == 200 ? (
 
-                            <div>
+                            open ? (
 
-                                <p className='tess'> certo 200 </p>
-                                <button className='tess'>Sair</button>
+                                mensagem ? (
 
-                            </div>
+                                    <div className='modalCarregarGlobal__mensagemGlobal'>
+
+                                        <div className='iconeFecharMensagemGlobal'>
+                                            <i onClick={() => {
+                                                setVisivel(!visivel)
+                                                setOpen(!open)
+                                            }}>{IconObject.voltarOuCancelarColorido}</i>
+                                        </div>
+
+                                        <p className='tess'> {mensagem} </p>
+
+                                    </div>
+
+                                ) : (
+
+                                    <div className='modalCarregarGlobal__mensagemGlobal'>
+
+                                        <div className='iconeFecharMensagemGlobal'>
+                                            <i onClick={() => {
+                                                setVisivel(!visivel)
+                                                setOpen(!open)
+                                            }}>{IconObject.voltarOuCancelarColorido}</i>
+                                        </div>
+
+                                        <p className='tess'> erro 200 </p>
+
+                                    </div>
+
+                                )
+
+                            ) : (
+
+                                mensagem ? (
+
+                                    <div className='modalCarregarGlobal__mensagemGlobal'>
+
+                                        <div className='iconeFecharMensagemGlobal'>
+                                            <i onClick={() => {
+                                                setVisivel(!visivel)
+                                            }}>{IconObject.voltarOuCancelarColorido}</i>
+                                        </div>
+
+                                        <p className='tess'> {mensagem} </p>
+
+                                    </div>
+
+                                ) : (
+
+                                    <div className='modalCarregarGlobal__mensagemGlobal'>
+
+                                        <div className='iconeFecharMensagemGlobal'>
+                                            <i onClick={() => {
+                                                setVisivel(!visivel)
+                                            }}>{IconObject.voltarOuCancelarColorido}</i>
+                                        </div>
+
+                                        <p className='tess'> erro 200 </p>
+
+                                    </div>
+
+                                )
+
+                            )
 
                         ) : (
 

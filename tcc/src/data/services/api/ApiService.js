@@ -1,7 +1,7 @@
 import axios from "axios"
 
 const blogFetch = axios.create({
-    baseURL: "http://10.107.144.17:3000",
+    baseURL: "http://192.168.0.6:3000",
     headers: {'Content-Type': 'application/json'}
 })
 

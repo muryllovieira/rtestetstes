@@ -417,13 +417,6 @@ const ModalMinhaPublicacao = ({ isOpen, setModalOpen, accessToken, idPublicacao,
     }
   }, [isOpen])
 
-  useEffect(() => {
-    console.log(comentar)
-  }, [comentar])
-
-  useEffect(() => {
-    console.log(comentario)
-  }, [comentario])
 
   const pegarComentarios = async () => {
     try {
@@ -478,7 +471,6 @@ const ModalMinhaPublicacao = ({ isOpen, setModalOpen, accessToken, idPublicacao,
           <div>
 
             <div className='modalBackgroundMeuPerfil'></div>
-
 
             <div className='formularioPublicacaoMeuPerfil'>
 
@@ -741,7 +733,6 @@ const ModalMinhaPublicacao = ({ isOpen, setModalOpen, accessToken, idPublicacao,
                   setImageURL={setImageURL}
                 ></FotoPublicacao>
 
-
               </div>
 
               <div className='containerEditarPublicacao__containerFormulario'>
@@ -801,6 +792,7 @@ const ModalMinhaPublicacao = ({ isOpen, setModalOpen, accessToken, idPublicacao,
                             <p>Carregando</p>
                           ) : (
                             tags.map((item, indice) => {
+                              
 
                               if (item.selecao == true) {
                                 return (

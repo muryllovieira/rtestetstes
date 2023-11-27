@@ -4,7 +4,7 @@
  * Data Fim: X
  * 
  * Commits: Rotas Definidas v1.0, Estruturação de Diretórios Concluída, 
- * Componentes Iniciados v2.45, Responsividade v0.7, Funcionalidades v0.20,
+ * Componentes Iniciados v2.46, Responsividade v0.7, Funcionalidades v0.21,
  * Integração Iniciada v0.33, Contexto Aplicado, Lista Icones v0.4, Conflito v0.4, Ajustes v0.4,
  *  
  * 
@@ -61,7 +61,7 @@ import './src/ui/styles/global.css'
 
 const validarLogin = (elemento) => {
 
-  if (accessToken === null || id === null || isNaN(id) || accessToken == "" || id == "") {
+  if (accessToken == null || id == null || isNaN(id) || id == undefined || accessToken == undefined) {
 
     return (
       <Navigate replace to={"/login"} />
@@ -184,7 +184,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/menu/explorar",
-        element: validarLogin(<Explorar />),
+        element: <Explorar />,
         errorElement: <NaoEncontrado />,
         children: [
           {

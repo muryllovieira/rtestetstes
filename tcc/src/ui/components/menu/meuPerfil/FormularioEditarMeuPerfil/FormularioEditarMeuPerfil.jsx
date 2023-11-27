@@ -111,12 +111,17 @@ function FormularioEditarMeuPerfil({ aberto, open, nomePerfil, tagPerfil, cidade
 
         const foto = await salvarFoto()
 
+        funcLoading(true, 0, '/explorar')
+
         if (foto == false) {
 
+<<<<<<< HEAD
             funcLoading(true, 0, '/explorar')
 
 
 
+=======
+>>>>>>> 6045d12fdc2811632f7cd58fce4a94f8de47f798
             try {
                 // const response = { status: 200}
                 const response = await blogFetch.put('/usuario/editar_perfil', {
@@ -136,6 +141,7 @@ function FormularioEditarMeuPerfil({ aberto, open, nomePerfil, tagPerfil, cidade
                     },
 
                 })
+<<<<<<< HEAD
 
                 console.log(response)
                 // setStatusResponse(response.status)
@@ -151,12 +157,21 @@ function FormularioEditarMeuPerfil({ aberto, open, nomePerfil, tagPerfil, cidade
 
                 funcLoading(true, error.response.status, '/menu/explorar')
 
+=======
+                
+
+                reloadUser()
+
+                funcLoading(true, response.status, '/menu/explorar')
+
+
+            } catch (error) {
+
+                funcLoading(true, error.response.status, '/menu/explorar')
+                
+>>>>>>> 6045d12fdc2811632f7cd58fce4a94f8de47f798
             }
 
-            // funcLoading(true, 200, '')
-
-            console.log('sem foto')
-            reloadUser()
 
         } else {
 
@@ -182,9 +197,13 @@ function FormularioEditarMeuPerfil({ aberto, open, nomePerfil, tagPerfil, cidade
                     }
                 })
 
-                console.log(response)
+                reloadUser()
+
+                funcLoading(true, response.status, '/menu/explorar')
+  
 
 
+<<<<<<< HEAD
                 if (response.status == 200) {
                     funcLoading(true, 200, '/menu/explorar', 'Usuário editado com sucesso.')
                 } else {
@@ -196,10 +215,15 @@ function FormularioEditarMeuPerfil({ aberto, open, nomePerfil, tagPerfil, cidade
 
                 funcLoading(true, error.response.status, '/menu/explorar')
 
+=======
+                funcLoading(true, error.response.status, '/menu/explorar')
+                console.log('erro')
+>>>>>>> 6045d12fdc2811632f7cd58fce4a94f8de47f798
             }
 
             console.log('com foto')
-            reloadUser()
+            
+            
 
         }
 

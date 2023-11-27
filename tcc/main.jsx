@@ -243,18 +243,6 @@ const router = createBrowserRouter([
         ]
       },
       {
-        path: "/menu/conversas/chat",
-        element: validarLogin(<Chat />),
-        errorElement: <NaoEncontrado />,
-        children: [
-          {
-            path: "/menu/conversas/chat/publicar/",
-            element: validarLogin(<Publicar />),
-            errorElement: <NaoEncontrado />
-          }
-        ]
-      },
-      {
         path: "/menu/configuracoes",
         element: validarLogin(<Configuracoes />),
         errorElement: <NaoEncontrado />,

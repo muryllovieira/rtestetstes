@@ -55,7 +55,7 @@ function FormularioTrocaDeSenha({id, accessToken, modalCarregar}) {
 
     } else {
 
-      modalCarregar(true, 0 , '/login')
+      // modalCarregar(true, 0 , '/login')
 
       try {
 

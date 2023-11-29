@@ -17,6 +17,7 @@ function Conversas() {
   const { id, accessToken } = useContext(UserContext)
   const [listaContatos, setListaContatos] = useState([])
   const [chatOpen, setChatOpen] = useState(false)
+  const [ socket, setSocket ] = useState(null)
 
   useEffect(() => {
     console.log(listaContatos)
@@ -73,55 +74,63 @@ function Conversas() {
 
               ) : (
 
-                listaContatos.map((item, index) => {
+                listaContatos.length == 0 ? (
+                  <p>Esse Usuário não possui conversas</p>
+                ) : (
 
-                  return (
+                  listaContatos.map((item, index) => {
 
-                    <>
-                      <div key={item.id_chat} className="tagTeste" onClick={() => {
-                        setChatOpen(!chatOpen)
-                      }}>
-                        <img className='foto' src={item.users[1].foto} alt="" />
+                    return (
 
-                        <div className='container_textos'>
-                          <p className='nome'>{item.users[1].nome}</p>
-                          {/* <p className='ultimaMensagem'>Boa noite</p> */}
+                      <>
+                        <div key={item.id_chat} className="tagTeste" onClick={() => {
+                          setChatOpen(!chatOpen)
+                        }}>
+                          <img className='foto' src={item.users[0].foto} alt="" />
+
+                          <div className='container_textos'>
+                            <p className='nome'>{item.users[1].nome}</p>
+                            {/* <p className='ultimaMensagem'>Boa noite</p> */}
+                          </div>
+
+                          <div className='container_status'>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 10 10" fill="none">
+                              <circle cx="5" cy="5" r="5" fill="#C98FEC" />
+                            </svg>
+                            {/* <p className='horas'></p> */}
+                          </div>
+
                         </div>
 
-                        <div className='container_status'>
-                          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 10 10" fill="none">
-                            <circle cx="5" cy="5" r="5" fill="#C98FEC" />
-                          </svg>
-                          {/* <p className='horas'></p> */}
-                        </div>
+                        {
+                          chatOpen == true ? (
+                            <Chat
+                              listaUsuarios={item.users}
+                              chatOpen={chatOpen}
+                              setChatOpen={setChatOpen}
+                              idChat={item.id_chat}
+                              socketSetado={socket}
+                              setSocket={setSocket}
+                            ></Chat>
+                          ) : (
+                            null
+                          )
+                        }
 
-                      </div>
 
-                      {
-                        chatOpen === true ? (
-                          <Chat
-                            listaUsuarios={item.users}
-                            chatOpen={chatOpen}
-                            setChatOpen={setChatOpen}
-                            idChat={item.id_chat}
-                          ></Chat>
-                        ) : (
-                          null
-                        )
-                      }
-                    </>
+                      </>
 
-                  )
+                    )
 
-                })
+                  })
+                )
 
               )
             }
 
 
-            {
 
-            }
+
 
           </div>
         </section>

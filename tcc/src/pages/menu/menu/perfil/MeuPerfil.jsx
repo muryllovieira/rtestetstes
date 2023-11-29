@@ -15,11 +15,21 @@ import ModalCarregarGlobal from '../../../../ui/components/global/ModalCarregarG
 function MeuPerfil() {
 
   const [open, setOpen] = useState(false)
+<<<<<<< HEAD
+  const [modalTags, setModalTags] = useState(false)
+
+  const [visivel, setVisivel] = useState(false)
+  const [erro, setErro] = useState(0)
+  const [caminho, setCaminho] = useState("")
+  const [mensagem, setMensagem] = useState("")
+
+=======
   const [ visivel, setVisivel ] = useState(false)
   const [ erro, setErro ] = useState(0)
   const [ caminho, setCaminho ] = useState("")
   const [ abrirFechar, setAbrirFechar ] = useState(false)
   
+>>>>>>> 6045d12fdc2811632f7cd58fce4a94f8de47f798
 
   const { accessToken } = useContext(UserContext)
   const { id } = useContext(UserContext)
@@ -73,7 +83,11 @@ function MeuPerfil() {
     }
   }
 
+<<<<<<< HEAD
+  const modalCarregar = (visivel, erro, caminho, mensagem) => {
+=======
   const modalCarregar = (visivel, erro, caminho, abrirFechar) => {
+>>>>>>> 6045d12fdc2811632f7cd58fce4a94f8de47f798
 
     setVisivel(visivel)
 
@@ -81,11 +95,30 @@ function MeuPerfil() {
 
     setCaminho(caminho)
 
+<<<<<<< HEAD
+    setMensagem(mensagem)
+=======
     setAbrirFechar(abrirFechar)
+>>>>>>> 6045d12fdc2811632f7cd58fce4a94f8de47f798
 
   }
 
   useEffect(() => {
+<<<<<<< HEAD
+    console.log(visivel)
+  }, [visivel])
+
+  useEffect(() => {
+    console.log(erro);
+  }, [erro])
+
+  useEffect(() => {
+    console.log(caminho);
+  }, [caminho])
+
+  useEffect(() => {
+=======
+>>>>>>> 6045d12fdc2811632f7cd58fce4a94f8de47f798
     getUsuario()
   }, [])
 
@@ -93,17 +126,79 @@ function MeuPerfil() {
 
   return (
     <>
+
+      {
+        modalTags == false ? (
+
+          null
+
+        ) : (
+
+          <div className='modalTagsMeuPerfil'>
+
+            <div className="modalBackgroundTagsMeuPerfil" onClick={() => {
+              setModalTags(!modalTags)
+            }}></div>
+
+            <div className="containerTagsMeuPerfil">
+
+              <div className='iconeFecharMensagem'>
+                <i onClick={() => {
+                  setModalTags(!modalTags)
+                }}>{IconObject.voltarOuCancelarColorido}</i>
+              </div>
+
+              <div className='containerTagsMeuPerfil__listaTagsMeuPerfil'>
+
+                {
+
+                  user.usuario.tags === undefined ? (
+
+                    <p>Carregando</p>
+
+                  ) : (
+
+                    user.usuario.tags.map((item, indice) => (
+
+                      <TagGlobal
+                        id={item.id_tag}
+                        value={item.nome}
+                        key={indice}
+                      ></TagGlobal>
+
+                    ))
+
+                  )
+
+                }
+
+              </div>
+
+            </div>
+
+          </div>
+
+        )
+      }
+
       <Outlet />
 
       <ModalCarregarGlobal
         caminho={caminho}
         erro={erro}
         visivel={visivel}
+<<<<<<< HEAD
+        mensagem={mensagem}
+        setVisivel={setVisivel}
+        open={open}
+        setOpen={setOpen}
+=======
         setVisivel={setVisivel}
         abrirFechar={open}
         setAbrirFechar={setOpen}
+>>>>>>> 6045d12fdc2811632f7cd58fce4a94f8de47f798
       ></ModalCarregarGlobal>
-      
+
 
       <div className="containerPerfil">
 
@@ -192,16 +287,29 @@ function MeuPerfil() {
                         ) : (
                           <>
 
-                            <TagGlobal
-                              key={user.usuario.tags[0].id_tag}
-                              id={user.usuario.tags[0].id_tag}
-                              value={user.usuario.tags[0].nome_tag}
-                            ></TagGlobal>
-                            <TagGlobal
-                              key={user.usuario.tags[1].id_tag}
-                              id={user.usuario.tags[1].id_tag}
-                              value={user.usuario.tags[1].nome_tag}
-                            ></TagGlobal>
+                            {
+                              user.usuario.tags[0] === undefined ? (
+                                <></>
+                              ) : (
+                                <TagGlobal
+                                  key={user.usuario.tags[0].id_tag}
+                                  id={user.usuario.tags[0].id_tag}
+                                  value={user.usuario.tags[0].nome}
+                                ></TagGlobal>
+                              )
+                            }
+                            {
+                              user.usuario.tags[1] === undefined ? (
+                                <></>
+                              ) : (
+                                <TagGlobal
+                                  key={user.usuario.tags[1].id_tag}
+                                  id={user.usuario.tags[1].id_tag}
+                                  value={user.usuario.tags[1].nome}
+                                ></TagGlobal>
+                              )
+                            }
+
                             {
                               user.usuario.tags[2] === undefined ? (
                                 <></>
@@ -209,10 +317,17 @@ function MeuPerfil() {
                                 <TagGlobal
                                   key={user.usuario.tags[2].id_tag}
                                   id={user.usuario.tags[2].id_tag}
-                                  value={user.usuario.tags[2].nome_tag}
+                                  value={user.usuario.tags[2].nome}
                                 ></TagGlobal>
                               )
                             }
+
+                            <TagGlobal
+                              value={'Ver Mais'}
+                              verMais={true}
+                              setModalTags={setModalTags}
+                              modalTags={modalTags}
+                            ></TagGlobal>
 
                           </>
                         )
@@ -221,17 +336,7 @@ function MeuPerfil() {
                   )
                 }
 
-                {/* {
-                              user.usuario.tags.map((tag, index) => 
-                                 {if (index < 3) {
-                                    <TagGlobal
-                                    id={tag.id_tag}
-                                    value={tag.nome_tag}
-                                    numero={'100'}
-                                  ></TagGlobal>
-                                 }}
-                              )
-                            }  */}
+
 
               </div>
 
@@ -279,6 +384,7 @@ function MeuPerfil() {
                   <FormularioEditarMeuPerfil open={() => {
                     setOpen(!open)
                   }}
+                    aberto={open}
                     funcLoading={modalCarregar}
                     reloadUser={pegarUsuario}
                     nomePerfil={user.usuario.nome}
@@ -290,6 +396,7 @@ function MeuPerfil() {
                     tagsPerfil={user.usuario.tags}
                     idLocalizacao={user.usuario.id_localizacao}
                     imgPerfil={user.usuario.foto}
+                   
                   ></FormularioEditarMeuPerfil>
 
                 )
@@ -301,33 +408,37 @@ function MeuPerfil() {
           </div>
         )}
 
-        <div className="containerPerfil__containerPublicacoes">
-          {
-            perfil === undefined ? (
-              <p>Sem Conteudo</p>
-            ) : (
-              perfil.usuario.publicacoes.length > 10 ? (
-                <p className='containerPublicacoesVazia'>{perfil.usuario.publicacoes}</p>
+        <div className='containerPerfil__containerPublicacoes'>
+
+          <div className="containerPublicacoes__secaoPublicacoesPerfil">
+            {
+              perfil === undefined ? (
+                <p>Sem Conteudo</p>
               ) : (
-                perfil.usuario.publicacoes.map((item) => {
-                 
-                  return (
-                    <CardPublicacaoMeuPerfil
-                      idUsuario={id}
-                      fotoPublicacao={item.anexos[0].anexo}
-                      accessToken={accessToken}
-                      idPublicacao={item.id}
-                      nomePublicacao={item.titulo}
-                      descricaoPublicacao={item.descricao}
-                      anexosPublicacao={item.anexos}
-                    ></CardPublicacaoMeuPerfil>
-                  )
-                })
+                perfil.usuario.publicacoes.length > 10 ? (
+                  <p className='containerPublicacoesVazia'>{perfil.usuario.publicacoes}</p>
+                ) : (
+                  perfil.usuario.publicacoes.map((item) => {
+
+                    return (
+                      <CardPublicacaoMeuPerfil
+                        idUsuario={id}
+                        fotoPublicacao={item.anexos[0].anexo}
+                        accessToken={accessToken}
+                        idPublicacao={item.id}
+                        nomePublicacao={item.titulo}
+                        descricaoPublicacao={item.descricao}
+                        anexosPublicacao={item.anexos}
+                      ></CardPublicacaoMeuPerfil>
+                    )
+                  })
+                )
               )
-            )
-          }
+            }
 
 
+
+          </div>
 
         </div>
 

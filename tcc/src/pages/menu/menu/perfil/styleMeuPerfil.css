@@ -1,6 +1,6 @@
 .marcaPerfil {
     width: 100%;
-    height: 73%;
+    height: 80%;
     position: absolute;
     left: 0%;
     top: 0%;
@@ -8,7 +8,7 @@
 
 .marcaTransparentePerfil {
     width: 100%;
-    height: 83%;
+    height: 90%;
     position: absolute;
     left: 0%;
     top: 0%;
@@ -40,9 +40,14 @@
 }
 
 .containerPerfil__containerPublicacoes {
+    height: 100%;
+    width: 100%;
+}
+
+.containerPublicacoes__secaoPublicacoesPerfil {
     color: var(--default-color);
-    box-shadow: 0px 4px 20px 0px rgba(65, 57, 70, 0.15);
-    width: 65%;
+    width: 100%;
+    height: fit-content;
     max-height: 100%;
     border-radius: 20px;
     display: flex;
@@ -146,4 +151,68 @@
 
 .test {
     color: var(--contrast-color);
+}
+
+.modalBackgroundTagsMeuPerfil {
+    position: fixed;
+    background-color: var(--contrast-color);
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    z-index: 1300;
+    filter: opacity(60%);
+}
+
+.containerTagsMeuPerfil {
+    position: fixed;
+    z-index: 1400;
+    left: 25%;
+    top: 20%;
+    width: 50vw;
+    height: 50vh;
+    background-color: var(--default-color);
+    border-radius: 20px;
+    display: flex;
+    justify-content: flex-start;
+    gap: 48px;
+    flex-direction: column;
+    padding: 8px;
+}
+
+.containerTagsMeuPerfil__listaTagsMeuPerfil {
+    width: 100%;
+    height: fit-content;
+    max-height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    justify-content: center;
+    align-items: center;
+}
+
+.iconeFecharMensagem {
+    height: fit-content;
+    padding: 16px;
+}
+
+.formularioAtualizarPerfil__atualizarTags {
+    display: flex;
+    height: 20%;
+    background-color: var(--default-color);
+    border-radius: 20px;
+    box-shadow: 0px 4px 20px 10px rgba(65, 57, 70, 0.15);
+    width: 100%;
+    flex-wrap: wrap;
+
+}
+
+.atualizarTags {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    max-height: 100%;
+    overflow-y: scroll;
+    gap: 8px;
 }

@@ -44,7 +44,6 @@ export const UserProvider = ({children}) => {
         console.log(id, nome, foto, descricao, estado, cidade, bairro)
     }, [id])
 
-console.log(idPerfil, accessToken)
     // useEffect(() => {
     //     console.log(userLocation)
     //   }, [estado, cidade, bairro])

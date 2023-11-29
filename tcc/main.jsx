@@ -61,7 +61,7 @@ import './src/ui/styles/global.css'
 
 const validarLogin = (elemento) => {
 
-  if (accessToken === null || id === null || isNaN(id) || accessToken == "" || id == "") {
+  if (accessToken == null || id == null || isNaN(id) || id == undefined || accessToken == undefined) {
 
     return (
       <Navigate replace to={"/login"} />
@@ -184,7 +184,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/menu/explorar",
-        element: validarLogin(<Explorar />),
+        element: <Explorar />,
         errorElement: <NaoEncontrado />,
         children: [
           {

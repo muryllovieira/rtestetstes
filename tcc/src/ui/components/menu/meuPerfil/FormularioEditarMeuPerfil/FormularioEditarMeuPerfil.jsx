@@ -115,13 +115,10 @@ function FormularioEditarMeuPerfil({ aberto, open, nomePerfil, tagPerfil, cidade
 
         if (foto == false) {
 
-<<<<<<< HEAD
             funcLoading(true, 0, '/explorar')
 
 
 
-=======
->>>>>>> 6045d12fdc2811632f7cd58fce4a94f8de47f798
             try {
                 // const response = { status: 200}
                 const response = await blogFetch.put('/usuario/editar_perfil', {
@@ -141,7 +138,6 @@ function FormularioEditarMeuPerfil({ aberto, open, nomePerfil, tagPerfil, cidade
                     },
 
                 })
-<<<<<<< HEAD
 
                 console.log(response)
                 // setStatusResponse(response.status)
@@ -157,7 +153,7 @@ function FormularioEditarMeuPerfil({ aberto, open, nomePerfil, tagPerfil, cidade
 
                 funcLoading(true, error.response.status, '/menu/explorar')
 
-=======
+
                 
 
                 reloadUser()
@@ -169,7 +165,7 @@ function FormularioEditarMeuPerfil({ aberto, open, nomePerfil, tagPerfil, cidade
 
                 funcLoading(true, error.response.status, '/menu/explorar')
                 
->>>>>>> 6045d12fdc2811632f7cd58fce4a94f8de47f798
+
             }
 
 
@@ -203,7 +199,6 @@ function FormularioEditarMeuPerfil({ aberto, open, nomePerfil, tagPerfil, cidade
   
 
 
-<<<<<<< HEAD
                 if (response.status == 200) {
                     funcLoading(true, 200, '/menu/explorar', 'Usuário editado com sucesso.')
                 } else {
@@ -215,10 +210,8 @@ function FormularioEditarMeuPerfil({ aberto, open, nomePerfil, tagPerfil, cidade
 
                 funcLoading(true, error.response.status, '/menu/explorar')
 
-=======
                 funcLoading(true, error.response.status, '/menu/explorar')
                 console.log('erro')
->>>>>>> 6045d12fdc2811632f7cd58fce4a94f8de47f798
             }
 
             console.log('com foto')
@@ -448,7 +441,14 @@ function FormularioEditarMeuPerfil({ aberto, open, nomePerfil, tagPerfil, cidade
     }, [tagsPerfil])
 
     //
+        const {value, name} = e.target
+        console.dir( e.target.selectedOptions[0].textContent)
+        setFormValues(
+            {...formValues, [name]:value, nome:e.target.selectedOptions[0].textContent,}
+            )
+    }
 
+    console.log(formValues)
     return (
         <>
 
@@ -503,21 +503,21 @@ function FormularioEditarMeuPerfil({ aberto, open, nomePerfil, tagPerfil, cidade
                     ></InputGlobal>
                 </div>
 
-                {/* <div className='containerInputs'>
+                <form className='containerInputs'>
 
                     <div className='containerInputs__labelCidadesInput'>
                         <label>
                             Estado
                         </label>
-                        <input className='containerInputs__inputListaEstados' list='states' placeholder='Selecione...' onChange={(e) => setEstado(e.target.value)} value={estado} />
-                            <InputEstados id={'states'} onChange={handleInputChange}/>
+                        <input type='text' className='containerInputs__inputListaEstados' list='states' placeholder='Selecione...' onChange={(e) => setEstado(e.target.value)} value={estado} />
+                            <InputEstados id={'states'} onChange={handleInputChange} />
                     </div>
 
                     <div className='containerInputs__labelCidadesInput'>
                         <label>
                             Cidade
                         </label>
-                        <input className='containerInputs__inputListaCidades' list='cities' placeholder='Selecione...' onChange={(e) => setCidade(e.target.value)} value={cidade} />
+                        <input type='text' className='containerInputs__inputListaCidades' list='cities' placeholder='Selecione...' onChange={(e) => setCidade(e.target.value)} value={cidade} />
                             <InputCidades id={'cities'} onChange={handleInputChange} state={formValues.state}/>
                     </div>
 
@@ -525,11 +525,11 @@ function FormularioEditarMeuPerfil({ aberto, open, nomePerfil, tagPerfil, cidade
                         <label>
                             Bairro
                         </label>
-                        <input className='containerInputs__inputListaBairros' list='district' placeholder='Selecione...' onChange={(e) => setBairro(e.target.value)} value={bairro} />
+                        <input type='text' className='containerInputs__inputListaBairros' list='district' placeholder='Selecione...' onChange={(e) => setBairro(e.target.value)} value={bairro} />
                             <InputBairros id={'district'} onChange={handleInputChange} city={formValues.city}/>
                     </div>
 
-                </div> */}
+                </form>
 
                 <div className='formularioAtualizarPerfil__atualizarDescricao'>
                     <label>

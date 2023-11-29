@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import ModalPublicacaoExplorar from '../ModalPublicacaoExplorar/ModalPublicacaoExplorar'
 import blogFetch from '../../../../../data/services/api/ApiService'
 
-function CardPublicacaoExplorar({ idUsuario, idPublicacao, nomePublicacao, descricaoPublicacao, accessToken, fotoPublicacao, anexosPublicacao }) {
+function CardPublicacaoExplorar({ atualizar, setAtualizar ,idUsuario, idPublicacao, nomePublicacao, descricaoPublicacao, accessToken, fotoPublicacao, anexosPublicacao }) {
 
   const [openModal, setOpenModal] = useState(false)
   const [anexo, setAnexo] = useState([])
@@ -98,6 +98,8 @@ function CardPublicacaoExplorar({ idUsuario, idPublicacao, nomePublicacao, descr
             tituloPublicacao={nomePublicacao}
             
             usuarioPublicacao={usuario}
+            atualizar={atualizar}
+            setAtualizar={setAtualizar}
           ></ModalPublicacaoExplorar>
         )
       }

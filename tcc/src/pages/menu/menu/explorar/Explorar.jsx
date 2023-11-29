@@ -15,6 +15,7 @@ function Explorar() {
   const [listaPublicacoesRecentes, setListaPublicacoesRecentes] = useState()
 
   const [populares, setPopulares] = useState(true)
+  const [atualizar, setAtualizar] = useState(true)
 
   const [openModal, setOpenModal] = useState(false)
 
@@ -25,6 +26,10 @@ function Explorar() {
   useEffect(() => {
     getPublicacoesRecentes()
   }, [])
+
+  useEffect(() => {
+    getPublicacoesRecentes()
+  }, [atualizar])
 
   const getPublicacoesPopulares = async () => {
     try {
@@ -112,6 +117,8 @@ function Explorar() {
                           <p>Carregando...</p>
                         ) : (
                           <CardPublicacaoExplorar
+                          atualizar={atualizar}
+                          setAtualizar={setAtualizar}
                           accessToken={accessToken}
                           key={item.id}
                           anexosPublicacao={item.anexos}

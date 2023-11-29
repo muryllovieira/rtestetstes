@@ -15,7 +15,6 @@ import ModalCarregarGlobal from '../../../../ui/components/global/ModalCarregarG
 function MeuPerfil() {
 
   const [open, setOpen] = useState(false)
-<<<<<<< HEAD
   const [modalTags, setModalTags] = useState(false)
 
   const [visivel, setVisivel] = useState(false)
@@ -23,13 +22,8 @@ function MeuPerfil() {
   const [caminho, setCaminho] = useState("")
   const [mensagem, setMensagem] = useState("")
 
-=======
-  const [ visivel, setVisivel ] = useState(false)
-  const [ erro, setErro ] = useState(0)
-  const [ caminho, setCaminho ] = useState("")
   const [ abrirFechar, setAbrirFechar ] = useState(false)
   
->>>>>>> 6045d12fdc2811632f7cd58fce4a94f8de47f798
 
   const { accessToken } = useContext(UserContext)
   const { id } = useContext(UserContext)
@@ -83,11 +77,7 @@ function MeuPerfil() {
     }
   }
 
-<<<<<<< HEAD
-  const modalCarregar = (visivel, erro, caminho, mensagem) => {
-=======
-  const modalCarregar = (visivel, erro, caminho, abrirFechar) => {
->>>>>>> 6045d12fdc2811632f7cd58fce4a94f8de47f798
+  const modalCarregar = (visivel, erro, caminho, mensagem, abrirFechar) => {
 
     setVisivel(visivel)
 
@@ -95,16 +85,12 @@ function MeuPerfil() {
 
     setCaminho(caminho)
 
-<<<<<<< HEAD
     setMensagem(mensagem)
-=======
     setAbrirFechar(abrirFechar)
->>>>>>> 6045d12fdc2811632f7cd58fce4a94f8de47f798
 
   }
 
   useEffect(() => {
-<<<<<<< HEAD
     console.log(visivel)
   }, [visivel])
 
@@ -117,8 +103,6 @@ function MeuPerfil() {
   }, [caminho])
 
   useEffect(() => {
-=======
->>>>>>> 6045d12fdc2811632f7cd58fce4a94f8de47f798
     getUsuario()
   }, [])
 
@@ -187,16 +171,12 @@ function MeuPerfil() {
         caminho={caminho}
         erro={erro}
         visivel={visivel}
-<<<<<<< HEAD
         mensagem={mensagem}
         setVisivel={setVisivel}
         open={open}
         setOpen={setOpen}
-=======
-        setVisivel={setVisivel}
         abrirFechar={open}
         setAbrirFechar={setOpen}
->>>>>>> 6045d12fdc2811632f7cd58fce4a94f8de47f798
       ></ModalCarregarGlobal>
 
 

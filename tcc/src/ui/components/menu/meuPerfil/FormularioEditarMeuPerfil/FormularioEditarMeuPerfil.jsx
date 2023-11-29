@@ -154,17 +154,12 @@ function FormularioEditarMeuPerfil({ aberto, open, nomePerfil, tagPerfil, cidade
                 funcLoading(true, error.response.status, '/menu/explorar')
 
 
-                
+
 
                 reloadUser()
 
                 funcLoading(true, response.status, '/menu/explorar')
 
-
-            } catch (error) {
-
-                funcLoading(true, error.response.status, '/menu/explorar')
-                
 
             }
 
@@ -196,7 +191,7 @@ function FormularioEditarMeuPerfil({ aberto, open, nomePerfil, tagPerfil, cidade
                 reloadUser()
 
                 funcLoading(true, response.status, '/menu/explorar')
-  
+
 
 
                 if (response.status == 200) {
@@ -215,8 +210,8 @@ function FormularioEditarMeuPerfil({ aberto, open, nomePerfil, tagPerfil, cidade
             }
 
             console.log('com foto')
-            
-            
+
+
 
         }
 
@@ -441,12 +436,14 @@ function FormularioEditarMeuPerfil({ aberto, open, nomePerfil, tagPerfil, cidade
     }, [tagsPerfil])
 
     //
-        const {value, name} = e.target
-        console.dir( e.target.selectedOptions[0].textContent)
-        setFormValues(
-            {...formValues, [name]:value, nome:e.target.selectedOptions[0].textContent,}
-            )
-    }
+    // const { value, name } = e.target
+    // console.dir(e.target.selectedOptions[0].textContent)
+    // setFormValues(
+    //     { ...formValues, [name]: value, nome: e.target.selectedOptions[0].textContent, }
+    // )
+
+
+
 
     console.log(formValues)
     return (
@@ -510,7 +507,7 @@ function FormularioEditarMeuPerfil({ aberto, open, nomePerfil, tagPerfil, cidade
                             Estado
                         </label>
                         <input type='text' className='containerInputs__inputListaEstados' list='states' placeholder='Selecione...' onChange={(e) => setEstado(e.target.value)} value={estado} />
-                            <InputEstados id={'states'} onChange={handleInputChange} />
+                        {/* <InputEstados id={'states'} onChange={handleInputChange} /> */}
                     </div>
 
                     <div className='containerInputs__labelCidadesInput'>
@@ -518,7 +515,7 @@ function FormularioEditarMeuPerfil({ aberto, open, nomePerfil, tagPerfil, cidade
                             Cidade
                         </label>
                         <input type='text' className='containerInputs__inputListaCidades' list='cities' placeholder='Selecione...' onChange={(e) => setCidade(e.target.value)} value={cidade} />
-                            <InputCidades id={'cities'} onChange={handleInputChange} state={formValues.state}/>
+                        {/* <InputCidades id={'cities'} onChange={handleInputChange} state={formValues.state} /> */}
                     </div>
 
                     <div className='containerInputs__labelBairroInput'>
@@ -526,7 +523,7 @@ function FormularioEditarMeuPerfil({ aberto, open, nomePerfil, tagPerfil, cidade
                             Bairro
                         </label>
                         <input type='text' className='containerInputs__inputListaBairros' list='district' placeholder='Selecione...' onChange={(e) => setBairro(e.target.value)} value={bairro} />
-                            <InputBairros id={'district'} onChange={handleInputChange} city={formValues.city}/>
+                        {/* <InputBairros id={'district'} onChange={handleInputChange} city={formValues.city} /> */}
                     </div>
 
                 </form>
@@ -538,7 +535,7 @@ function FormularioEditarMeuPerfil({ aberto, open, nomePerfil, tagPerfil, cidade
                     <input className='formularioAtualizarPerfil__editarDescricao' type="text" onChange={(e) => setDescricao(e.target.value)} value={descricao} />
                 </div>
 
-                <div className='formularioAtualizarPerfil__atualizarTags'>
+                {/* <div className='formularioAtualizarPerfil__atualizarTags'>
 
                     <div className='atualizarTags'>
 
@@ -645,7 +642,7 @@ function FormularioEditarMeuPerfil({ aberto, open, nomePerfil, tagPerfil, cidade
 
                     </div>
 
-                </div>
+                </div> */}
 
 
 

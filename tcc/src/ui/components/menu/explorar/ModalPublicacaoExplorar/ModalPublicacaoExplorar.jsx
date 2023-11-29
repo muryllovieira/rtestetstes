@@ -28,7 +28,7 @@ import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 import 'swiper/css/scrollbar'
 
-const ModalPublicacaoExplorar = ({ isOpen, setModalOpen, accessToken, idPublicacao, dadosPublicacao, idUsuario, tituloPublicacao, descricaoPublicacao, anexosPublicacao, usuarioPublicacao }) => {
+const ModalPublicacaoExplorar = ({ isOpen, atualizar, setAtualizar, setModalOpen, accessToken, idPublicacao, dadosPublicacao, idUsuario, tituloPublicacao, descricaoPublicacao, anexosPublicacao, usuarioPublicacao }) => {
 
   const navigate = useNavigate()
 
@@ -312,11 +312,16 @@ const ModalPublicacaoExplorar = ({ isOpen, setModalOpen, accessToken, idPublicac
           'x-access-token': accessToken
         }
       })
-      navigate('/menu/explorar')
+
+      setModalOpen(!isOpen)
+      setAtualizar(!atualizar)
+      
       console.log(response.data)
     } catch (error) {
       console.log(error)
     }
+
+
   }
 
   const editarPublicacao = async () => {

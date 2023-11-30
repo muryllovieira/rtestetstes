@@ -1,11 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import './styleChat.css'
 import SetaEsquerda from './images/setaEsquerda.svg'
 import ImagemPerfil from './images/imagemPerfil.png'
 import Menu from './images/icone_mais.svg'
 import Enviar from './images/enviar.svg'
 import { Link } from 'react-router-dom'
-import io from 'socket.io-client'
 import axios from "axios"
 import UserContext from '../../../../data/hooks/context/UserContext'
 import { useContext } from 'react'
@@ -14,16 +13,27 @@ import ModalChat from '../../../../ui/components/menu/conversas/ModalChat/ModalC
 import blogFetch from '../../../../data/services/api/ApiService'
 import { useEffect } from 'react'
 
-const Chat = ({ chatOpen, setChatOpen, listaUsuarios, idChat }) => {
-
-    const [socket, setSocket] = useState(null)
+const Chat = ({ socket, chatOpen, setChatOpen, listaUsuarios, idChat }) => {
 
     const [listaMensagens, setListaMensagens] = useState([])
+    const [listaMensagensEndPoint, setListaMensagensEndPoint] = useState([])
     const [message, setMessage] = useState('')
+
+    const compararListas = () => {
+
+
+
+    }
 
     const { id } = useContext(UserContext)
 
-    const socketResponse = io.connect('http://10.107.144.8:3001')
+    const chatContainerRef = useRef(null);
+
+    const scrollDown = () => {
+        if (chatContainerRef.current) {
+            chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+        }
+    };
 
     // const setChat = async () => {
 
@@ -31,46 +41,60 @@ const Chat = ({ chatOpen, setChatOpen, listaUsuarios, idChat }) => {
 
     useEffect(() => {
 
-        const chat = socketResponse.emit('listMessages', idChat)
+        console.log(socket)
+
+        const chat = socket.emit('listMessages', idChat)
+
+        console.log(chat)
 
         chat.on('receive_message', data => {
             console.log(data)
+            setListaMensagens(data.mensagens)
         })
 
-    })
+
+    }, [])
+
+  
 
     const publicarMensagem = () => {
+
         const data = {
             "messageBy": 7,
-            "messageTo": 2,
+            "messageTo": 32,
             "message": message,
             "chatId": idChat,
             "image": ""
         }
 
-        const teste = socketResponse.emit('message', data)
+        const letListaMensagem = [...listaMensagens, data]
+
+        setListaMensagens(letListaMensagem)
+
+        const teste = socket.emit('message', data)
+
+        scrollDown()
     }
 
 
-    useEffect(() => {
-        ioChat()
-    }, [])
+    // useEffect(() => {
+    //     ioChat()
+    // }, [])
 
-    console.log(idChat)
+    // const ioChat = async () => {
 
-    const ioChat = async () => {
+    //     try {
 
-        try {
+    //         const response = await blogFetch.get(`/message/${idChat}`)
 
-            const response = await blogFetch.get(`/message/${idChat}`)
 
-            setListaMensagens(response.data.mensagens)
+    //         setListaMensagensEndPoint(response.data.mensagens)
 
-        } catch (error) {
-            console.log(error)
-        }
+    //     } catch (error) {
+    //         console.log(error)
+    //     }
 
-    }
+    // }
 
     const [openModal, setOpenModal] = useState(false)
 
@@ -106,15 +130,15 @@ const Chat = ({ chatOpen, setChatOpen, listaUsuarios, idChat }) => {
 
                 <div className='containerChat_main'>
 
-                    <div className='containerMensagens'>
+                    <div ref={chatContainerRef} className='containerMensagensConversas'>
 
                         {
 
-                            listaMensagens == undefined ? (
+                            listaMensagensEndPoint == undefined ? (
                                 <p>Carregando...</p>
                             ) : (
 
-                                listaMensagens.map((item, index) => {
+                                listaMensagensEndPoint.map((item, index) => {
 
                                     if (item.messageTo == id) {
 

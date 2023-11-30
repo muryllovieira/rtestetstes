@@ -484,6 +484,74 @@ const ModalPublicacaoExplorar = ({ isOpen, atualizar, setAtualizar, setModalOpen
     setListLenght()
   }, [dadosPublicacao])
 
+  //Dar Ponto
+
+  const [like, setLike] = useState(false)
+
+  const verificarAvaliacao = async () => {
+    try {
+      const response = await blogFetch.post(`/publicacao/verificar_curtida`, {
+        "id_usuario" : idUsuario,
+        "id_publicacao" : idPublicacao
+      }, {
+        headers: {
+          "x-access-token" : accessToken
+        }
+      })
+
+      setLike(response.data.curtir)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const curtirPublicacao = async () => {
+    try {
+      const response = await blogFetch.post('/publicacao/curtir/', {
+        'id_usuario' : idUsuario,
+        'id_publicacao' : idPublicacao
+      }, {
+        headers: {
+          "x-access-token" : accessToken
+        }
+      })
+
+      console.log(response)
+
+      setLike(true)
+
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const removerCurtida = async () => {
+    try {
+      const response = await blogFetch.post('/publicacao/retirar_curtida', {
+        'id_publicacao' : idPublicacao,
+        'id_usuario' : idUsuario
+      }, {
+        headers: {
+          "x-access-token" : accessToken
+        }
+      })
+
+      console.log(response)
+
+      setLike(false)
+
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  // useEffect(() => {
+  //   verificarAvaliacao()
+  // }, [like])
+
+
+  console.log(like)
+
   if (isOpen) {
     return (
       editar === false ? (
@@ -536,6 +604,14 @@ const ModalPublicacaoExplorar = ({ isOpen, atualizar, setAtualizar, setModalOpen
 
               <div className='containerImagensPublicacaoExplorar__botoesPublicacaoExplorar'>
                 <BotaoAncoraGlobal
+                  onClick={() => {
+                     if(like === false){
+                        curtirPublicacao()
+                     } else if (like === true) {
+                        removerCurtida()
+                     }
+                  }}
+                  like={like}
                   titulo={'Dar Ponto'}
                 ></BotaoAncoraGlobal>
 

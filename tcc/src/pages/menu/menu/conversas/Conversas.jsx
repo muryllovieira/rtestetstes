@@ -6,6 +6,7 @@ import { Outlet, Link } from 'react-router-dom'
 import Foto from './images/foto.jpg'
 import FotoPerfil from '../../../../ui/components/global/FotoPerfil/FotoPerfil'
 import { useState, useContext } from 'react'
+import io from 'socket.io-client'
 import Chat from '../chat/Chat'
 import blogFetch from '../../../../data/services/api/ApiService'
 import UserContext from '../../../../data/hooks/context/UserContext'
@@ -19,28 +20,25 @@ function Conversas() {
   const [chatOpen, setChatOpen] = useState(false)
   const [ socket, setSocket ] = useState(null)
 
+  const socketResponse = io.connect('http://10.107.144.8:3001')
+
   useEffect(() => {
     console.log(listaContatos)
   }, [listaContatos])
 
-  const pegarListaContatos = async () => {
-
-    try {
-
-      const response = await blogFetch.get(`/chat/user/${id}`)
-
-      console.log(response)
-      setListaContatos(response.data.usuarios)
-
-    } catch (error) {
-      console.log(error)
-    }
-
+  const setarSocket = (socket, setarSocket) => {
+    setSocket(socket)
   }
 
   useEffect(() => {
-    pegarListaContatos()
+    const list = socketResponse.emit('listContacts', id)
+
+    list.on('receive_contacts', data => {
+      setListaContatos(data.users)
+    })
+    
   }, [])
+
 
   return (
     <>
@@ -80,6 +78,8 @@ function Conversas() {
 
                   listaContatos.map((item, index) => {
 
+                    console.log(item)
+
                     return (
 
                       <>
@@ -89,7 +89,7 @@ function Conversas() {
                           <img className='foto' src={item.users[0].foto} alt="" />
 
                           <div className='container_textos'>
-                            <p className='nome'>{item.users[1].nome}</p>
+                            <p className='nome'>{item.users[0].nome}</p>
                             {/* <p className='ultimaMensagem'>Boa noite</p> */}
                           </div>
 
@@ -109,8 +109,7 @@ function Conversas() {
                               chatOpen={chatOpen}
                               setChatOpen={setChatOpen}
                               idChat={item.id_chat}
-                              socketSetado={socket}
-                              setSocket={setSocket}
+                              socket={socketResponse}
                             ></Chat>
                           ) : (
                             null

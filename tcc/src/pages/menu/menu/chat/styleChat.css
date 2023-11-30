@@ -102,15 +102,14 @@
     line-height: normal;
 }
 
-.containerMensagens{
+.containerMensagensConversas{
     display: flex;
-    flex-direction: column;
+    flex-direction: column-reverse;
     width: 95%;
-    height: 85%;
+    height: 100%;
     align-items: center;
-    flex-wrap: wrap;
-    overflow: hidden;
     overflow-y: scroll;
+    
 }
 
 .linhaMensagem_enviada{

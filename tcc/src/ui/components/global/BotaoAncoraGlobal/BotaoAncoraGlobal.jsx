@@ -2,14 +2,14 @@ import { Link } from "react-router-dom"
 
 import "./styleBotaoAncoraGlobal.css"
  
-const BotaoAncoraGlobal = ({titulo, url, alternado}) => {
+const BotaoAncoraGlobal = ({titulo, url, alternado, onClick, like}) => {
   if (alternado) {
-    return <div className="botaoAlternativo__primary">
+    return <div className="botaoAlternativo__primary" >
             <Link to={url}> {titulo} </Link>
           </div>
   }
 
-  return <div className="botaoAlternativo__default">
+  return <div className="botaoAlternativo__default" onClick={onClick}>
           <Link to={url}> {titulo} </Link>
         </div>
 

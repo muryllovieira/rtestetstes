@@ -18,9 +18,11 @@ function Conversas() {
   const { id, accessToken } = useContext(UserContext)
   const [listaContatos, setListaContatos] = useState([])
   const [chatOpen, setChatOpen] = useState(false)
-  const [ socket, setSocket ] = useState(null)
+  const [socket, setSocket] = useState(null)
+  const [idChat, setIdChat] = useState()
+  const [ busca, setBusca ] = useState('')
 
-  const socketResponse = io.connect('http://10.107.144.8:3001')
+  const [ listaMensagens, setListaMensagens ] = useState([])
 
   useEffect(() => {
     console.log(listaContatos)
@@ -31,13 +33,54 @@ function Conversas() {
   }
 
   useEffect(() => {
+
+    const socketResponse = io.connect('http://10.107.144.27:3001')
+
+    setSocket(socketResponse)
+
     const list = socketResponse.emit('listContacts', id)
 
     list.on('receive_contacts', data => {
-      setListaContatos(data.users)
+      if(data.id_user == id){
+        setListaContatos(data.users)
+      }
     })
-    
+
   }, [])
+
+  const listarMensagens = () => {
+
+    if (socket != undefined) {
+      const chat = socket.emit('listMessages', idChat)
+
+      chat.on('receive_message', data => {
+        console.log(data)
+        setListaMensagens(data.mensagens)
+      })
+    }
+
+  }
+
+  useEffect(() => {
+    
+    listarMensagens()
+  
+  }, [idChat])
+
+  useEffect(() => {
+
+    console.log(idChat)
+
+    if (socket != undefined) {
+      const chat = socket.emit('listMessages', idChat)
+
+      chat.on('receive_message', data => {
+        console.log(data)
+        setListaMensagens(data.mensagens)
+      })
+    }
+
+  }, [idChat])
 
 
   return (
@@ -52,6 +95,7 @@ function Conversas() {
 
           <div className='apresentacaoConversas__inputPesquisar'>
             <InputGlobal
+              onChange={setBusca}
               type={'search'}
               placeholder={'Procurar uma conversa'}
             ></InputGlobal>
@@ -76,15 +120,22 @@ function Conversas() {
                   <p>Esse Usuário não possui conversas</p>
                 ) : (
 
-                  listaContatos.map((item, index) => {
+                  listaContatos.filter((item) => {
 
-                    console.log(item)
+                    const buscaPequena = busca.toLowerCase()
+                    const nomeMinusculo = item.users[0].nome.toLowerCase()
+                   
+  
+                    return buscaPequena.toLowerCase() === '' ? item : nomeMinusculo.includes(buscaPequena)
+  
+                  }).map((item, index) => {
 
                     return (
 
                       <>
                         <div key={item.id_chat} className="tagTeste" onClick={() => {
                           setChatOpen(!chatOpen)
+                          setIdChat(item.id_chat)
                         }}>
                           <img className='foto' src={item.users[0].foto} alt="" />
 
@@ -109,7 +160,8 @@ function Conversas() {
                               chatOpen={chatOpen}
                               setChatOpen={setChatOpen}
                               idChat={item.id_chat}
-                              socket={socketResponse}
+                              socket={socket}
+                              listaMensagens={listaMensagens}
                             ></Chat>
                           ) : (
                             null

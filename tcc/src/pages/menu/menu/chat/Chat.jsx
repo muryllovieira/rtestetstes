@@ -8,95 +8,54 @@ import { Link } from 'react-router-dom'
 import axios from "axios"
 import UserContext from '../../../../data/hooks/context/UserContext'
 import { useContext } from 'react'
-
 import ModalChat from '../../../../ui/components/menu/conversas/ModalChat/ModalChat'
 import blogFetch from '../../../../data/services/api/ApiService'
 import { useEffect } from 'react'
 
-const Chat = ({ socket, chatOpen, setChatOpen, listaUsuarios, idChat }) => {
+const Chat = ({ listaMensagens, socket, chatOpen, setChatOpen, listaUsuarios, idChat }) => {
 
-    const [listaMensagens, setListaMensagens] = useState([])
-    const [listaMensagensEndPoint, setListaMensagensEndPoint] = useState([])
     const [message, setMessage] = useState('')
-
-    const compararListas = () => {
-
-
-
-    }
 
     const { id } = useContext(UserContext)
 
-    const chatContainerRef = useRef(null);
+    console.log(listaUsuarios)
 
-    const scrollDown = () => {
-        if (chatContainerRef.current) {
-            chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
-        }
-    };
 
-    // const setChat = async () => {
 
-    // }
+    const [arrayMensagens, setArrayMensagens] = useState([])
 
     useEffect(() => {
 
-        console.log(socket)
+        console.log(listaMensagens)
 
-        const chat = socket.emit('listMessages', idChat)
+        const listaReversa = [...listaMensagens]
 
-        console.log(chat)
+        listaReversa.reverse()
 
-        chat.on('receive_message', data => {
-            console.log(data)
-            setListaMensagens(data.mensagens)
-        })
+        setArrayMensagens(listaReversa)
+
+        console.log(listaReversa)
 
 
-    }, [])
+    }, [listaMensagens])
 
-  
+
+    const [openModal, setOpenModal] = useState(false)
 
     const publicarMensagem = () => {
 
         const data = {
-            "messageBy": 7,
-            "messageTo": 32,
+            "messageBy": id,
+            "messageTo": listaUsuarios[1].id,
             "message": message,
             "chatId": idChat,
             "image": ""
         }
 
-        const letListaMensagem = [...listaMensagens, data]
+        socket.emit('message', data)
 
-        setListaMensagens(letListaMensagem)
-
-        const teste = socket.emit('message', data)
-
-        scrollDown()
+        setMessage('')
     }
-
-
-    // useEffect(() => {
-    //     ioChat()
-    // }, [])
-
-    // const ioChat = async () => {
-
-    //     try {
-
-    //         const response = await blogFetch.get(`/message/${idChat}`)
-
-
-    //         setListaMensagensEndPoint(response.data.mensagens)
-
-    //     } catch (error) {
-    //         console.log(error)
-    //     }
-
-    // }
-
-    const [openModal, setOpenModal] = useState(false)
 
     return (
         <>
@@ -130,41 +89,70 @@ const Chat = ({ socket, chatOpen, setChatOpen, listaUsuarios, idChat }) => {
 
                 <div className='containerChat_main'>
 
-                    <div ref={chatContainerRef} className='containerMensagensConversas'>
+                    <div className='containerMensagensConversas'>
 
                         {
 
-                            listaMensagensEndPoint == undefined ? (
+                            arrayMensagens == undefined ? (
                                 <p>Carregando...</p>
                             ) : (
 
-                                listaMensagensEndPoint.map((item, index) => {
+                                arrayMensagens.map((item, index) => (
 
-                                    if (item.messageTo == id) {
 
-                                        return (
-                                            <div className='linhaMensagem_enviada'>
-                                                <div className='cardMensagem_enviada'>
-                                                    <p className='textoCard'>{item.message}</p>
-                                                    <p className='horas'></p>
-                                                </div>
-                                            </div>
-                                        )
+                                    item.messageTo == id ? (
 
-                                    } else {
+                                        <div className='linhaMensagem_enviada'>
 
-                                        return (
-                                            <div className='linhaMensagem_recebida'>
-                                                <div className='cardMensagem_recebida'>
-                                                    <p>{item.message}</p>
-                                                    <p className='horas'></p>
-                                                </div>
-                                            </div>
-                                        )
+                                            {
 
-                                    }
+                                                item.image.length != 0 ? (
 
-                                })
+                                                    <div className='cardMensagem_enviada'>
+                                                        <img src={item.image} alt="Imagem de mensagem " />
+                                                    </div>
+
+                                                ) : (
+
+                                                    <div className='cardMensagem_enviada'>
+                                                        <p className='textoCard'>{item.message}</p>
+                                                        <p className='horas'></p>
+                                                    </div>
+
+                                                )
+
+                                            }
+
+                                        </div>
+
+                                    ) : (
+
+                                        <div className='linhaMensagem_recebida'>
+
+                                            {
+
+                                                item.image.length != 0 ? (
+
+                                                    <div className='cardMensagem_recebida'>
+                                                        <img src={item.image} alt="Imagem de mensagem " />
+                                                    </div>
+
+                                                ) : (
+
+                                                    <div className='cardMensagem_recebida'>
+                                                        <p className='textoCard'>{item.message}</p>
+                                                        <p className='horas'></p>
+                                                    </div>
+
+                                                )
+
+                                            }
+
+                                        </div>
+
+                                    )
+
+                                ))
 
                             )
 

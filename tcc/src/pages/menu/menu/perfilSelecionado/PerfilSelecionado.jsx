@@ -13,6 +13,7 @@ function PerfilSelecionado() {
 
   const { accessToken } = useContext(UserContext)
   const { idPerfil } = useContext(UserContext)
+  const [ modalTags, setModalTags ] = useState(false)
 
   const [tags, setTags] = useState([])
 
@@ -21,6 +22,7 @@ function PerfilSelecionado() {
   useEffect(() => {
     console.log(perfil)
   }, [perfil])
+
 
   const getPerfil = async () => {
     try {
@@ -31,10 +33,9 @@ function PerfilSelecionado() {
       })
 
       setPerfil(response.data)
-      console.log(response.data)
 
       if (response.data.usuario.tags === undefined) {
-        console.log('a')
+
       } else {
         setTags(response.data.usuario.tags)
       }
@@ -54,6 +55,60 @@ function PerfilSelecionado() {
   return (
     <>
       <div className="containerPerfil">
+
+      {
+        modalTags == false ? (
+
+          null
+
+        ) : (
+
+          <div className='modalTagsMeuPerfil'>
+
+            <div className="modalBackgroundTagsMeuPerfil" onClick={() => {
+              setModalTags(!modalTags)
+            }}></div>
+
+            <div className="containerTagsMeuPerfil">
+
+              <div className='iconeFecharMensagem'>
+                <i onClick={() => {
+                  setModalTags(!modalTags)
+                }}>{IconObject.voltarOuCancelarColorido}</i>
+              </div>
+
+              <div className='containerTagsMeuPerfil__listaTagsMeuPerfil'>
+
+                {
+
+                  user.usuario.tags === undefined ? (
+
+                    <p>Carregando</p>
+
+                  ) : (
+
+                    user.usuario.tags.map((item, indice) => (
+
+                      <TagGlobal
+                        id={item.id_tag}
+                        value={item.nome}
+                        key={indice}
+                      ></TagGlobal>
+
+                    ))
+
+                  )
+
+                }
+
+              </div>
+
+            </div>
+
+          </div>
+
+        )
+      }
 
 
         <div className="containerPerfil__containerCardPerfil">
@@ -124,16 +179,6 @@ function PerfilSelecionado() {
               )
             }
 
-            <div className='secaoMeuPerfil__botoesRecomendacao'>
-              <BotaoRecomendacao
-                url={'/'}
-                value={'RECOMENDAÇÕES'}
-              ></BotaoRecomendacao>
-              <BotaoRecomendacao
-                url={'/'}
-                value={'RECOMENDADOS'}
-              ></BotaoRecomendacao>
-            </div>
 
 
             {
@@ -150,7 +195,7 @@ function PerfilSelecionado() {
 
               {
                 perfil === undefined ? (
-                  <p className='carregandoPerfil'>Usuário Não Encontrado</p>
+                  <p className='carregandoPerfil'>Carregando...</p>
                 ) : (
 
                   <div className="containerPerfil__containerTags">
@@ -167,7 +212,7 @@ function PerfilSelecionado() {
                               <TagGlobal
                                 key={perfil.usuario.tags[0].id_tag}
                                 id={perfil.usuario.tags[0].id_tag}
-                                value={perfil.usuario.tags[0].nome_tag}
+                                value={perfil.usuario.tags[0].nome}
                               ></TagGlobal>
                             )
                           }
@@ -179,7 +224,7 @@ function PerfilSelecionado() {
                               <TagGlobal
                                 key={perfil.usuario.tags[1].id_tag}
                                 id={perfil.usuario.tags[1].id_tag}
-                                value={perfil.usuario.tags[1].nome_tag}
+                                value={perfil.usuario.tags[1].nome}
                               ></TagGlobal>
                             )
                           }
@@ -191,7 +236,7 @@ function PerfilSelecionado() {
                               <TagGlobal
                                 key={perfil.usuario.tags[2].id_tag}
                                 id={perfil.usuario.tags[2].id_tag}
-                                value={perfil.usuario.tags[2].nome_tag}
+                                value={perfil.usuario.tags[2].nome}
                               ></TagGlobal>
                             )
                           }
@@ -202,18 +247,6 @@ function PerfilSelecionado() {
                   </div>
                 )
               }
-
-              {/* {
-                              user.usuario.tags.map((tag, index) => 
-                                 {if (index < 3) {
-                                    <TagGlobal
-                                    id={tag.id_tag}
-                                    value={tag.nome_tag}
-                                    numero={'100'}
-                                  ></TagGlobal>
-                                 }}
-                              )
-                            }  */}
 
             </div>
 
@@ -233,7 +266,6 @@ function PerfilSelecionado() {
               ) : (
                 perfil.usuario.publicacoes.map((item) => {
 
-                  console.log(item)
                   return (
 
                     <CardPublicacaoMeuPerfil
@@ -242,16 +274,12 @@ function PerfilSelecionado() {
                       fotoPublicacao={item.anexos[0].anexo}
                       idPublicacao={item.id}
                       nomePublicacao={item.titulo}
-                      descricaoPublicacao={item.descricao}
                       anexosPublicacao={item.anexos}
                     ></CardPublicacaoMeuPerfil>
 
                   )
                 })
               )
-
-
-
             )
 
 

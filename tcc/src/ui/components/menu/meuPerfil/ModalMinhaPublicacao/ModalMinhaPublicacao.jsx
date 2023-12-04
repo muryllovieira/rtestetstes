@@ -129,7 +129,6 @@ const ModalMinhaPublicacao = ({ isOpen, setModalOpen, accessToken, idPublicacao,
       })
 
       setTags(response.data.tags)
-      console.log(response.data)
 
     } catch (error) {
       console.log(error)
@@ -180,7 +179,6 @@ const ModalMinhaPublicacao = ({ isOpen, setModalOpen, accessToken, idPublicacao,
     const listaTagsPublicacao = listarTagsDaPublicacao()
 
     if (listaTagsPublicacao == false) {
-      console.log('as')
     } else {
 
       const letTags = [...tags]
@@ -301,12 +299,6 @@ const ModalMinhaPublicacao = ({ isOpen, setModalOpen, accessToken, idPublicacao,
 
     const listaTagsInalterada = adicionarTagsSemAlteracaoListaTags()
 
-    if (listaTagsInalterada == false) {
-      console.log('deu erro')
-    } else {
-      console.log('deu certo')
-    }
-
   }, [clique])
 
   useEffect(() => {
@@ -343,7 +335,7 @@ const ModalMinhaPublicacao = ({ isOpen, setModalOpen, accessToken, idPublicacao,
         }
       })
       navigate('/menu/explorar')
-      console.log(response.data)
+
     } catch (error) {
       console.log(error)
     }
@@ -358,7 +350,7 @@ const ModalMinhaPublicacao = ({ isOpen, setModalOpen, accessToken, idPublicacao,
     const arrayImagesUrl = [...listaAnexos]
 
     if (listaAnexos == false) {
-      console.log('erro')
+
     } else {
       const foto = await salvarFoto()
 
@@ -394,8 +386,6 @@ const ModalMinhaPublicacao = ({ isOpen, setModalOpen, accessToken, idPublicacao,
           }
         )
 
-        console.log(response)
-
       } catch (error) {
         console.log(error)
       }
@@ -426,7 +416,6 @@ const ModalMinhaPublicacao = ({ isOpen, setModalOpen, accessToken, idPublicacao,
         }
       })
 
-      console.log(response)
       if (comentario == null) {
         setComentario(response.data)
       } else if (response.status == 404) {
@@ -454,7 +443,6 @@ const ModalMinhaPublicacao = ({ isOpen, setModalOpen, accessToken, idPublicacao,
         }
       })
 
-      console.log(response)
 
       setComentar('')
       pegarComentarios()

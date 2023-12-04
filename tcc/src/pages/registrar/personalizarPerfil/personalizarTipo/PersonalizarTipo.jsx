@@ -47,7 +47,9 @@ function PersonalizarTipo() {
             <div className="containerPersonalizarTipo__escolhaTipo">
 
                 <div className='escolhaTipo__escolhaVoltarContinuar'>
-                    <i>{IconObject.voltarOuCancelarColorido}</i>
+                    <i onClick={() => {
+                        navigate('/personalizar-perfil/personalizar-localizacao')
+                    }}>{IconObject.voltarOuCancelarColorido}</i>
                     <i onClick={redirecionarPagina}>{IconObject.avancarTipoPerfil}</i>
                 </div>
 

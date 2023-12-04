@@ -464,6 +464,48 @@ const ModalMinhaPublicacao = ({ isOpen, setModalOpen, accessToken, idPublicacao,
     }
   }
 
+  //Dar Ponto
+
+  const [like, setLike] = useState(false)
+
+  const curtirPublicacao = async () => {
+    try {
+      const response = await blogFetch.post(`/publicacao/curtir`, {
+        "id_usuario" : idUsuario,
+        "id_publicacao" : idPublicacao
+      }, {
+        headers: {
+          "x-access-token" : accessToken
+        }
+      })
+
+      console.log(response)
+      setLike(true)
+
+    } catch (error) {
+      console.log(error)
+    }
+  } 
+
+  const removerCurtida = async () => {
+    try {
+      const response = await blogFetch.post(`/publicacao/retirar_curtida`, {
+        "id_publicacao" : idPublicacao,
+        "id_usuario" : idUsuario
+      }, {
+        headers: {
+          "x-access-token" : accessToken
+        }
+      })
+
+      console.log(response)
+      setLike(false)
+
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   if (isOpen) {
     return (
       editar === false ? (
@@ -518,6 +560,13 @@ const ModalMinhaPublicacao = ({ isOpen, setModalOpen, accessToken, idPublicacao,
 
                 <div className='containerImagensPublicacaoExplorar__botoesPublicacaoExplorar'>
                   <BotaoAncoraGlobal
+                  onClick={() => {
+                    if(like === false){
+                        curtirPublicacao()
+                    } else if(like === true){
+                        removerCurtida()
+                    }
+                  }}
                     titulo={'Dar Ponto'}
                   ></BotaoAncoraGlobal>
 

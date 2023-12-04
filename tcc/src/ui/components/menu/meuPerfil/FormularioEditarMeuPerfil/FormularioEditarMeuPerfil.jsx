@@ -21,7 +21,7 @@ import InputBairros from '../../../personalizarPerfil/ComboBoxLocalizacao/inputB
 import BotaoTag from '../../../personalizarPerfil/BotaoTag/BotaoTag.jsx'
 
 
-function FormularioEditarMeuPerfil({ aberto, open, nomePerfil, tagPerfil, cidadePerfil, estadoPerfil, bairroPerfil, descricaoPerfil, tagsPerfil, idLocalizacao, reloadUser, imgPerfil, funcLoading }) {
+function FormularioEditarMeuPerfil({ user ,aberto, open, nomePerfil, tagPerfil, cidadePerfil, estadoPerfil, bairroPerfil, descricaoPerfil, tagsPerfil, idLocalizacao, reloadUser, imgPerfil, funcLoading }) {
 
     const navigate = useNavigate()
 
@@ -34,15 +34,15 @@ function FormularioEditarMeuPerfil({ aberto, open, nomePerfil, tagPerfil, cidade
     const [descricao, setDescricao] = useState(descricaoPerfil)
     const [nome, setNome] = useState(nomePerfil)
     const [tagPerfilEditado, setTagPerfil] = useState(tagPerfil)
-    const [tags, setTags] = useState(tagsPerfil)
+    const [ todasTags, setTodasTags ] = useState()
     const [localizacao, setLocalizacao] = useState(idLocalizacao)
     const [fotoPerfil, setFotoPerfil] = useState(imgPerfil)
     const [statusResponse, setStatusResponse] = useState(0)
+    const [ teste, setTeste ] = useState(false)
+    const [ tagsUsuario, setTagsUsuario ] = useState()
 
     const [tagsSelecionadas, setTagsSelecionadas] = useState([])
     const [clique, setClique] = useState(false)
-
-    console.log(tagsPerfil)
 
     useEffect(() => {
         console.log(statusResponse)
@@ -107,7 +107,7 @@ function FormularioEditarMeuPerfil({ aberto, open, nomePerfil, tagPerfil, cidade
 
     const salvarNovosDadosPerfil = async () => {
 
-        const tag = formatarTags()
+        const tagsAlteradas = alterarTagsSelecionadas()
 
         const foto = await salvarFoto()
 
@@ -117,10 +117,8 @@ function FormularioEditarMeuPerfil({ aberto, open, nomePerfil, tagPerfil, cidade
 
             funcLoading(true, 0, '/explorar')
 
-
-
             try {
-                // const response = { status: 200}
+           
                 const response = await blogFetch.put('/usuario/editar_perfil', {
                     id_usuario: id,
                     id_localizacao: localizacao,
@@ -131,7 +129,7 @@ function FormularioEditarMeuPerfil({ aberto, open, nomePerfil, tagPerfil, cidade
                     descricao: descricao,
                     foto: fotoPerfil,
                     nome_de_usuario: tagPerfilEditado,
-                    tags: tag
+                    tags: tagsAlteradas
                 }, {
                     headers: {
                         'x-access-token': accessToken
@@ -140,7 +138,7 @@ function FormularioEditarMeuPerfil({ aberto, open, nomePerfil, tagPerfil, cidade
                 })
 
                 console.log(response)
-                // setStatusResponse(response.status)
+         
 
                 if (response.status == 200) {
                     funcLoading(true, 200, '/menu/explorar', 'Usuário editado com sucesso.')
@@ -181,7 +179,7 @@ function FormularioEditarMeuPerfil({ aberto, open, nomePerfil, tagPerfil, cidade
                     descricao: descricao,
                     foto: foto,
                     nome_de_usuario: tagPerfilEditado,
-                    tags: tag
+                    tags: tagsAlteradas
                 }, {
                     headers: {
                         'x-access-token': accessToken
@@ -229,25 +227,25 @@ function FormularioEditarMeuPerfil({ aberto, open, nomePerfil, tagPerfil, cidade
 
     //Tags
 
-    const pegarTags = async () => {
-        try {
-            const response = await blogFetch.get('/tag', {
-                headers: {
-                    "x-access-token": accessToken
-                }
-            })
-
-            setTags(response.data.tags)
-            console.log(response.data)
-
-        } catch (error) {
-            console.log(error)
+    const pegarTags = async (lista) => {
+        if (lista == false) {
+            try {
+                const response = await blogFetch.get('/tag', {
+                    headers: {
+                        "x-access-token": accessToken
+                    }
+                })
+    
+                setTodasTags(response.data.tags)
+                setTeste(true)
+    
+            } catch (error) {
+                console.log(error)
+            }
+        } else {
+            console.log('caiu aq')
         }
     }
-
-    useEffect(() => {
-        pegarTags()
-    }, [])
 
 
     const listarTagsDoPerfil = () => {
@@ -256,16 +254,18 @@ function FormularioEditarMeuPerfil({ aberto, open, nomePerfil, tagPerfil, cidade
 
         if (tagsPerfil === undefined) {
 
-            console.log(tagsPerfil)
-
             return false
 
+        } else if (todasTags === undefined || todasTags.length == 0) {
+
+            return false
+            
         } else {
+
             tagsPerfil.map((item, index) => {
-                tags.map((tag, indice) => {
+                todasTags.map((tag, indice) => {
 
                     if (item.id_tag == tag.id_tag) {
-
 
                         listaTagsPerfil.push({
                             id_tag: item.id_tag,
@@ -281,34 +281,30 @@ function FormularioEditarMeuPerfil({ aberto, open, nomePerfil, tagPerfil, cidade
                 })
             })
 
-            console.log(listaTagsPerfil)
-
             return listaTagsPerfil
         }
 
 
     }
 
-    const adicionarTagsComSelecao = () => {
-
-        const listaTagsPerfil = listarTagsDoPerfil()
+    const adicionarTagsComSelecao = (listaTagsPerfil) => {
 
         if (listaTagsPerfil == false) {
             console.log('as')
         } else {
 
-            const letTags = [...tags]
+            const letTodasTags = [...todasTags]
 
             const letTagsSelecionadas = [...tagsSelecionadas]
 
 
-            letTags.map((letTag, letIndex) => {
+            letTodasTags.map((letTag, letIndex) => {
                 listaTagsPerfil.map((item, indice) => {
                     if (letTag.id_tag == item.id_tag) {
 
-                        letTags.splice(letIndex, 1)
+                        letTodasTags.splice(letIndex, 1)
 
-                        letTags.unshift(item)
+                        letTodasTags.unshift(item)
 
                         letTagsSelecionadas.push({
                             id_tag: item.id_tag,
@@ -319,23 +315,36 @@ function FormularioEditarMeuPerfil({ aberto, open, nomePerfil, tagPerfil, cidade
                 })
             })
 
-            console.log(letTagsSelecionadas)
-            console.log(letTags)
-
+            setTagsUsuario(letTodasTags)
 
             setTagsSelecionadas(letTagsSelecionadas)
 
-            setTags(letTags)
+            setTodasTags(letTodasTags)
 
         }
 
     }
 
+    useEffect(() => {
+
+        const listaTagsPerfil = listarTagsDoPerfil()
+
+        pegarTags(listaTagsPerfil)
+
+        if(listaTagsPerfil == false) {
+            console.log('teste')
+        } else {
+            adicionarTagsComSelecao(listaTagsPerfil)
+        }
+
+    }, [teste])
+
+
     const pegarTagsSelecionadasListaTagsAlterada = () => {
 
         const listaTags = []
 
-        tags.map((tag, index) => {
+        listaTags.map((tag, index) => {
             tagsSelecionadas.map((item, indice) => {
 
                 if (item.novo == true && tag.id_tag == item.id_tag) {
@@ -363,13 +372,13 @@ function FormularioEditarMeuPerfil({ aberto, open, nomePerfil, tagPerfil, cidade
         } else {
 
             listaTagsSelecionadasAlteradas.map((tagSel, indexSel) => {
-                tags.map((tag, index) => {
+                tagsUsuario.map((tag, index) => {
                     tagsSelecionadas.map((item, indice) => {
                         if (tagSel.id_tag == item.id_tag) {
 
                             tagsSelecionadas.splice(indice, 1)
 
-                            tags.splice(index, 1)
+                            tagsUsuario.splice(index, 1)
 
                             listaTagsRemovidas.push({
                                 id_categoria: tag.id_categoria,
@@ -397,7 +406,7 @@ function FormularioEditarMeuPerfil({ aberto, open, nomePerfil, tagPerfil, cidade
             return false
         } else {
             listaTagsRemovidas.map((tagRemovida, indice) => {
-                tags.push(tagRemovida)
+                tagsUsuario.push(tagRemovida)
             })
 
             return true
@@ -427,13 +436,11 @@ function FormularioEditarMeuPerfil({ aberto, open, nomePerfil, tagPerfil, cidade
             console.log('deu certo')
         }
 
-    }, [clique])
+    }, [user])
 
     useEffect(() => {
-
-        adicionarTagsComSelecao()
-
-    }, [tagsPerfil])
+        console.log(tagsSelecionadas)
+    },[tagsSelecionadas])
 
     //
     // const { value, name } = e.target
@@ -443,9 +450,6 @@ function FormularioEditarMeuPerfil({ aberto, open, nomePerfil, tagPerfil, cidade
     // )
 
 
-
-
-    console.log(formValues)
     return (
         <>
 
@@ -535,22 +539,22 @@ function FormularioEditarMeuPerfil({ aberto, open, nomePerfil, tagPerfil, cidade
                     <input className='formularioAtualizarPerfil__editarDescricao' type="text" onChange={(e) => setDescricao(e.target.value)} value={descricao} />
                 </div>
 
-                {/* <div className='formularioAtualizarPerfil__atualizarTags'>
+                 <div className='formularioAtualizarPerfil__atualizarTags'>
 
                     <div className='atualizarTags'>
 
                         {
 
-                            tags === undefined ? (
+                            tagsUsuario === undefined ? (
 
                                 <p>Carregando</p>
 
                             ) : (
 
-                                tags.length == 0 ? (
+                                tagsUsuario.length == 0 ? (
                                     <p>Carregando</p>
                                 ) : (
-                                    tags.map((item, indice) => {
+                                    tagsUsuario.map((item, indice) => {
 
                                         if (item.selecao == true) {
                                             return (
@@ -559,11 +563,11 @@ function FormularioEditarMeuPerfil({ aberto, open, nomePerfil, tagPerfil, cidade
                                                     key={item.id_tag}
                                                     selecao={item.selecao}
                                                     option={() => {
-                                                        tags.map((tag, indice) => {
+                                                        tagsUsuario.map((tag, indice) => {
                                                             if (item.id_tag == tag.id_tag) {
-                                                                tags.splice(indice, 1)
+                                                                tagsUsuario.splice(indice, 1)
 
-                                                                const letTags = [...tags]
+                                                                const letTags = [...tagsUsuario]
 
                                                                 letTags.push({
                                                                     id_tag: item.id_tag,
@@ -581,7 +585,7 @@ function FormularioEditarMeuPerfil({ aberto, open, nomePerfil, tagPerfil, cidade
                                                                     }
                                                                 })
 
-                                                                setTags(letTags)
+                                                                setTagsUsuario(letTags)
 
                                                                 setTagsSelecionadas(letTagsSelecionadas)
                                                             }
@@ -598,12 +602,12 @@ function FormularioEditarMeuPerfil({ aberto, open, nomePerfil, tagPerfil, cidade
 
 
 
-                                                        tags.map((tag, indice) => {
+                                                        tagsUsuario.map((tag, indice) => {
                                                             if (item.id_tag == tag.id_tag) {
 
-                                                                tags.splice(indice, 1)
+                                                                tagsUsuario.splice(indice, 1)
 
-                                                                const letTags = [...tags]
+                                                                const letTags = [...tagsUsuario]
 
                                                                 letTags.unshift({
                                                                     id_tag: item.id_tag,
@@ -614,7 +618,7 @@ function FormularioEditarMeuPerfil({ aberto, open, nomePerfil, tagPerfil, cidade
                                                                     selecao: true
                                                                 })
 
-                                                                setTags(letTags)
+                                                                setTagsUsuario(letTags)
 
                                                                 const letTagsSelecionadas = [...tagsSelecionadas]
 
@@ -642,7 +646,7 @@ function FormularioEditarMeuPerfil({ aberto, open, nomePerfil, tagPerfil, cidade
 
                     </div>
 
-                </div> */}
+                </div>
 
 
 

@@ -91,18 +91,6 @@ function MeuPerfil() {
   }
 
   useEffect(() => {
-    console.log(visivel)
-  }, [visivel])
-
-  useEffect(() => {
-    console.log(erro);
-  }, [erro])
-
-  useEffect(() => {
-    console.log(caminho);
-  }, [caminho])
-
-  useEffect(() => {
     getUsuario()
   }, [])
 
@@ -376,6 +364,7 @@ function MeuPerfil() {
                     tagsPerfil={user.usuario.tags}
                     idLocalizacao={user.usuario.id_localizacao}
                     imgPerfil={user.usuario.foto}
+                    user={user}
                    
                   ></FormularioEditarMeuPerfil>
 

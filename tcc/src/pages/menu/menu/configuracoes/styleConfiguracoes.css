@@ -1,9 +1,9 @@
-.container{
+.containerConfigurar {
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
     align-items: center;
-    gap: 5vh;
+    width: 90vw;
+    gap: 24px;
 }
 
 .containerConfiguracoes{
@@ -11,11 +11,10 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    width: 90vw;
+    width: 80vw;
     height:80vh;
     background-color: var(--default-color);
     box-shadow: var(--default-shadow);
-    position: relative;
     left: 30px;
     border-radius: 20px;
 }

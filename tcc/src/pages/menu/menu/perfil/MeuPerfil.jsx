@@ -219,16 +219,7 @@ function MeuPerfil() {
                 )
               }
 
-              <div className='secaoMeuPerfil__botoesRecomendacao'>
-                <BotaoRecomendacao
-                  url={'/personalizar-perfil/personalizar-tags'}
-                  value={'RECOMENDAÇÕES'}
-                ></BotaoRecomendacao>
-                <BotaoRecomendacao
-                  url={'/'}
-                  value={'RECOMENDADOS'}
-                ></BotaoRecomendacao>
-              </div>
+          
 
 
               {
@@ -245,7 +236,7 @@ function MeuPerfil() {
 
                 {
                   user === undefined ? (
-                    <p className='carregandoPerfil'>Usuário Não Encontrado</p>
+                    <p className='carregandoPerfil'>Carregando...</p>
                   ) : (
 
                     <div className="containerPerfil__containerTags">
@@ -396,7 +387,7 @@ function MeuPerfil() {
                         accessToken={accessToken}
                         idPublicacao={item.id}
                         nomePublicacao={item.titulo}
-                        descricaoPublicacao={item.descricao}
+                    
                         anexosPublicacao={item.anexos}
                       ></CardPublicacaoMeuPerfil>
                     )

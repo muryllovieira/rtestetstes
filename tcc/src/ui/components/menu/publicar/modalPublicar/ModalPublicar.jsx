@@ -9,7 +9,8 @@ import blogFetch from '../../../../../data/services/api/ApiService'
 import { uploadImage } from '../../../../../data/services/firebase/firebase'
 import UserContext from '../../../../../data/hooks/context/UserContext'
 
-const ModalPublicar = () => {
+
+const ModalPublicar = ({modalCarregar}) => {
 
     const { id, accessToken } = useContext(UserContext)
 
@@ -55,6 +56,8 @@ const ModalPublicar = () => {
 
     const enviarPublicacao = async () => {
 
+        modalCarregar(true, 0)
+
         const foto = await salvarFoto()
 
         const arrayImagesUrl = []
@@ -86,8 +89,9 @@ const ModalPublicar = () => {
                     }
                 )
 
-                
                 console.log(response)
+                modalCarregar(true, response.status, '/menu/explorar', 'Publicação Inserida com sucesso.')
+                
             } catch (error) {
                 console.log(error)
             }

@@ -12,12 +12,12 @@ function Configuracoes() {
 
   return (
     <>
-    <div className='container'>
+    <div className='containerConfigurar'>
       <div className='containerConfiguracoes'>
 
         <div className='containerExplorar__tituloEFoto'>
           <p>
-            Configuracoes
+            Configurações
           </p>
         <FotoPerfil/>
         </div>

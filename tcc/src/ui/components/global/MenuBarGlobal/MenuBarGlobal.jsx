@@ -103,44 +103,17 @@ function MenuBarGlobal() {
               })
             }
 
-            {/* <AncoraMenu
-              icon={IconObject.home}
-              url={'/menu/explorar'}
-              value={'EXPLORAR'}
-            ></AncoraMenu>
-            <AncoraMenu
-              icon={IconObject.servicos}
-              url={'/menu/servicos'}
-              value={'SERVIÇOS'}
-            ></AncoraMenu>
-             
-            <AncoraMenu
-              publicar={true}
-              icon={IconObject.publicar}
-              url={'/menu/publicar'}
-              value={'PUBLICAR'}
-            ></AncoraMenu>
-              
-            <AncoraMenu
-              icon={IconObject.conversas}
-              url={'/menu/conversas'}
-              value={'CONVERSAS'}
-            ></AncoraMenu>
-            <AncoraMenu
-              icon={IconObject.perfil}
-              url={'/menu/meu-perfil'}
-              value={'MEU PERFIL'}
-            ></AncoraMenu> */}
+            
             
           </div>
           
           <div className='botaoConfiguracoes'>
-              {/* <AncoraMenu
+               <AncoraMenu
                 config={true}
                 icon={IconObject.configuracoes}
                 url={'/menu/configuracoes'}
                 value={'CONFIGURAÇÕES'}
-              ></AncoraMenu> */}
+              ></AncoraMenu> 
           </div>
   
       </div>

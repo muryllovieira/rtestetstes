@@ -48,7 +48,6 @@ function CardPublicacaoMeuPerfil({ idUsuario, idPublicacao, nomePublicacao, desc
       })
 
       setPublicacao(response.data)
-      console.log(response)
     } catch (error) {
       console.log(error)
     }

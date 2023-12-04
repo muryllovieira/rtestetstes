@@ -25,7 +25,6 @@
 .headerFormulario__iconeVoltarFormulario {
     height: 40px;
     width: 40px;
-    background-color: var(--primary-color);
     cursor: pointer;
 }
 

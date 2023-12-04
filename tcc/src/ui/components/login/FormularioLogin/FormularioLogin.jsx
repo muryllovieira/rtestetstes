@@ -93,13 +93,6 @@ function FormularioLogin() {
     <form className='formularioLogin' onSubmit={(e) => getUsuario(e)}>
       <h1>LOGIN</h1>
 
-      <button onClick={() => {
-
-        window.localStorage.removeItem('id', JSON.stringify(''))
-        window.localStorage.removeItem('accessToken', JSON.stringify(''))
-
-      }}> CLICA AQUI </button>
-
       <p ref={errRef} className={errMsg ? "mensagemErro" :
         "mensagemDesligada"} aria-live='assertive'>{errMsg}</p>
 

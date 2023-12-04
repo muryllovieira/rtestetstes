@@ -23,9 +23,7 @@ function TagGlobal({ id, value, numero, verMais, setModalTags, modalTags}) {
               {value}
             </span>
 
-            <p className='tagGlobal__numeroRecomendacao'>
-              {numero}
-            </p>
+           
           </div>
 
         )

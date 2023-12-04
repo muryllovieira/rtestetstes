@@ -549,6 +549,8 @@ const ModalPublicacaoExplorar = ({ isOpen, atualizar, setAtualizar, setModalOpen
   //   verificarAvaliacao()
   // }, [like])
 
+  //
+
 
   console.log(like)
 

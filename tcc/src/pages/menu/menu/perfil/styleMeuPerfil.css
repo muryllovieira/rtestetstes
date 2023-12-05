@@ -153,6 +153,8 @@
     color: var(--contrast-color);
 }
 
+/**/
+
 .modalBackgroundTagsMeuPerfil {
     position: fixed;
     background-color: var(--contrast-color);
@@ -170,7 +172,7 @@
     left: 25%;
     top: 20%;
     width: 50vw;
-    height: 50vh;
+    height: fit-content;
     background-color: var(--default-color);
     border-radius: 20px;
     display: flex;

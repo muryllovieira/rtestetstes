@@ -13,16 +13,7 @@ const InputEstados = ({id, onChange = () => {}}) => {
 
   return (
       <>
-        <select id={id} name='state' onChange={onChange} className='inputList'>
-          <option value="">Selecione um estado...</option>
-            {
-                estados.map((item) => (
-                    <option key={item.id} value={item.sigla} data-nome={item.nome}>
-                        {item.nome}
-                    </option>
-                ))
-            }
-        </select>
+        
       </>
   )
 }

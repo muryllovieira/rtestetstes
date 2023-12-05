@@ -5,11 +5,14 @@ import TagGlobal from '../../../../ui/components/global/TagGlobal/TagGlobal'
 import BotaoRecomendacao from '../../../../ui/components/menu/meuPerfil/BotaoRecomendacao/BotaoRecomendacao'
 import CardPublicacaoMeuPerfil from '../../../../ui/components/menu/meuPerfil/CardPublicacaoMeuPerfil/CardPublicacaoMeuPerfil'
 import CardUsuarioMeuPerfil from '../../../../ui/components/menu/meuPerfil/CardUsuarioMeuPerfil/CardUsuarioMeuPerfil'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import setaEsquerda from './images/setaEsquerda.svg'
+import iconeChat from './images/iconeChat.svg'
 import './stylePerfilSelecionado.css'
 
 function PerfilSelecionado() {
+
+  const navigate = useNavigate()
 
   const { accessToken } = useContext(UserContext)
   const { idPerfil } = useContext(UserContext)
@@ -18,11 +21,6 @@ function PerfilSelecionado() {
   const [tags, setTags] = useState([])
 
   const [perfil, setPerfil] = useState()
-
-  useEffect(() => {
-    console.log(perfil)
-  }, [perfil])
-
 
   const getPerfil = async () => {
     try {
@@ -44,8 +42,6 @@ function PerfilSelecionado() {
       console.log(error)
     }
   }
-
-  console.log(perfil)
 
   useEffect(() => {
     getPerfil()
@@ -144,10 +140,24 @@ function PerfilSelecionado() {
               ) : (
                 <>
                   <div className='secaoMeuPerfil__apresentacaoPerfil'>
-                    <h1 className='apresentacaoMeuPerfil__tituloPerfil'>{perfil.usuario.nome}</h1>
+                    
                     <Link to={"/menu/servicos"}>
                       <img src={setaEsquerda} className="botaoVoltar" />
                     </Link>
+
+                    <img className='botaoChatPerfilSelecionado' src={iconeChat} onClick={() => {
+
+                      navigate('/menu/conversas',{
+                        state: {
+                          id_usuario_perfil: perfil.usuario.id_usuario,
+                          nome_usuario_perfil: perfil.usuario.nome,
+                          foto_usuario_perfil: perfil.usuario.foto
+                        }
+                      })
+
+                    }}/>
+
+                    
                   </div>
                   
                   {

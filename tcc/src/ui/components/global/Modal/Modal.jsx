@@ -20,9 +20,7 @@ if(isOpen) {
                 {children}
 
                 <div className='modal__footer'>
-                    <BotaoAncoraGlobal
-                        titulo={"FILTRAR"}
-                    ></BotaoAncoraGlobal>
+                   
                 </div>
             </div>
         </div>

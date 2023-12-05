@@ -68,7 +68,7 @@
     max-height: 100%;
     width: 100%;
     flex-wrap: wrap;
-    overflow-y: hidden;
+    overflow-y: scroll;
     padding: 16px;
     gap: 32px;
     align-items: flex-start;

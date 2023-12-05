@@ -2,7 +2,12 @@ import axios from "axios"
 
 const blogFetch = axios.create({
 
-    baseURL: "http://10.107.144.11:8080",
+    baseURL: "http://localhost:8080",
+    headers: {'Content-Type': 'application/json'}
+})
+
+export const localizacaoFetch = axios.create({
+    baseURL: "http://enderecos.metheora.com",
     headers: {'Content-Type': 'application/json'}
 })
 

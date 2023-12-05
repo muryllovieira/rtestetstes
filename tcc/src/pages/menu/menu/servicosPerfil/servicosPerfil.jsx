@@ -3,25 +3,27 @@ import './styleServicosPerfil.css'
 import InputGlobal from '../../../../ui/components/global/InputGlobal/InputGlobal'
 import setaEsquerda from './images/setaEsquerda.svg'
 import iconFiltro from './images/filtro.svg'
-import {Link, useNavigate} from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import ModalLocalizacao from '../../../../ui/components/global/Modal/Modal'
 import ComboBoxLocalizacao from '../../../../ui/components/personalizarPerfil/ComboBoxLocalizacao/ComboBoxLocalizacao'
 import UserContext from '../../../../data/hooks/context/UserContext'
 import { useContext } from 'react'
 import CardPerfil from '../../../../ui/components/menu/servicosPerfil/CardPerfil/CardPerfil'
 import blogFetch from '../../../../data/services/api/ApiService'
+import BotaoAncoraGlobal from '../../../../ui/components/global/BotaoAncoraGlobal/BotaoAncoraGlobal'
 import FotoPerfil from '../../../../ui/components/global/FotoPerfil/FotoPerfil'
+import IconObject from '../../../../ui/components/global/IconesGlobais/IconesGlobais'
 
 const ServicosPerfil = () => {
 
   const navigator = useNavigate()
 
-  const {idServico} = useContext(UserContext)
-  const {nomeTagServico} = useContext(UserContext)
+  const { idServico } = useContext(UserContext)
+  const { nomeTagServico } = useContext(UserContext)
 
-  const {idPerfil, setIdPerfil} = useContext(UserContext)
+  const { idPerfil, setIdPerfil } = useContext(UserContext)
 
-  const {accessToken} = useContext(UserContext)
+  const { accessToken } = useContext(UserContext)
 
   const [listaPerfis, setListaPerfis] = useState([])
   const [openModal, setOpenModal] = useState(false)
@@ -39,7 +41,7 @@ const ServicosPerfil = () => {
         nome_tag: nomeTagServico
       }, {
         headers: {
-          'x-access-token' : accessToken
+          'x-access-token': accessToken
         }
       })
 
@@ -55,32 +57,56 @@ const ServicosPerfil = () => {
     <>
       <div className="containerServicosPerfil">
 
-         <div className="containerServicosPerfil__header">
+        <div className="containerServicosPerfil__header">
 
-           <Link to={"/menu/servicos"}>
-              <img src={setaEsquerda} className="botaoVoltar" />
-           </Link>
-           
-           <div className='pesquisaPerfil'>
-           <div className="header__inputPesquisar">
-           <InputGlobal
-              onChange={setBusca}
-              type={'search'}
-              placeholder={'Procurar um perfil'}
-            ></InputGlobal>
-             <img src={iconFiltro} className='iconeFiltro' onClick={() => setOpenModal(true)}/>
-           </div>
+          <Link to={"/menu/servicos"}>
+            <img src={setaEsquerda} className="botaoVoltar" />
+          </Link>
 
-           <div>
-             <ModalLocalizacao isOpen={openModal} setModalOpen={() => setOpenModal(!openModal)}>
-                <ComboBoxLocalizacao></ComboBoxLocalizacao>
-             </ModalLocalizacao>
-           </div>
-           </div>
-           
-           <FotoPerfil/>
-           
-         </div>
+          <div className='pesquisaPerfil'>
+            <div className="header__inputPesquisar">
+              <InputGlobal
+                onChange={setBusca}
+                type={'search'}
+                placeholder={'Procurar um perfil'}
+              ></InputGlobal>
+              <img src={iconFiltro} className='iconeFiltro' onClick={() => setOpenModal(true)} />
+            </div>
+
+            {
+              openModal == false ? (
+                null
+              ) : (
+
+                <>
+                  <div className='modalBackground'></div>
+
+                  <div className="containerFiltrar">
+
+                    <div className='containerIconeVoltarFiltro'>
+                      <i onClick={() => {
+                        setOpenModal(!openModal)
+                      }} className='iconeVoltarFiltro'>{IconObject.voltarOuCancelarColorido}</i>
+                    </div>
+
+                    <ComboBoxLocalizacao></ComboBoxLocalizacao>
+
+                    <BotaoAncoraGlobal
+                      titulo={"FILTRAR"}
+                    ></BotaoAncoraGlobal>
+
+                  </div>
+                </>
+
+
+
+              )
+            }
+          </div>
+
+          <FotoPerfil />
+
+        </div>
 
         <section className='containerServicos__secaoDeTags'>
           <div className='listaPerfis'>
@@ -89,19 +115,21 @@ const ServicosPerfil = () => {
               listaPerfis.length === 0 ? (
                 <>Carregando</>
               ) : (
+
                 listaPerfis.usuarios.filter((item) => {
 
-                    const buscaPequena = busca.toLowerCase()
+                  const buscaPequena = busca.toLowerCase()
 
-                    return buscaPequena.toLowerCase() == '' ? item : item.nome.toLowerCase().includes(buscaPequena)
+                  return buscaPequena.toLowerCase() == '' ? item : item.nome.toLowerCase().includes(buscaPequena)
 
                 }).map((item) => (
+
                   <CardPerfil
                     onClick={() => {
-                        setIdPerfil(item.id_usuario)
-                        
-                        navigator('/menu/servicos/perfil/perfil-selecionado')
-                     }}
+                      setIdPerfil(item.id_usuario)
+
+                      navigator('/menu/servicos/perfil/perfil-selecionado')
+                    }}
                     key={item.id}
                     nome={item.nome}
                     img={item.foto}
@@ -109,7 +137,7 @@ const ServicosPerfil = () => {
                 ))
               )
             }
-            
+
           </div>
         </section>
 

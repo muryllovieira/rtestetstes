@@ -111,8 +111,6 @@ function Explorar() {
                     ) : (
                       listaPublicacoesPopulares.publicacao.map((item) => (
 
-                        
-
                         item === undefined ? (
                           <p>Carregando...</p>
                         ) : (

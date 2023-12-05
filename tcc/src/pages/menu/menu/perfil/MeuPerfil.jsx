@@ -43,7 +43,7 @@ function MeuPerfil() {
       })
 
       setUser(response.data)
-      // console.log(response.data)
+      console.log(response.data)
 
       if (response.data.usuario.tags === undefined) {
         console.log('a')

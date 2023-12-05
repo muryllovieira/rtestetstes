@@ -12,13 +12,18 @@ import ModalChat from '../../../../ui/components/menu/conversas/ModalChat/ModalC
 import blogFetch from '../../../../data/services/api/ApiService'
 import { useEffect } from 'react'
 
-const Chat = ({ listaMensagens, socket, chatOpen, setChatOpen, listaUsuarios, idChat }) => {
+const Chat = ({ listaMensagens, socket, chatOpen, setChatOpen, listaUsuarios, idChat, nomeOutroUsuario, fotoOutroUsuario }) => {
 
     const [message, setMessage] = useState('')
 
     const { id } = useContext(UserContext)
 
-    console.log(listaUsuarios)
+    const [data, setData] = useState({})
+    const [listaId, setListaId] = useState([])
+
+    useEffect(() => {
+        console.log(nomeOutroUsuario)
+    }, [nomeOutroUsuario])
 
 
 
@@ -26,7 +31,6 @@ const Chat = ({ listaMensagens, socket, chatOpen, setChatOpen, listaUsuarios, id
 
     useEffect(() => {
 
-        console.log(listaMensagens)
 
         const listaReversa = [...listaMensagens]
 
@@ -34,25 +38,36 @@ const Chat = ({ listaMensagens, socket, chatOpen, setChatOpen, listaUsuarios, id
 
         setArrayMensagens(listaReversa)
 
-        console.log(listaReversa)
-
 
     }, [listaMensagens])
+
 
 
     const [openModal, setOpenModal] = useState(false)
 
     const publicarMensagem = () => {
 
-        const data = {
-            "messageBy": id,
-            "messageTo": listaUsuarios[1].id,
-            "message": message,
-            "chatId": idChat,
-            "image": ""
+        let dados = {}
+
+        if (listaUsuarios != undefined) {
+
+            listaUsuarios.map((item) => {
+                if (item.id != id) {
+
+                    dados = {
+                        "messageBy": id,
+                        "messageTo": item.id,
+                        "message": message,
+                        "chatId": idChat,
+                        "image": ""
+                    }
+
+                }
+            })
+
         }
 
-        socket.emit('message', data)
+        socket.emit('message', dados)
 
         setMessage('')
     }
@@ -70,8 +85,28 @@ const Chat = ({ listaMensagens, socket, chatOpen, setChatOpen, listaUsuarios, id
                                 setChatOpen(!chatOpen)
                             }} />
 
-                            <img className='fotoPerfil' src={ImagemPerfil} alt="" />
-                            <p className='nomePerfil'>Beltrana dos Santos Silva</p>
+
+
+                            {
+                                fotoOutroUsuario === undefined ? (
+                                    <p>Sem foto.</p>
+                                ) : (
+
+                                    <img className='fotoPerfil' src={fotoOutroUsuario} alt="" />
+
+                                )
+                            }
+
+                            {
+
+                                nomeOutroUsuario === undefined ? (
+                                    <p>Sem nomem</p>
+                                ) : (
+
+                                    <p className='nomePerfil'>{nomeOutroUsuario}</p>
+                                )
+
+                            }
                         </div>
 
                         <div>
@@ -99,25 +134,27 @@ const Chat = ({ listaMensagens, socket, chatOpen, setChatOpen, listaUsuarios, id
 
                                 arrayMensagens.map((item, index) => (
 
-
+                                  
                                     item.messageTo == id ? (
 
                                         <div className='linhaMensagem_enviada'>
 
                                             {
 
-                                                item.image.length != 0 ? (
-
-                                                    <div className='cardMensagem_enviada'>
-                                                        <img src={item.image} alt="Imagem de mensagem " />
-                                                    </div>
-
-                                                ) : (
+                                                item.image.length == 0 ? (
 
                                                     <div className='cardMensagem_enviada'>
                                                         <p className='textoCard'>{item.message}</p>
                                                         <p className='horas'></p>
                                                     </div>
+
+                                                ) : (
+
+                                                    <div className='cardMensagemImagem_enviada'>
+                                                        <img className='imagemEnviada' src={item.image} alt="Imagem de mensagem " />
+                                                    </div>
+
+                                                    
 
                                                 )
 
@@ -131,18 +168,20 @@ const Chat = ({ listaMensagens, socket, chatOpen, setChatOpen, listaUsuarios, id
 
                                             {
 
-                                                item.image.length != 0 ? (
-
-                                                    <div className='cardMensagem_recebida'>
-                                                        <img src={item.image} alt="Imagem de mensagem " />
-                                                    </div>
-
-                                                ) : (
+                                                item.image.length == 0 ? (
 
                                                     <div className='cardMensagem_recebida'>
                                                         <p className='textoCard'>{item.message}</p>
                                                         <p className='horas'></p>
                                                     </div>
+
+                                                ) : (
+
+                                                    <div className='cardMensagemImagem_recebida'>
+                                                        <img className='imagemRecebida' src={item.image} alt="Imagem de mensagem " />
+                                                    </div>
+
+                                                    
 
                                                 )
 

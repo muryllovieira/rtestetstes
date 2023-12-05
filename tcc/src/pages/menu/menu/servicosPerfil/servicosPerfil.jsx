@@ -28,6 +28,9 @@ const ServicosPerfil = () => {
   const [listaPerfis, setListaPerfis] = useState([])
   const [openModal, setOpenModal] = useState(false)
   const [busca, setBusca] = useState('')
+  const [bairro, setBairro] = useState('')
+  const [cidade, setCidade] = useState('')
+  const [estado, setEstado] = useState('')
 
   useEffect(() => {
     pegarPerfis()
@@ -50,6 +53,83 @@ const ServicosPerfil = () => {
     } catch (error) {
       console.log(error)
     }
+
+  }
+
+  const setarLocalizacao = (bairro, cidade, estado) => {
+    setBairro(bairro)
+    setCidade(cidade)
+    setEstado(estado)
+  }
+
+  const filtrarPorLocalizacao = () => {
+    const letListaPerfil = [...listaPerfis.usuarios]
+
+    const listaPerfilLocalizacaoEstado = []
+    const listaPerfilLocalizacaoCidade = []
+    const listaPerfilLocalizacaoBairro = { usuarios: [] }
+
+    if (letListaPerfil.length == 0) {
+      console.log('lista a zero')
+    } else {
+
+      letListaPerfil.filter((item) => {
+        const estadoSelecionado = estado.toLocaleLowerCase()
+
+        console.log(estadoSelecionado.toLowerCase() == '' ? item : item.estado.toLowerCase().includes(estadoSelecionado))
+
+        return estadoSelecionado.toLowerCase() == '' ? item : item.estado.toLowerCase().includes(estadoSelecionado)
+
+      }).map((item) => {
+        console.log(item)
+        listaPerfilLocalizacaoEstado.push(item)
+      })
+
+      if (listaPerfilLocalizacaoEstado.length == 0) {
+
+        console.log('a')
+
+      } else {
+
+        listaPerfilLocalizacaoEstado.filter((item) => {
+          const cidadeSelecionada = cidade.toLocaleLowerCase()
+
+          console.log(cidadeSelecionada.toLowerCase() == '' ? item : item.cidade.toLowerCase().includes(cidadeSelecionada))
+
+          return cidadeSelecionada.toLowerCase() == '' ? item : item.cidade.toLowerCase().includes(cidadeSelecionada)
+
+        }).map((item) => {
+          console.log(item)
+          listaPerfilLocalizacaoCidade.push(item)
+        })
+
+        if (listaPerfilLocalizacaoCidade.length == 0) {
+          console.log('lista cidade zero')
+        } else {
+
+          listaPerfilLocalizacaoCidade.filter((item) => {
+            const bairroSelecionada = bairro.toLocaleLowerCase()
+
+            console.log(bairroSelecionada.toLowerCase() == '' ? item : item.bairro.toLowerCase().includes(bairroSelecionada))
+
+            return bairroSelecionada.toLowerCase() == '' ? item : item.bairro.toLowerCase().includes(bairroSelecionada)
+
+          }).map((item) => {
+            console.log(item)
+            listaPerfilLocalizacaoBairro.usuarios.push(item)
+          })
+
+        }
+
+      }
+
+    }
+
+    console.log(listaPerfilLocalizacaoBairro)
+
+    setListaPerfis(listaPerfilLocalizacaoBairro)
+
+    setOpenModal(!openModal)
 
   }
 
@@ -89,9 +169,14 @@ const ServicosPerfil = () => {
                       }} className='iconeVoltarFiltro'>{IconObject.voltarOuCancelarColorido}</i>
                     </div>
 
-                    <ComboBoxLocalizacao></ComboBoxLocalizacao>
+                    <ComboBoxLocalizacao
+                      setarLocalizacao={setarLocalizacao}
+                    ></ComboBoxLocalizacao>
 
                     <BotaoAncoraGlobal
+                      onClick={() => {
+                        filtrarPorLocalizacao()
+                      }}
                       titulo={"FILTRAR"}
                     ></BotaoAncoraGlobal>
 
@@ -112,29 +197,36 @@ const ServicosPerfil = () => {
           <div className='listaPerfis'>
 
             {
-              listaPerfis.length === 0 ? (
-                <>Carregando</>
+              listaPerfis.usuarios === undefined ? (
+                <p>Carregando...</p>
               ) : (
 
-                listaPerfis.usuarios.filter((item) => {
+                listaPerfis.usuarios.length === 0 ? (
+                  <>Lista de usuários não foi encontrada.</>
+                ) : (
 
-                  const buscaPequena = busca.toLowerCase()
+                  listaPerfis.usuarios.filter((item) => {
 
-                  return buscaPequena.toLowerCase() == '' ? item : item.nome.toLowerCase().includes(buscaPequena)
+                    const buscaPequena = busca.toLowerCase()
 
-                }).map((item) => (
+                    return buscaPequena.toLowerCase() == '' ? item : item.nome.toLowerCase().includes(buscaPequena)
 
-                  <CardPerfil
-                    onClick={() => {
-                      setIdPerfil(item.id_usuario)
+                  }).map((item) => (
 
-                      navigator('/menu/servicos/perfil/perfil-selecionado')
-                    }}
-                    key={item.id}
-                    nome={item.nome}
-                    img={item.foto}
-                  ></CardPerfil>
-                ))
+                    <CardPerfil
+                      onClick={() => {
+                        setIdPerfil(item.id_usuario)
+
+                        navigator('/menu/servicos/perfil/perfil-selecionado')
+                      }}
+                      key={item.id}
+                      nome={item.nome}
+                      img={item.foto}
+                    ></CardPerfil>
+                    
+                  ))
+                )
+
               )
             }
 

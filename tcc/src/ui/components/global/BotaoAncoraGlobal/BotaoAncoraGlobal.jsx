@@ -4,7 +4,7 @@ import "./styleBotaoAncoraGlobal.css"
  
 const BotaoAncoraGlobal = ({titulo, url, alternado, onClick, like}) => {
   if (alternado) {
-    return <div className="botaoAlternativo__primary" >
+    return <div className="botaoAlternativo__primary" onClick={onClick}>
             <Link to={url}> {titulo} </Link>
           </div>
   }

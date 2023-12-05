@@ -7,7 +7,7 @@ import InputBairros from './inputBairros/InputBairros.jsx'
 import { useEffect } from 'react'
 import { localizacaoFetch } from '../../../../data/services/api/ApiService.js'
 
-const ComboBoxLocalizacao = ({ onChange }) => {
+const ComboBoxLocalizacao = ({ onChange, setarLocalizacao }) => {
 
     // const handleInputChange = (e) => {
     //     e.preventDefault()
@@ -112,11 +112,13 @@ const ComboBoxLocalizacao = ({ onChange }) => {
 
     }
 
-
     useEffect(() => {
         compararCidade()
     }, [bairroSelecionado])
 
+    useEffect(() => {
+        setarLocalizacao(bairroSelecionado, nomeCidadeSelecionado, estadoSelecionado)
+    },[nomeCidadeSelecionado])
 
     return (
         <div className='comboBoxContainer' >

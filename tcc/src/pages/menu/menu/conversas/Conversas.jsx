@@ -71,21 +71,21 @@ function Conversas() {
 
   }, [])
 
-  // useEffect(() => {
+  useEffect(() => {
 
-  //   const socketResponse = io.connect('http://10.107.144.27:3001')
+    const socketResponse = io.connect('http://localhost:3001')
 
-  //   setSocket(socketResponse)
+    setSocket(socketResponse)
 
-  //   const list = socketResponse.emit('listContacts', id)
+    const list = socketResponse.emit('listContacts', id)
 
-  //   list.on('receive_contacts', data => {
-  //     if(data.id_user == id){
-  //       setListaContatos(data.users)
-  //     }
-  //   })
+    list.on('receive_contacts', data => {
+      if(data.id_user == id){
+        setListaContatos(data.users)
+      }
+    })
 
-  // }, [])
+  }, [])
 
   const criarChat = (perfis) => {
     if (socket != undefined) {

@@ -24,6 +24,9 @@ function Conversas() {
   const [idChat, setIdChat] = useState()
   const [busca, setBusca] = useState('')
 
+  const [ nomeOutroUsuario, setNomeOutroUsuario ] = useState('')
+  const [ fotoOutroUsuario, setFotoOutroUsuario ] = useState('')
+
   const [ user, setUser ] = useState()
 
   const [listaMensagens, setListaMensagens] = useState([])
@@ -40,8 +43,6 @@ function Conversas() {
 
   useEffect(() => {
 
-   
-    
     if(location.state != null || location.state != undefined) {
       
       const idPerfilSelecionado = location.state.id_usuario_perfil
@@ -73,7 +74,11 @@ function Conversas() {
 
   useEffect(() => {
 
-    const socketResponse = io.connect('http://localhost:3001')
+    const socketResponse = io.connect('https://socket-costurie.webpubsub.azure.com', {
+      path: "/clients/socketio/hubs/Hub"
+    })
+
+    console.log(socketResponse)
 
     setSocket(socketResponse)
 
@@ -104,8 +109,10 @@ function Conversas() {
       const chat = socket.emit('listMessages', idChat)
 
       chat.on('receive_message', data => {
-        console.log(data)
-        setListaMensagens(data.mensagens)
+        if(data.id_chat == idChat) {
+          setListaMensagens(data.mensagens)
+        }
+
       })
     }
 
@@ -185,6 +192,9 @@ function Conversas() {
                         <div key={item.id_chat} className="tagTeste" onClick={() => {
                           setChatOpen(!chatOpen)
                           setIdChat(item.id_chat)
+
+                          setFotoOutroUsuario(item.users[0].foto)
+                          setNomeOutroUsuario(item.users[0].nome)
                         }}>
                           <img className='foto' src={item.users[0].foto} alt="" />
 
@@ -205,7 +215,9 @@ function Conversas() {
                         {
                           chatOpen == true ? (
                             <Chat
-                              listaUsuarios={item.users}
+                              nomeOutroUsuario={nomeOutroUsuario}
+                              fotoOutroUsuario={fotoOutroUsuario}
+                              listaUsuarios={listaContatos}
                               chatOpen={chatOpen}
                               setChatOpen={setChatOpen}
                               idChat={item.id_chat}

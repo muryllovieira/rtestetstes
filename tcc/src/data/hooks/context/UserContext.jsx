@@ -1,25 +1,27 @@
 import { createContext, useState, useEffect } from "react";
+import blogFetch from "../../services/api/ApiService";
 
 export const UserContext = createContext()
 
+export const UserProvider = ({ children }) => {
 
 
-export const UserProvider = ({children}) => {
 
     const idLocalStorage = JSON.parse(window.localStorage.getItem('id'))
     const accessTokenLocalStorage = JSON.parse(window.localStorage.getItem('accessToken'))
 
     const [accessToken, setAccessToken] = useState(accessTokenLocalStorage)
-    const [ id, setId ] = useState(idLocalStorage)
+    const [id, setId] = useState(idLocalStorage)
 
-    const [ nome, setNome ] = useState("")
-    const [ foto, setFoto ] = useState("")
-    const [ descricao, setDescricao ] = useState("")
+    const [nome, setNome] = useState("")
+    const [foto, setFoto] = useState("")
+    const [descricao, setDescricao] = useState("")
 
 
-    const [ estado, setEstado ] = useState("")
-    const [ cidade, setCidade ] = useState("")
-    const [ bairro, setBairro ] = useState("")
+    const [estado, setEstado] = useState("")
+    const [cidade, setCidade] = useState("")
+    const [bairro, setBairro] = useState("")
+
 
     const [idServico, setIdServico] = useState(0)
     const [nomeTagServico, setNomeTagServico] = useState('')
@@ -39,6 +41,33 @@ export const UserProvider = ({children}) => {
         cidade: cidade,
         bairro: bairro
     }
+
+    const pegarUsuario = async () => {
+
+        try {
+            const response = await blogFetch.get(`/usuario/meu_perfil/${id}`, {
+                headers: {
+                    'x-access-token': accessToken
+                }
+            })
+
+            setNome(response.data.usuario.nome)
+            setFoto(response.data.usuario.foto)
+            setDescricao(response.data.usuario.descricao)
+
+        } catch (error) {
+            console.log(error)
+        }
+
+    }
+
+    useEffect(() => {
+        pegarUsuario()
+    }, [id])
+
+    useEffect(() => {
+        pegarUsuario()
+    }, [idPerfil])
 
     useEffect(() => {
         console.log(id, nome, foto, descricao, estado, cidade, bairro)
@@ -75,7 +104,7 @@ export const UserProvider = ({children}) => {
             idPerfil,
             setIdPerfil,
         }
-        }>
+    }>
         {children}
     </UserContext.Provider>
 }

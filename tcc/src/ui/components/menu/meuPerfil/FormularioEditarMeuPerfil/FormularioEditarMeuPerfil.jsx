@@ -18,28 +18,130 @@ import { fetchBairroPorCidade } from '../../../../../ui/components/personalizarP
 import InputEstados from '../../../personalizarPerfil/ComboBoxLocalizacao/inputEstados/InputEstados'
 import InputCidades from '../../../personalizarPerfil/ComboBoxLocalizacao/inputCidades/InputCidades'
 import InputBairros from '../../../personalizarPerfil/ComboBoxLocalizacao/inputBairros/InputBairros'
+import { localizacaoFetch } from '../../../../../data/services/api/ApiService'
 import BotaoTag from '../../../personalizarPerfil/BotaoTag/BotaoTag.jsx'
 
 
-function FormularioEditarMeuPerfil({ user ,aberto, open, nomePerfil, tagPerfil, cidadePerfil, estadoPerfil, bairroPerfil, descricaoPerfil, tagsPerfil, idLocalizacao, reloadUser, imgPerfil, funcLoading }) {
+function FormularioEditarMeuPerfil({ user, aberto, open, nomePerfil, tagPerfil, cidadePerfil, estadoPerfil, bairroPerfil, descricaoPerfil, tagsPerfil, idLocalizacao, reloadUser, imgPerfil, funcLoading }) {
 
     const navigate = useNavigate()
 
     const { accessToken } = useContext(UserContext)
     const { id } = useContext(UserContext)
 
-    const [estado, setEstado] = useState(estadoPerfil)
-    const [cidade, setCidade] = useState(cidadePerfil)
-    const [bairro, setBairro] = useState(bairroPerfil)
+    // const [estado, setEstado] = useState(estadoPerfil)
+    // const [cidade, setCidade] = useState(cidadePerfil)
+    // const [bairro, setBairro] = useState(bairroPerfil)
     const [descricao, setDescricao] = useState(descricaoPerfil)
     const [nome, setNome] = useState(nomePerfil)
     const [tagPerfilEditado, setTagPerfil] = useState(tagPerfil)
-    const [ todasTags, setTodasTags ] = useState()
+    const [todasTags, setTodasTags] = useState()
     const [localizacao, setLocalizacao] = useState(idLocalizacao)
     const [fotoPerfil, setFotoPerfil] = useState(imgPerfil)
     const [statusResponse, setStatusResponse] = useState(0)
-    const [ teste, setTeste ] = useState(false)
-    const [ tagsUsuario, setTagsUsuario ] = useState()
+    const [teste, setTeste] = useState(false)
+    const [tagsUsuario, setTagsUsuario] = useState()
+
+    //
+
+    const [estados, setEstados] = useState([])
+    const [cidades, setCidades] = useState([])
+    const [bairros, setBairros] = useState([])
+
+    const [estadoSelecionado, setEstadoSelecionado] = useState(estadoPerfil)
+    const [cidadeSelecionado, setCidadeSelecionado] = useState(0)
+    const [bairroSelecionado, setBairroSelecionado] = useState(bairroPerfil)
+    const [nomeCidadeSelecionado, setNomeCidadeSelecionado] = useState(cidadePerfil)
+
+    const pegarEstados = async () => {
+        try {
+            const response = await localizacaoFetch.get('/api/estados')
+
+            setEstados(response.data)
+            console.log(response)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const pegarCidades = async () => {
+        try {
+            const response = await localizacaoFetch.get(`/api/estado/${estadoSelecionado}/cidades`)
+
+            console.log(response)
+            setCidades(response.data)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const pegarBairros = async () => {
+        try {
+            const response = await localizacaoFetch.get(`/api/cidade/${cidadeSelecionado}/bairros/`)
+
+            console.log(response)
+            setBairros(response.data)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    useEffect(() => {
+        pegarEstados()
+    }, [])
+
+    useEffect(() => {
+        pegarCidades()
+    }, [estadoSelecionado])
+
+    useEffect(() => {
+        pegarBairros()
+    }, [cidadeSelecionado])
+
+    useEffect(() => {
+        setBairros([])
+    }, [estadoSelecionado])
+
+
+    useEffect(() => {
+        setEstadoSelecionado(estadoSelecionado)
+        setNomeCidadeSelecionado(nomeCidadeSelecionado)
+        setBairroSelecionado(bairroSelecionado)
+    }, [nomeCidadeSelecionado])
+
+    useEffect(() => {
+        setBairroSelecionado(bairroSelecionado)
+    }, [bairroSelecionado])
+
+    const compararCidade = () => {
+
+        if (cidades === undefined) {
+            return null
+        } else if (cidades === null) {
+            return null
+        } else if (cidades.length == 0) {
+            return null
+        } else if (cidades == 0) {
+            return null
+        } else {
+
+            const cidadeEmNumero = parseInt(cidadeSelecionado)
+
+            cidades.map((item, indice) => {
+                if (cidadeEmNumero == item.Id) {
+                    setNomeCidadeSelecionado(item.Nome)
+                }
+            })
+        }
+
+    }
+
+
+    useEffect(() => {
+        compararCidade()
+    }, [bairroSelecionado])
+
+    //
 
     const [tagsSelecionadas, setTagsSelecionadas] = useState([])
     const [clique, setClique] = useState(false)
@@ -65,22 +167,6 @@ function FormularioEditarMeuPerfil({ user ,aberto, open, nomePerfil, tagPerfil, 
         setImage([...e.target.files])
     }
 
-    const formatarTags = () => {
-
-        const tagEditada = []
-
-        tags.map((tag) => {
-            const dadosTag = {
-                id_tag: tag.id_tag,
-                nome: tag.nome_tag
-            }
-
-            tagEditada.push(dadosTag)
-        })
-
-        return tagEditada
-
-    }
 
     const salvarFoto = async () => {
 
@@ -107,24 +193,24 @@ function FormularioEditarMeuPerfil({ user ,aberto, open, nomePerfil, tagPerfil, 
 
     const salvarNovosDadosPerfil = async () => {
 
+        funcLoading(true, 0, '/explorar')
+
         const tagsAlteradas = alterarTagsSelecionadas()
 
         const foto = await salvarFoto()
-
-        funcLoading(true, 0, '/explorar')
-
+        
         if (foto == false) {
 
             funcLoading(true, 0, '/explorar')
 
             try {
-           
+
                 const response = await blogFetch.put('/usuario/editar_perfil', {
                     id_usuario: id,
                     id_localizacao: localizacao,
-                    bairro: bairro,
-                    cidade: cidade,
-                    estado: estado,
+                    bairro: bairroSelecionado,
+                    cidade: nomeCidadeSelecionado,
+                    estado: estadoSelecionado,
                     nome: nome,
                     descricao: descricao,
                     foto: fotoPerfil,
@@ -137,9 +223,6 @@ function FormularioEditarMeuPerfil({ user ,aberto, open, nomePerfil, tagPerfil, 
 
                 })
 
-                console.log(response)
-         
-
                 if (response.status == 200) {
                     funcLoading(true, 200, '/menu/explorar', 'Usuário editado com sucesso.')
                 } else {
@@ -151,13 +234,7 @@ function FormularioEditarMeuPerfil({ user ,aberto, open, nomePerfil, tagPerfil, 
 
                 funcLoading(true, error.response.status, '/menu/explorar')
 
-
-
-
                 reloadUser()
-
-                funcLoading(true, response.status, '/menu/explorar')
-
 
             }
 
@@ -172,9 +249,9 @@ function FormularioEditarMeuPerfil({ user ,aberto, open, nomePerfil, tagPerfil, 
                 const response = await blogFetch.put('/usuario/editar_perfil', {
                     id_usuario: id,
                     id_localizacao: localizacao,
-                    bairro: bairro,
-                    cidade: cidade,
-                    estado: estado,
+                    bairro: bairroSelecionado,
+                    cidade: nomeCidadeSelecionado,
+                    estado: estadoSelecionado,
                     nome: nome,
                     descricao: descricao,
                     foto: foto,
@@ -204,25 +281,10 @@ function FormularioEditarMeuPerfil({ user ,aberto, open, nomePerfil, tagPerfil, 
                 funcLoading(true, error.response.status, '/menu/explorar')
 
                 funcLoading(true, error.response.status, '/menu/explorar')
-                console.log('erro')
             }
-
-            console.log('com foto')
-
-
 
         }
 
-    }
-
-
-    //Localização
-    const [formValues, setFormValues] = useState({})
-
-    const handleInputChange = (e) => {
-        e.preventDefault()
-        const { value, name } = e.target
-        setFormValues({ ...formValues, [name]: value })
     }
 
     //Tags
@@ -235,18 +297,17 @@ function FormularioEditarMeuPerfil({ user ,aberto, open, nomePerfil, tagPerfil, 
                         "x-access-token": accessToken
                     }
                 })
-    
+
                 setTodasTags(response.data.tags)
                 setTeste(true)
-    
+
             } catch (error) {
                 console.log(error)
             }
         } else {
-            console.log('caiu aq')
+            
         }
     }
-
 
     const listarTagsDoPerfil = () => {
 
@@ -259,7 +320,7 @@ function FormularioEditarMeuPerfil({ user ,aberto, open, nomePerfil, tagPerfil, 
         } else if (todasTags === undefined || todasTags.length == 0) {
 
             return false
-            
+
         } else {
 
             tagsPerfil.map((item, index) => {
@@ -290,7 +351,7 @@ function FormularioEditarMeuPerfil({ user ,aberto, open, nomePerfil, tagPerfil, 
     const adicionarTagsComSelecao = (listaTagsPerfil) => {
 
         if (listaTagsPerfil == false) {
-            console.log('as')
+            
         } else {
 
             const letTodasTags = [...todasTags]
@@ -331,8 +392,8 @@ function FormularioEditarMeuPerfil({ user ,aberto, open, nomePerfil, tagPerfil, 
 
         pegarTags(listaTagsPerfil)
 
-        if(listaTagsPerfil == false) {
-            console.log('teste')
+        if (listaTagsPerfil == false) {
+           
         } else {
             adicionarTagsComSelecao(listaTagsPerfil)
         }
@@ -354,7 +415,6 @@ function FormularioEditarMeuPerfil({ user ,aberto, open, nomePerfil, tagPerfil, 
             })
         })
 
-        console.log(listaTags)
 
         return listaTags
     }
@@ -430,24 +490,11 @@ function FormularioEditarMeuPerfil({ user ,aberto, open, nomePerfil, tagPerfil, 
 
         const listaTagsInalterada = adicionarTagsSemAlteracaoListaTags()
 
-        if (listaTagsInalterada == false) {
-            console.log('deu erro')
-        } else {
-            console.log('deu certo')
-        }
-
     }, [user])
 
     useEffect(() => {
-        console.log(tagsSelecionadas)
-    },[tagsSelecionadas])
-
-    //
-    // const { value, name } = e.target
-    // console.dir(e.target.selectedOptions[0].textContent)
-    // setFormValues(
-    //     { ...formValues, [name]: value, nome: e.target.selectedOptions[0].textContent, }
-    // )
+        console.log(tagsPerfil)
+    },[tagsPerfil])
 
 
     return (
@@ -510,24 +557,105 @@ function FormularioEditarMeuPerfil({ user ,aberto, open, nomePerfil, tagPerfil, 
                         <label>
                             Estado
                         </label>
-                        <input type='text' className='containerInputs__inputListaEstados' list='states' placeholder='Selecione...' onChange={(e) => setEstado(e.target.value)} value={estado} />
-                        {/* <InputEstados id={'states'} onChange={handleInputChange} /> */}
+
+                        <input value={estadoSelecionado} onChange={(e) => setEstadoSelecionado(e.target.value)} list='states' className='inputNone' placeholder='Selecione um Estado' />
+                        <select value={estadoSelecionado} name='state' onChange={(e) => setEstadoSelecionado(e.target.value)} className='inputList'>
+                            <option value="">{`${'Selecione um estado...' ? estadoSelecionado : 'Selecione um estado...'}`}</option>
+                            {
+                                estados === undefined ? (
+                                    null
+                                ) : (
+
+                                    estados.map((item, indice) => (
+                                        <option accessKey={indice} key={indice} value={item.Nome}>
+                                            {item.Nome}
+                                        </option>
+                                    ))
+
+                                )
+                            }
+                        </select>
+
                     </div>
 
                     <div className='containerInputs__labelCidadesInput'>
                         <label>
                             Cidade
                         </label>
-                        <input type='text' className='containerInputs__inputListaCidades' list='cities' placeholder='Selecione...' onChange={(e) => setCidade(e.target.value)} value={cidade} />
-                        {/* <InputCidades id={'cities'} onChange={handleInputChange} state={formValues.state} /> */}
+
+                        <input value={nomeCidadeSelecionado} list='cities' className='inputNone' placeholder='Selecione uma Cidade' />
+                        <select name='city' onChange={(e) => setCidadeSelecionado(e.target.value)} className='inputList'>
+                            <option value="">{`${'Selecione uma cidade...' ? nomeCidadeSelecionado : 'Selecione uma cidade...'}`}</option>
+                            {
+                                cidades === undefined ? (
+
+                                    null
+
+                                ) : (
+
+                                    cidades === null ? (
+
+                                        null
+
+                                    ) : (
+
+                                        cidades.length == 0 ? (
+                                            null
+                                        ) : (
+
+                                            cidades.map((item) => (
+
+                                                <option accessKey={item.Nome} key={item.Id} value={item.Id}>
+                                                    {item.Nome}
+                                                </option>
+
+                                            ))
+
+                                        )
+
+                                    )
+
+                                )
+                            }
+                        </select>
+
                     </div>
 
                     <div className='containerInputs__labelBairroInput'>
                         <label>
                             Bairro
                         </label>
-                        <input type='text' className='containerInputs__inputListaBairros' list='district' placeholder='Selecione...' onChange={(e) => setBairro(e.target.value)} value={bairro} />
-                        {/* <InputBairros id={'district'} onChange={handleInputChange} city={formValues.city} /> */}
+
+                        <input value={bairroSelecionado} className='inputNone' list='neighborhoods' placeholder='Selecione um Bairro' />
+                        <select name='neighborhood' onChange={(e) => setBairroSelecionado(e.target.value)} className='inputList'>
+                            <option value="">{`${'Selecione um bairro...' ? bairroSelecionado : 'Selecione um bairro...'}`}</option>
+                            {
+
+                                bairros === undefined ? (
+                                    null
+                                ) : (
+                                    bairros === null ? (
+                                        null
+                                    ) : (
+                                        bairros.length == 0 ? (
+
+                                            null
+
+                                        ) : (
+
+                                            bairros.map((item) => (
+                                                <option key={item.Id} value={item.Nome}>
+                                                    {item.Nome}
+                                                </option>
+                                            ))
+
+                                        )
+                                    )
+                                )
+
+                            }
+                        </select>
+
                     </div>
 
                 </form>
@@ -539,7 +667,7 @@ function FormularioEditarMeuPerfil({ user ,aberto, open, nomePerfil, tagPerfil, 
                     <input className='formularioAtualizarPerfil__editarDescricao' type="text" onChange={(e) => setDescricao(e.target.value)} value={descricao} />
                 </div>
 
-                 <div className='formularioAtualizarPerfil__atualizarTags'>
+                <div className='formularioAtualizarPerfil__atualizarTags'>
 
                     <div className='atualizarTags'>
 
@@ -555,6 +683,7 @@ function FormularioEditarMeuPerfil({ user ,aberto, open, nomePerfil, tagPerfil, 
                                     <p>Carregando</p>
                                 ) : (
                                     tagsUsuario.map((item, indice) => {
+
 
                                         if (item.selecao == true) {
                                             return (

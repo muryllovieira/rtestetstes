@@ -2,7 +2,7 @@ import React from 'react'
 import './styleConversas.css'
 import InputGlobal from '../../../../ui/components/global/InputGlobal/InputGlobal'
 import IconObject from '../../../../ui/components/global/IconesGlobais/iconesGlobais'
-import { Outlet, Link } from 'react-router-dom'
+import { Outlet, Link, useLocation } from 'react-router-dom'
 import Foto from './images/foto.jpg'
 import FotoPerfil from '../../../../ui/components/global/FotoPerfil/FotoPerfil'
 import { useState, useContext } from 'react'
@@ -15,22 +15,61 @@ import { useEffect } from 'react'
 
 function Conversas() {
 
-  const { id, accessToken } = useContext(UserContext)
+  const location = useLocation()
+
+  const { id, accessToken, nome, foto } = useContext(UserContext)
   const [listaContatos, setListaContatos] = useState([])
   const [chatOpen, setChatOpen] = useState(false)
   const [socket, setSocket] = useState(null)
   const [idChat, setIdChat] = useState()
-  const [ busca, setBusca ] = useState('')
+  const [busca, setBusca] = useState('')
 
-  const [ listaMensagens, setListaMensagens ] = useState([])
+  const [ user, setUser ] = useState()
+
+  const [listaMensagens, setListaMensagens] = useState([])
 
   useEffect(() => {
     console.log(listaContatos)
   }, [listaContatos])
 
+  
+
   const setarSocket = (socket, setarSocket) => {
     setSocket(socket)
   }
+
+  useEffect(() => {
+
+   
+    
+    if(location.state != null || location.state != undefined) {
+      
+      const idPerfilSelecionado = location.state.id_usuario_perfil
+      const nomePerfilSelecionado = location.state.nome_usuario_perfil
+      const fotoPerfilSelecionado = location.state.foto_usuario_perfil
+
+      const listaPerfis = [
+        {
+          "id": id,
+          "nome": nome,
+          "foto": foto
+        },
+        {
+          "id": idPerfilSelecionado,
+          "nome": nomePerfilSelecionado,
+          "foto": fotoPerfilSelecionado
+        }
+      ]
+  
+      if (idPerfilSelecionado != null || nomePerfilSelecionado != null || fotoPerfilSelecionado != null ) {
+        console.log(listaPerfis)
+        criarChat(listaPerfis)
+      }
+
+    }
+   
+
+  }, [])
 
   // useEffect(() => {
 
@@ -48,6 +87,17 @@ function Conversas() {
 
   // }, [])
 
+  const criarChat = (perfis) => {
+    if (socket != undefined) {
+      const chat = socket.emit('createRoom', { users: perfis })
+
+      chat.on('newChat', data => {
+        console.log(data)
+      })
+
+    }
+  }
+
   const listarMensagens = () => {
 
     if (socket != undefined) {
@@ -62,9 +112,9 @@ function Conversas() {
   }
 
   useEffect(() => {
-    
+
     listarMensagens()
-  
+
   }, [idChat])
 
   useEffect(() => {
@@ -99,7 +149,6 @@ function Conversas() {
               type={'search'}
               placeholder={'Procurar uma conversa'}
             ></InputGlobal>
-            <i>{IconObject.home}</i>
           </div>
 
           <FotoPerfil />
@@ -124,10 +173,10 @@ function Conversas() {
 
                     const buscaPequena = busca.toLowerCase()
                     const nomeMinusculo = item.users[0].nome.toLowerCase()
-                   
-  
+
+
                     return buscaPequena.toLowerCase() === '' ? item : nomeMinusculo.includes(buscaPequena)
-  
+
                   }).map((item, index) => {
 
                     return (

@@ -1,6 +1,6 @@
 import React from 'react'
 import BotaoTipoPerfil from '../../../../ui/components/personalizarPerfil/BotaoTipoPerfil/BotaoTipoPerfil'
-import IconObject from '../../../../ui/components/global/IconesGlobais/iconesGlobais'
+import IconObject from '../../../../ui/components/global/IconesGlobais/IconesGlobais'
 import './stylePersonalizarTipo.css'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'

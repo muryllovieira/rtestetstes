@@ -44,3 +44,12 @@ jobs:
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_WHITE_FLOWER_04D928810 }}
           action: "close"
+
+      - name: Deploy (teste)
+          run: |
+            if [ -z "$deployment_token" ]; then
+              echo "skip_deploy_on_missing_secrets=true" >> $GITHUB_ENV
+            else
+              # Coloque seus passos de implantação aqui
+              # Por exemplo, você pode usar o Azure Web Apps, AWS Amplify, Netlify, etc.
+            fi

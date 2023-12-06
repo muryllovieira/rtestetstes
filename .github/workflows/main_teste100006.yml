@@ -60,3 +60,12 @@ jobs:
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_9686173CD73E4F80B2ECD6CBEA21E7A9 }}
           package: .
+
+          - name: Deploy (teste)
+            run: |
+              if [ -z "$deployment_token" ]; then
+                echo "skip_deploy_on_missing_secrets=true" >> $GITHUB_ENV
+              else
+                # Coloque seus passos de implantação aqui
+                # Por exemplo, você pode usar o Azure Web Apps, AWS Amplify, Netlify, etc.
+              fi

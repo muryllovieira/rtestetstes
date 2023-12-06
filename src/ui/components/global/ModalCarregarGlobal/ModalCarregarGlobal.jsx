@@ -1,7 +1,7 @@
 import React from 'react'
 import './styleModalCarregarGlobal.css'
 import Loading from './images/loading.gif'
-import IconObject from '../IconesGlobais/iconesGlobais'
+import IconObject from '../IconesGlobais/IconesGlobais'
 import { useNavigate } from 'react-router-dom'
 
 function ModalCarregarGlobal({ visivel, setVisivel, erro, caminho, abrirFechar, setAbrirFechar, mensagem}) {

@@ -1,6 +1,6 @@
 import React from 'react'
 import './styleMeuPerfil.css'
-import IconObject from '../../../../ui/components/global/IconesGlobais/iconesGlobais'
+import IconObject from '../../../../ui/components/global/IconesGlobais/IconesGlobais'
 import CardUsuarioMeuPerfil from '../../../../ui/components/menu/meuPerfil/CardUsuarioMeuPerfil/CardUsuarioMeuPerfil'
 import BotaoRecomendacao from '../../../../ui/components/menu/meuPerfil/BotaoRecomendacao/BotaoRecomendacao'
 import TagGlobal from '../../../../ui/components/global/TagGlobal/TagGlobal'
